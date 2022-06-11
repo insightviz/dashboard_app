@@ -138,7 +138,7 @@ async def clean_data(iterable, force):
         list.append(item)
     return list
 
-data = asyncio.run(request_available_datasets())
+data = get_availabilty()
 print(data)
 print(len(data))
 # save to database
