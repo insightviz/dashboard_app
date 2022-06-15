@@ -50,11 +50,11 @@ REPLACE_DICT = {'Other ethnic group - Not stated': 'Other',
 
 HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'}
 
-async def clean_data(iterable, force):
+async def clean_data(available_dataset, force):
     
     list = []
 
-    for item in iterable:
+    for item in available_dataset:
 
         item['police_force'] = force
         del item['outcome_object']
