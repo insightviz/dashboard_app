@@ -66,6 +66,9 @@ async def clean_data(available_dataset, force):
 
         if item.get('self_defined_ethnicity') in REPLACE_DICT.keys():
             item['person_ethnicity'] = REPLACE_DICT[item['self_defined_ethnicity']]
+        
+        else:
+            item['person_ethnicity'] = None
 
         list.append(item)
     return list
