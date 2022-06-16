@@ -2,6 +2,8 @@ import httpx
 import asyncio
 from helper_functions import clean_data, HEADERS
 import time
+from sqlalchemy.orm import sessionmaker
+from database import StopSearchRecords, CreateTables, engine
 
 # get force data
 def get_forces():
@@ -33,10 +35,9 @@ def get_available_datasets():
         for f in police_forces:
             if f.get('id') in i.get('stop-and-search'):
                 # (force id, month, full force name)
-                available_data.append({'force_id': f.get('id'), 'month': i.get('date'), 
-                'force_name': f.get('name')})
+                available_data.append({'force_id': f.get('id'), 'month': i.get('date')})
     
-    return available_data[:200] # remove indexing
+    return available_data[:5] # remove indexing
 
 
 async def request_available_datasets():
@@ -47,16 +48,15 @@ async def request_available_datasets():
         counter = 1
         for i in available_datasets:
             parameters = {'force': i['force_id'], 'date': i['month']}
-            force = i['force_name']
             if counter%30==0:
                 #delay time from exprimenting
                 await asyncio.sleep(3)
-                task = asyncio.create_task(get_requests(client, parameters, force))
+                task = asyncio.create_task(get_requests(client, parameters))
                 tasks.append(task)
                 counter+=1
 
             else:
-                task = asyncio.create_task(get_requests(client, parameters, force))
+                task = asyncio.create_task(get_requests(client, parameters))
                 tasks.append(task)
                 counter+=1
                 #pause before next request from experimenting
@@ -74,7 +74,7 @@ async def log_response(response):
     request = response.request
     print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
 
-async def get_requests(client:httpx.AsyncClient, parameters:dict, force):
+async def get_requests(client:httpx.AsyncClient, parameters:dict):
     '''This function sends requests to police-api for stop and search data. 
     Input is a list of tuples with arguments, month and police force.''' 
     
@@ -83,21 +83,37 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict, force):
     if (response.status_code == 429) or (response.status_code == 500) or (response.status_code == 502) :
         #delay time from exprimenting
         await asyncio.sleep(3)
-        await get_requests(client, parameters, force)
+        await get_requests(client, parameters)
 
     elif response.status_code == 200:
-        result = await clean_data(response.json(), force)
+        result = await clean_data(response.json(), parameters)
         return result
 
     else:
         response.raise_for_status()
         
 
-s = time.time()
-data = asyncio.run(request_available_datasets())
-e = time.time()
-#print(data)
-print(len(data))
-print(e-s)
-
 # save to database
+def save_stop_search_data_db():
+    id=1
+
+    data = asyncio.run(request_available_datasets())
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    for response in data:
+        for dictionary in response:
+            dictionary['id']=id
+            id+=1
+            record = StopSearchRecords(*tuple(dictionary.values()))
+            print(f"Adding record {id} to database... {dictionary['police_force']}:{dictionary['datetime']}")
+            session.add(record)
+    print('Adding all records...')
+    session.commit()
+
+    
+if __name__ == '__main__':
+    CreateTables()
+    s = time.time()
+    save_stop_search_data_db()
+    e = time.time()
+    print(e-s)
