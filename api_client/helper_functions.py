@@ -50,13 +50,13 @@ REPLACE_DICT = {'Other ethnic group - Not stated': 'Other',
 
 HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'}
 
-async def clean_data(available_dataset, force):
+async def clean_data(available_dataset, parameters:dict):
     
     list = []
 
     for item in available_dataset:
 
-        item['police_force'] = force
+        item['police_force'] = parameters['force']
         del item['outcome_object']
         item['latitude'] = get_dictionary_value(item, ['location', 'latitude'])
         item['longitude'] = get_dictionary_value(item, ['location', 'longitude'])
