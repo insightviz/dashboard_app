@@ -2,6 +2,8 @@ import httpx
 import asyncio
 from helper_functions import clean_data, HEADERS
 import time
+from sqlalchemy.orm import sessionmaker
+from database import StopSearchRecords, CreateTables, engine
 
 # get force data
 def get_forces():
@@ -36,7 +38,7 @@ def get_available_datasets():
                 available_data.append({'force_id': f.get('id'), 'month': i.get('date'), 
                 'force_name': f.get('name')})
     
-    return available_data[:200] # remove indexing
+    return available_data[:5] # remove indexing
 
 
 async def request_available_datasets():
@@ -92,12 +94,31 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict, force):
     else:
         response.raise_for_status()
         
-if __name__ == '__main__':
-    s = time.time()
+
+# save to database
+def save_stop_search_data_db():
+    id=1
+
     data = asyncio.run(request_available_datasets())
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    for response in data:
+        for dictionary in response:
+            dictionary['id']=id
+            id+=1
+            record = StopSearchRecords(*tuple(dictionary.values()))
+            print('Adding record to database...')
+            session.add(record)
+    print('Adding all records...')
+    session.commit()
+
+    
+if __name__ == '__main__':
+    CreateTables()
+    s = time.time()
+    #data = asyncio.run(request_available_datasets())
+    save_stop_search_data_db()
     e = time.time()
     #print(data)
     print(len(data))
     print(e-s)
-
-# save to database
