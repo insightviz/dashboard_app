@@ -107,7 +107,7 @@ def save_stop_search_data_db():
             dictionary['id']=id
             id+=1
             record = StopSearchRecords(*tuple(dictionary.values()))
-            print('Adding record to database...')
+            print(f"Adding record {id} to database... {dictionary['police_force']}:{dictionary['datetime']}")
             session.add(record)
     print('Adding all records...')
     session.commit()
@@ -116,9 +116,6 @@ def save_stop_search_data_db():
 if __name__ == '__main__':
     CreateTables()
     s = time.time()
-    #data = asyncio.run(request_available_datasets())
     save_stop_search_data_db()
     e = time.time()
-    #print(data)
-    print(len(data))
     print(e-s)
