@@ -92,12 +92,12 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict, force):
     else:
         response.raise_for_status()
         
-
-s = time.time()
-data = asyncio.run(request_available_datasets())
-e = time.time()
-#print(data)
-print(len(data))
-print(e-s)
+if __name__ == '__main__':
+    s = time.time()
+    data = asyncio.run(request_available_datasets())
+    e = time.time()
+    #print(data)
+    print(len(data))
+    print(e-s)
 
 # save to database
