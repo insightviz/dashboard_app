@@ -87,11 +87,11 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict, force):
 
     elif response.status_code == 200:
         result = await clean_data(response.json(), force)
+        return result
 
     else:
         response.raise_for_status()
         
-        return result
 
 s = time.time()
 data = asyncio.run(request_available_datasets())
