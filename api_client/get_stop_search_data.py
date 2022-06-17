@@ -15,10 +15,13 @@ def check_available_datasets():
 
 async def request_available_datasets():
     available_datasets = check_available_datasets()
+    total = len(available_datasets)
 
     async with httpx.AsyncClient(timeout=None, event_hooks={'request': [log_request], 'response': [log_response]}) as client:
         tasks = []
         counter = 1
+        progress = 0
+        print(progress/total)
         for i in available_datasets:
             parameters = {'force': i[0], 'date': i[1]}
             if counter%30==0:
@@ -27,13 +30,17 @@ async def request_available_datasets():
                 task = asyncio.create_task(get_requests(client, parameters))
                 tasks.append(task)
                 counter+=1
+                print(f'{progress/total*100}%')
+                progress+=1
 
             else:
                 task = asyncio.create_task(get_requests(client, parameters))
                 tasks.append(task)
                 counter+=1
+                print(f'{progress/total*100}%')
+                progress+=1
                 #pause before next request from experimenting
-                await asyncio.sleep(.15)
+                await asyncio.sleep(.25)
 
         response = await asyncio.gather(*tasks)
     return response
@@ -53,7 +60,7 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     
     url = 'https://data.police.uk/api/stops-force'
     response = await client.get(url, headers=HEADERS, params=parameters)
-    if (response.status_code == 429) or (response.status_code == 500) or (response.status_code == 502) :
+    if (response.status_code == 429) or (response.status_code == 500) or (response.status_code == 502) or (response.status_code == 504):
         #delay time from exprimenting
         await asyncio.sleep(3)
         await get_requests(client, parameters)
