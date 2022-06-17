@@ -40,7 +40,7 @@ async def request_available_datasets():
                 print(f'{progress/total*100}%')
                 progress+=1
                 #pause before next request from experimenting
-                await asyncio.sleep(.25)
+                await asyncio.sleep(.4)
 
         response = await asyncio.gather(*tasks)
     return response
@@ -80,12 +80,15 @@ def save_stop_search_data_db():
     data = asyncio.run(request_available_datasets())
     with Session(engine) as session:
         for response in data:
-            for dictionary in response:
-                dictionary['id']=id
-                id+=1
-                record = StopSearchRecords(*tuple(dictionary.values()))
-                print(f"Adding record {id} to database... {dictionary['police_force']}:{dictionary['datetime']}")
-                session.add(record)
+            if response == None:
+                pass
+            else:
+                for dictionary in response:
+                    dictionary['id']=id
+                    id+=1
+                    record = StopSearchRecords(*tuple(dictionary.values()))
+                    print(f"Adding record {id} to database... {dictionary['police_force']}:{dictionary['datetime']}")
+                    session.add(record)
         print('Commiting all records...')
         session.commit()
 
