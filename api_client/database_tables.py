@@ -1,6 +1,5 @@
-import psycopg2 as pc
 from db_config import DB_CONFIG
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, ForeignKey, create_engine
 
 
