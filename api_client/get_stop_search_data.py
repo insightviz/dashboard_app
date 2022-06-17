@@ -33,7 +33,7 @@ async def request_available_datasets():
                 tasks.append(task)
                 counter+=1
                 #pause before next request from experimenting
-                await asyncio.sleep(.05)
+                await asyncio.sleep(.15)
 
         response = await asyncio.gather(*tasks)
     return response
