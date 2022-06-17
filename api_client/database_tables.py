@@ -26,6 +26,7 @@ class StopSearchRecords(Base):
     operation_name = Column(String)
     object_of_search = Column(String)
     force_id = Column(String, ForeignKey("police_forces.id"))
+    month = Column(String)
     latitude = Column(Float)
     longitude = Column(Float)
     street_id = Column(Integer)
