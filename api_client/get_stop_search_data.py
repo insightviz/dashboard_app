@@ -87,10 +87,10 @@ def save_stop_search_data_db():
                     dictionary['id']=id
                     id+=1
                     record = StopSearchRecords(**dictionary)
-                    print(f"Adding record {id} to database... {dictionary['force_id']}:{dictionary['datetime']}")
+                    print(f"Adding record {id} to database... {dictionary['force_id']}:{dictionary['month']}")
                     session.add(record)
-        print('Commiting all records...')
-        session.commit()
+                print(f"Commiting all records for {dictionary['force_id']} police force in {dictionary['month']}...")
+                session.commit()
 
     
 if __name__ == '__main__':
