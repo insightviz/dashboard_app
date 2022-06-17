@@ -2,6 +2,7 @@ import httpx
 from helper_functions import HEADERS
 import time
 from sqlalchemy.orm import sessionmaker
+import sqlalchemy
 from database_tables import PoliceForces, create_tables, engine
 
 
@@ -28,6 +29,9 @@ def save_forces_data_db():
 if __name__ == '__main__':
     create_tables()
     s = time.time()
-    save_forces_data_db()
+    try:
+        save_forces_data_db()
+    except sqlalchemy.exc.IntegrityError:
+        pass
     e = time.time()
     print(e-s)
