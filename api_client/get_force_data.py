@@ -2,7 +2,7 @@ import httpx
 from helper_functions import HEADERS
 import time
 from sqlalchemy.orm import sessionmaker
-from database import PoliceForces, create_tables, engine
+from database_tables import PoliceForces, create_tables, engine
 
 
 # get force data

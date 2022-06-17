@@ -3,7 +3,7 @@ import asyncio
 from helper_functions import clean_data, HEADERS
 import time
 from sqlalchemy.orm import sessionmaker
-from database import StopSearchRecords, create_tables, engine
+from database_tables import StopSearchRecords, create_tables, engine
 
 # get force data
 def get_forces():
