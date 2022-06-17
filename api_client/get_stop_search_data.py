@@ -2,52 +2,25 @@ import httpx
 import asyncio
 from helper_functions import clean_data, HEADERS
 import time
-from sqlalchemy.orm import sessionmaker
-from database import StopSearchRecords, CreateTables, engine
+from sqlalchemy.orm import Session
+from database_tables import AvailableData, StopSearchRecords, create_tables, engine
+from sqlalchemy import select
 
-# get force data
-def get_forces():
-    url = 'https://data.police.uk/api/forces'
-    r = httpx.get(url, headers=HEADERS)
-    return r.json()
-
-
-# get availability data with dates 
-def get_availabilty():
-    '''This function returns a list of dictionarys with the month as a key and 
-    list of police forces that proided stop and search data as the value.'''
-
-    url = 'https://data.police.uk/api/crimes-street-dates'
-    r = httpx.get(url, headers=HEADERS)
-    return r.json()
-
-
-# use two pieces for query for stop and search data
-def get_available_datasets():
-    '''This function returns a list of tuples with police and month where data 
-    is available.'''
-
-    available_data = []
-    police_forces = get_forces()
-    available_dates = get_availabilty()
-
-    for i in available_dates:
-        for f in police_forces:
-            if f.get('id') in i.get('stop-and-search'):
-                # (force id, month, full force name)
-                available_data.append({'force_id': f.get('id'), 'month': i.get('date')})
-    
-    return available_data[:5] # remove indexing
+def check_available_datasets():
+    with Session(engine) as session:
+        statement = select(AvailableData.force_id, AvailableData.month)
+        result = session.execute(statement).all()
+        return result
 
 
 async def request_available_datasets():
-    available_datasets = get_available_datasets()
+    available_datasets = check_available_datasets()
 
     async with httpx.AsyncClient(timeout=None, event_hooks={'request': [log_request], 'response': [log_response]}) as client:
         tasks = []
         counter = 1
         for i in available_datasets:
-            parameters = {'force': i['force_id'], 'date': i['month']}
+            parameters = {'force': i[0], 'date': i[1]}
             if counter%30==0:
                 #delay time from exprimenting
                 await asyncio.sleep(3)
@@ -98,21 +71,20 @@ def save_stop_search_data_db():
     id=1
 
     data = asyncio.run(request_available_datasets())
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    for response in data:
-        for dictionary in response:
-            dictionary['id']=id
-            id+=1
-            record = StopSearchRecords(*tuple(dictionary.values()))
-            print(f"Adding record {id} to database... {dictionary['police_force']}:{dictionary['datetime']}")
-            session.add(record)
-    print('Adding all records...')
-    session.commit()
+    with Session(engine) as session:
+        for response in data:
+            for dictionary in response:
+                dictionary['id']=id
+                id+=1
+                record = StopSearchRecords(*tuple(dictionary.values()))
+                print(f"Adding record {id} to database... {dictionary['police_force']}:{dictionary['datetime']}")
+                session.add(record)
+        print('Commiting all records...')
+        session.commit()
 
     
 if __name__ == '__main__':
-    CreateTables()
+    create_tables()
     s = time.time()
     save_stop_search_data_db()
     e = time.time()

@@ -1,6 +1,5 @@
-import psycopg2 as pc
 from db_config import DB_CONFIG
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, ForeignKey, create_engine
 
 
@@ -26,7 +25,7 @@ class StopSearchRecords(Base):
     type = Column(String)
     operation_name = Column(String)
     object_of_search = Column(String)
-    force_id = Column(String)
+    force_id = Column(String, ForeignKey("police_forces.force_id"))
     latitude = Column(Float)
     longitude = Column(Float)
     street_id = Column(Integer)
@@ -75,16 +74,22 @@ class PoliceForces(Base):
 
 #Base.metadata.create_all(engine)
 
-class CreateTables:
-    
-    def __init__(self):
-        self.create_tables()
+class AvailableData(Base):
+    __tablename__ = "available_data"
+    force_id = Column(String, ForeignKey("police_forces.force_id"))
+    month = Column(String)
+    id = Column(String, primary_key=True)
 
-    def create_tables(self):
-        '''
-        Create tables in database.  
-        '''
+    def __init__(self, force_id, month, id):
+        self.force_id = force_id
+        self.month = month
+        self.id = id
 
-        print("Creating database tables...")
-        Base.metadata.create_all(engine)
-        print("Tables created!")
+def create_tables():
+    '''
+    Create tables in database.  
+    '''
+
+    print("Creating database tables...")
+    Base.metadata.create_all(engine)
+    print("Tables created!")
