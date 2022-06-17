@@ -56,6 +56,6 @@ if __name__ == '__main__':
     try:
         save_available_data_db()
     except sqlalchemy.exc.IntegrityError:
-        print('Duplicate value in primary key')
+        print('Error')
     e = time.time()
     print(e-s)
