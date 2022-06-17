@@ -43,7 +43,7 @@ def save_available_data_db():
     for dictionary in response:
         dictionary['id']=id
         id+=1
-        record = AvailableData(*tuple(dictionary.values()))
+        record = AvailableData(**dictionary)
         print(f"Adding {dictionary['force_id']} police force for {dictionary['month']} to database...")
         session.add(record)
     print('Adding all records...')

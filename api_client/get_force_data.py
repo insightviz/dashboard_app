@@ -19,7 +19,7 @@ def save_forces_data_db():
     Session = sessionmaker(bind=engine)
     session = Session()
     for dictionary in response:
-        record = PoliceForces(*tuple(dictionary.values()))
+        record = PoliceForces(**dictionary)
         print(f"Adding {dictionary['id']} police force to database...")
         session.add(record)
     print('Adding all records...')

@@ -25,7 +25,7 @@ class StopSearchRecords(Base):
     type = Column(String)
     operation_name = Column(String)
     object_of_search = Column(String)
-    force_id = Column(String, ForeignKey("police_forces.force_id"))
+    force_id = Column(String, ForeignKey("police_forces.id"))
     latitude = Column(Float)
     longitude = Column(Float)
     street_id = Column(Integer)
@@ -34,56 +34,20 @@ class StopSearchRecords(Base):
     id = Column(Integer, primary_key=True)
 
 
-    def __init__(self, age_range, outcome, involved_person, self_defined_ethnicity,
-                 gender, legislation, outcome_linked_to_object_of_search,
-                 datetime, removal_of_more_than_outer_clothing, operation,
-                 officer_defined_ethnicity, type, operation_name, object_of_search,
-                 force_id, latitude, longitude, street_id, street_desc,
-                 person_ethnicity, id):
-        
-        self.age_range = age_range
-        self.outcome = outcome
-        self.involved_person = involved_person
-        self.self_defined_ethnicity = self_defined_ethnicity
-        self.gender = gender
-        self.legislation = legislation
-        self.outcome_linked_to_object_of_search = outcome_linked_to_object_of_search
-        self.datetime = datetime
-        self.removal_of_more_than_outer_clothing = removal_of_more_than_outer_clothing
-        self.operation = operation
-        self.officer_defined_ethnicity = officer_defined_ethnicity
-        self.type = type
-        self.operation_name = operation_name
-        self.object_of_search = object_of_search
-        self.force_id = force_id
-        self.latitude = latitude
-        self.longitude = longitude
-        self.street_id = street_id
-        self.street_desc = street_desc
-        self.person_ethnicity = person_ethnicity
-        self.id = id
-
 class PoliceForces(Base):
     __tablename__ = "police_forces"
-    force_id = Column(String, primary_key=True)
-    force_name = Column(String)
+    id = Column(String, primary_key=True)
+    name = Column(String)
 
-    def __init__(self, force_id, force_name):
-        self.force_id = force_id
-        self.force_name = force_name
 
 #Base.metadata.create_all(engine)
 
 class AvailableData(Base):
     __tablename__ = "available_data"
-    force_id = Column(String, ForeignKey("police_forces.force_id"))
+    force_id = Column(String, ForeignKey("police_forces.id"))
     month = Column(String)
     id = Column(String, primary_key=True)
 
-    def __init__(self, force_id, month, id):
-        self.force_id = force_id
-        self.month = month
-        self.id = id
 
 def create_tables():
     '''
