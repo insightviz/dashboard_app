@@ -75,16 +75,11 @@ class PoliceForces(Base):
 
 #Base.metadata.create_all(engine)
 
-class CreateTables:
-    
-    def __init__(self):
-        self.create_tables()
+def create_tables():
+    '''
+    Create tables in database.  
+    '''
 
-    def create_tables(self):
-        '''
-        Create tables in database.  
-        '''
-
-        print("Creating database tables...")
-        Base.metadata.create_all(engine)
-        print("Tables created!")
+    print("Creating database tables...")
+    Base.metadata.create_all(engine)
+    print("Tables created!")
