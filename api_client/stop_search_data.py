@@ -107,7 +107,7 @@ def save_stop_search_data_db():
             record = StopSearchRecords(*tuple(dictionary.values()))
             print(f"Adding record {id} to database... {dictionary['police_force']}:{dictionary['datetime']}")
             session.add(record)
-    print('Adding all records...')
+    print('Commiting all records...')
     session.commit()
 
     
