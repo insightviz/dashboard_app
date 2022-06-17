@@ -32,6 +32,6 @@ if __name__ == '__main__':
     try:
         save_forces_data_db()
     except sqlalchemy.exc.IntegrityError:
-        pass
+        print('Duplicate value in primary key force_id')
     e = time.time()
     print(e-s)
