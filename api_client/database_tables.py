@@ -74,6 +74,17 @@ class PoliceForces(Base):
 
 #Base.metadata.create_all(engine)
 
+class AvailableData(Base):
+    __tablename__ = "available_data"
+    force_id = Column(String, ForeignKey("police_forces.force_id"))
+    month = Column(String)
+    id = Column(String, primary_key=True)
+
+    def __init__(self, force_id, month, id):
+        self.force_id = force_id
+        self.month = month
+        self.id = id
+
 def create_tables():
     '''
     Create tables in database.  
