@@ -1,9 +1,9 @@
 import httpx
 import time
 import sqlalchemy
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session
 from db.schema import AvailableData, engine
-from get_force_data import get_forces
+from typing import List
 
 import os
 import sys
@@ -13,53 +13,42 @@ sys.path = [ROOT_DIR, ROOT_DIR+'/police_dashboard'] + sys.path
 from utils.helper_functions import load_from_json
 
 
-# get availability data with dates 
-def get_availabilty():
+def get_availabilty() -> List[dict]:
     '''This function returns a list of dictionarys with the month as a key and 
     list of police forces that proided stop and search data as the value.'''
     url = 'https://data.police.uk/api/crimes-street-dates'
     r = httpx.get(url)
     return r.json()
 
-
-# use two pieces for query for stop and search data
-def get_available_datasets():
-    '''This function returns a list of tuples with police and month where data 
+def get_available_datasets() -> List[dict]:
+    '''This function returns a list of tuples with police force and month where data 
     is available.'''
 
     available_data = []
-    police_forces = load_from_json()
+    police_forces = load_from_json(ROOT_DIR+'police_dashboard/data/police_forces.json')
     available_dates = get_availabilty()
 
     for i in available_dates:
         for force_id in police_forces.keys():
             if force_id in i.get('stop-and-search'):
-                # (force id, month)
                 available_data.append({'force_id': force_id, 'month': i.get('date')})
     
     return available_data
 
 # save to database
 def save_available_data_db():
-    id=1
     response = get_available_datasets()
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    for dictionary in response:
-        dictionary['id']=id
-        id+=1
-        record = AvailableData(**dictionary)
-        print(f"Adding {dictionary['force_id']} police force for {dictionary['month']} to database...")
-        session.add(record)
-    print('Adding all records...')
-    session.commit()
+    with Session(engine) as session:
+        for stop_and_search_record in response:
+            record = AvailableData(**stop_and_search_record)
+            print(f"Adding {stop_and_search_record['force_id']} police force for {stop_and_search_record['month']} to database...")
+            session.add(record)
+        print('Adding all records...')
+        session.commit()
     
     
 if __name__ == '__main__':
-    s = time.time()
     try:
         save_available_data_db()
     except sqlalchemy.exc.IntegrityError:
         print('Error')
-    e = time.time()
-    print(e-s)
