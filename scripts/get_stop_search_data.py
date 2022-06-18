@@ -14,7 +14,7 @@ from scripts.get_available_datasets import get_available_datasets
 from utils.helper_functions import clean_data
 
 
-async def request_available_datasets():
+async def request_available_datasets() -> list[list[dict]]:
     available_datasets = get_available_datasets()
     total = len(available_datasets)
 
@@ -49,11 +49,11 @@ async def request_available_datasets():
         response = await asyncio.gather(*tasks)
     return response
 
-async def log_request(request):
+async def log_request(request: httpx.Request) -> None:
     print(f"Request event hook: {request.method} {request.url} - Waiting for response")
     
 
-async def log_response(response):
+async def log_response(response: httpx.Response) -> None:
     request = response.request
     print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
 
@@ -75,7 +75,7 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     else:
         response.raise_for_status()
         
-def save_stop_search_data_db():
+def save_stop_search_data_db() -> None:
     data = asyncio.run(request_available_datasets())
     with Session(engine) as session:
         for response in data:
