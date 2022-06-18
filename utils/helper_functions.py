@@ -1,7 +1,5 @@
 import json
 
-# constants
-HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'}
 REPLACE_DICT = {'Other ethnic group - Not stated': 'Other',
          'Black/African/Caribbean/Black British - Any other Black/African/Caribbean background': 'Black',
          'Black/African/Caribbean/Black British - African': 'Black',
