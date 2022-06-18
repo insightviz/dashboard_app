@@ -13,8 +13,7 @@ from scripts.get_available_datasets import get_available_datasets
 from utils.helper_functions import clean_data
 
 
-async def request_available_datasets() -> list[list[dict]]:
-    available_datasets = get_available_datasets()
+async def request_available_datasets(available_datasets: list[dict]) -> list[list[dict]]:
     total = len(available_datasets)
 
     async with httpx.AsyncClient(timeout=None, event_hooks={'request': [log_request], 'response': [log_response]}) as client:
@@ -73,8 +72,7 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     else:
         response.raise_for_status()
         
-def save_stop_search_data_db() -> None:
-    data = asyncio.run(request_available_datasets())
+def save_stop_search_data_db(data: list[list[dict]]) -> None:
     with Session(engine) as session:
         for response in data:
             if response == None:
@@ -84,10 +82,12 @@ def save_stop_search_data_db() -> None:
                     record = StopSearchRecords(**stop_and_search_record)
                     session.add(record)
                 session.commit()
-            print(f"Commiting all records for {stop_and_search_record['force_id']} police force in {stop_and_search_record['month']}...")
+
     
 if __name__ == '__main__':
     start = time.time()
-    save_stop_search_data_db()
+    available_datasets = get_available_datasets()
+    data = asyncio.run(request_available_datasets(available_datasets))
+    save_stop_search_data_db(data)
     end = time.time()
     print(f"Time-take to run script: {end-start}")
