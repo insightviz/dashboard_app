@@ -1,17 +1,23 @@
 import httpx
 import asyncio
-from utils.helper_functions import clean_data, HEADERS
 import time
 from sqlalchemy.orm import Session
-from database_tables import AvailableData, StopSearchRecords, create_tables, engine
+from db.schema import AvailableData, StopSearchRecords, engine
 from sqlalchemy import select
+
+import os
+import sys
+ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path = [ROOT_DIR, ROOT_DIR+'/police_dashboard'] + sys.path
+
+from utils.helper_functions import clean_data, HEADERS
+
 
 def check_available_datasets():
     with Session(engine) as session:
         statement = select(AvailableData.force_id, AvailableData.month)
         result = session.execute(statement).all()
         return result
-
 
 async def request_available_datasets():
     available_datasets = check_available_datasets()
@@ -45,7 +51,6 @@ async def request_available_datasets():
         response = await asyncio.gather(*tasks)
     return response
 
-
 async def log_request(request):
     print(f"Request event hook: {request.method} {request.url} - Waiting for response")
     
@@ -72,29 +77,20 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     else:
         response.raise_for_status()
         
-
-# save to database
 def save_stop_search_data_db():
-    id=1
-
     data = asyncio.run(request_available_datasets())
     with Session(engine) as session:
         for response in data:
             if response == None:
                 pass
             else:
-                for dictionary in response:
-                    dictionary['id']=id
-                    id+=1
-                    record = StopSearchRecords(**dictionary)
-                    print(f"Adding record {id} to database... {dictionary['force_id']}:{dictionary['month']}")
+                for stop_and_search_record in response:
+                    record = StopSearchRecords(**stop_and_search_record)
                     session.add(record)
-                print(f"Commiting all records for {dictionary['force_id']} police force in {dictionary['month']}...")
                 session.commit()
 
     
 if __name__ == '__main__':
-    create_tables()
     s = time.time()
     save_stop_search_data_db()
     e = time.time()
