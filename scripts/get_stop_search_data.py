@@ -2,7 +2,6 @@ import httpx
 import asyncio
 import time
 from sqlalchemy.orm import Session
-from sqlalchemy import select
 
 import os
 import sys
