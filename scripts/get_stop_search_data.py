@@ -9,18 +9,13 @@ import sys
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path = [ROOT_DIR, ROOT_DIR+'/police_dashboard'] + sys.path
 
-from db.schema import AvailableData, StopSearchRecords, engine
+from db.schema import StopSearchRecords, engine
+from scripts.get_available_datasets import get_available_datasets
 from utils.helper_functions import clean_data
 
 
-def check_available_datasets():
-    with Session(engine) as session:
-        statement = select(AvailableData.force_id, AvailableData.month)
-        result = session.execute(statement).all()
-        return result
-
 async def request_available_datasets():
-    available_datasets = check_available_datasets()
+    available_datasets = get_available_datasets()
     total = len(available_datasets)
 
     async with httpx.AsyncClient(timeout=None, event_hooks={'request': [log_request], 'response': [log_response]}) as client:
@@ -29,7 +24,7 @@ async def request_available_datasets():
         progress = 0
         print(progress/total)
         for i in available_datasets:
-            parameters = {'force': i[0], 'month': i[1]}
+            parameters = {'force': i['force_id'], 'month': i['month']}
             if counter%30==0:
                 #delay time from exprimenting
                 await asyncio.sleep(3)

@@ -28,12 +28,4 @@ class StopSearchRecords(Base):
     person_ethnicity = Column(String)
 
 
-class AvailableData(Base):
-    __tablename__ = "available_data"
-
-    id = Column(Integer, primary_key=True)
-    force_id = Column(String)
-    month = Column(String)
-
-
 Base.metadata.create_all(engine) # This creates all tables above. By default CREATES are not issued for already existing tables.
