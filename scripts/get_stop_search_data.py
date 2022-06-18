@@ -2,7 +2,6 @@ import httpx
 import asyncio
 import time
 from sqlalchemy.orm import Session
-from db.schema import AvailableData, StopSearchRecords, engine
 from sqlalchemy import select
 
 import os
@@ -10,6 +9,7 @@ import sys
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path = [ROOT_DIR, ROOT_DIR+'/police_dashboard'] + sys.path
 
+from db.schema import AvailableData, StopSearchRecords, engine
 from utils.helper_functions import clean_data, HEADERS
 
 
@@ -91,7 +91,7 @@ def save_stop_search_data_db():
 
     
 if __name__ == '__main__':
-    s = time.time()
+    start = time.time()
     save_stop_search_data_db()
-    e = time.time()
-    print(e-s)
+    end = time.time()
+    print(f"Time-take to run script: {end-start}")
