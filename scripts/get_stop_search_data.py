@@ -1,6 +1,6 @@
 import httpx
 import asyncio
-from helper_functions import clean_data, HEADERS
+from utils.helper_functions import clean_data, HEADERS
 import time
 from sqlalchemy.orm import Session
 from database_tables import AvailableData, StopSearchRecords, create_tables, engine

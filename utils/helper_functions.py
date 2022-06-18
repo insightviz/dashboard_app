@@ -1,3 +1,24 @@
+import json
+
+# constants
+HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'}
+REPLACE_DICT = {'Other ethnic group - Not stated': 'Other',
+         'Black/African/Caribbean/Black British - Any other Black/African/Caribbean background': 'Black',
+         'Black/African/Caribbean/Black British - African': 'Black',
+         'White - Any other White background': 'White',
+         'Other ethnic group - Any other ethnic group': 'Other',
+         'Black/African/Caribbean/Black British - Caribbean': 'Black',
+         'Asian/Asian British - Pakistani': 'Asian',
+         'White - English/Welsh/Scottish/Northern Irish/British': 'White',
+         'Asian/Asian British - Any other Asian background': 'Asian',
+         'Asian/Asian British - Bangladeshi': 'Asian',
+         'Mixed/Multiple ethnic groups - Any other Mixed/Multiple ethnic background': 'Mixed',
+         'Mixed/Multiple ethnic groups - White and Asian': 'Mixed',
+         'Asian/Asian British - Indian': 'Asian',
+         'Mixed/Multiple ethnic groups - White and Black African': 'Mixed',
+         'Mixed/Multiple ethnic groups - White and Black Caribbean': 'Mixed',
+         'White - Irish': 'White', 'Asian/Asian British - Chinese': 'Asian'}
+
 def get_dictionary_value(dictionary, keys):
     '''
     Gets value from nested dictionary.
@@ -31,25 +52,6 @@ def get_dictionary_value(dictionary, keys):
 
     return dictionary    
 
-REPLACE_DICT = {'Other ethnic group - Not stated': 'Other',
-         'Black/African/Caribbean/Black British - Any other Black/African/Caribbean background': 'Black',
-         'Black/African/Caribbean/Black British - African': 'Black',
-         'White - Any other White background': 'White',
-         'Other ethnic group - Any other ethnic group': 'Other',
-         'Black/African/Caribbean/Black British - Caribbean': 'Black',
-         'Asian/Asian British - Pakistani': 'Asian',
-         'White - English/Welsh/Scottish/Northern Irish/British': 'White',
-         'Asian/Asian British - Any other Asian background': 'Asian',
-         'Asian/Asian British - Bangladeshi': 'Asian',
-         'Mixed/Multiple ethnic groups - Any other Mixed/Multiple ethnic background': 'Mixed',
-         'Mixed/Multiple ethnic groups - White and Asian': 'Mixed',
-         'Asian/Asian British - Indian': 'Asian',
-         'Mixed/Multiple ethnic groups - White and Black African': 'Mixed',
-         'Mixed/Multiple ethnic groups - White and Black Caribbean': 'Mixed',
-         'White - Irish': 'White', 'Asian/Asian British - Chinese': 'Asian'}
-
-HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'}
-
 async def clean_data(available_dataset, parameters:dict):
     
     list = []
@@ -73,3 +75,12 @@ async def clean_data(available_dataset, parameters:dict):
 
         list.append(item)
     return list
+
+def save_as_json(obj: dict, filepath: str) -> None:
+    with open(filepath, 'w') as fp:
+        json.dump(obj, fp)
+
+def load_from_json(filepath: str) -> dict:
+    with open(filepath) as json_file:
+        data = json.load(json_file)
+        return data
