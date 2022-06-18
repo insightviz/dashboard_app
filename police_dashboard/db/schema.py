@@ -48,7 +48,7 @@ class StopSearchRecords(Base):
 class AvailableData(Base):
     __tablename__ = "available_data"
 
-    id = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True)
     force_id = Column(String)
     month = Column(String)
 
