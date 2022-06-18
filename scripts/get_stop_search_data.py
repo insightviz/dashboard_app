@@ -44,7 +44,7 @@ async def request_available_datasets():
                 tasks.append(task)
                 counter+=1
                 # these progress bars aren't that useful at the moment. Majority of wait happens after 'progress' gets to 100%. 
-                # Cause they just track once the adding of started tasks to the tasks list not the returning of responses from the API. 
+                # Cause they just track the adding of a task to the tasks list not the returning of responses from the API. 
                 # The httpx library has some native support for progress bars, though. Perhaps worth looking into.
                 progress+=1
                 print(f'{progress/total*100}%') 
