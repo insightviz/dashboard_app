@@ -65,7 +65,7 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     
     url = 'https://data.police.uk/api/stops-force'
     response = await client.get(url, headers=HEADERS, params=parameters)
-    if (response.status_code == 429) or (response.status_code == 500) or (response.status_code == 502) or (response.status_code == 504):
+    if response.status_code in [429, 500, 502, 504]:
         #delay time from exprimenting
         await asyncio.sleep(3)
         await get_requests(client, parameters)
