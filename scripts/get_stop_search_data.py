@@ -22,8 +22,7 @@ async def request_available_datasets() -> list[list[dict]]:
         counter = 1
         progress = 0
         print(progress/total)
-        for i in available_datasets:
-            parameters = {'force': i['force_id'], 'month': i['month']}
+        for parameters in available_datasets:
             if counter%30==0:
                 #delay time from exprimenting
                 await asyncio.sleep(3)

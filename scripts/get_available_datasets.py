@@ -27,5 +27,5 @@ def get_available_datasets() -> List[dict]:
     for i in available_dates:
         for force_id in police_forces.keys():
             if force_id in i.get('stop-and-search'):
-                available_data.append({'force_id': force_id, 'month': i.get('date')})
+                available_data.append({'force': force_id, 'month': i.get('date')})
     return available_data
