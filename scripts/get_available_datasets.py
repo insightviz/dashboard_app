@@ -1,5 +1,4 @@
 import httpx
-import time
 import sqlalchemy
 from sqlalchemy.orm import Session
 from db.schema import AvailableData, engine
@@ -32,16 +31,15 @@ def get_available_datasets() -> List[dict]:
         for force_id in police_forces.keys():
             if force_id in i.get('stop-and-search'):
                 available_data.append({'force_id': force_id, 'month': i.get('date')})
-    
+                
     return available_data
 
-# save to database
-def save_available_data_db():
+def save_available_data_db() -> None:
     response = get_available_datasets()
     with Session(engine) as session:
-        for stop_and_search_record in response:
-            record = AvailableData(**stop_and_search_record)
-            print(f"Adding {stop_and_search_record['force_id']} police force for {stop_and_search_record['month']} to database...")
+        for available_data_record in response:
+            record = AvailableData(**available_data_record)
+            print(f"Adding {available_data_record['force_id']} police force for {available_data_record['month']} to database...")
             session.add(record)
         print('Adding all records...')
         session.commit()
