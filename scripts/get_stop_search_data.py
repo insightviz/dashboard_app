@@ -10,7 +10,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path = [ROOT_DIR, ROOT_DIR+'/police_dashboard'] + sys.path
 
 from db.schema import AvailableData, StopSearchRecords, engine
-from utils.helper_functions import clean_data, HEADERS
+from utils.helper_functions import clean_data
 
 
 def check_available_datasets():
@@ -43,8 +43,11 @@ async def request_available_datasets():
                 task = asyncio.create_task(get_requests(client, parameters))
                 tasks.append(task)
                 counter+=1
-                print(f'{progress/total*100}%')
+                # these progress bars aren't that useful at the moment. Majority of wait happens after 'progress' gets to 100%. 
+                # Cause they just track once the adding of started tasks to the tasks list not the returning of responses from the API. 
+                # The httpx library has some native support for progress bars, though. Perhaps worth looking into.
                 progress+=1
+                print(f'{progress/total*100}%') 
                 #pause before next request from experimenting
                 await asyncio.sleep(.4)
 
@@ -64,7 +67,7 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     Input is a list of tuples with arguments, month and police force.''' 
     
     url = 'https://data.police.uk/api/stops-force'
-    response = await client.get(url, headers=HEADERS, params=parameters)
+    response = await client.get(url, params=parameters)
     if response.status_code in [429, 500, 502, 504]:
         #delay time from exprimenting
         await asyncio.sleep(3)
