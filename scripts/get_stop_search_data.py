@@ -60,10 +60,13 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     
     url = 'https://data.police.uk/api/stops-force'
     response = await client.get(url, params=parameters)
-    if response.status_code in [429, 500, 502, 504]:
+    if response.status_code in [429, 502, 504]:
         #delay time from experimenting
         await asyncio.sleep(3)
         await get_requests(client, parameters)
+
+    elif response.status_code == 500:
+        pass
 
     elif response.status_code == 200:
         result = await clean_data(response.json(), parameters)
@@ -75,7 +78,7 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
 def save_stop_search_data_db(data: list[list[dict]]) -> None:
     with Session(engine) as session:
         for response in data:
-            if response == None:
+            if response == None or response == []:
                 pass
             else:
                 for stop_and_search_record in response:
