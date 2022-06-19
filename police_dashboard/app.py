@@ -14,12 +14,10 @@ app = Flask(__name__)
 def get_all_available_data(month):
     response = {}
     with Session(engine) as session:
-        results = session.query(AvailableData).filter_by(month=month).all()
-        if len(results) > 0:
-            forces = []
-            for row in results:
-                forces.append(row.force_id)
-                response[month] = forces
+        force_ids = session.query(AvailableData.force_id).filter(AvailableData.month==month).all()
+        if len(force_ids) > 0:
+            force_ids = [force_id[0] for force_id in force_ids]
+            response[month] = force_ids
         else:
             response['message'] = 'No police force data available for this month'
     return response
