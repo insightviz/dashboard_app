@@ -12,12 +12,17 @@ app = Flask(__name__)
 
 @app.route("/available_forces/<month>", methods=['GET'])
 def get_all_available_data(month):
-    all_forces_in_month = { month: [] }
+    response = {}
     with Session(engine) as session:
         results = session.query(AvailableData).filter_by(month=month).all()
-        for row in results:
-            all_forces_in_month[month].append(row.force_id)
-    return all_forces_in_month
+        if len(results) > 0:
+            forces = []
+            for row in results:
+                forces.append(row.force_id)
+                response[month] = forces
+        else:
+            response['message'] = 'No police force data available for this month'
+    return response
             
 
 
