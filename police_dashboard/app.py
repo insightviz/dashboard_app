@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 
 @app.route("/available_forces/<month>", methods=['GET'])
-def get_all_available_data(month):
+def get_available_data(month: str) -> dict:
     response = {}
     with Session(engine) as session:
         force_ids = session.query(AvailableData.force_id).filter(AvailableData.month==month).all()
