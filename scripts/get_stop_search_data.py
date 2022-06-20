@@ -69,7 +69,7 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     url = 'https://data.police.uk/api/stops-force'
     response = await client.get(url, params=parameters)
     if response.status_code in [429, 500, 502, 504]:
-        #delay time from exprimenting
+        #delay time from experimenting
         await asyncio.sleep(3)
         await get_requests(client, parameters)
 
@@ -91,7 +91,7 @@ def save_stop_search_data_db():
                     record = StopSearchRecords(**stop_and_search_record)
                     session.add(record)
                 session.commit()
-
+            print(f"Commiting all records for {stop_and_search_record['force_id']} police force in {stop_and_search_record['month']}...")
     
 if __name__ == '__main__':
     start = time.time()
