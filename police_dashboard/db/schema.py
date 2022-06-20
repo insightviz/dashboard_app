@@ -1,14 +1,5 @@
-from config import DB_CONFIG
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, create_engine
-
-
-CONNECTION_STRING = f"postgresql://{DB_CONFIG['user']}:{DB_CONFIG['password']}@{DB_CONFIG['host']}/{DB_CONFIG['database']}"
-# connect with data
-engine = create_engine(url=CONNECTION_STRING, echo=True)
-# manage tables
-Base = declarative_base()
-
+from .config import Base, engine 
+from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean
 
 class StopSearchRecords(Base): 
     __tablename__ = "stop_search_records"
