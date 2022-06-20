@@ -1,17 +1,23 @@
 import httpx
 import asyncio
-from helper_functions import clean_data, HEADERS
 import time
 from sqlalchemy.orm import Session
-from database_tables import AvailableData, StopSearchRecords, create_tables, engine
 from sqlalchemy import select
+
+import os
+import sys
+ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path = [ROOT_DIR, ROOT_DIR+'/police_dashboard'] + sys.path
+
+from db.schema import AvailableData, StopSearchRecords, engine
+from utils.helper_functions import clean_data
+
 
 def check_available_datasets():
     with Session(engine) as session:
         statement = select(AvailableData.force_id, AvailableData.month)
         result = session.execute(statement).all()
         return result
-
 
 async def request_available_datasets():
     available_datasets = check_available_datasets()
@@ -37,14 +43,16 @@ async def request_available_datasets():
                 task = asyncio.create_task(get_requests(client, parameters))
                 tasks.append(task)
                 counter+=1
-                print(f'{progress/total*100}%')
+                # these progress bars aren't that useful at the moment. Majority of wait happens after 'progress' gets to 100%. 
+                # Cause they just track the adding of a task to the tasks list not the returning of responses from the API. 
+                # The httpx library has some native support for progress bars, though. Perhaps worth looking into.
                 progress+=1
+                print(f'{progress/total*100}%') 
                 #pause before next request from experimenting
                 await asyncio.sleep(.4)
 
         response = await asyncio.gather(*tasks)
     return response
-
 
 async def log_request(request):
     print(f"Request event hook: {request.method} {request.url} - Waiting for response")
@@ -59,9 +67,9 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     Input is a list of tuples with arguments, month and police force.''' 
     
     url = 'https://data.police.uk/api/stops-force'
-    response = await client.get(url, headers=HEADERS, params=parameters)
-    if (response.status_code == 429) or (response.status_code == 500) or (response.status_code == 502) or (response.status_code == 504):
-        #delay time from exprimenting
+    response = await client.get(url, params=parameters)
+    if response.status_code in [429, 500, 502, 504]:
+        #delay time from experimenting
         await asyncio.sleep(3)
         await get_requests(client, parameters)
 
@@ -72,30 +80,21 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     else:
         response.raise_for_status()
         
-
-# save to database
 def save_stop_search_data_db():
-    id=1
-
     data = asyncio.run(request_available_datasets())
     with Session(engine) as session:
         for response in data:
             if response == None:
                 pass
             else:
-                for dictionary in response:
-                    dictionary['id']=id
-                    id+=1
-                    record = StopSearchRecords(**dictionary)
-                    print(f"Adding record {id} to database... {dictionary['force_id']}:{dictionary['month']}")
+                for stop_and_search_record in response:
+                    record = StopSearchRecords(**stop_and_search_record)
                     session.add(record)
-                print(f"Commiting all records for {dictionary['force_id']} police force in {dictionary['month']}...")
                 session.commit()
-
+            print(f"Commiting all records for {stop_and_search_record['force_id']} police force in {stop_and_search_record['month']}...")
     
 if __name__ == '__main__':
-    create_tables()
-    s = time.time()
+    start = time.time()
     save_stop_search_data_db()
-    e = time.time()
-    print(e-s)
+    end = time.time()
+    print(f"Time-take to run script: {end-start}")
