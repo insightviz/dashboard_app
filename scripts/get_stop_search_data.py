@@ -2,25 +2,18 @@ import httpx
 import asyncio
 import time
 from sqlalchemy.orm import Session
-from sqlalchemy import select
 
 import os
 import sys
 ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path = [ROOT_DIR, ROOT_DIR+'/police_dashboard'] + sys.path
 
-from db.schema import AvailableData, StopSearchRecords, engine
+from db.schema import StopSearchRecords, engine
+from scripts.get_available_datasets import get_available_datasets
 from utils.helper_functions import clean_data
 
 
-def check_available_datasets():
-    with Session(engine) as session:
-        statement = select(AvailableData.force_id, AvailableData.month)
-        result = session.execute(statement).all()
-        return result
-
-async def request_available_datasets():
-    available_datasets = check_available_datasets()
+async def request_available_datasets(available_datasets: list[dict]) -> list[list[dict]]:
     total = len(available_datasets)
 
     async with httpx.AsyncClient(timeout=None, event_hooks={'request': [log_request], 'response': [log_response]}) as client:
@@ -28,8 +21,7 @@ async def request_available_datasets():
         counter = 1
         progress = 0
         print(progress/total)
-        for i in available_datasets:
-            parameters = {'force': i[0], 'month': i[1]}
+        for parameters in available_datasets:
             if counter%30==0:
                 #delay time from exprimenting
                 await asyncio.sleep(3)
@@ -54,11 +46,11 @@ async def request_available_datasets():
         response = await asyncio.gather(*tasks)
     return response
 
-async def log_request(request):
+async def log_request(request: httpx.Request) -> None:
     print(f"Request event hook: {request.method} {request.url} - Waiting for response")
     
 
-async def log_response(response):
+async def log_response(response: httpx.Response) -> None:
     request = response.request
     print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
 
@@ -68,10 +60,13 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     
     url = 'https://data.police.uk/api/stops-force'
     response = await client.get(url, params=parameters)
-    if response.status_code in [429, 500, 502, 504]:
+    if response.status_code in [429, 502, 504]:
         #delay time from experimenting
         await asyncio.sleep(3)
         await get_requests(client, parameters)
+
+    elif response.status_code == 500:
+        pass
 
     elif response.status_code == 200:
         result = await clean_data(response.json(), parameters)
@@ -80,21 +75,22 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     else:
         response.raise_for_status()
         
-def save_stop_search_data_db():
-    data = asyncio.run(request_available_datasets())
+def save_stop_search_data_db(data: list[list[dict]]) -> None:
     with Session(engine) as session:
         for response in data:
-            if response == None:
+            if response == None or response == []:
                 pass
             else:
                 for stop_and_search_record in response:
                     record = StopSearchRecords(**stop_and_search_record)
                     session.add(record)
                 session.commit()
-            print(f"Commiting all records for {stop_and_search_record['force_id']} police force in {stop_and_search_record['month']}...")
+
     
 if __name__ == '__main__':
     start = time.time()
-    save_stop_search_data_db()
+    available_datasets = get_available_datasets()
+    data = asyncio.run(request_available_datasets(available_datasets))
+    save_stop_search_data_db(data)
     end = time.time()
     print(f"Time-take to run script: {end-start}")
