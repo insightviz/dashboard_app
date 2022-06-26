@@ -9,16 +9,23 @@ ul#pages-menu li {
 }
 
 .logo-container {
-  align-items: center;
+  align-items: center;  
+  justify-content: center;
+  flex: 1;
 }
 
-#pages-menu, .global-nav  {
+#pages-menu {
   align-items: center;
   justify-content: center;
   gap: 20px;
   flex: 1;
 }
 
+ .global-nav  {
+  align-items: center;
+  justify-content: center;
+ }
+  
 
 input:invalid {
     border-color: red;
