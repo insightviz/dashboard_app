@@ -19,5 +19,22 @@
         </div>
     </header>
     {% block body %}{% endblock %}
+
+<fieldset>
+  <form action="{url route}}" method="post">
+    <legend>Sign up to keep updated about new charts!</legend>
+    <div class="name">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="first_name" placeholder="First Name" required>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="last_name" placeholder="Last Name" required>
+    </div>
+    <div class="email">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required>
+    </div>
+    <button type="submit">Sign Up</button>
+  </form>
+</fieldset>
 </body>
 </html>
