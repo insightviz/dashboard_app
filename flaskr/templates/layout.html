@@ -9,17 +9,22 @@
     
 </head>
 <body>
-    <header>
-        <div class="container">
-          <strong><nav>
-            <ul class="menu">
-              <a href="{{ url_for('index') }}">Home</a>
-              <a href="{{ url_for('contact') }}">Contact</a>
-            </ul>
-          </nav></strong>
+  <header>
+    <div class="nav-container">
+      <nav class="global-nav">
+        <div class="logo-container">
+          <a class="nav-bar" href="/">
+            <img src="../static/img/insight_logo.svg">
+          </a>
         </div>
-    </header>
-    {% block body %}{% endblock %}
+        <ul id="pages-menu">
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  {% block body %}{% endblock %}
 
   <form action="{url route}}" method="post">
     <fieldset>
