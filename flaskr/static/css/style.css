@@ -34,3 +34,7 @@ input:invalid {
 input:valid {
     border-color: green;
   }
+
+#insight {
+  height: 40px;
+}
