@@ -1,4 +1,3 @@
-import httpx
 import time
 import asyncio
 from sqlalchemy.orm import Session
@@ -11,7 +10,6 @@ sys.path = [ROOT_DIR] + sys.path
 
 from db.schema import StopSearchRecords, engine
 from scripts.get_stop_search_data import save_stop_search_data_db, request_available_datasets
-from utils.helper_functions import load_from_json
 from scripts.get_available_datasets import get_available_datasets
 
 
