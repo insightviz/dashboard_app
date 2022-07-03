@@ -2,6 +2,8 @@ The Police Dashboard server which fetches stop and search data from the Police U
 
 Run the Flask server in development mode with:
 
-export FLASK_APP=flaskr
-export FLASK_ENV=development
-flask run
+```
+export FLASK_APP=flaskr  
+export FLASK_ENV=development  
+flask run  
+```
