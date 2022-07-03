@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}{% endblock %}
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="icon" href="../static/img/favicon.ico" type="image/x-icon" />
+    
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <nav class="global-nav">
+        <div class="logo-container">
+          <a class="nav-bar" href="/">
+            <img id="insight" src="../static/img/insight_logo.svg">
+          </a>
+        </div>
+        <ul id="pages-menu">
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  {% block body %}{% endblock %}
+
+  <form action="{url route}}" method="post">
+    <fieldset>
+      <legend>Sign up to keep updated about new dashboards!</legend>
+      <div class="name">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="first_name" placeholder="First Name" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="last_name" placeholder="Last Name" required>
+      </div>
+      <div class="email">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+      <button type="submit">Sign Up</button>
+    </fieldset>
+  </form>
+</body>
+</html>

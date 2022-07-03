@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 
 
 DB_CONFIG = {
-    'database': os.getenv('DB_NAME', 'police_dashboard'),
+    'database': os.getenv('DB_NAME', 'insight_dashboards'),
     'user': os.getenv('USER', 'postgres'),
     'password': os.getenv('DB_PASSWORD', ''),
     'host': os.getenv('DB_HOST', 'localhost'),
