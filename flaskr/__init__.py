@@ -1,6 +1,8 @@
 import os
-
+from sqlalchemy.orm import Session
 from flask import Flask, render_template
+from dashboards.stop_search_dashboard.db.schema import StopSearchRecords, engine
+from sqlalchemy import func
 
 
 def create_app(test_config=None):
@@ -34,4 +36,13 @@ def create_app(test_config=None):
     def contact():
         return render_template('contact.html')
 
+    @app.route('/stopsearch')
+    def stopsearch():
+        with Session(engine) as session:
+            x, y = [], []
+            results = session.query(StopSearchRecords.month, func.count(StopSearchRecords.month)).group_by(StopSearchRecords.month).all()
+            for i in results:
+                x.append(i[0])
+                y.append(i[1])
+        return {'x': x, 'y': y, 'type': 'bar'}
     return app
