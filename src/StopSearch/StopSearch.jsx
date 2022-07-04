@@ -1,4 +1,3 @@
-import React from 'react';
 import View1 from './View1/View1';
 
 function StopSearch() {
