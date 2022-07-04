@@ -1,8 +1,10 @@
 import Chart1 from '../Chart1/Chart1';
 
-function View1() {
+function View1(props) {
   return (
-    <Chart1/>
+    <div>
+      <Chart1 data={props.data.chart1}/>
+    </div>
   );
 }
 
