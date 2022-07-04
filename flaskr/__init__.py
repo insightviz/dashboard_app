@@ -46,5 +46,5 @@ def create_app(test_config=None):
             for i in results:
                 x.append(i[0])
                 y.append(i[1])
-        return {'x': x, 'y': y, 'type': 'bar'}
+        return {'chart1': {'x': x, 'y': y, 'type': 'bar'}}
     return app
