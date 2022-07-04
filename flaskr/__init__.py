@@ -1,6 +1,7 @@
 import os
 from sqlalchemy.orm import Session
 from flask import Flask, render_template
+from flask_cors import CORS
 from dashboards.stop_search_dashboard.db.schema import StopSearchRecords, engine
 from sqlalchemy import func
 
@@ -12,6 +13,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev'
     )
+    CORS(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
