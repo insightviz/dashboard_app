@@ -1,4 +1,3 @@
-import View1 from './View1/View1';
 import DashboardController from './Controller/Controller'
 
 function StopSearch() {
