@@ -6,3 +6,5 @@ function SelectDropdown(props) {
         <Select options={props.selectOptions} /> 
       </div>
 }
+
+export default SelectDropdown;
