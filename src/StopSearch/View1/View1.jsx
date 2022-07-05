@@ -1,10 +1,10 @@
 import Chart1 from '../Chart1/Chart1';
-import SelectDropdown from '../SelectDropdown/SelectDropdown';
+import Select from 'react-select';
 
 function View1(props) {
   return (
     <div>
-      <SelectDropdown/>
+      <Select options={props.options}/>
       <Chart1 data={props.data.chart1}/>
     </div>
   );
