@@ -4,6 +4,7 @@ from flask import Flask, render_template
 from flask_cors import CORS
 from dashboards.stop_search_dashboard.db.schema import StopSearchRecords, engine
 from sqlalchemy import func
+from dashboards.stop_search_dashboard.utils.helper_functions import load_from_json
 
 
 def create_app(test_config=None):
@@ -47,4 +48,8 @@ def create_app(test_config=None):
                 x.append(i[0])
                 y.append(i[1])
         return {'chart1': {'x': x, 'y': y, 'type': 'bar'}}
+
+    @app.route('/stopsearch/forces')
+    def forces():
+        return load_from_json('dashboards/stop_search_dashboard/data/police_forces.json')
     return app
