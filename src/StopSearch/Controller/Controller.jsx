@@ -6,8 +6,7 @@ const DashboardController = () => {
   const [force, setForce] = useState('all');
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
-   
-
+  
   useEffect(() => {
     fetch('http://localhost:5000/stopsearch')
     .then(response => response.json())
@@ -17,16 +16,31 @@ const DashboardController = () => {
       setLoading(false)
     });
   },[force])
-  
 
-  return (
-    <div>
-      {isLoading || !data ? (
-        <div>loading...</div>
-      ) : (<View1 data={data}/>)}
-      
-    </div>
-  )
+  
+  const [isForceLoading, setForceLoading] = useState(true);
+  const [selectOptions, setSelectOptions] = useState([]);
+  
+  const fetchForces = () => {
+    setForceLoading(true)
+    fetch('https://data.police.uk/api/forces')
+    .then(response => response.json())
+    .then(data => data.map(({ id, name}) => ({ 'value': id, 'label': name })))
+    .then(data => {
+      console.log(data)
+      setSelectOptions(data)
+      setForceLoading(false)
+    })
+  }
+  
+  useEffect(fetchForces, [])
+  
+  if (isLoading || isForceLoading) {
+    return <div>loading...</div>
+  }
+  else {
+    return <View1 data={data} options={selectOptions}/>
+  }
 }
 
 export default DashboardController
