@@ -3,11 +3,12 @@ import View1 from '../View1/View1';
 
 
 const DashboardController = () => {
-  const [force, setForce] = useState('all');
+  const [force, setForce] = useState([]);
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
   
   useEffect(() => {
+    setLoading(true)
     fetch('http://localhost:5000/stopsearch')
     .then(response => response.json())
     .then(data => {
@@ -35,11 +36,14 @@ const DashboardController = () => {
   
   useEffect(fetchForces, [])
   
+  const handleForceChange = (e) => {
+    setForce(e)
+  }
   if (isLoading || isForceLoading) {
     return <div>loading...</div>
   }
   else {
-    return <View1 data={data} options={selectOptions}/>
+    return <View1 data={data} options={selectOptions} selectChange={handleForceChange}/>
   }
 }
 

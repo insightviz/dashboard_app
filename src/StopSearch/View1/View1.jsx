@@ -4,7 +4,7 @@ import Select from 'react-select';
 function View1(props) {
   return (
     <div>
-      <Select options={props.options}/>
+      <Select options={props.options} onChange={props.selectChange} isMulti/>
       <Chart1 data={props.data.chart1}/>
     </div>
   );
