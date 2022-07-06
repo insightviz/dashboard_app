@@ -5,18 +5,29 @@ import View1 from '../View1/View1';
 const DashboardController = () => {
   const [force, setForce] = useState([]);
   const [data, setData] = useState(null);
-  const [isLoading, setLoading] = useState(true);
+  const [isDataLoading, setDataLoading] = useState(true);
   
-  useEffect(() => {
-    setLoading(true)
-    fetch('http://localhost:5000/stopsearch')
+  const loadData = () => {
+    setDataLoading(true)
+    let url = ''
+
+    if (force.length === 0) {
+      url = 'http://localhost:5000/stopsearch'
+    } else {
+      let queryString = force.map(({ value, label}) => ( [value] )).toString()
+      console.log(queryString)
+      url = `http://localhost:5000/stopsearch?force=${queryString}`
+    }
+    
+    fetch(url)
     .then(response => response.json())
     .then(data => {
       console.log(data)
       setData(data)
-      setLoading(false)
+      setDataLoading(false)
     });
-  },[force])
+  }
+  useEffect(loadData, [force])
 
   
   const [isForceLoading, setForceLoading] = useState(true);
@@ -39,7 +50,7 @@ const DashboardController = () => {
   const handleForceChange = (e) => {
     setForce(e)
   }
-  if (isLoading || isForceLoading) {
+  if (isDataLoading || isForceLoading) {
     return <div>loading...</div>
   }
   else {
