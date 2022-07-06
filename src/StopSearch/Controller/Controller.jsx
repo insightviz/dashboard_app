@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import View1 from '../View1/View1';
+import Select from 'react-select';
 
 
 const DashboardController = () => {
@@ -51,10 +52,20 @@ const DashboardController = () => {
     setForce(e)
   }
   if (isDataLoading || isForceLoading) {
-    return <div>loading...</div>
+    return (      
+      <div>
+        <Select options={selectOptions} onChange={handleForceChange} isMulti/>
+        <div>loading...</div>
+      </div>
+      )
   }
   else {
-    return <View1 data={data} options={selectOptions} selectChange={handleForceChange}/>
+    return (
+      <div>
+        <Select options={selectOptions} onChange={handleForceChange} isMulti/>
+        <View1 data={data}/>
+      </div>
+    )
   }
 }
 
