@@ -1,6 +1,6 @@
 import os
 from sqlalchemy.orm import Session
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_cors import CORS
 from dashboards.stop_search_dashboard.db.schema import StopSearchRecords, engine
 from sqlalchemy import func
@@ -43,7 +43,11 @@ def create_app(test_config=None):
     def stopsearch():
         with Session(engine) as session:
             x, y = [], []
-            results = session.query(StopSearchRecords.month, func.count(StopSearchRecords.month)).group_by(StopSearchRecords.month).all()
+            if request.args == {}:
+                results = session.execute('SELECT month, COUNT(*) FROM stop_search_records GROUP BY month ORDER BY month DESC LIMIT 12').all()
+            else:
+                forces_to_filter = tuple(request.args['force'].split(','))
+                results = session.execute('SELECT month, COUNT(*) FROM stop_search_records WHERE force_id in :force GROUP BY month ORDER BY month DESC LIMIT 12', {'force': forces_to_filter}).all()
             for i in results:
                 x.append(i[0])
                 y.append(i[1])
