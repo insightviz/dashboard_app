@@ -1,9 +1,9 @@
-import Chart1 from '../Chart1/Chart1';
+import Chart from '../Chart/Chart';
 
 function View1(props) {
   return (
     <div>
-      <Chart1 data={props.data.chart1} title={'Monthly count of stop and searches'}/>
+      <Chart data={props.data.chart1} title={'Monthly count of stop and searches'}/>
     </div>
   );
 }

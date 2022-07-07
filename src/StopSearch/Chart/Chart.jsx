@@ -1,6 +1,6 @@
 import Plot from 'react-plotly.js';
 
-function Chart1(props) {
+function Chart(props) {
   return (
     <Plot
       data={[
@@ -13,4 +13,4 @@ function Chart1(props) {
   );
 }
 
-export default Chart1;
+export default Chart;
