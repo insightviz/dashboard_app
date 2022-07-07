@@ -31,7 +31,7 @@ function SignUpForm () {
             </label>
             <label htmlFor="email">
               Email:
-              <input type="email" value={email} onChange={handleChange} id="email" name="email" placeholder="you@example.com"/>
+              <input type="email" value={email} onChange={handleChange} id="email" name="email" placeholder="you@example.com" required/>
             </label>
             <input type="submit" value="Sign Up" />
         </fieldset>
