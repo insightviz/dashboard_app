@@ -6,7 +6,9 @@ function Chart1(props) {
       data={[
         props.data,
       ]}
-      layout={ {width: 320, height: 240, title: props.title} }
+      layout={ {title: props.title, autosize: true} }
+      useResizeHandler= {true}
+      style= { {width: "100%", height: "100%"} }
     />
   );
 }
