@@ -6,7 +6,7 @@ function Chart1(props) {
       data={[
         props.data,
       ]}
-      layout={ {width: 320, height: 240, title: 'A Fancy Plot'} }
+      layout={ {width: 320, height: 240, title: props.title} }
     />
   );
 }
