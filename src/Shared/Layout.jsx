@@ -4,9 +4,15 @@ import SignUpForm from "./SignUpForm/SignUpForm";
 
 const Layout = () => {
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
+  const onSubmit = (data) => {
+    fetch("http://localhost:5000/signup", {
+     
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+        "Content-Type": "application/json"
+      }
+    })
   }
 
   return (
