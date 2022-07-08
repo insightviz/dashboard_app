@@ -8,20 +8,21 @@ from dashboards.stop_search_dashboard.utils.helper_functions import load_from_js
 from flaskr.model import *
 
 
-
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app)
     app.config['SQLALCHEMY_DATABASE_URI'] = CONNECTION_STRING
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
+    
     with app.app_context():
         db.create_all()
 
     app.config.from_mapping(
         SECRET_KEY='dev'
     )
-    CORS(app)
+    
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -66,5 +67,9 @@ def create_app(test_config=None):
     
     @app.route('/signup', methods=['POST'])
     def signup():
-        return
+        if request.method == 'POST':
+            user = User(**request.json)
+            db.session.add(user)
+            db.session.commit()
+            return 'User added'
     return app
