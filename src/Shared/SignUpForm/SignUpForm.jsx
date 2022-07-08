@@ -3,10 +3,7 @@ import { useForm } from "react-hook-form";
 
 function SignUpForm ({onSubmit}) {
     const { register, handleSubmit, formState: { errors } } = useForm();
-        
-      
-    
-  
+   
     
     return (
       <div>
