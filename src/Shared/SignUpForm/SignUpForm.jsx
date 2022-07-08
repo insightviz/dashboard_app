@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-function SignUpForm ({handleSubmit}) {
-    const { register, watch, formState: { errors } } = useForm();
+function SignUpForm ({onSubmit}) {
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
         
       
     
@@ -10,7 +10,7 @@ function SignUpForm ({handleSubmit}) {
     
     return (
       <div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <legend>Sign up to keep updated about new dashboards!</legend>
             <div className="name-inputs">
               <div className="first-name-input">

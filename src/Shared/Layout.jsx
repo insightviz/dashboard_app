@@ -4,7 +4,7 @@ import SignUpForm from "./SignUpForm/SignUpForm";
 
 const Layout = () => {
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
   }
@@ -13,7 +13,7 @@ const Layout = () => {
     <>
       <Navbar />
       <Outlet />
-      <SignUpForm onSubmit={handleSubmit}/>
+      <SignUpForm onSubmit={onSubmit}/>
     </>
   );
 };
