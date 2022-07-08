@@ -1,8 +1,6 @@
 import os
-from sqlalchemy.orm import Session
 from flask import Flask, render_template, request
 from flask_cors import CORS
-from db.schema import engine
 from db.config import CONNECTION_STRING
 from dashboards.stop_search_dashboard.utils.helper_functions import load_from_json
 from flaskr.model import *
@@ -49,16 +47,15 @@ def create_app(test_config=None):
 
     @app.route('/stopsearch')
     def stopsearch():
-        with Session(engine) as session:
-            x, y = [], []
-            if request.args == {}:
-                results = session.execute('SELECT month, COUNT(*) FROM stop_search_records GROUP BY month ORDER BY month DESC LIMIT 12').all()
-            else:
-                forces_to_filter = tuple(request.args['force'].split(','))
-                results = session.execute('SELECT month, COUNT(*) FROM stop_search_records WHERE force_id in :force GROUP BY month ORDER BY month DESC LIMIT 12', {'force': forces_to_filter}).all()
-            for i in results:
-                x.append(i[0])
-                y.append(i[1])
+        x, y = [], []
+        if request.args == {}:
+            results = db.session.execute('SELECT month, COUNT(*) FROM stop_search_records GROUP BY month ORDER BY month DESC LIMIT 12').all()
+        else:
+            forces_to_filter = tuple(request.args['force'].split(','))
+            results = db.session.execute('SELECT month, COUNT(*) FROM stop_search_records WHERE force_id in :force GROUP BY month ORDER BY month DESC LIMIT 12', {'force': forces_to_filter}).all()
+        for i in results:
+            x.append(i[0])
+            y.append(i[1])
         return {'chart1': {'x': x, 'y': y, 'type': 'bar'}}
 
     @app.route('/stopsearch/forces')
