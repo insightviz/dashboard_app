@@ -2,15 +2,22 @@ import os
 from sqlalchemy.orm import Session
 from flask import Flask, render_template, request
 from flask_cors import CORS
-from dashboards.stop_search_dashboard.db.schema import engine
+from db.schema import engine
+from db.config import CONNECTION_STRING
 from dashboards.stop_search_dashboard.utils.helper_functions import load_from_json
+from flaskr.model import *
 
 
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    print(app.instance_path)
+    app.config['SQLALCHEMY_DATABASE_URI'] = CONNECTION_STRING
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
+
     app.config.from_mapping(
         SECRET_KEY='dev'
     )
