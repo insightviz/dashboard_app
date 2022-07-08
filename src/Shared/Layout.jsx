@@ -12,7 +12,8 @@ const Layout = () => {
     headers: {
         "Content-Type": "application/json"
       }
-    })
+    }).then(response => response.text())
+    .then(string => alert(string))
   }
 
   return (
