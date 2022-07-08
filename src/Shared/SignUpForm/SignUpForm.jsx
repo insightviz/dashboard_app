@@ -1,27 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-function SignUpForm () {
+function SignUpForm ({handleSubmit}) {
     const { register, watch, formState: { errors } } = useForm();
-    const [isSubmitting, setSubmitting] = useState(false);
         
       
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      setSubmitting(true);
-
-      setTimeout(() => {
-        setSubmitting(false);
-      }, 1500)
- 
-    }
+    
   
     
     return (
       <div>
-          {isSubmitting &&
-              <div>Submtting Form...</div>
-            }
           <form onSubmit={handleSubmit}>
             <legend>Sign up to keep updated about new dashboards!</legend>
             <div className="name-inputs">
