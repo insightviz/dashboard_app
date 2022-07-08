@@ -1,23 +1,11 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 function SignUpForm () {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
+    const { register, watch, formState: { errors } } = useForm();
     const [isSubmitting, setSubmitting] = useState(false);
         
-    const handleFirstNameChange = (e) => {
-      setFirstName(e.target.value);
-    }
-    
-    const handleLastNameChange = (e) => {
-      setLastName(e.target.value);
-    }
-
-    const handleEmailChange = (e) => {
-      setEmail(e.target.value);
-    }
-  
+      
     const handleSubmit = (e) => {
       e.preventDefault();
       setSubmitting(true);
@@ -39,17 +27,17 @@ function SignUpForm () {
             <div className="name-inputs">
               <div className="first-name-input">
                 <label htmlFor="firstName">First Name</label>
-                <input type="text" value={firstName} onChange={handleFirstNameChange} id="firstName" name="first_name" placeholder="First Name" required />
+                <input {...register("firstName", { required: true})} type="text" placeholder="First Name" />
               </div>
               <div className="last-name-input">
-                  <label htmlFor="lastName">Last Name</label>
-                  <input type="text" value={lastName} onChange={handleLastNameChange} id="lastName" name="last_name" placeholder="Last Name" required/>
+                <label htmlFor="lastName">Last Name</label>
+                <input {...register("lastName", { required: true})} type="text" placeholder="Last Name" />
               </div>
             </div>
                 
             <div className="email-input">
               <label htmlFor="email">Email</label>
-              <input type="email" value={email} onChange={handleEmailChange} id="email" name="email" placeholder="you@example.com" required/>
+              <input {...register("email", { required: true})} type="email" placeholder="you@example.com" />
             </div>
             
             <div className="submit-button">
