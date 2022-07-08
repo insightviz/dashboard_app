@@ -2,9 +2,9 @@ import os
 from sqlalchemy.orm import Session
 from flask import Flask, render_template, request
 from flask_cors import CORS
-from dashboards.stop_search_dashboard.db.schema import StopSearchRecords, engine
-from sqlalchemy import func
+from dashboards.stop_search_dashboard.db.schema import engine
 from dashboards.stop_search_dashboard.utils.helper_functions import load_from_json
+
 
 
 def create_app(test_config=None):
