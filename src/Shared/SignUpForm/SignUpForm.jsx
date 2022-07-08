@@ -35,22 +35,26 @@ function SignUpForm () {
               <div>Submtting Form...</div>
             }
           <form onSubmit={handleSubmit}>
-            <fieldset>
-                <legend>Sign up to keep updated about new dashboards!</legend>
-                <label htmlFor="firstName">
-                  First Name:
-                  <input type="text" value={firstName} onChange={handleFirstNameChange} id="firstName" name="first_name" placeholder="First Name" required />
-                </label>
-                <label htmlFor="lastName">
-                  Last Name:
+            <legend>Sign up to keep updated about new dashboards!</legend>
+            <div className="name-inputs">
+              <div className="first-name-input">
+                <label htmlFor="firstName">First Name</label>
+                <input type="text" value={firstName} onChange={handleFirstNameChange} id="firstName" name="first_name" placeholder="First Name" required />
+              </div>
+              <div className="last-name-input">
+                  <label htmlFor="lastName">Last Name</label>
                   <input type="text" value={lastName} onChange={handleLastNameChange} id="lastName" name="last_name" placeholder="Last Name" required/>
-                </label>
-                <label htmlFor="email">
-                  Email:
-                  <input type="email" value={email} onChange={handleEmailChange} id="email" name="email" placeholder="you@example.com" required/>
-                </label>
-                <input type="submit" value="Sign Up" />
-            </fieldset>
+              </div>
+            </div>
+                
+            <div className="email-input">
+              <label htmlFor="email">Email</label>
+              <input type="email" value={email} onChange={handleEmailChange} id="email" name="email" placeholder="you@example.com" required/>
+            </div>
+            
+            <div className="submit-button">
+              <input type="submit" value="Sign Up" />
+            </div>
           </form>
       </div>
     );
