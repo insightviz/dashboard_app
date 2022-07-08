@@ -68,5 +68,6 @@ def create_app(test_config=None):
             user = User(**request.json)
             db.session.add(user)
             db.session.commit()
-            return 'User added'
+            response = f"{request.json['firstName']} {request.json['lastName']} registered"
+            return response
     return app
