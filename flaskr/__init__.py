@@ -56,4 +56,8 @@ def create_app(test_config=None):
     @app.route('/stopsearch/forces')
     def forces():
         return load_from_json('dashboards/stop_search_dashboard/data/police_forces.json')
+    
+    @app.route('/signup', methods=['POST'])
+    def signup():
+        return
     return app
