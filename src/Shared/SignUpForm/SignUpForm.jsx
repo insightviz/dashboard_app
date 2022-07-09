@@ -24,7 +24,7 @@ function SignUpForm ({onSubmit}) {
             <div className="email-input">
               <label htmlFor="email">Email</label>
               <input {...register("email", { required: 'Email is required'})} type="email" placeholder="you@example.com" />
-              <p>{errors.email?.message}</p>
+              <p>{errors.lastName?.message}</p>
             </div>
             
             <div className="submit-button">
