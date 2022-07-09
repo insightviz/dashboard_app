@@ -4,6 +4,7 @@ from flask_cors import CORS
 from db.config import CONNECTION_STRING
 from dashboards.stop_search_dashboard.utils.helper_functions import load_from_json
 from flaskr.model import *
+from sqlalchemy.exc import IntegrityError
 
 
 def create_app(test_config=None):
@@ -64,18 +65,25 @@ def create_app(test_config=None):
     
     @app.route('/signup', methods=['POST'])
     def signup():
+        firstName = request.json['firstName']
+        lastName = request.json['lastName']
+        email = request.json['email']
         
         #check if user is already registered
-        inputs = {'firstName': request.json['firstName'], 'lastName': request.json['lastName'], 'email': request.json['email']}
+        inputs = {'firstName': firstName, 'lastName': lastName, 'email': email}
         user_exists = db.session.execute('SELECT * FROM users_registered WHERE "firstName"=:firstName and "lastName"=:lastName and "email"=:email', inputs).all()
         
         if user_exists == []:
-            user = User(**request.json)
-            db.session.add(user)
-            db.session.commit()
-            response = f"{request.json['firstName']} {request.json['lastName']} registered"
-            return response
+            try:
+                user = User(**request.json)
+                db.session.add(user)
+                db.session.commit()
+                response = f"{firstName} {lastName} is now registered"
+                return response
+            except IntegrityError:
+                response = f"Email: {email} has already been registered"
+                return response
         else:
-            response = f"{request.json['firstName']} {request.json['lastName']} is already registered"
+            response = f"{firstName} {lastName} is already registered"
             return response
     return app
