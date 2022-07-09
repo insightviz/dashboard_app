@@ -1,19 +1,25 @@
 import { Link } from "react-router-dom";
 import logo from "./insight_logo.svg"
+import "./Navbar.css"
 
 function Navbar() {
   return (
-    <nav>
+    <nav className="navbar">
       <div className="logo-container">
         <Link to="/">
           <img id="insight" src={logo}/>
         </Link>
       </div>
-      <ul>
-        <li>
-          <Link to="/contact">Contact</Link>
-        </li>
-      </ul>
+      <div className="navbar-links">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 }
