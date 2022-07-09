@@ -64,10 +64,18 @@ def create_app(test_config=None):
     
     @app.route('/signup', methods=['POST'])
     def signup():
-        if request.method == 'POST':
+        
+        #check if user is already registered
+        inputs = {'firstName': request.json['firstName'], 'lastName': request.json['lastName'], 'email': request.json['email']}
+        user_exists = db.session.execute('SELECT * FROM users_registered WHERE "firstName"=:firstName and "lastName"=:lastName and "email"=:email', inputs).all()
+        
+        if user_exists == []:
             user = User(**request.json)
             db.session.add(user)
             db.session.commit()
             response = f"{request.json['firstName']} {request.json['lastName']} registered"
+            return response
+        else:
+            response = f"{request.json['firstName']} {request.json['lastName']} is already registered"
             return response
     return app
