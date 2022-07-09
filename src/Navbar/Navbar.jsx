@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "./insight_logo.svg"
+import logo from "./insight_logo_white.svg"
 import "./Navbar.css"
 
 function Navbar() {
