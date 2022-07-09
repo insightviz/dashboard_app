@@ -7,4 +7,4 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key =True)
     firstName = db.Column(db.String, nullable = False)
     lastName = db.Column(db.String, nullable = True)
-    email = db.Column(db.String, nullable = False)
+    email = db.Column(db.String, nullable = False, unique=True)
