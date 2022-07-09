@@ -1,7 +1,7 @@
 import {Outlet} from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import SignUpForm from "../SignUpForm/SignUpForm";
-
+import "./Layout.css"
 const Layout = () => {
 
   const onSubmit = (data) => {
