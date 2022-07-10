@@ -5,11 +5,11 @@ from sqlalchemy.orm import Session
 
 import os
 import sys
-ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 sys.path = [ROOT_DIR] + sys.path
 
 from db.schema import StopSearchRecords, engine
-from scripts.get_available_datasets import get_available_datasets
+from get_available_datasets import get_available_datasets
 from utils.helper_functions import clean_data
 
 
