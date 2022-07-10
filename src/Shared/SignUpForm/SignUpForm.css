@@ -1,0 +1,20 @@
+input {
+    display: block
+}
+
+.name-inputs, .email-input, .submit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.name-inputs {
+    gap: 20px
+}
+
+.form-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+}

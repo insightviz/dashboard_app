@@ -16,14 +16,12 @@ const DashboardController = () => {
       url = 'http://localhost:5000/stopsearch'
     } else {
       let queryString = force.map(({ value, label}) => ( [value] )).toString()
-      console.log(queryString)
       url = `http://localhost:5000/stopsearch?force=${queryString}`
     }
     
     fetch(url)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       setData(data)
       setDataLoading(false)
     });
@@ -40,7 +38,6 @@ const DashboardController = () => {
     .then(response => response.json())
     .then(data => data.map(({ id, name}) => ({ 'value': id, 'label': name })))
     .then(data => {
-      console.log(data)
       setSelectOptions(data)
       setForceLoading(false)
     })
