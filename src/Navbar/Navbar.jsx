@@ -15,7 +15,7 @@ function Navbar() {
       <div className="navbar-container">
         <div >
           <Link to="/" className="logo-container">
-            <img id="insight" src={logo}/>
+            <img id="insight" src={logo} alt="Logo"/>
           </Link>
         </div>
         <div className="menu-icon" onClick={handleClick}>
