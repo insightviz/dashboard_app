@@ -1,14 +1,9 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css"
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useState } from 'react';
 
-function Navbar() {
-  const [click, setClick] = useState(false);
 
-  const handleClick = () => setClick(!click)
-
-  const closeMobileMenu = () => setClick(false)
+function Navbar({ click, handleClick, closeMobileMenu }) {
   return (
     <nav className="navbar">
       <div className="navbar-container">
