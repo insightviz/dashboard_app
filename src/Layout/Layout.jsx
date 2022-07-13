@@ -1,6 +1,7 @@
 import {Outlet} from "react-router-dom";
-import Navbar from "./Navbar";
-import SignUpForm from "./SignUpForm/SignUpForm";
+import NavbarController from "../Navbar/NavbarController";
+import SignUpForm from "../SignUpForm/SignUpForm";
+import "./Layout.css"
 
 const Layout = () => {
 
@@ -18,7 +19,7 @@ const Layout = () => {
 
   return (
     <>
-      <Navbar />
+      <NavbarController />
       <Outlet />
       <SignUpForm onSubmit={onSubmit}/>
     </>
