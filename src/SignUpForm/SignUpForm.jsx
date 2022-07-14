@@ -9,7 +9,7 @@ function SignUpForm ({onSubmit}) {
       <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-title">
-                <h3>Sign up to keep updated about new dashboards!</h3>
+                <h3>Subscribe for updates on new dashboards!</h3>
             </div>
             <div className="name-inputs">
               <div className="first-name-input">
@@ -33,7 +33,7 @@ function SignUpForm ({onSubmit}) {
             </div>
             
             <div className="submit-button">
-              <input type="submit" value="Sign Up" />
+              <input type="submit" value="Subscribe" />
             </div>
           </form>
       </div>
