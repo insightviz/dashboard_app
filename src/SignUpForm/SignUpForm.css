@@ -1,16 +1,22 @@
 input {
-    display: block
+    display: block;
 }
 
-.name-inputs, .email-input, .submit-button {
+.inputs input {
+    margin-top: .5rem
+}
+
+.inputs {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    gap: 25px 
 }
 
-.name-inputs {
-    gap: 20px
+.submit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-title {
