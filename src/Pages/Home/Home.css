@@ -7,7 +7,7 @@ h1 span {
 .home {
     display: grid;
     background-color: lightblue;
-    grid-template-columns: 1fr;
+    grid-template-columns: max(570px, 100%);
     row-gap: 20px;
     grid-template-areas: 
     "title"
@@ -109,7 +109,7 @@ h1 .three {
     } 
 }
 
-.stop-search  {
+.stop-search {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../Asset/stop_search.jpg);
     height: 500px;
     background-position: center;
@@ -121,8 +121,13 @@ h1 .three {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .dashboard-content   {
     color: white;
+}
+
+.text-card {
+    background-color: #333;
 }
