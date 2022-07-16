@@ -7,7 +7,6 @@ h1 span {
 .home {
     display: grid;
     background-color: lightblue;
-    padding: .5em; 
     grid-template-columns: 1fr;
     row-gap: 20px;
     grid-template-areas: 
@@ -26,6 +25,17 @@ h1 span {
 
 .dashboards {
     grid-area: dashboards;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
 }
 
 @font-face {
@@ -97,4 +107,22 @@ h1 .three {
     to {
         color: black;
     } 
+}
+
+.stop-search  {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../Asset/stop_search.jpg);
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    width: calc(100vw - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-content   {
+    color: white;
 }

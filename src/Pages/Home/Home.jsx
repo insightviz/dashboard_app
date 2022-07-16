@@ -13,9 +13,13 @@ function Home() {
           </div>
           <div className="dashboards">
             <h2>Lastest Dashboards</h2>
-            <ul>
-              <li><Link to="/stopsearch">Stop and search</Link></li>
-            </ul>
+            <div className="dashboard-content">
+              <div className="stop-search">
+                <h3>Stop and search</h3>
+                <p>Insights from stop and search data released by 'police.uk'.</p>
+                <Link to="/stopsearch">Discover insights here</Link>
+              </div>
+            </div>
           </div>
         </div>
     );
