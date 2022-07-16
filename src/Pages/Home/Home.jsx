@@ -6,9 +6,9 @@ function Home() {
         <div className="home">
           <div className="title">
             <h1>
-              <span>INSIGHT</span>
-              <span>IN A DATA</span>
-              <span>FILLED WORLD</span>
+              <span className="one">INSIGHT</span>
+              <span className="two">IN A DATA</span>
+              <span className="three">FILLED WORLD</span>
             </h1>
           </div>
           <div className="dashboards">

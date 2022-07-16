@@ -38,3 +38,63 @@ h1 {
     flex-direction: column;
     align-items: center;
 }
+
+h1 .one {
+    animation-duration: 6s;
+    animation-name: change-colour;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+}
+
+@keyframes change-colour {
+    from { 
+        color: black;
+    }
+
+    40% {
+        color: #f9a31a;
+    }
+
+    50% {
+        color: black;
+    }
+
+    to {
+        color: black;
+    }  
+}
+
+h1 .two {
+    animation-duration: 6s;
+    animation-name: change-colour-two;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+    animation-delay: 2s;
+}
+
+
+h1 .three {
+    animation-duration: 6s;
+    animation-name: change-colour-two;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+    animation-delay: 4s;
+}
+
+@keyframes change-colour-two {
+    from { 
+        color: black;
+    }
+
+    40% {
+        color: #292974;
+    }
+
+    50% {
+        color: black;
+    }
+
+    to {
+        color: black;
+    } 
+}
