@@ -7,7 +7,7 @@ h1 span {
 .home {
     display: grid;
     background-color: lightblue;
-    grid-template-columns: max(570px, 100%);
+    grid-template-columns: 1fr;
     row-gap: 20px;
     grid-template-areas: 
     "title"
@@ -130,4 +130,19 @@ h1 .three {
 
 .text-card {
     background-color: #333;
+    padding: 1rem;
+    width: clamp(200px, 50%, 300px);
+}
+
+.text-card p {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.text-card a:visited {
+    color: white;
+}
+
+.text-card a:hover {
+    color: #f9a31a;
 }
