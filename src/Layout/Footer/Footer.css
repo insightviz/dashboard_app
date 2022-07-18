@@ -5,3 +5,7 @@
     flex-direction: column;
     align-items: center;
 }
+
+svg.footer {
+    width: 100px;
+}
