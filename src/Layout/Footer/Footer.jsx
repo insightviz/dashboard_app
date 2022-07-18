@@ -2,7 +2,9 @@ import SignUpController from "../../Components/SignUpForm/SignUpController";
 
 const footer = () => {
     return (
-        <SignUpController/>
+        <div className="footer-section">
+          <SignUpController/>
+        </div>
     )
 }
 
