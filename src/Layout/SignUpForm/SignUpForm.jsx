@@ -16,10 +16,6 @@ function SignUpForm ({onSubmit}) {
                 <label htmlFor="firstName">Your first name</label>
                 <input {...register("firstName", { required: 'First name is required', pattern: {value: /[A-Za-z]+/, message: 'Invalid first name'}})} type="text" placeholder="First Name" />
               </div>
-              <div className="last-name-input">
-                <label htmlFor="lastName">Your last name</label>
-                <input {...register("lastName", { required: 'Last name is required', pattern: {value: /[A-Za-z]+/, message: 'Invalid last name'}})} type="text" placeholder="Last Name" />
-              </div>
               <div className="email-input">
                 <div>
                   <label htmlFor="email">Your email address</label>
