@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import './SignUpForm.css'
 
 function SignUpForm ({onSubmit}) {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     return (
       <section className="signup-form">
         <form onSubmit={handleSubmit(onSubmit)}>
