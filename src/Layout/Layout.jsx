@@ -1,6 +1,6 @@
 import {Outlet} from "react-router-dom";
 import NavbarController from "./Navbar/NavbarController";
-import SignUpController from "../Components/SignUpForm/SignUpController";
+import Footer from "./Footer/Footer";
 
 import "./Layout.css"
 
@@ -9,7 +9,7 @@ const Layout = () => {
     <>
       <NavbarController/>
       <Outlet />
-      <SignUpController/>
+      <Footer/>
     </>
   );
 };
