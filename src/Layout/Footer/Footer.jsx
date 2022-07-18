@@ -1,4 +1,5 @@
 import SignUpController from "../../Components/SignUpForm/SignUpController";
+import "./Footer.css"
 
 const footer = () => {
     return (
