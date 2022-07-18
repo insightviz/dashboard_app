@@ -15,18 +15,15 @@ function SignUpForm ({onSubmit}) {
               <div className="first-name-input">
                 <label htmlFor="firstName">Your first name</label>
                 <input {...register("firstName", { required: 'First name is required', pattern: {value: /[A-Za-z]+/, message: 'Invalid first name'}})} type="text" placeholder="First Name" />
-                <p>{errors.firstName?.message}</p>
               </div>
               <div className="last-name-input">
                 <label htmlFor="lastName">Your last name</label>
                 <input {...register("lastName", { required: 'Last name is required', pattern: {value: /[A-Za-z]+/, message: 'Invalid last name'}})} type="text" placeholder="Last Name" />
-                <p>{errors.lastName?.message}</p>
               </div>
               <div className="email-input">
                 <div>
                   <label htmlFor="email">Your email address</label>
                   <input {...register("email", { required: 'Email is required'})} type="email" placeholder="you@example.com" />
-                  <p>{errors.email?.message}</p>
                 </div>
               </div>
             </div>
