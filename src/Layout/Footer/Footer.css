@@ -8,4 +8,20 @@
 
 svg.footer {
     width: 100px;
+    height: 45px;
+}
+
+.social-icon {
+    background-color: #fff;
+}
+
+.social-media {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.footer-section section {
+    border-top: 1px solid #fff;
+    width: 100%;
 }
