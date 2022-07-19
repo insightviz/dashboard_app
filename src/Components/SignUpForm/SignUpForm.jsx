@@ -11,13 +11,11 @@ function SignUpForm ({onSubmit}) {
           </div>
           <div className="inputs">
             <div className="first-name-input">
-              <label htmlFor="firstName">Your first name</label>
-              <input {...register("firstName", { required: 'First name is required', pattern: {value: /[A-Za-z]+/, message: 'Invalid first name'}})} type="text" placeholder="First Name" />
+              <input {...register("firstName")} type="text" placeholder="First Name" />
             </div>
             <div className="email-input">
               <div>
-                <label htmlFor="email">Your email address</label>
-                <input {...register("email", { required: 'Email is required'})} type="email" placeholder="you@example.com" />
+                <input {...register("email", { required: 'Email is required'})} type="email" placeholder="Email Address" />
               </div>
             </div>
           </div>
