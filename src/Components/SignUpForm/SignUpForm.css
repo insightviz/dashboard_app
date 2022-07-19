@@ -2,10 +2,6 @@ input {
     display: block;
 }
 
-.inputs input {
-    margin-top: .5rem
-}
-
 .inputs {
     display: flex;
     flex-direction: column;
