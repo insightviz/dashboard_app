@@ -49,6 +49,7 @@ input {
     align-items: center;
     gap: .5rem;
     width: 100%;
+    max-width: 30rem;
     border: 1px solid #fff;
     border-radius: .5rem;
 }
@@ -63,4 +64,13 @@ input {
 .first-name-input:focus, .email-input:focus {
     outline: none !important;
     box-shadow: 0 0 1rem #7dd3fc;
+}
+
+@media (min-width: 830px) {
+    .inputs {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem; 
+    }
 }
