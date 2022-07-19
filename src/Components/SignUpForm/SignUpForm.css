@@ -40,6 +40,7 @@ input {
     border: 0;
     border-radius: .5rem;
     font-size: 1.6rem;
+    padding-left: 3rem;
 }
 
 .first-name-container, .email-container {
@@ -55,4 +56,5 @@ input {
     display: flex;
     align-items: center;
     margin-left: .5rem;
+    position: absolute;
 }
