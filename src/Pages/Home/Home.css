@@ -149,3 +149,11 @@ h1 .three {
 .text-card a:hover {
     color: #f9a31a;
 }
+
+.dashboard-content h3 {
+    font-size: 1.8rem;
+}
+
+.dashboard-content p, .dashboard-content a {
+    font-size: 1.6rem;
+}
