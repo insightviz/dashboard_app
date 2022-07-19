@@ -35,6 +35,11 @@ h1 span {
     align-items: center;
 }
 
+.dashboards h2 {
+    font-size: 2rem;
+}
+
+
 @font-face {
     font-family: sergoe-black;
     src: url(../../Asset/seguibl.ttf);
@@ -119,6 +124,7 @@ h1 .three {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin: -2rem;
 }
 
 .dashboard-content   {
