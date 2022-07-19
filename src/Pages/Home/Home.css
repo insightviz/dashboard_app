@@ -113,7 +113,7 @@ h1 .three {
 
 .stop-search {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../Asset/stop_search.jpg);
-    height: 500px;
+    height: 60vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
