@@ -41,6 +41,7 @@ input {
     border-radius: .5rem;
     font-size: 1.6rem;
     padding-left: 3rem;
+    color: #fff;
 }
 
 .first-name-container, .email-container {
