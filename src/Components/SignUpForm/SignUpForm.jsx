@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import './SignUpForm.css'
 import { MdAlternateEmail, MdPersonOutline } from "react-icons/md";
+import { Button } from '@chakra-ui/react'
 
 function SignUpForm ({onSubmit}) {
     const { register, handleSubmit } = useForm();
@@ -24,7 +25,7 @@ function SignUpForm ({onSubmit}) {
               <input className="email-input" {...register("email", { required: 'Email is required'})} type="email" placeholder="Email Address" />
             </div>
             <div className="submit-button">
-              <input type="submit" value="Subscribe" />
+              <Button colorScheme='whiteAlpha' size='lg' variant='solid' type="submit">Subscribe</Button>
             </div>
           </div>
         </form>
