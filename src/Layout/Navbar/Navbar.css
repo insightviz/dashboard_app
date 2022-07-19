@@ -85,7 +85,7 @@
     color: #f9a31a;
 }*/
 
-.logo-container:hover .bulb {
+.logo-container:hover .bulb, .footer-logo:hover .bulb {
     animation-duration: .15s;
     animation-name: flicker;
     animation-iteration-count: 3;
@@ -103,6 +103,13 @@
     to {
         fill: #f9a31a;
     } 
+}
+
+
+.logo-container:hover .name, .footer-logo:hover .name {
+    transition-duration: .5s;
+    fill: #6464d9;
+    transition-timing-function: ease-in;
 }
 
 @media screen and (max-width: 830px) {
