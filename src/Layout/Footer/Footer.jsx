@@ -33,7 +33,7 @@ const footer = () => {
               <a href="https://github.com/insightviz" target="_blank" rel="noreferrer" aria-label="Github" className="social-icon-github">
                 <AiFillGithub color="white" size="3rem"/>
               </a>
-              <a href="https://www.linkedin.com/company/insight-viz/" target="_blank"  rel="noreferrer" aria-label="linkedin" lassName="social-icon-linkedin">
+              <a href="https://www.linkedin.com/company/insight-viz/" target="_blank"  rel="noreferrer" aria-label="linkedin" className="social-icon-linkedin">
                 <AiFillLinkedin color="white" size="3rem"/>
               </a>
             </div>
