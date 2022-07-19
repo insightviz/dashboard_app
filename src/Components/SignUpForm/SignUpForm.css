@@ -8,9 +8,10 @@ input {
 
 .inputs {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 25px 
+    gap: 1.5rem; 
 }
 
 .submit-button {
@@ -23,4 +24,8 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;   
+}
+
+.signup-form {
+    padding: 2rem;
 }
