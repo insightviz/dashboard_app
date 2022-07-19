@@ -59,3 +59,8 @@ input {
     margin-left: .5rem;
     position: absolute;
 }
+
+.first-name-input:focus, .email-input:focus {
+    outline: none !important;
+    box-shadow: 0 0 1rem #7dd3fc;
+}
