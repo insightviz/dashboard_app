@@ -18,8 +18,7 @@ function SignUpForm ({onSubmit}) {
                 <input {...register("email", { required: 'Email is required'})} type="email" placeholder="Email Address" />
               </div>
             </div>
-          </div>
-                         
+          </div>           
           <div className="submit-button">
             <input type="submit" value="Subscribe" />
           </div>

@@ -23,9 +23,16 @@ input {
 .form-title {
     display: flex;
     justify-content: center;
-    align-items: center;   
+    align-items: center;
+    font-size: 1.6rem;
+    text-align: center;  
 }
 
 .signup-form {
     padding: 2rem;
+}
+.signup-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
