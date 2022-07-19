@@ -7,7 +7,7 @@
 }
 
 svg.footer {
-    width: 100px;
+    width: 12rem;
     height: auto;
 }
 
@@ -17,8 +17,14 @@ svg.footer {
 
 .social-media {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.5rem;
 }
 
 .footer-section section {
