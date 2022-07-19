@@ -77,12 +77,18 @@ def create_app(test_config=None):
                 user = User(**request.json)
                 db.session.add(user)
                 db.session.commit()
-                response = f"{firstName} is now registered"
+                if firstName == '':
+                    response = f"{email} is now registered"
+                else:
+                    response = f"{firstName} is now registered"
                 return response
             except IntegrityError:
                 response = f"Email: {email} has already been registered"
                 return response
         else:
-            response = f"{firstName} is already registered"
+            if firstName == '':
+                response = f"{email} is already registered"
+            else:
+                response = f"{firstName} is already registered"
             return response
     return app
