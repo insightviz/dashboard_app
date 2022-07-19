@@ -66,24 +66,23 @@ def create_app(test_config=None):
     @app.route('/signup', methods=['POST'])
     def signup():
         firstName = request.json['firstName']
-        lastName = request.json['lastName']
         email = request.json['email']
         
         #check if user is already registered
-        inputs = {'firstName': firstName, 'lastName': lastName, 'email': email}
-        user_exists = db.session.execute('SELECT * FROM users_registered WHERE "firstName"=:firstName and "lastName"=:lastName and "email"=:email', inputs).all()
+        inputs = {'firstName': firstName, 'email': email}
+        user_exists = db.session.execute('SELECT * FROM users_registered WHERE "firstName"=:firstName and "email"=:email', inputs).all()
         
         if user_exists == []:
             try:
                 user = User(**request.json)
                 db.session.add(user)
                 db.session.commit()
-                response = f"{firstName} {lastName} is now registered"
+                response = f"{firstName} is now registered"
                 return response
             except IntegrityError:
                 response = f"Email: {email} has already been registered"
                 return response
         else:
-            response = f"{firstName} {lastName} is already registered"
+            response = f"{firstName} is already registered"
             return response
     return app
