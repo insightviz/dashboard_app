@@ -19,7 +19,7 @@ svg.footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    gap: 1.5rem;
 }
 
 .social-icons {
@@ -30,4 +30,12 @@ svg.footer {
 .footer-section section {
     border-top: 1px solid #fff;
     width: 100%;
+}
+
+.social-media {
+    padding: 2rem;
+}
+
+.website-rights {
+    font-size: 1rem;
 }

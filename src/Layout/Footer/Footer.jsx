@@ -37,6 +37,7 @@ const footer = () => {
                 <AiFillLinkedin color="white" size="3rem"/>
               </a>
             </div>
+            <small className="website-rights">Copyright 2022 Insight Viz LTD. All rights reserved.</small>
           </section>
         </div>
     )
