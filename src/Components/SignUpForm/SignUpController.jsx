@@ -1,5 +1,5 @@
 import SignUpForm from "../SignUpForm/SignUpForm";
-import { useToast, Text  } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 
 const SignUpController = () => {
   const toast = useToast()
