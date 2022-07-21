@@ -16,16 +16,24 @@ function SignUpForm ({onSubmit}) {
               <div className="first-name-icon">
                 <MdPersonOutline size="2rem"/>
               </div>
-              <input className="first-name-input" {...register("firstName")} type="text" placeholder="First Name" />
+              <input className="first-name-input" 
+                {...register("firstName")} type="text" 
+                placeholder="First Name" />
             </div>
             <div className="email-container">
               <div className="email-icon">
                 <MdAlternateEmail size="2rem"/>
               </div>
-              <input className="email-input" {...register("email", { required: 'Email is required'})} type="email" placeholder="Email Address" />
+              <input className="email-input" 
+                {...register("email", { required: 'Email is required'})} 
+                type="email" placeholder="Email Address" />
             </div>
             <div className="submit-button">
-              <Button colorScheme='whiteAlpha' size='lg' variant='solid' type="submit">Subscribe</Button>
+              <Button
+                colorScheme='whiteAlpha' size='lg' 
+                variant='solid' type="submit">
+                  Subscribe
+              </Button>
             </div>
           </div>
         </form>
