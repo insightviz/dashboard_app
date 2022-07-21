@@ -88,10 +88,9 @@
 .logo-container:hover .bulb, .footer-logo:hover .bulb {
     animation-duration: .15s;
     animation-name: flicker;
-    animation-iteration-count: 3;
+    animation-iteration-count: 5;
     animation-direction: alternate;
     animation-timing-function: ease-in;
-    animation-delay: .15s;
     animation-fill-mode: forwards;
 }
 
