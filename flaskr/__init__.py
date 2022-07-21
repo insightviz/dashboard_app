@@ -78,17 +78,17 @@ def create_app(test_config=None):
                 db.session.add(user)
                 db.session.commit()
                 if firstName == '':
-                    response = f"{email} is now registered"
+                    response = {'status': 'success', 'title': 'Subcribed', 'message': f"{email} is now subscribed"}
                 else:
-                    response = f"{firstName} is now registered"
+                    response = {'status': 'success', 'title': 'Subcribed', 'message': f"{firstName} is now subscribed"}
                 return response
             except IntegrityError:
-                response = f"Email: {email} has already been registered"
+                response = {'status': 'warning', 'title': 'Not subscribed', 'message': f"{email} is already subscribed"}
                 return response
         else:
             if firstName == '':
-                response = f"{email} is already registered"
+                response = {'status': 'warning', 'title': 'Not subscribed', 'message': f"{email} is already subscribed"}
             else:
-                response = f"{firstName} is already registered"
+                response = {'status': 'warning', 'title': 'Not subscribed', 'message': f"{firstName} is already subscribed"}
             return response
     return app
