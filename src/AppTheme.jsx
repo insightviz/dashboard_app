@@ -4,18 +4,27 @@ import App from './App'
 function AppTheme() {
   // This holds the information about dark mode/light mode
   const getCurrentTheme = () => window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  const [mode, setMode] = useState(getCurrentTheme());  
+  const [mode, setMode] = useState(getCurrentTheme());
+
+  const handleThemeChange = (e) => {
+    if (e.value==='system') {
+      setMode(getCurrentTheme())
+    } else {
+      setMode(e.value)
+    }
+  }
 
   useEffect(() => {
     window.matchMedia('(prefers-color-scheme: dark)')
     .addEventListener('change', event => {
         const colorScheme = event.matches ? "dark" : "light";
         setMode(colorScheme);// "dark" or "light"
+
       });
   }, []);
 
   return (
-    <App mode={mode}/>
+    <App mode={mode} onChange={handleThemeChange}/>
   );
 }
 

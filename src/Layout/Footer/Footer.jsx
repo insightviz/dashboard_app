@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AiFillLinkedin, AiFillGithub, AiOutlineInstagram } from "react-icons/ai";
 import Select from 'react-select'
 
-const footer = () => {
+const footer = ({onChange}) => {
   const selectOptions = [
     { 'value': 'system', 'label': 'System' },
     { 'value': 'light', 'label': 'Light' },
@@ -50,6 +50,7 @@ const footer = () => {
                 defaultValue={selectOptions[0]}
                 menuPlacement={'top'}
                 aria-label={'dark or light theme for app'}
+                onChange={onChange}
               />
             </div>
           </div>

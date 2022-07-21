@@ -4,12 +4,12 @@ import Footer from "./Footer/Footer";
 
 import "./Layout.css"
 
-const Layout = () => {
+const Layout = ({mode, onChange}) => {
   return (
     <>
       <NavbarController/>
       <Outlet />
-      <Footer/>
+      <Footer mode={mode} onChange={onChange}/>
     </>
   );
 };
