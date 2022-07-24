@@ -39,6 +39,16 @@ function AppTheme() {
     };
   }, [mode]);
 
+  useEffect(() => {
+    // Clear previous classNames on the body and add the new one
+    document.body.classList.remove("light");
+    document.body.classList.remove("dark");
+    document.body.classList.add(theme);
+  
+    // change <meta name="color-scheme"> for native inputs
+    (document.getElementById("colorScheme")).content = theme;
+  }, [theme]);
+
   return (
     <App mode={mode} onChange={handleModeChange}/>
   );
