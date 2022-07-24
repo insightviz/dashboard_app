@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext } from 'react'
 import App from './App'
+
+const localStorageKey = "mode";
 
 function AppTheme() {
   // This holds the information about dark mode/light mode
-  const initialMode = () => { return "system" }
+  const initialMode = () => { return (localStorage.getItem(localStorageKey)) || "system" }
   const [mode, setMode] = useState(initialMode);
   const [theme, setTheme] = useState(() => {
     if (mode !== "system") {
@@ -17,6 +19,10 @@ function AppTheme() {
   const handleModeChange = (e) => {
     setMode(e.value)    
   }
+
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, mode);
+  }, [mode]);
 
   useEffect(() => {
     if (mode !== "system") {
