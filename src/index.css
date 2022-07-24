@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: Sergoe;
-    src: url(../Asset/Segoe-UI.ttf);
+    src: url(./Asset/Segoe-UI.ttf);
 }
 
 :root {
