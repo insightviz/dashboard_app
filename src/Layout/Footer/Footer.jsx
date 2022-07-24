@@ -3,13 +3,16 @@ import "./Footer.css"
 import { Link } from "react-router-dom";
 import { AiFillLinkedin, AiFillGithub, AiOutlineInstagram } from "react-icons/ai";
 import Select from 'react-select'
+import { ThemeContext } from '../../AppTheme';
+import { useContext } from 'react';
 
-const footer = ({onChange}) => {
+const Footer = () => {
   const selectOptions = [
     { 'value': 'system', 'label': 'System' },
     { 'value': 'light', 'label': 'Light' },
     { 'value': 'dark', 'label': 'Dark' },
   ]
+  const { theme, mode, setMode } = useContext(ThemeContext);
     return (
       <div className="footer-section">
         <SignUpController/>
@@ -50,7 +53,7 @@ const footer = ({onChange}) => {
                 defaultValue={selectOptions[0]}
                 menuPlacement={'top'}
                 aria-label={'dark or light theme for app'}
-                onChange={onChange}
+                onChange={e => {setMode(e.value)}}
               />
             </div>
           </div>
@@ -60,4 +63,4 @@ const footer = ({onChange}) => {
     )
 }
 
-export default footer;
+export default Footer;

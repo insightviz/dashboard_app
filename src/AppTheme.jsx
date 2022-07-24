@@ -1,9 +1,14 @@
 import { useState, useEffect, createContext } from 'react'
-import App from './App'
 
 const localStorageKey = "mode";
 
-function AppTheme() {
+export const ThemeContext = createContext({
+  mode: "system",
+  theme: "light",
+  setMode: () => {}
+});
+
+const ThemeProvider = ({ children }) => {
   // This holds the information about dark mode/light mode
   const initialMode = () => { return (localStorage.getItem(localStorageKey)) || "system" }
   const [mode, setMode] = useState(initialMode);
@@ -16,10 +21,6 @@ function AppTheme() {
     return isSystemInDarkMode ? "dark" : "light";
   });
     
-  const handleModeChange = (e) => {
-    setMode(e.value)    
-  }
-
   useEffect(() => {
     localStorage.setItem(localStorageKey, mode);
   }, [mode]);
@@ -56,8 +57,10 @@ function AppTheme() {
   }, [theme]);
 
   return (
-    <App mode={mode} onChange={handleModeChange}/>
+    <ThemeContext.Provider value={{ theme, mode, setMode }}>
+      {children}
+    </ThemeContext.Provider>
   );
 }
 
-export default AppTheme;
+export default ThemeProvider;
