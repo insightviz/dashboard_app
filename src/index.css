@@ -18,13 +18,24 @@
 }
 
 body.dark {
-    --bg-colour: #121212;
+    --bg-colour: #000;
+    --bg-colour-2: #1c1c1e;
     --text-colour: #fff;
+    --brand-orange: #f9a31a;
+    --brand-blue: #292974;
+    --blue-200: #A3ABD6;
+    --accent-1: #888;
+    --accent-2: #333;
     background-color: var(--bg-colour);
 }
 
 body.light {
     --bg-colour: #fff;
-    --text-colour: black;
+    --bg-colour-2: #f2f2f6;
+    --text-colour: #000;
+    --brand-orange: #f9a31a;
+    --brand-blue: #292974;
+    --accent-1: #888;
+    --accent-2: #333;
     background-color: var(--bg-colour);
 }

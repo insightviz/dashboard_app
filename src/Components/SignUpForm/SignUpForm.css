@@ -35,13 +35,13 @@ input {
 
 .first-name-input, .email-input {
     width: 100%;
-    background-color: #333;
+    background-color: var(--bg-colour-2);
     line-height: 2.5;
     border: 0;
     border-radius: .5rem;
     font-size: 1.6rem;
     padding-left: 3rem;
-    color: #fff;
+    color: var(--text-colour);
 }
 
 .first-name-container, .email-container {
@@ -50,7 +50,7 @@ input {
     gap: .5rem;
     width: 100%;
     max-width: 30rem;
-    border: 1px solid #fff;
+    border: 1px solid var(--accent-1);
     border-radius: .5rem;
 }
 
@@ -64,6 +64,10 @@ input {
 .first-name-input:focus, .email-input:focus {
     outline: none !important;
     box-shadow: 0 0 1rem #7dd3fc;
+}
+
+.first-name-input::placeholder, .email-input::placeholder {
+    color: var(--accent-1);
 }
 
 @media (min-width: 830px) {

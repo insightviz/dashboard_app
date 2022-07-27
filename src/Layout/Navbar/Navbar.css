@@ -3,13 +3,13 @@
     align-items: center;
     justify-content: center;
     background-color: var(--bg-colour);
-    opacity: .9;
-    color: white;
+    opacity: .98;
     font-size: 1.5rem;
     height: 100px;
     position: -webkit-sticky;
 	position: sticky;
 	top: 0;
+    border-bottom: 1px solid var(--accent-2);
 }
 
 .navbar-container {
@@ -21,7 +21,6 @@
 }
 
 .logo-container {
-    color: #fff;
     justify-self: start;
     margin-left: 20px;
     cursor: pointer;
@@ -29,6 +28,10 @@
     font-size: 2rem;
     display: flex;
     align-items: center;
+}
+
+.logo-container path {
+    fill: var(--text-colour);
 }
 
 .nav-menu {
@@ -47,7 +50,7 @@
 }
 
 .nav-links {
-    color: #fff;
+    color: var(--text-colour);
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -56,7 +59,7 @@
 }
 
 .nav-links:hover {
-    border-bottom: 4px solid #fff;
+    border-bottom: 4px solid var(--text-colour);
     transition: all 0.2s ease-out;
 }
 
@@ -100,19 +103,23 @@
 
 @keyframes flicker {
     from { 
-        fill: #fff;
+        fill: var(--bg-colour);
     }
 
     to {
-        fill: #f9a31a;
+        fill: var(--brand-orange);
     } 
 }
 
 
 .logo-container:hover .name, .footer-logo:hover .name {
     transition-duration: .5s;
-    fill: #6464d9;
+    fill: var(--brand-blue);
     transition-timing-function: ease-in;
+}
+
+body.dark .logo-container:hover .name, body.dark .footer-logo:hover .name {
+    fill: var(--blue-200)
 }
 
 @media screen and (max-width: 830px) {
@@ -130,7 +137,7 @@
     }
   
     .nav-menu.active {
-      background: #333;
+      background: var(--bg-colour);
       left: 0;
       opacity: .95;
       transition: all 0.5s ease;
@@ -145,8 +152,8 @@
     }
   
     .nav-links:hover {
-      background-color: #fff;
-      color: #242424;
+      background-color: var(--text-colour);
+      color: var(--bg-colour);
       border-radius: 0;
     }
   

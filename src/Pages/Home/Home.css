@@ -37,6 +37,7 @@ h1 span {
 
 .dashboards h2 {
     font-size: 2rem;
+    color: var(--text-colour);
 }
 
 
@@ -60,19 +61,19 @@ h1 .one {
 
 @keyframes change-colour {
     from { 
-        color: black;
+        color: var(--text-colour);
     }
 
     40% {
-        color: #f9a31a;
+        color: var(--brand-orange);
     }
 
     50% {
-        color: black;
+        color: var(--text-colour);
     }
 
     to {
-        color: black;
+        color: var(--text-colour);
     }  
 }
 
@@ -95,19 +96,19 @@ h1 .three {
 
 @keyframes change-colour-two {
     from { 
-        color: black;
+        color: var(--text-colour);
     }
 
     40% {
-        color: #292974;
+        color: var(--brand-blue);
     }
 
     50% {
-        color: black;
+        color: var(--text-colour);
     }
 
     to {
-        color: black;
+        color: var(--text-colour);
     } 
 }
 
@@ -129,11 +130,11 @@ h1 .three {
 }
 
 .dashboard-content   {
-    color: white;
+    color: var(--text-colour);
 }
 
 .text-card {
-    background-color: #333;
+    background-color: var(--bg-colour-2);
     padding: 1rem;
     width: clamp(200px, 50%, 300px);
 }
@@ -144,11 +145,11 @@ h1 .three {
 }
 
 .text-card a:visited {
-    color: white;
+    color: var(--text-colour);
 }
 
 .text-card a:hover {
-    color: #f9a31a;
+    color: var(--brand-orange);
 }
 
 .dashboard-content h3 {

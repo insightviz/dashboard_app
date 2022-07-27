@@ -26,7 +26,7 @@ function Navbar({ click, handleClick, closeMobileMenu }) {
           </Link>
         </div>
         <div className="menu-icon" onClick={handleClick}>
-          {click ? <FaTimes/> : <FaBars/>}
+          {click ? <FaTimes size="4rem"/> : <FaBars size="4rem"/>}
         </div>
         <div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
