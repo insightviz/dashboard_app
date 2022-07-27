@@ -2,6 +2,7 @@ h1 span {
     display: block;
     font-family: sergoe-black;
     font-size: 3.8rem;
+    color: var(--text-colour);
 }
 
 .home {
@@ -13,8 +14,6 @@ h1 span {
     "title"
     "dashboards";
 }
-
-
 
 .title {
     grid-area: title;
@@ -65,7 +64,8 @@ h1 .one {
     }
 
     40% {
-        color: var(--brand-orange);
+        color: var(--brand-orange);        
+        text-shadow: 0 0 5rem var(--brand-orange);
     }
 
     50% {
@@ -100,7 +100,8 @@ h1 .three {
     }
 
     40% {
-        color: var(--brand-blue);
+        color: var(--brand-blue);            
+        text-shadow: 0 0 2rem var(--brand-blue);
     }
 
     50% {
