@@ -16,3 +16,15 @@
     --font-size--default: 1.6rem; /* 16px */
     --font-size--large: 2.4rem; /* 24px */
 }
+
+body.dark {
+    --bg-colour: #121212;
+    --text-colour: #fff;
+    background-color: var(--bg-colour);
+}
+
+body.light {
+    --bg-colour: #fff;
+    --text-colour: black;
+    background-color: var(--bg-colour);
+}
