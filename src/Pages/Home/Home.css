@@ -9,6 +9,7 @@ h1 span {
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 2rem;
+    padding-top: 2rem;
     grid-template-areas: 
     "title"
     "dashboards";
