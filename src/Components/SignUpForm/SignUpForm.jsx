@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import './SignUpForm.css'
 import { MdAlternateEmail, MdPersonOutline } from "react-icons/md";
-import { Button } from '@chakra-ui/react'
+import { Button } from '@geist-ui/core'
+import { UserCheck } from '@geist-ui/icons'
 
 function SignUpForm ({onSubmit}) {
     const { register, handleSubmit } = useForm();
@@ -30,8 +31,8 @@ function SignUpForm ({onSubmit}) {
             </div>
             <div className="submit-button">
               <Button
-                colorScheme='whiteAlpha' size='lg' 
-                variant='solid' type="submit">
+                iconRight={<UserCheck />} auto
+                type="submit">
                   Subscribe
               </Button>
             </div>
