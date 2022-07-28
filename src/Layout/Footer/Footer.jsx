@@ -8,7 +8,7 @@ import { Select } from "@geist-ui/core/";
 import { Moon, Sun, Display } from '@geist-ui/icons'
 
 const Footer = () => {
-  const { mode, setMode } = useContext(ThemeContext);
+  const { theme, mode, setMode } = useContext(ThemeContext);
   return (
     <div className="footer-section">
       <SignUpController/>
@@ -34,13 +34,13 @@ const Footer = () => {
           </div>
           <div className="social-icons">
             <a href="https://www.instagram.com/insight.viz" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon-instagram">
-              <AiOutlineInstagram size="3rem"/>
+              <AiOutlineInstagram size="3rem" color={theme==='dark'?'white':'black'}/>
             </a>
             <a href="https://github.com/insightviz" target="_blank" rel="noreferrer" aria-label="Github" className="social-icon-github">
-              <AiFillGithub size="3rem"/>
+              <AiFillGithub size="3rem" color={theme==='dark'?'white':'black'}/>
             </a>
             <a href="https://www.linkedin.com/company/insight-viz/" target="_blank"  rel="noreferrer" aria-label="linkedin" className="social-icon-linkedin">
-              <AiFillLinkedin size="3rem"/>
+              <AiFillLinkedin size="3rem" color={theme==='dark'?'white':'black'}/>
             </a>
           </div>
           <div className="theme-select">
