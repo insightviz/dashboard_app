@@ -5,18 +5,9 @@ import { AiFillLinkedin, AiFillGithub, AiOutlineInstagram } from "react-icons/ai
 import { ThemeContext } from '../../AppTheme';
 import { useContext } from 'react';
 import { Select } from "@geist-ui/core/";
+import { Moon, Sun, Display } from '@geist-ui/icons'
 
 const Footer = () => {
-  const themeOptions = [
-    { 'value': 'system', 'label': 'System', 'aria-label': 'System mode' },
-    { 'value': 'light', 'label': 'Light', 'aria-label': 'Light mode' },
-    { 'value': 'dark', 'label': 'Dark', 'aria-label': 'Dark mode' },
-  ]
-
-  const options = themeOptions.map(element => {
-    return <Select.Option value={element.value} aria-label={element['aria-label']}>{element.label}</Select.Option>
-  })
-
   const { mode, setMode } = useContext(ThemeContext);
   return (
     <div className="footer-section">
@@ -56,10 +47,12 @@ const Footer = () => {
             <Select 
               initialValue={mode} 
               onChange={e => setMode(e)}
-              dropdownClassName={'theme-dropdown'}
+              dropdownClassName='theme-dropdown'
               aria-label={'dark or light theme for app'}
             >
-              {options}
+              <Select.Option value='system' aria-label='System mode'>{<><Display size={18} />System</>}</Select.Option>
+              <Select.Option value='light' aria-label='Light mode'>{<><Sun size={18} />Light</>}</Select.Option>
+              <Select.Option value='dark' aria-label='Dark mode'>{<><Moon size={18} />Dark</>}</Select.Option>
             </Select>
           </div>
         </div>

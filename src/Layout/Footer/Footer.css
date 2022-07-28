@@ -62,3 +62,19 @@ svg.footer {
         gap: 5rem;
     }
 }
+
+.theme-select > .select > span > div > span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.theme-dropdown > div > span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+}
