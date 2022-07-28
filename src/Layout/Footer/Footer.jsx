@@ -2,9 +2,9 @@ import SignUpController from "../../Components/SignUpForm/SignUpController";
 import "./Footer.css"
 import { Link } from "react-router-dom";
 import { AiFillLinkedin, AiFillGithub, AiOutlineInstagram } from "react-icons/ai";
-import Select from 'react-select'
 import { ThemeContext } from '../../AppTheme';
 import { useContext } from 'react';
+import { Select } from "@geist-ui/core/";
 
 const Footer = () => {
   const themeOptions = [
@@ -12,13 +12,12 @@ const Footer = () => {
     { 'value': 'light', 'label': 'Light', 'aria-label': 'Light mode' },
     { 'value': 'dark', 'label': 'Dark', 'aria-label': 'Dark mode' },
   ]
-  
+
+  const options = themeOptions.map(element => {
+    return <Select.Option value={element.value} aria-label={element['aria-label']}>{element.label}</Select.Option>
+  })
+
   const { mode, setMode } = useContext(ThemeContext);
-
-  const index = themeOptions.findIndex(object => {
-    return object.value === mode;
-  });
-
   return (
     <div className="footer-section">
       <SignUpController/>
@@ -55,12 +54,13 @@ const Footer = () => {
           </div>
           <div className="theme-select">
             <Select 
-              options={themeOptions} 
-              defaultValue={themeOptions[index]}
-              menuPlacement={'top'}
+              initialValue={mode} 
+              onChange={e => setMode(e)}
+              dropdownClassName={'theme-dropdown'}
               aria-label={'dark or light theme for app'}
-              onChange={e => {setMode(e.value)}}
-            />
+            >
+              {options}
+            </Select>
           </div>
         </div>
         <small className="website-rights">Copyright 2022 Insight Viz LTD. All rights reserved.</small>
