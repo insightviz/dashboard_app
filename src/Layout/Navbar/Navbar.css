@@ -108,6 +108,7 @@
 
     to {
         fill: var(--brand-orange);
+        filter: drop-shadow(0 0 5rem var(--brand-orange));
     } 
 }
 
@@ -119,7 +120,7 @@
 }
 
 body.dark .logo-container:hover .name, body.dark .footer-logo:hover .name {
-    fill: var(--blue-200)
+    fill: var(--blue-200);
 }
 
 @media screen and (max-width: 830px) {
