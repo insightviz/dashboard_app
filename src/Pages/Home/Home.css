@@ -35,8 +35,9 @@ h1 span {
 }
 
 .dashboards h2 {
-    font-size: 2rem;
+    font-size: 2.4rem;
     color: var(--text-colour);
+    font-family: Sergoe;
 }
 
 
@@ -138,6 +139,7 @@ h1 .three {
     background-color: var(--bg-colour-2);
     padding: 1rem;
     width: clamp(200px, 50%, 300px);
+    font-family: Sergoe;
 }
 
 .text-card p {
@@ -155,6 +157,7 @@ h1 .three {
 
 .dashboard-content h3 {
     font-size: 1.8rem;
+    font-family: Sergoe;
 }
 
 .dashboard-content p, .dashboard-content a {
