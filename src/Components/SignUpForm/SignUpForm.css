@@ -63,7 +63,7 @@ input {
 
 .first-name-input:focus, .email-input:focus {
     outline: none !important;
-    box-shadow: 0 0 1rem #7dd3fc;
+    box-shadow: 0 0 1rem var(--brand-orange);
 }
 
 .first-name-input::placeholder, .email-input::placeholder {
