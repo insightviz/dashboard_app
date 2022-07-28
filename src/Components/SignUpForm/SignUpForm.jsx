@@ -31,8 +31,7 @@ function SignUpForm ({onSubmit}) {
             </div>
             <div className="submit-button">
               <Button
-                iconRight={<UserCheck />} auto
-                type="submit">
+                iconRight={<UserCheck />} auto onClick={handleSubmit(onSubmit)}>
                   Subscribe
               </Button>
             </div>
