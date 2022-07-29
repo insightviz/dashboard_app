@@ -43,3 +43,13 @@ body.light {
     --accent-2: #333;
     background-color: var(--bg-colour);
 }
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.page-main {
+    flex-grow: 1;
+}

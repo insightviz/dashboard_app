@@ -4,11 +4,13 @@ import Footer from "./Footer/Footer";
 
 const Layout = () => {
   return (
-    <>
+    <div className="wrapper">
       <NavbarController/>
-      <Outlet />
+      <main className="page-main">
+        <Outlet />
+      </main>
       <Footer/>
-    </>
+    </div>
   );
 };
 
