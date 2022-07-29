@@ -48,6 +48,10 @@ svg.footer {
     gap: 1.5rem;
 }
 
+.social-icons a {
+    display: flex;
+}
+
 @media (min-width: 830px) {
     .logos-container {
         display: flex;
