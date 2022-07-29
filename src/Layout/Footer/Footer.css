@@ -57,9 +57,9 @@ svg.footer {
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
         width: 80%;
-        max-width: 150rem;
+        max-width: 100rem;
     }
 
     .social-icons {
