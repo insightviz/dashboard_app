@@ -73,11 +73,6 @@
     color: var(--text-colour);
 }
 
-.logo-container > svg {
-    width: 12rem;
-    height: auto;
-}
-
 .logo-container:hover .bulb, .footer-logo:hover .bulb {
     animation-duration: .15s;
     animation-name: flicker;
