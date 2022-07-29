@@ -2,95 +2,81 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--bg-colour);
-    opacity: .98;
-    font-size: 1.5rem;
-    height: 100px;
+    padding: 2rem;
     position: -webkit-sticky;
 	position: sticky;
 	top: 0;
+    z-index: 999;
     border-bottom: 1px solid var(--accent-2);
+    -webkit-backdrop-filter: blur(2rem);
+    backdrop-filter: blur(2rem);
 }
 
 .navbar-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 80px;
-    max-width: 1500px;
+    max-width: 1000px;
+    width: 100%;
 }
 
 .logo-container {
-    justify-self: start;
-    margin-left: 20px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 2rem;
     display: flex;
-    align-items: center;
 }
 
 .logo-container path {
     fill: var(--text-colour);
 }
 
-.nav-menu {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-gap: 10px;
-  list-style: none;
-  text-align: center;
-  width: 60vw;
-  justify-content: end;
-  margin-right: 2rem;
-}
+@media (max-width: 830px) {
+    .nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding: 10rem 4rem 4rem 4rem;
+    position: fixed;
+    inset: 0 0 0 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    background-color: var(--bg-colour);
+    opacity: .98;
+    transition: all 0.5s ease-out;
+    }
 
-.nav-item {
-    height: 80px;
+    .nav-menu.active {
+        transform: translateX(0%);
+    }
+
+    .nav-menu a {
+        border-bottom: 1px solid var(--accent-2);
+    }
+
+    .theme-select {
+        display: none;
+    }
+
+    .menu-icon, .theme-toggle {
+        cursor: pointer;
+    }
+
+    .menu-icon {
+        z-index: 1000;
+    }
+
+    .menu-icon, .theme-toggle {
+        display: block;
+    }    
 }
 
 .nav-links {
+    font-size: 1.6rem;
     color: var(--text-colour);
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    height: 100%;
 }
 
-.nav-links:hover {
-    border-bottom: 4px solid var(--text-colour);
-    transition: all 0.2s ease-out;
+.logo-container > svg {
+    width: 12rem;
+    height: auto;
 }
-
-.menu-icon {
-    display: none;
-}
-
-/*.navbar-links ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-.navbar-links li {
-    list-style: none;
-}
-
-.navbar-links li a {
-    text-decoration: none;
-    color: white;
-    padding: 1rem;
-    display: block;
-}
-
-.navbar-links li:hover {
-    background-color: #555;
-}
-
-.navbar-links li a:hover {
-    color: #f9a31a;
-}*/
 
 .logo-container:hover .bulb, .footer-logo:hover .bulb {
     animation-duration: .15s;
@@ -112,7 +98,6 @@
     } 
 }
 
-
 .logo-container:hover .name, .footer-logo:hover .name {
     transition-duration: .5s;
     fill: var(--brand-blue);
@@ -123,55 +108,39 @@ body.dark .logo-container:hover .name, body.dark .footer-logo:hover .name {
     fill: var(--blue-200);
 }
 
-@media screen and (max-width: 830px) {
+@media (min-width:830px) {
+    .menu-icon, .theme-toggle {
+        display: none;
+    }
+    
+    .theme-select {
+        display: block;
+    }
+
     .nav-menu {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      width: 100%;
-      height: calc(100vh - 100px);
-      position: absolute;
-      top: 100px;
-      left: -100%;
-      opacity: 1;
-      transition: all 0.5s ease;
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
     }
-  
-    .nav-menu.active {
-      background: var(--bg-colour);
-      left: 0;
-      opacity: .95;
-      transition: all 0.5s ease;
-      z-index: 1;
-    }
-  
-    .nav-links {
-      text-align: center;
-      padding: 2rem;
-      width: 100%;
-      display: table;
-    }
-  
+    
     .nav-links:hover {
-      background-color: var(--text-colour);
-      color: var(--bg-colour);
-      border-radius: 0;
+        border-bottom: 4px solid var(--text-colour);
+        transition: all 0.2s ease-out;
     }
-  
-    .navbar-logo {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate(25%, 50%);
+    
+    .theme-select > .select > span > div > span {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        width: 100%;
     }
-  
-    .menu-icon {
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      transform: translate(-100%, 60%);
-      font-size: 1.8rem;
-      cursor: pointer;
+    
+    .theme-dropdown > div > span {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        width: 100%;
     }
-  }
+}

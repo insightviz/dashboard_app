@@ -4,11 +4,9 @@ import { Link } from "react-router-dom";
 import { AiFillLinkedin, AiFillGithub, AiOutlineInstagram } from "react-icons/ai";
 import { ThemeContext } from '../../AppTheme';
 import { useContext } from 'react';
-import { Select } from "@geist-ui/core/";
-import { Moon, Sun, Display } from '@geist-ui/icons'
 
 const Footer = () => {
-  const { theme, mode, setMode } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   return (
     <div className="footer-section">
       <SignUpController/>
@@ -42,18 +40,6 @@ const Footer = () => {
             <a href="https://www.linkedin.com/company/insight-viz/" target="_blank"  rel="noreferrer" aria-label="linkedin" className="social-icon-linkedin">
               <AiFillLinkedin size="3rem" color={theme==='dark'?'white':'black'}/>
             </a>
-          </div>
-          <div className="theme-select">
-            <Select 
-              initialValue={mode} 
-              onChange={e => setMode(e)}
-              dropdownClassName='theme-dropdown'
-              aria-label={'dark or light theme for app'}
-            >
-              <Select.Option value='system' aria-label='System mode'>{<><Display size={18} />System</>}</Select.Option>
-              <Select.Option value='light' aria-label='Light mode'>{<><Sun size={18} />Light</>}</Select.Option>
-              <Select.Option value='dark' aria-label='Dark mode'>{<><Moon size={18} />Dark</>}</Select.Option>
-            </Select>
           </div>
         </div>
         <small className="website-rights">Copyright 2022 Insight Viz LTD. All rights reserved.</small>
