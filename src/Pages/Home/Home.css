@@ -120,7 +120,6 @@ h1 .three {
 }
 
 .stop-search {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../Asset/stop_search.jpg);
     height: 60vh;
     background-position: center;
     background-repeat: no-repeat;
@@ -133,6 +132,14 @@ h1 .three {
     justify-content: center;
     cursor: pointer;
 }
+
+body.dark .stop-search {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../Asset/stop_search.jpg);
+}
+
+body.light .stop-search {
+    background-image: url(../../Asset/stop_search.jpg);
+} 
 
 .dashboard-content   {
     color: var(--text-colour);
