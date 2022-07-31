@@ -1,9 +1,13 @@
 import SignUpForm from "../SignUpForm/SignUpForm";
-import { useToast } from '@chakra-ui/react'
+import { useToasts } from '@geist-ui/core'
 
 const SignUpController = () => {
-  const toast = useToast()
-
+  const { setToast } = useToasts()
+  const action = {
+    name: 'cancel',
+    passive: true,
+    handler: (event, cancel) => cancel()
+  }
   const onSubmit = (data) => {
   fetch("http://localhost:5000/signup", {
   method: "POST",
@@ -12,12 +16,11 @@ const SignUpController = () => {
       "Content-Type": "application/json"
     }
   }).then(response => response.json())
-  .then(response => toast({
-    title: response.title,
-    description: response.message,
-    status: response.status,
-    duration: 9000,
-    isClosable: true,
+  .then(response => setToast({
+    text: response.message,
+    type: response.status,
+    delay: 5000,
+    actions: [action],
     })
   )
   }

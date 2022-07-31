@@ -2,15 +2,15 @@ import {Outlet} from "react-router-dom";
 import NavbarController from "./Navbar/NavbarController";
 import Footer from "./Footer/Footer";
 
-import "./Layout.css"
-
 const Layout = () => {
   return (
-    <>
+    <div className="wrapper">
       <NavbarController/>
-      <Outlet />
+      <main className="page-main">
+        <Outlet />
+      </main>
       <Footer/>
-    </>
+    </div>
   );
 };
 

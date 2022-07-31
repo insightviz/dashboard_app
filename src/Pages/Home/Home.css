@@ -2,22 +2,26 @@ h1 span {
     display: block;
     font-family: sergoe-black;
     font-size: 3.8rem;
+    color: var(--text-colour);
 }
 
 .home {
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 2rem;
-    padding: 2rem;
+    padding-top: 2rem;
     grid-template-areas: 
     "title"
     "dashboards";
 }
 
-
-
 .title {
     grid-area: title;
+}
+
+.title, .dashboards h2 {
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .dashboards {
@@ -36,7 +40,9 @@ h1 span {
 }
 
 .dashboards h2 {
-    font-size: 2rem;
+    font-size: 2.4rem;
+    color: var(--text-colour);
+    font-family: Sergoe;
 }
 
 
@@ -60,19 +66,20 @@ h1 .one {
 
 @keyframes change-colour {
     from { 
-        color: black;
+        color: var(--text-colour);
     }
 
     40% {
-        color: #f9a31a;
+        color: var(--brand-orange);        
+        text-shadow: 0 0 5rem var(--brand-orange);
     }
 
     50% {
-        color: black;
+        color: var(--text-colour);
     }
 
     to {
-        color: black;
+        color: var(--text-colour);
     }  
 }
 
@@ -95,47 +102,54 @@ h1 .three {
 
 @keyframes change-colour-two {
     from { 
-        color: black;
+        color: var(--text-colour);
     }
 
     40% {
-        color: #292974;
+        color: var(--brand-blue);            
+        text-shadow: 0 0 2rem var(--brand-blue);
     }
 
     50% {
-        color: black;
+        color: var(--text-colour);
     }
 
     to {
-        color: black;
+        color: var(--text-colour);
     } 
 }
 
 .stop-search {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../Asset/stop_search.jpg);
     height: 60vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-    width: 98vw;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin-left: -2rem;
-    margin-right: -2rem;
 }
 
+body.dark .stop-search {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../Asset/stop_search.jpg);
+}
+
+body.light .stop-search {
+    background-image: url(../../Asset/stop_search.jpg);
+} 
+
 .dashboard-content   {
-    color: white;
+    color: var(--text-colour);
 }
 
 .text-card {
-    background-color: #333;
+    background-color: var(--bg-colour-2);
     padding: 1rem;
     width: clamp(200px, 50%, 300px);
+    font-family: Sergoe;
 }
 
 .text-card p {
@@ -144,15 +158,16 @@ h1 .three {
 }
 
 .text-card a:visited {
-    color: white;
+    color: var(--text-colour);
 }
 
 .text-card a:hover {
-    color: #f9a31a;
+    color: var(--brand-orange);
 }
 
 .dashboard-content h3 {
     font-size: 1.8rem;
+    font-family: Sergoe;
 }
 
 .dashboard-content p, .dashboard-content a {
