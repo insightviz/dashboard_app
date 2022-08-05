@@ -41,7 +41,7 @@ async def request_available_datasets(available_datasets: list[dict]) -> list[lis
                 progress+=1
                 print(f'{progress/total*100}%') 
                 #pause before next request from experimenting
-                await asyncio.sleep(.4)
+                await asyncio.sleep(.5)
 
         response = await asyncio.gather(*tasks)
     return response
