@@ -50,10 +50,10 @@ def create_app(test_config=None):
     def stopsearch():
         x, y = [], []
         if request.args == {}:
-            results = db.session.execute('SELECT month, COUNT(*) FROM stop_search_records GROUP BY month ORDER BY month DESC LIMIT 12').all()
+            results = db.session.execute('SELECT date, COUNT(*) FROM stop_search_records GROUP BY 1 ORDER BY 1 DESC LIMIT 12').all()
         else:
             forces_to_filter = tuple(request.args['force'].split(','))
-            results = db.session.execute('SELECT month, COUNT(*) FROM stop_search_records WHERE force_id in :force GROUP BY month ORDER BY month DESC LIMIT 12', {'force': forces_to_filter}).all()
+            results = db.session.execute('SELECT date, COUNT(*) FROM stop_search_records WHERE force_id in :force GROUP BY 1 ORDER BY 1 DESC LIMIT 12', {'force': forces_to_filter}).all()
         for i in results:
             x.append(i[0])
             y.append(i[1])
