@@ -60,12 +60,12 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     
     url = 'https://data.police.uk/api/stops-force'
     response = await client.get(url, params=parameters)
-    if response.status_code in [429, 502, 504]:
+    if response.status_code == 429:
         #delay time from experimenting
         await asyncio.sleep(3)
         await get_requests(client, parameters)
 
-    elif response.status_code == 500:
+    elif response.status_code in [500, 502, 504]:
         pass
 
     elif response.status_code == 200:
