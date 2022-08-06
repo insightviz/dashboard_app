@@ -20,7 +20,6 @@ async def request_available_datasets(available_datasets: list[dict]) -> list[lis
         tasks = []
         counter = 1
         progress = 0
-        print(progress/total)
         for parameters in available_datasets:
             if counter%30==0:
                 #delay time from exprimenting
