@@ -59,6 +59,47 @@ def create_app(test_config=None):
             y.append(i[1])
         return {'chart1': {'x': x, 'y': y, 'type': 'bar'}}
 
+    @app.route('/stopsearchmain')
+    def stopsearchmain():
+        if request.args == {}:
+            no_stop_searches = db.session.execute(
+                '''SELECT count(*) 
+                   FROM stop_search_records 
+                   WHERE date_trunc('month', datetime)=
+                         (SELECT date_trunc('month', max(datetime)) as max_month 
+                          FROM stop_search_records)''').one()
+            no_stop_searches_pm = db.session.execute(
+                '''SELECT count(*) 
+                   FROM stop_search_records 
+                   WHERE date_trunc('month', datetime)=
+                         (SELECT date_trunc('month', max(datetime)) - INTERVAL '1 month' 
+                          FROM stop_search_records)''').one()
+        else:
+            forces_to_filter = tuple(request.args['force'].split(','))
+            no_stop_searches = db.session.execute(
+                '''SELECT count(*) 
+                   FROM stop_search_records 
+                   WHERE (date_trunc('month', datetime)=
+                         (SELECT date_trunc('month', max(datetime)) as max_month 
+                          FROM stop_search_records
+                          WHERE force_id in :force) 
+                          AND
+                          force_id in :force)''', {'force': forces_to_filter}).one()
+            no_stop_searches_pm = db.session.execute(
+                '''SELECT count(*) 
+                   FROM stop_search_records 
+                   WHERE (date_trunc('month', datetime)=
+                         (SELECT date_trunc('month', max(datetime)) - INTERVAL '1 month' 
+                          FROM stop_search_records
+                          WHERE force_id in :force)
+                          AND
+                          force_id in :force)''', {'force': forces_to_filter}).one()
+        
+        pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+        results = {'monthly_no_stop_search': no_stop_searches[0],
+                   'pct_change': round(pct_change, 2)}
+        return results
+
     @app.route('/stopsearch/forces')
     def forces():
         return load_from_json('dashboards/stop_search_dashboard/data/police_forces.json')
