@@ -95,7 +95,7 @@ def create_app(test_config=None):
                    SELECT person_ethnicity, count, (count*100)/(SELECT SUM(count) 
                                                                 FROM stop_searches_by_race) AS Percentage_of_Total
                    FROM stop_searches_by_race''', {'force': forces_to_filter}).all()
-            no_stop_searches_by_race = [(row[0], row[1], round(row[2], 2)) for row in no_stop_searches_by_race]
+            no_stop_searches_by_race = [(str(row[0]).replace('None', 'Not defined'), row[1], round(row[2], 2)) for row in no_stop_searches_by_race]
 
         pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
         results = {'monthly_no_stop_search': no_stop_searches[0],
