@@ -5,6 +5,7 @@ REPLACE_DICT = {'Other ethnic group - Not stated': 'Other',
          'Black/African/Caribbean/Black British - African': 'Black',
          'White - Any other White background': 'White',
          'Other ethnic group - Any other ethnic group': 'Other',
+         'Other ethnic group - Arab'; 'Other',
          'Black/African/Caribbean/Black British - Caribbean': 'Black',
          'Asian/Asian British - Pakistani': 'Asian',
          'White - English/Welsh/Scottish/Northern Irish/British': 'White',
@@ -15,7 +16,9 @@ REPLACE_DICT = {'Other ethnic group - Not stated': 'Other',
          'Asian/Asian British - Indian': 'Asian',
          'Mixed/Multiple ethnic groups - White and Black African': 'Mixed',
          'Mixed/Multiple ethnic groups - White and Black Caribbean': 'Mixed',
-         'White - Irish': 'White', 'Asian/Asian British - Chinese': 'Asian'}
+         'White - Irish': 'White', 
+         'White - Gypsy or Irish Traveller': 'White',
+         'Asian/Asian British - Chinese': 'Asian'}
 
 def get_dictionary_value(dictionary, keys):
     '''
