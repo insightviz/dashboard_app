@@ -1,6 +1,5 @@
 import json
 
-
 def get_dictionary_value(dictionary, keys):
     '''
     Gets value from nested dictionary.
@@ -60,7 +59,8 @@ async def clean_data(available_dataset, parameters:dict):
         elif 'other' in str(item.get('self_defined_ethnicity')).lower():
             item['person_ethnicity'] = 'Other'
         else:
-            item['person_ethnicity'] = item['self_defined_ethnicity'] 
+            item['person_ethnicity'] = item['self_defined_ethnicity']
+
         list.append(item)
     return list
 
