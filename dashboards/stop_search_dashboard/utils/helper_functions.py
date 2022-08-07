@@ -72,7 +72,7 @@ async def clean_data(available_dataset, parameters:dict):
             item['person_ethnicity'] = REPLACE_DICT[item['self_defined_ethnicity']]
         
         else:
-            item['person_ethnicity'] = None
+            item['person_ethnicity'] = item['self_defined_ethnicity']
 
         list.append(item)
     return list
