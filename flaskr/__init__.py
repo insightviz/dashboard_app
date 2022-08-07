@@ -61,20 +61,7 @@ def create_app(test_config=None):
 
     @app.route('/stopsearchmain')
     def stopsearchmain():
-        if request.args == {}:
-            no_stop_searches = db.session.execute(
-                '''SELECT count(*) 
-                   FROM stop_search_records 
-                   WHERE date_trunc('month', datetime)=
-                         (SELECT date_trunc('month', max(datetime)) as max_month 
-                          FROM stop_search_records)''').one()
-            no_stop_searches_pm = db.session.execute(
-                '''SELECT count(*) 
-                   FROM stop_search_records 
-                   WHERE date_trunc('month', datetime)=
-                         (SELECT date_trunc('month', max(datetime)) - INTERVAL '1 month' 
-                          FROM stop_search_records)''').one()
-        else:
+        if request.args != {}:
             forces_to_filter = tuple(request.args['force'].split(','))
             no_stop_searches = db.session.execute(
                 '''SELECT count(*) 
@@ -107,7 +94,7 @@ def create_app(test_config=None):
                                                                 FROM stop_searches_by_race) AS Percentage_of_Total
                    FROM stop_searches_by_race''').all()
             no_stop_searches_by_race = [(row[0], row[1], round(row[2], 2)) for row in no_stop_searches_by_race]
-            
+
         pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
         results = {'monthly_no_stop_search': no_stop_searches[0],
                    'pct_change': round(pct_change, 2),
