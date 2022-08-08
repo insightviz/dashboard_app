@@ -63,6 +63,7 @@ def create_app(test_config=None):
     def stopsearchmain():
         if request.args != {}:
             forces_to_filter = tuple(request.args['force'].split(','))
+            ethnicity_to_filter = tuple(request.args['ethnicity'].split(','))
             no_stop_searches = db.session.execute(
                 '''SELECT count(*) 
                    FROM stop_search_records 
@@ -81,6 +82,7 @@ def create_app(test_config=None):
                           WHERE force_id in :force)
                           AND
                           force_id in :force)''', {'force': forces_to_filter}).one()
+            pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
             no_stop_searches_by_race = db.session.execute(
                 '''WITH stop_searches_by_race AS (
                        SELECT person_ethnicity, count(*) 
@@ -96,11 +98,29 @@ def create_app(test_config=None):
                                                                 FROM stop_searches_by_race) AS Percentage_of_Total
                    FROM stop_searches_by_race''', {'force': forces_to_filter}).all()
             no_stop_searches_by_race = [(str(row[0]).replace('None', 'Not defined'), row[1], round(row[2], 2)) for row in no_stop_searches_by_race]
+            no_stop_searches_by_police_ethnicity = db.session.execute(
+                '''WITH stop_searches_by_officer_race AS (
+                       SELECT officer_defined_ethnicity, count(*) 
+                       FROM stop_search_records 
+                       WHERE (date_trunc('month', datetime)=(
+                              SELECT date_trunc('month', max(datetime)) as max_month 
+                              FROM stop_search_records
+                              WHERE force_id in :force)
+                              AND
+                              force_id in :force
+                              AND 
+                              person_ethnicity in :ethnicity) group by 1
+                   )
+                   SELECT officer_defined_ethnicity, count, 
+                          (count*100)/(SELECT SUM(count) 
+                                       FROM stop_searches_by_officer_race) AS Percentage_of_Total
+                   FROM stop_searches_by_officer_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
+            no_stop_searches_by_police_ethnicity = [(str(row[0]).replace('None', 'Not defined'), row[1], round(row[2], 2)) for row in no_stop_searches_by_police_ethnicity]
 
-        pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
         results = {'monthly_no_stop_search': no_stop_searches[0],
                    'pct_change': round(pct_change, 2),
-                   'breakdown_by_race': no_stop_searches_by_race}
+                   'breakdown_by_race': no_stop_searches_by_race,
+                   'breakdown_by_police_ethnicity': no_stop_searches_by_police_ethnicity}
         return results
 
     @app.route('/stopsearch/forces')
