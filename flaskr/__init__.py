@@ -59,8 +59,8 @@ def create_app(test_config=None):
             y.append(i[1])
         return {'chart1': {'x': x, 'y': y, 'type': 'bar'}}
 
-    @app.route('/stopsearchmain')
-    def stopsearchmain():
+    @app.route('/stopsearch/data')
+    def stopsearch():
         if request.args != {}:
             forces_to_filter = tuple(request.args['force'].split(','))
             ethnicity_to_filter = tuple(request.args['ethnicity'].split(','))
