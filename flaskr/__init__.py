@@ -97,7 +97,10 @@ def create_app(test_config=None):
                    SELECT person_ethnicity, count, (count*100)/(SELECT SUM(count) 
                                                                 FROM stop_searches_by_race) AS Percentage_of_Total
                    FROM stop_searches_by_race''', {'force': forces_to_filter}).all()
-            no_stop_searches_by_race = [(str(row[0]).replace('None', 'Not defined'), row[1], round(row[2], 2)) for row in no_stop_searches_by_race]
+            x = [str(row[0]).replace('None', 'Not defined') for row in no_stop_searches_by_race]
+            y = [row[1] for row in no_stop_searches_by_race]
+            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_race]
+            no_stop_searches_by_race = {'x': x, 'y': y, 'type': 'bar', 'text': text}
             no_stop_searches_by_police_ethnicity = db.session.execute(
                 '''WITH stop_searches_by_officer_race AS (
                        SELECT officer_defined_ethnicity, count(*) 
@@ -115,7 +118,10 @@ def create_app(test_config=None):
                           (count*100)/(SELECT SUM(count) 
                                        FROM stop_searches_by_officer_race) AS Percentage_of_Total
                    FROM stop_searches_by_officer_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
-            no_stop_searches_by_police_ethnicity = [(str(row[0]).replace('None', 'Not defined'), row[1], round(row[2], 2)) for row in no_stop_searches_by_police_ethnicity]
+            x = [str(row[0]).replace('None', 'Not defined') for row in no_stop_searches_by_police_ethnicity]
+            y = [row[1] for row in no_stop_searches_by_police_ethnicity]
+            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_police_ethnicity]
+            no_stop_searches_by_police_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
             stop_search_outcomes_by_ethnicity = db.session.execute(
                 '''WITH outcomes_by_race AS (
                        SELECT outcome, count(*) 
@@ -133,7 +139,10 @@ def create_app(test_config=None):
                           (count*100)/(SELECT SUM(count) 
                                        FROM outcomes_by_race) AS Percentage_of_Total
                    FROM outcomes_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
-            stop_search_outcomes_by_ethnicity = [(str(row[0]).replace('None', 'Not defined'), row[1], round(row[2], 2)) for row in stop_search_outcomes_by_ethnicity]
+            x = [str(row[0]).replace('None', 'Not defined') for row in stop_search_outcomes_by_ethnicity]
+            y = [row[1] for row in stop_search_outcomes_by_ethnicity]
+            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_outcomes_by_ethnicity]
+            stop_search_outcomes_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
             stop_search_object_of_search_by_ethnicity = db.session.execute(
                 '''WITH object_of_search_by_race AS (
                        SELECT object_of_search, count(*) 
@@ -151,10 +160,13 @@ def create_app(test_config=None):
                           (count*100)/(SELECT SUM(count) 
                                        FROM object_of_search_by_race) AS Percentage_of_Total
                    FROM object_of_search_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
-            stop_search_object_of_search_by_ethnicity = [(str(row[0]).replace('None', 'Not defined'), row[1], round(row[2], 2)) for row in stop_search_object_of_search_by_ethnicity]
+            x = [str(row[0]).replace('None', 'Not defined') for row in stop_search_object_of_search_by_ethnicity]
+            y = [row[1] for row in stop_search_object_of_search_by_ethnicity]
+            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_object_of_search_by_ethnicity]
+            stop_search_object_of_search_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
 
-        results = {'monthly_no_stop_search': no_stop_searches[0],
-                   'pct_change': round(pct_change, 2),
+        results = {'figure_1': {'monthly_no_stop_search': no_stop_searches[0],
+                                'pct_change': round(pct_change, 2)},
                    'breakdown_by_race': no_stop_searches_by_race,
                    'breakdown_by_police_ethnicity': no_stop_searches_by_police_ethnicity,
                    'breakdown_of_outcomes_by_ethnicity': stop_search_outcomes_by_ethnicity,
