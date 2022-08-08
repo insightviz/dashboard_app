@@ -116,11 +116,30 @@ def create_app(test_config=None):
                                        FROM stop_searches_by_officer_race) AS Percentage_of_Total
                    FROM stop_searches_by_officer_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
             no_stop_searches_by_police_ethnicity = [(str(row[0]).replace('None', 'Not defined'), row[1], round(row[2], 2)) for row in no_stop_searches_by_police_ethnicity]
+            stop_search_outcomes_by_ethnicity = db.session.execute(
+                '''WITH outcomes_by_race AS (
+                       SELECT outcome, count(*) 
+                       FROM stop_search_records 
+                       WHERE (date_trunc('month', datetime)=(
+                              SELECT date_trunc('month', max(datetime)) as max_month 
+                              FROM stop_search_records
+                              WHERE force_id in :force)
+                              AND
+                              force_id in :force
+                              AND 
+                              person_ethnicity in :ethnicity) group by 1
+                   )
+                   SELECT outcome, count, 
+                          (count*100)/(SELECT SUM(count) 
+                                       FROM outcomes_by_race) AS Percentage_of_Total
+                   FROM outcomes_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
+            stop_search_outcomes_by_ethnicity = [(str(row[0]).replace('None', 'Not defined'), row[1], round(row[2], 2)) for row in stop_search_outcomes_by_ethnicity]
 
         results = {'monthly_no_stop_search': no_stop_searches[0],
                    'pct_change': round(pct_change, 2),
                    'breakdown_by_race': no_stop_searches_by_race,
-                   'breakdown_by_police_ethnicity': no_stop_searches_by_police_ethnicity}
+                   'breakdown_by_police_ethnicity': no_stop_searches_by_police_ethnicity,
+                   'breakdown_of_outcomes_by_ethnicity': stop_search_outcomes_by_ethnicity}
         return results
 
     @app.route('/stopsearch/forces')
