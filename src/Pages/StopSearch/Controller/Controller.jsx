@@ -1,23 +1,22 @@
 import { useState, useEffect } from "react";
 import View1 from '../View1/View1';
-import Select from 'react-select';
-
+import { Select } from "@geist-ui/core/";
 
 const DashboardController = () => {
-  const [force, setForce] = useState([]);
+  const initialForce = () => { return (localStorage.getItem("force")) || 'avon-and-somerset' }
+  const [force, setForce] = useState(initialForce);
+  const initialEthnicity = () => { return (localStorage.getItem("ethnicity")) || {'value': 'White'} }
+  const [ethnicity, setEthnicity] = useState(initialEthnicity);
+  
   const [data, setData] = useState(null);
   const [isDataLoading, setDataLoading] = useState(true);
   
   const loadData = () => {
     setDataLoading(true)
-    let url = ''
 
-    if (force.length === 0) {
-      url = 'http://localhost:5000/stopsearch'
-    } else {
-      let queryString = force.map(({ value, label}) => ( [value] )).toString()
-      url = `http://localhost:5000/stopsearch?force=${queryString}`
-    }
+    let forceQueryString = force
+    let ethnicityQueryString = ethnicity
+    let url = `http://localhost:5000/stopsearch/data?force=${forceQueryString}&ethnicity=${ethnicityQueryString}`
     
     fetch(url)
     .then(response => response.json())
@@ -48,22 +47,23 @@ const DashboardController = () => {
   const handleForceChange = (e) => {
     setForce(e)
   }
-  if (isDataLoading || isForceLoading) {
-    return (      
-      <div>
-        <Select options={selectOptions} onChange={handleForceChange} isMulti/>
-        <div>loading...</div>
-      </div>
-      )
-  }
-  else {
-    return (
-      <div>
-        <Select options={selectOptions} onChange={handleForceChange} isMulti/>
-        <View1 data={data}/>
-      </div>
-    )
-  }
+  
+  return (
+    <div>
+      <Select 
+          initialValue={force}
+          value={force}
+          onChange={handleForceChange}
+          dropdownClassName='force-dropdown'
+          aria-label={'select police force data'}
+        >
+          {selectOptions.map((element) => 
+            <Select.Option key={element.value} value={element.value} aria-label={element.label}>{element.label}</Select.Option>
+          )}
+      </Select>
+      {(isDataLoading || isForceLoading) ? <div>loading...</div> : <View1 data={data}/>}           
+    </div>
+  )
 }
 
 export default DashboardController
