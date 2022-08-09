@@ -75,7 +75,8 @@ const DashboardController = () => {
   useEffect(loadData, [force])
   
   const handleForceChange = (e) => {
-    setForce(e)
+    setForce(e);
+    localStorage.setItem("force", e);
   }
   
   return (
