@@ -50,7 +50,7 @@ const forceOptions = [
 ]
 
 const DashboardController = () => {
-  const initialForce = () => { return (localStorage.getItem("force")) || 'avon-and-somerset' }
+  const initialForce = () => { return (localStorage.getItem("force")) || 'metropolitan' }
   const [force, setForce] = useState(initialForce);
   const initialEthnicity = () => { return (localStorage.getItem("ethnicity")) || 'White' }
   const [ethnicity, setEthnicity] = useState(initialEthnicity);
