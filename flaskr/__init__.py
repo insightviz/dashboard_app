@@ -5,6 +5,7 @@ from db.config import CONNECTION_STRING
 from dashboards.stop_search_dashboard.utils.helper_functions import load_from_json
 from flaskr.model import *
 from sqlalchemy.exc import IntegrityError
+import re
 
 
 def create_app(test_config=None):
@@ -97,7 +98,7 @@ def create_app(test_config=None):
                    SELECT person_ethnicity, count, (count*100)/(SELECT SUM(count) 
                                                                 FROM stop_searches_by_race) AS Percentage_of_Total
                    FROM stop_searches_by_race''', {'force': forces_to_filter}).all()
-            x = [str(row[0]).replace('None', 'Not defined') for row in no_stop_searches_by_race]
+            x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in no_stop_searches_by_race]
             y = [row[1] for row in no_stop_searches_by_race]
             text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_race]
             no_stop_searches_by_race = {'x': x, 'y': y, 'type': 'bar', 'text': text}
@@ -118,7 +119,7 @@ def create_app(test_config=None):
                           (count*100)/(SELECT SUM(count) 
                                        FROM stop_searches_by_officer_race) AS Percentage_of_Total
                    FROM stop_searches_by_officer_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
-            x = [str(row[0]).replace('None', 'Not defined') for row in no_stop_searches_by_police_ethnicity]
+            x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in no_stop_searches_by_police_ethnicity]
             y = [row[1] for row in no_stop_searches_by_police_ethnicity]
             text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_police_ethnicity]
             no_stop_searches_by_police_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
@@ -139,7 +140,7 @@ def create_app(test_config=None):
                           (count*100)/(SELECT SUM(count) 
                                        FROM outcomes_by_race) AS Percentage_of_Total
                    FROM outcomes_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
-            x = [str(row[0]).replace('None', 'Not defined') for row in stop_search_outcomes_by_ethnicity]
+            x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in stop_search_outcomes_by_ethnicity]
             y = [row[1] for row in stop_search_outcomes_by_ethnicity]
             text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_outcomes_by_ethnicity]
             stop_search_outcomes_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
@@ -160,7 +161,7 @@ def create_app(test_config=None):
                           (count*100)/(SELECT SUM(count) 
                                        FROM object_of_search_by_race) AS Percentage_of_Total
                    FROM object_of_search_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
-            x = [str(row[0]).replace('None', 'Not defined') for row in stop_search_object_of_search_by_ethnicity]
+            x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in stop_search_object_of_search_by_ethnicity]
             y = [row[1] for row in stop_search_object_of_search_by_ethnicity]
             text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_object_of_search_by_ethnicity]
             stop_search_object_of_search_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
