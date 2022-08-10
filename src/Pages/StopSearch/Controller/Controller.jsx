@@ -1,62 +1,8 @@
 import { useState, useEffect } from "react";
-import View1 from '../View1/View1';
 import { Select } from "@geist-ui/core/";
 import Chart from '../Chart/Chart';
+import { allForceOptions, allEthnicityOptions} from '../../../Asset/Constants';
 
-const forceOptions = [
-  {value: 'avon-and-somerset', label: 'Avon and Somerset Constabulary'},
-  {value: 'bedfordshire', label: 'Bedfordshire Police'},
-  {value: 'cambridgeshire', label: 'Cambridgeshire Constabulary'},
-  {value: 'cheshire', label: 'Cheshire Constabulary'},
-  {value: 'city-of-london', label: 'City of London Police'},
-  {value: 'cleveland', label: 'Cleveland Police'},
-  {value: 'cumbria', label: 'Cumbria Constabulary'},
-  {value: 'derbyshire', label: 'Derbyshire Constabulary'},
-  {value: 'devon-and-cornwall', label: 'Devon & Cornwall Police'},
-  {value: 'dorset', label: 'Dorset Police'},
-  {value: 'durham', label: 'Durham Constabulary'},
-  {value: 'dyfed-powys', label: 'Dyfed-Powys Police'},
-  {value: 'essex', label: 'Essex Police'},
-  {value: 'gloucestershire', label: 'Gloucestershire Constabulary'},
-  {value: 'greater-manchester', label: 'Greater Manchester Police'},
-  {value: 'gwent', label: 'Gwent Police'},
-  {value: 'hampshire', label: 'Hampshire Constabulary'},
-  {value: 'hertfordshire', label: 'Hertfordshire Constabulary'},
-  {value: 'humberside', label: 'Humberside Police'},
-  {value: 'kent', label: 'Kent Police'},
-  {value: 'lancashire', label: 'Lancashire Constabulary'},
-  {value: 'leicestershire', label: 'Leicestershire Police'},
-  {value: 'lincolnshire', label: 'Lincolnshire Police'},
-  {value: 'merseyside', label: 'Merseyside Police'},
-  {value: 'metropolitan', label: 'Metropolitan Police Service'},
-  {value: 'norfolk', label: 'Norfolk Constabulary'},
-  {value: 'north-wales', label: 'North Wales Police'},
-  {value: 'north-yorkshire', label: 'North Yorkshire Police'},
-  {value: 'northamptonshire', label: 'Northamptonshire Police'},
-  {value: 'northumbria', label: 'Northumbria Police'},
-  {value: 'nottinghamshire', label: 'Nottinghamshire Police'},
-  {value: 'northern-ireland', label: 'Police Service of Northern Ireland'},
-  {value: 'south-wales', label: 'South Wales Police'},
-  {value: 'south-yorkshire', label: 'South Yorkshire Police'},
-  {value: 'staffordshire', label: 'Staffordshire Police'},
-  {value: 'suffolk', label: 'Suffolk Constabulary'},
-  {value: 'surrey', label: 'Surrey Police'},
-  {value: 'sussex', label: 'Sussex Police'},
-  {value: 'thames-valley', label: 'Thames Valley Police'},
-  {value: 'warwickshire', label: 'Warwickshire Police'},
-  {value: 'west-mercia', label: 'West Mercia Police'},
-  {value: 'west-midlands', label: 'West Midlands Police'},
-  {value: 'west-yorkshire', label: 'West Yorkshire Police'},
-  {value: 'wiltshire', label: 'Wiltshire Police'}
-]
-
-const ethnicityOptions = [
-  {value: 'Asian', label: 'Asian'},
-  {value: 'Black', label: 'Black'},
-  {value: 'Mixed', label: 'Mixed'},
-  {value: 'Other', label: 'Other'},
-  {value: 'White', label: 'White'}
-]
 
 const DashboardController = () => {
   const initialForce = () => localStorage.getItem("force") || 'metropolitan' 
@@ -82,6 +28,27 @@ const DashboardController = () => {
     });
   }
   useEffect(loadData, [force, ethnicity])
+
+  const [isForceLoading, setForceLoading] = useState(true);
+  const [forceSelectOptions, setForceSelectOptions] = useState([]);
+
+  const fetchForces = () => {
+    setForceLoading(true)
+    fetch('http://localhost:5000/stopsearch/forces')
+    .then(response => response.json())
+    .then(data => {
+      let forceSelectOptions = []
+      allForceOptions.forEach(element => {
+        if (data.includes(element.value)) {
+          forceSelectOptions.push(element)
+        }        
+      }); 
+      setForceSelectOptions(forceSelectOptions)
+      setForceLoading(false)
+    })
+  }
+  
+  useEffect(fetchForces, [])
   
   const handleForceChange = (e) => {
     setView1DataLoading(true)
@@ -104,12 +71,12 @@ const DashboardController = () => {
           dropdownClassName='force-dropdown'
           aria-label={'select police force data'}
         >
-          {forceOptions.map(({value, label}) => 
+          {forceSelectOptions.map(({value, label}) => 
             <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
           )}
       </Select>
       {
-        isView1DataLoading ? 
+        isForceLoading || isView1DataLoading ? 
         <div>loading...</div> : 
         <div className="view1">
           <div className="monthly-stop-searches">
@@ -126,7 +93,7 @@ const DashboardController = () => {
           dropdownClassName='ethnicity-dropdown'
           aria-label={'select police ethnicity data'}
           >
-          {ethnicityOptions.map(({value, label}) => 
+          {allEthnicityOptions.map(({value, label}) => 
             <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
           )}
       </Select>          
