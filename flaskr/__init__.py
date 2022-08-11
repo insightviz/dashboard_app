@@ -1,8 +1,7 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from db.config import CONNECTION_STRING
-from dashboards.stop_search_dashboard.utils.helper_functions import load_from_json
 from flaskr.model import *
 from sqlalchemy.exc import IntegrityError
 import re
@@ -176,7 +175,12 @@ def create_app(test_config=None):
 
     @app.route('/stopsearch/forces')
     def forces():
-        return load_from_json('dashboards/stop_search_dashboard/data/police_forces.json')
+        available_forces = db.session.execute(
+                '''SELECT force_id 
+                   FROM stop_search_records 
+                   GROUP BY 1''').all()
+        available_forces = [row[0] for row in available_forces]
+        return jsonify(available_forces)
     
     @app.route('/signup', methods=['POST'])
     def signup():
