@@ -182,6 +182,23 @@ def create_app(test_config=None):
         available_forces = [row[0] for row in available_forces]
         return jsonify(available_forces)
     
+    @app.route('/stopsearch/ethnicity')
+    def ethnicity():
+        if request.args != {}:
+            forces_to_filter = request.args['force']
+            available_ethnicity = db.session.execute(
+                    '''SELECT person_ethnicity 
+                       FROM stop_search_records
+                       WHERE (date_trunc('month', datetime)=(
+                              SELECT date_trunc('month', max(datetime)) as max_month 
+                              FROM stop_search_records
+                              WHERE force_id = :force)
+                              AND
+                              force_id = :force)
+                       GROUP BY 1''', {'force': forces_to_filter}).all()
+            available_ethnicity = [row[0] for row in available_ethnicity]
+        return jsonify(available_ethnicity)
+
     @app.route('/signup', methods=['POST'])
     def signup():
         firstName = request.json['firstName']
