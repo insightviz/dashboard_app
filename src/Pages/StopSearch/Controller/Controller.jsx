@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Select } from "@geist-ui/core/";
 import Chart from '../Chart/Chart';
-import { allForceOptions, allEthnicityOptions} from '../../../Asset/Constants';
+import { allForceOptions, allEthnicityOptions } from '../../../Asset/Constants';
 
 
 const DashboardController = () => {
@@ -49,6 +49,28 @@ const DashboardController = () => {
   }
   
   useEffect(fetchForces, [])
+
+  const [isEthnicityLoading, setEthnicityLoading] = useState(true);
+  const [ethnicitySelectOptions, setEthnicitySelectOptions] = useState([]);
+
+  const fetchEthnicity = () => {
+    setEthnicityLoading(true)
+    let forceQueryString = force
+    fetch(`http://localhost:5000/stopsearch/ethnicity?force=${forceQueryString}`)
+    .then(response => response.json())
+    .then(data => {
+      let ethnicitySelectOptions = []
+      allEthnicityOptions.forEach(element => {
+        if (data.includes(element.value)) {
+          ethnicitySelectOptions.push(element)
+        }        
+      }); 
+      setEthnicitySelectOptions(ethnicitySelectOptions)
+      setEthnicityLoading(false)
+    })
+  }
+  
+  useEffect(fetchEthnicity, [force])
   
   const handleForceChange = (e) => {
     setView1DataLoading(true)
@@ -93,12 +115,12 @@ const DashboardController = () => {
           dropdownClassName='ethnicity-dropdown'
           aria-label={'select police ethnicity data'}
           >
-          {allEthnicityOptions.map(({value, label}) => 
+          {ethnicitySelectOptions.map(({value, label}) => 
             <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
           )}
       </Select>          
       {
-        isView1DataLoading || isView2DataLoading ? 
+        isEthnicityLoading || isView1DataLoading || isView2DataLoading ? 
         <div>loading...</div> : 
         <div className="view2">
           <Chart data={data.breakdown_by_police_ethnicity} title={'Monthly count of stop and searches'}/>
