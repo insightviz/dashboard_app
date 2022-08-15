@@ -181,7 +181,18 @@ def create_app(test_config=None):
                    GROUP BY 1''').all()
         available_forces = [row[0] for row in available_forces]
         return jsonify(available_forces)
-    
+
+    @app.route('/stopsearch/months')
+    def months():
+        forces_to_filter = request.args['force']
+        available_months = db.session.execute(
+                '''SELECT date_trunc('month', datetime) 
+                   FROM stop_search_records
+                   WHERE force_id = :force 
+                   GROUP BY 1''', {'force': forces_to_filter}).all()
+        available_months = [row[0] for row in available_months]
+        return jsonify(available_months[2:])
+          
     @app.route('/stopsearch/ethnicity')
     def ethnicity():
         if request.args != {}:
