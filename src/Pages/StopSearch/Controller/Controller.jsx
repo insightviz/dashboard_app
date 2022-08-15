@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Select } from "@geist-ui/core/";
 import Chart from '../Chart/Chart';
 import { allForceOptions, allEthnicityOptions } from '../../../Asset/Constants';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const DashboardController = () => {
@@ -83,6 +85,25 @@ const DashboardController = () => {
     setEthnicity(e);
     localStorage.setItem("ethnicity", e);
   }
+
+  const [startDate, setStartDate] = useState();
+  const [isMonthsLoading, setMonthsLoading] = useState(true);
+  const [availableMonths, setAvailableMonths] = useState([]);
+
+  const fetchMonths = () => {
+    setMonthsLoading(true)
+    let forceQueryString = force
+    fetch(`http://localhost:5000/stopsearch/months?force=${forceQueryString}`)
+    .then(response => response.json())
+    .then(data => data.map((date) => new Date(date)))
+    .then(data => {
+      setStartDate(new Date(data.slice(-1)[0]))
+      setAvailableMonths(data)
+      setMonthsLoading(false)
+    })
+  }
+  
+  useEffect(fetchMonths, [force])
   
   return (
     <div>
@@ -97,8 +118,15 @@ const DashboardController = () => {
             <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
           )}
       </Select>
+      <DatePicker
+      selected={startDate}
+      onChange={(date) => setStartDate(date)}
+      dateFormat="MM/yyyy"
+      includeDates={availableMonths}
+      showMonthYearPicker
+    />
       {
-        isForceLoading || isView1DataLoading ? 
+        isForceLoading || isMonthsLoading || isView1DataLoading ? 
         <div>loading...</div> : 
         <div className="view1">
           <div className="monthly-stop-searches">
