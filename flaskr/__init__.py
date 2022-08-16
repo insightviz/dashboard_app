@@ -61,7 +61,7 @@ def create_app(test_config=None):
 
     @app.route('/stopsearch/data')
     def stopsearchdata():
-        if request.args != {}:
+        if 'month' not in request.args.keys():
             forces_to_filter = tuple(request.args['force'].split(','))
             ethnicity_to_filter = tuple(request.args['ethnicity'].split(','))
             no_stop_searches = db.session.execute(
@@ -160,6 +160,93 @@ def create_app(test_config=None):
                           (count*100)/(SELECT SUM(count) 
                                        FROM object_of_search_by_race) AS Percentage_of_Total
                    FROM object_of_search_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
+            x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in stop_search_object_of_search_by_ethnicity]
+            y = [row[1] for row in stop_search_object_of_search_by_ethnicity]
+            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_object_of_search_by_ethnicity]
+            stop_search_object_of_search_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
+
+        else:
+            forces_to_filter = tuple(request.args['force'].split(','))
+            ethnicity_to_filter = tuple(request.args['ethnicity'].split(','))
+            month_to_filter = request.args['month']+'-01'
+            no_stop_searches = db.session.execute(
+                '''SELECT count(*) 
+                   FROM stop_search_records 
+                   WHERE (date_trunc('month', datetime) = :month  
+                          AND
+                          force_id in :force)''', {'force': forces_to_filter, 'month': month_to_filter}).one()
+            no_stop_searches_pm = db.session.execute(
+                '''SELECT count(*) 
+                   FROM stop_search_records 
+                   WHERE (date_trunc('month', datetime) = (:month ::date - INTERVAL '1 month')
+                          AND
+                          force_id in :force)''', {'force': forces_to_filter, 'month': month_to_filter}).one()
+            pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+            no_stop_searches_by_race = db.session.execute(
+                '''WITH stop_searches_by_race AS (
+                       SELECT person_ethnicity, count(*) 
+                       FROM stop_search_records 
+                       WHERE (date_trunc('month', datetime) = :month
+                              AND
+                              force_id in :force) group by 1
+                   )
+                   SELECT person_ethnicity, count, (count*100)/(SELECT SUM(count) 
+                                                                FROM stop_searches_by_race) AS Percentage_of_Total
+                   FROM stop_searches_by_race''', {'force': forces_to_filter, 'month': month_to_filter}).all()
+            x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in no_stop_searches_by_race]
+            y = [row[1] for row in no_stop_searches_by_race]
+            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_race]
+            no_stop_searches_by_race = {'x': x, 'y': y, 'type': 'bar', 'text': text}
+            no_stop_searches_by_police_ethnicity = db.session.execute(
+                '''WITH stop_searches_by_officer_race AS (
+                       SELECT officer_defined_ethnicity, count(*) 
+                       FROM stop_search_records 
+                       WHERE (date_trunc('month', datetime) = :month
+                              AND
+                              force_id in :force
+                              AND 
+                              person_ethnicity in :ethnicity) group by 1
+                   )
+                   SELECT officer_defined_ethnicity, count, 
+                          (count*100)/(SELECT SUM(count) 
+                                       FROM stop_searches_by_officer_race) AS Percentage_of_Total
+                   FROM stop_searches_by_officer_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter, 'month': month_to_filter}).all()
+            x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in no_stop_searches_by_police_ethnicity]
+            y = [row[1] for row in no_stop_searches_by_police_ethnicity]
+            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_police_ethnicity]
+            no_stop_searches_by_police_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
+            stop_search_outcomes_by_ethnicity = db.session.execute(
+                '''WITH outcomes_by_race AS (
+                       SELECT outcome, count(*) 
+                       FROM stop_search_records 
+                       WHERE (date_trunc('month', datetime) = :month
+                              AND
+                              force_id in :force
+                              AND 
+                              person_ethnicity in :ethnicity) group by 1
+                   )
+                   SELECT outcome, count, 
+                          (count*100)/(SELECT SUM(count) 
+                                       FROM outcomes_by_race) AS Percentage_of_Total
+                   FROM outcomes_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter, 'month': month_to_filter}).all()
+            x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in stop_search_outcomes_by_ethnicity]
+            y = [row[1] for row in stop_search_outcomes_by_ethnicity]
+            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_outcomes_by_ethnicity]
+            stop_search_outcomes_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
+            stop_search_object_of_search_by_ethnicity = db.session.execute(
+                '''WITH object_of_search_by_race AS (
+                       SELECT object_of_search, count(*) 
+                       FROM stop_search_records 
+                       WHERE (date_trunc('month', datetime) = :month
+                              AND
+                              force_id in :force
+                              AND 
+                              person_ethnicity in :ethnicity) group by 1
+                   )
+                   SELECT object_of_search, count, 
+                          (count*100)/(SELECT SUM(count) 
+                                       FROM object_of_search_by_race) AS Percentage_of_Total
+                   FROM object_of_search_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter, 'month': month_to_filter}).all()
             x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in stop_search_object_of_search_by_ethnicity]
             y = [row[1] for row in stop_search_object_of_search_by_ethnicity]
             text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_object_of_search_by_ethnicity]
