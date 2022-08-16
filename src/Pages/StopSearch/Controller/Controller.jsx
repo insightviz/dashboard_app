@@ -11,6 +11,7 @@ const DashboardController = () => {
   const [force, setForce] = useState(initialForce);
   const initialEthnicity = () => localStorage.getItem("ethnicity") || 'White' 
   const [ethnicity, setEthnicity] = useState(initialEthnicity);
+  const [month, setMonth] = useState(null);
   
   const [data, setData] = useState(null);
   const [isView1DataLoading, setView1DataLoading] = useState(true);
@@ -19,7 +20,14 @@ const DashboardController = () => {
   const loadData = () => {
     let forceQueryString = force
     let ethnicityQueryString = ethnicity
-    let url = `http://localhost:5000/stopsearch/data?force=${forceQueryString}&ethnicity=${ethnicityQueryString}`
+    let url = ''
+
+    if (month === null) {
+      url = `http://localhost:5000/stopsearch/data?force=${forceQueryString}&ethnicity=${ethnicityQueryString}`
+    } else {
+      let monthQueryString = month
+      url = `http://localhost:5000/stopsearch/data?force=${forceQueryString}&ethnicity=${ethnicityQueryString}&month=${monthQueryString}`
+    }
     
     fetch(url)
     .then(response => response.json())
@@ -29,7 +37,7 @@ const DashboardController = () => {
       setView2DataLoading(false)
     });
   }
-  useEffect(loadData, [force, ethnicity])
+  useEffect(loadData, [force, ethnicity, month])
 
   const [isForceLoading, setForceLoading] = useState(true);
   const [forceSelectOptions, setForceSelectOptions] = useState([]);
@@ -85,6 +93,12 @@ const DashboardController = () => {
     setEthnicity(e);
     localStorage.setItem("ethnicity", e);
   }
+  
+  const handleMonthChange = (date) => {
+    setStartDate(date)
+    setView1DataLoading(true)
+    setMonth(`${date.getFullYear()}-${date.getMonth()+1<10?'0'+(date.getMonth()+1):date.getMonth()+1}`)
+  }
 
   const [startDate, setStartDate] = useState();
   const [isMonthsLoading, setMonthsLoading] = useState(true);
@@ -104,27 +118,27 @@ const DashboardController = () => {
   }
   
   useEffect(fetchMonths, [force])
-  
+ 
   return (
     <div>
       <Select 
-          initialValue={force}
-          value={force}
-          onChange={handleForceChange}
-          dropdownClassName='force-dropdown'
-          aria-label={'select police force data'}
-        >
-          {forceSelectOptions.map(({value, label}) => 
-            <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
-          )}
+        initialValue={force}
+        value={force}
+        onChange={handleForceChange}
+        dropdownClassName='force-dropdown'
+        aria-label={'select police force data'}
+      >
+        {forceSelectOptions.map(({value, label}) => 
+          <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
+        )}
       </Select>
       <DatePicker
-      selected={startDate}
-      onChange={(date) => setStartDate(date)}
-      dateFormat="MM/yyyy"
-      includeDates={availableMonths}
-      showMonthYearPicker
-    />
+        selected={startDate}
+        onChange={handleMonthChange}
+        dateFormat="MM/yyyy"
+        includeDates={availableMonths}
+        showMonthYearPicker
+      />
       {
         isForceLoading || isMonthsLoading || isView1DataLoading ? 
         <div>loading...</div> : 
@@ -137,15 +151,15 @@ const DashboardController = () => {
         </div>
       } 
       <Select 
-          initialValue={ethnicity}
-          value={ethnicity}
-          onChange={handleEthnicityChange}
-          dropdownClassName='ethnicity-dropdown'
-          aria-label={'select police ethnicity data'}
-          >
-          {ethnicitySelectOptions.map(({value, label}) => 
-            <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
-          )}
+        initialValue={ethnicity}
+        value={ethnicity}
+        onChange={handleEthnicityChange}
+        dropdownClassName='ethnicity-dropdown'
+        aria-label={'select police ethnicity data'}
+        >
+        {ethnicitySelectOptions.map(({value, label}) => 
+          <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
+        )}
       </Select>          
       {
         isEthnicityLoading || isView1DataLoading || isView2DataLoading ? 
