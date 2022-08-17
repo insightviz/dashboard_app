@@ -4,6 +4,7 @@ import Chart from '../Chart/Chart';
 import { allForceOptions, allEthnicityOptions } from '../../../Asset/Constants';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./Controller.css"
 
 
 const DashboardController = () => {
@@ -136,6 +137,7 @@ const DashboardController = () => {
         onChange={handleForceChange}
         dropdownClassName='force-dropdown'
         aria-label={'select police force data'}
+        disableMatchWidth
       >
         {forceSelectOptions.map(({value, label}) => 
           <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
@@ -145,6 +147,7 @@ const DashboardController = () => {
         selected={startDate}
         onChange={handleMonthChange}
         dateFormat="MM/yyyy"
+        wrapperClassName="datePicker"
         includeDates={availableMonths}
         showMonthYearPicker
       />
