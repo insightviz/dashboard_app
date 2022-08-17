@@ -282,7 +282,7 @@ def create_app(test_config=None):
           
     @app.route('/stopsearch/ethnicity')
     def ethnicity():
-        if request.args != {}:
+        if 'month' not in request.args.keys():
             forces_to_filter = request.args['force']
             available_ethnicity = db.session.execute(
                     '''SELECT person_ethnicity 
@@ -294,7 +294,19 @@ def create_app(test_config=None):
                               AND
                               force_id = :force)
                        GROUP BY 1''', {'force': forces_to_filter}).all()
-            available_ethnicity = [row[0] for row in available_ethnicity]
+        
+        else:
+            forces_to_filter = request.args['force']
+            month_to_filter = request.args['month']+'-01'
+            available_ethnicity = db.session.execute(
+                    '''SELECT person_ethnicity 
+                       FROM stop_search_records
+                       WHERE (date_trunc('month', datetime) = :month
+                              AND
+                              force_id = :force)
+                       GROUP BY 1''', {'force': forces_to_filter, 'month': month_to_filter}).all()
+        
+        available_ethnicity = [row[0] for row in available_ethnicity]
         return jsonify(available_ethnicity)
 
     @app.route('/signup', methods=['POST'])
