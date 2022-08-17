@@ -66,7 +66,16 @@ const DashboardController = () => {
   const fetchEthnicity = () => {
     setEthnicityLoading(true)
     let forceQueryString = force
-    fetch(`http://localhost:5000/stopsearch/ethnicity?force=${forceQueryString}`)
+    let url = ''
+
+    if (month === null) {
+      url = `http://localhost:5000/stopsearch/ethnicity?force=${forceQueryString}`
+    } else {
+      let monthQueryString = month
+      url = `http://localhost:5000/stopsearch/ethnicity?force=${forceQueryString}&month=${monthQueryString}`
+    }
+    
+    fetch(url)
     .then(response => response.json())
     .then(data => {
       let ethnicitySelectOptions = []
@@ -80,7 +89,7 @@ const DashboardController = () => {
     })
   }
   
-  useEffect(fetchEthnicity, [force])
+  useEffect(fetchEthnicity, [force, month])
   
   const handleForceChange = (e) => {
     setView1DataLoading(true)
