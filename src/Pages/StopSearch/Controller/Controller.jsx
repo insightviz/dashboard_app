@@ -152,7 +152,7 @@ const DashboardController = () => {
         <DatePicker
           selected={startDate}
           onChange={handleMonthChange}
-          dateFormat="MM/yyyy"
+          dateFormat="MMMM yyyy"
           wrapperClassName="datePicker"
           includeDates={availableMonths}
           showMonthYearPicker
