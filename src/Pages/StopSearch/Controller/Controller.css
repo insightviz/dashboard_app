@@ -5,3 +5,50 @@
     width: 10ch;
 }
 
+.month-select {
+    display: flex;
+    align-items: center;
+}
+
+.monthly-stop-search-figure {
+    background-color: var(--bg-colour-2);
+    margin: 2rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+.stop-search-no, .percentage-change {
+    font-size: 2.2rem;
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.stop-search-no {
+    font-size: 3.2rem;
+}
+
+.percentage-change {
+    gap: 1rem;
+}
+
+.view1 .figure-title {
+    font-size: 1.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.view1 .figure-title > svg {
+    width: 1.8rem;
+    height: auto;
+}
+
+.negative {
+    color: var(--red);
+}
+
+.positive {
+    color: var(--green);
+}

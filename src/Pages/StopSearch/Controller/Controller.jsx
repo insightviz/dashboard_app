@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Select } from "@geist-ui/core/";
 import Chart from '../Chart/Chart';
-import { allForceOptions, allEthnicityOptions } from '../../../Asset/Constants';
+import { allForceOptions, allEthnicityOptions, months } from '../../../Asset/Constants';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Controller.css"
+import { ChevronDown, ChevronUp, Info, Minus } from '@geist-ui/icons'
 
 
 const DashboardController = () => {
@@ -131,33 +132,51 @@ const DashboardController = () => {
  
   return (
     <div>
-      <Select 
-        initialValue={force}
-        value={force}
-        onChange={handleForceChange}
-        dropdownClassName='force-dropdown'
-        aria-label={'select police force data'}
-        disableMatchWidth
-      >
-        {forceSelectOptions.map(({value, label}) => 
-          <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
-        )}
-      </Select>
-      <DatePicker
-        selected={startDate}
-        onChange={handleMonthChange}
-        dateFormat="MM/yyyy"
-        wrapperClassName="datePicker"
-        includeDates={availableMonths}
-        showMonthYearPicker
-      />
+      <div className="force-select">
+        <span>Police force:</span>
+        <Select
+          initialValue={force}
+          value={force}
+          onChange={handleForceChange}
+          dropdownClassName='force-dropdown'
+          aria-label={'select police force data'}
+          disableMatchWidth
+        >
+          {forceSelectOptions.map(({value, label}) =>
+            <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
+          )}
+        </Select>
+      </div>
+      <div className="month-select">
+        <span>Month:</span>
+        <DatePicker
+          selected={startDate}
+          onChange={handleMonthChange}
+          dateFormat="MM/yyyy"
+          wrapperClassName="datePicker"
+          includeDates={availableMonths}
+          showMonthYearPicker
+        />
+      </div>
       {
         isForceLoading || isMonthsLoading || isView1DataLoading ? 
         <div>loading...</div> : 
         <div className="view1">
-          <div className="monthly-stop-searches">
-            {data.figure_1.monthly_no_stop_search}
-            {data.figure_1.pct_change}
+          <div className="monthly-stop-search-figure">
+            <div className="figure-title">
+              <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
+              <Info/>
+            </div>
+            <div className="stop-search-no">
+              <span className="month-stop-search">
+                {data.figure_1.monthly_no_stop_search}
+              </span>
+              <span className={`percentage-change 
+              ${data.figure_1.pct_change > 0 ? 'positive' : data.figure_1.pct_change === 0 ? '' : 'negative' }`}>
+                {data.figure_1.pct_change > 0 ? <ChevronUp /> : data.figure_1.pct_change === 0 ? <Minus /> : <ChevronDown />}
+                {data.figure_1.pct_change+'%'}
+              </span>
+            </div>
           </div>
           <Chart data={data.breakdown_by_race} title={'Monthly count of stop and searches'}/>
         </div>

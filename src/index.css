@@ -31,6 +31,8 @@ body.dark {
     --accent-1: #888;
     --accent-2: #333;
     background-color: var(--bg-colour);
+    --green: #80cbc3;
+    --red: #ef9a9a;
 }
 
 body.light {
@@ -42,6 +44,8 @@ body.light {
     --accent-1: #888;
     --accent-2: #333;
     background-color: var(--bg-colour);
+    --green: #26A69A;
+    --red: #EF5350;
 }
 
 .wrapper {
