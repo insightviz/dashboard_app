@@ -1,7 +1,7 @@
 import SignUpController from "../../Components/SignUpForm/SignUpController";
 import "./Footer.css"
 import { Link } from "react-router-dom";
-import { AiFillLinkedin, AiFillGithub, AiOutlineInstagram } from "react-icons/ai";
+import { Linkedin, Github, Instagram } from '@geist-ui/icons'
 import { ThemeContext } from '../../AppTheme';
 import { useContext } from 'react';
 
@@ -32,13 +32,13 @@ const Footer = () => {
           </div>
           <div className="social-icons">
             <a href="https://www.instagram.com/insight.viz" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon-instagram">
-              <AiOutlineInstagram size="3rem" color={theme==='dark'?'white':'black'}/>
+              <Instagram size="3rem" color={theme==='dark'?'white':'black'}/>
             </a>
             <a href="https://github.com/insightviz" target="_blank" rel="noreferrer" aria-label="Github" className="social-icon-github">
-              <AiFillGithub size="3rem" color={theme==='dark'?'white':'black'}/>
+              <Github size="3rem" color={theme==='dark'?'white':'black'}/>
             </a>
             <a href="https://www.linkedin.com/company/insight-viz/" target="_blank"  rel="noreferrer" aria-label="linkedin" className="social-icon-linkedin">
-              <AiFillLinkedin size="3rem" color={theme==='dark'?'white':'black'}/>
+              <Linkedin size="3rem" color={theme==='dark'?'white':'black'}/>
             </a>
           </div>
         </div>
