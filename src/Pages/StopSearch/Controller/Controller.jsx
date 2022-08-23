@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select } from "@geist-ui/core/";
+import { Select, Spinner } from "@geist-ui/core/";
 import Chart from '../Chart/Chart';
 import { allForceOptions, allEthnicityOptions, months } from '../../../Asset/Constants';
 import DatePicker from "react-datepicker";
@@ -160,7 +160,7 @@ const DashboardController = () => {
       </div>
       {
         isForceLoading || isMonthsLoading || isView1DataLoading ? 
-        <div>loading...</div> : 
+        <Spinner /> : 
         <div className="view1">
           <div className="monthly-stop-search-figure">
             <div className="figure-title">
@@ -194,7 +194,7 @@ const DashboardController = () => {
       </Select>          
       {
         isEthnicityLoading || isView1DataLoading || isView2DataLoading ? 
-        <div>loading...</div> : 
+        <Spinner /> : 
         <div className="view2">
           <Chart data={data.breakdown_by_police_ethnicity} title={'Monthly count of stop and searches'}/>
           <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={'Monthly count of stop and searches'}/>
