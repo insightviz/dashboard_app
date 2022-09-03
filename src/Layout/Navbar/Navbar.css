@@ -5,7 +5,7 @@
     padding: 2rem;
 	position: fixed;
     top: 0;
-    width: 100vw;
+    width: 100%;
     z-index: 999;
     border-bottom: 1px solid var(--accent-2);
     -webkit-backdrop-filter: blur(2rem);
