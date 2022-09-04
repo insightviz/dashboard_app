@@ -66,3 +66,16 @@
     width: 100%;
 }
 
+.select {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.force-select, .month-select {
+    display: flex;
+    gap: .5rem;
+    justify-content: center;
+    align-items: center;
+}
