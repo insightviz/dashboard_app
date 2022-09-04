@@ -23,6 +23,7 @@ html {
 
 body.dark {
     --bg-colour: #000;
+    --bg-colour-t: rgba(0, 0, 0, .75);
     --bg-colour-2: #1c1c1e;
     --text-colour: #fff;
     --brand-orange: #f9a31a;
@@ -37,6 +38,7 @@ body.dark {
 
 body.light {
     --bg-colour: #fff;
+    --bg-colour-t: rgba(255, 255, 255, .75);
     --bg-colour-2: #f2f2f6;
     --text-colour: #000;
     --brand-orange: #f9a31a;
