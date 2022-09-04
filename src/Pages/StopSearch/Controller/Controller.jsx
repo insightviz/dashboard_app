@@ -181,7 +181,7 @@ const DashboardController = () => {
             </div>
           </div>
           <div className="chart">
-            <Chart data={data.breakdown_by_race} title={'Monthly count of stop and searches'}/>
+            <Chart data={data.breakdown_by_race} title={'Stop and search count by race'}/>
           </div>
         </div>
       } 
@@ -201,13 +201,13 @@ const DashboardController = () => {
         <Spinner /> : 
         <div className="view2">
           <div className="chart">
-            <Chart data={data.breakdown_by_police_ethnicity} title={'Monthly count of stop and searches'}/>
+            <Chart data={data.breakdown_by_police_ethnicity} title={'Breakdown of suspects race by officers race'}/>
           </div>
           <div className="chart">
-            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={'Monthly count of stop and searches'}/>
+            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={'Breakdown of suspects race by object of search'}/>
           </div>
           <div className="chart">
-            <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={'Monthly count of stop and searches'}/>
+            <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={'Breakdown of suspects race by outcomes'}/>
           </div>
         </div>
       } 
