@@ -132,31 +132,33 @@ const DashboardController = () => {
  
   return (
     <div>
-      <div className="force-select">
-        <span>Police force:</span>
-        <Select
-          initialValue={force}
-          value={force}
-          onChange={handleForceChange}
-          dropdownClassName='force-dropdown'
-          aria-label={'select police force data'}
-          disableMatchWidth
-        >
-          {forceSelectOptions.map(({value, label}) =>
-            <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
-          )}
-        </Select>
-      </div>
-      <div className="month-select">
-        <span>Month:</span>
-        <DatePicker
-          selected={startDate}
-          onChange={handleMonthChange}
-          dateFormat="MMMM yyyy"
-          wrapperClassName="datePicker"
-          includeDates={availableMonths}
-          showMonthYearPicker
-        />
+      <div className="select">
+        <div className="force-select">
+          <span>Police force:</span>
+          <Select
+            initialValue={force}
+            value={force}
+            onChange={handleForceChange}
+            dropdownClassName='force-dropdown'
+            aria-label={'select police force data'}
+            disableMatchWidth
+          >
+            {forceSelectOptions.map(({value, label}) =>
+              <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
+            )}
+          </Select>
+        </div>
+        <div className="month-select">
+          <span>Month:</span>
+          <DatePicker
+            selected={startDate}
+            onChange={handleMonthChange}
+            dateFormat="MMMM yyyy"
+            wrapperClassName="datePicker"
+            includeDates={availableMonths}
+            showMonthYearPicker
+          />
+        </div>
       </div>
       {
         isForceLoading || isMonthsLoading || isView1DataLoading ? 
@@ -178,7 +180,9 @@ const DashboardController = () => {
               </span>
             </div>
           </div>
-          <Chart data={data.breakdown_by_race} title={'Monthly count of stop and searches'}/>
+          <div className="chart">
+            <Chart data={data.breakdown_by_race} title={'Monthly count of stop and searches'}/>
+          </div>
         </div>
       } 
       <Select 
@@ -196,9 +200,15 @@ const DashboardController = () => {
         isEthnicityLoading || isView1DataLoading || isView2DataLoading ? 
         <Spinner /> : 
         <div className="view2">
-          <Chart data={data.breakdown_by_police_ethnicity} title={'Monthly count of stop and searches'}/>
-          <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={'Monthly count of stop and searches'}/>
-          <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={'Monthly count of stop and searches'}/>
+          <div className="chart">
+            <Chart data={data.breakdown_by_police_ethnicity} title={'Monthly count of stop and searches'}/>
+          </div>
+          <div className="chart">
+            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={'Monthly count of stop and searches'}/>
+          </div>
+          <div className="chart">
+            <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={'Monthly count of stop and searches'}/>
+          </div>
         </div>
       } 
     </div>
