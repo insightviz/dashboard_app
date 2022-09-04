@@ -6,6 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Controller.css"
 import { ChevronDown, ChevronUp, Info, Minus } from '@geist-ui/icons'
+import Eze from '../../../Asset/Eze.jfif'
+import Brook from '../../../Asset/Brook.jfif'
 
 
 const DashboardController = () => {
@@ -211,6 +213,17 @@ const DashboardController = () => {
           </div>
         </div>
       } 
+      <div className="contributors">
+        <h4>Contributors</h4>
+        <div className="avatar-images">
+          <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank">
+            <img src={Eze} alt="Avatar" class="avatar"/>
+          </a>
+          <a href="https://github.com/Primebrook" className="contributor-link" target="_blank">
+            <img src={Brook} alt="Avatar" class="avatar"/>
+          </a>
+        </div>
+      </div> 
     </div>
   )
 }
