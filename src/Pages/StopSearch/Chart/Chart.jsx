@@ -4,6 +4,7 @@ import { useContext } from 'react';
 
 function Chart({data, title, ylabel, xlabel}) {
   const { theme } = useContext(ThemeContext);
+  data.marker = theme==='dark' ? { color: '#279adc' } : { color: '#1F77B4' };
   return (
     <Plot
       data={[
