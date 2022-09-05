@@ -183,7 +183,7 @@ const DashboardController = () => {
             </div>
           </div>
           <div className="chart">
-            <Chart data={data.breakdown_by_race} title={'Stop and search count by race'} ylabel={'Stop and search count'} xlabel={'Race of suspect'}/>
+            <Chart data={data.breakdown_by_race} title={'Stop and search count by race'} ylabel={'Stop and search count'} xlabel={"Suspect's race"}/>
           </div>
         </div>
       } 
@@ -217,11 +217,11 @@ const DashboardController = () => {
         <h4>Contributors</h4>
         <div className="avatar-images">
           <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank" rel="noreferrer">
-            <img src={Eze} alt="Avatar" class="avatar"/>
+            <img src={Eze} alt="Avatar" className="avatar"/>
           </a>
           <span>Eze Ahunanya</span>
           <a href="https://github.com/Primebrook" className="contributor-link" target="_blank" rel="noreferrer">
-            <img src={Brook} alt="Avatar" class="avatar"/>
+            <img src={Brook} alt="Avatar" className="avatar"/>
           </a>
           <span>Brook Abraha</span>
         </div>
