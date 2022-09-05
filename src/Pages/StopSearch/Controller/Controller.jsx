@@ -216,12 +216,14 @@ const DashboardController = () => {
       <div className="contributors">
         <h4>Contributors</h4>
         <div className="avatar-images">
-          <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank">
+          <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank" rel="noreferrer">
             <img src={Eze} alt="Avatar" class="avatar"/>
           </a>
-          <a href="https://github.com/Primebrook" className="contributor-link" target="_blank">
+          <span>Eze Ahunanya</span>
+          <a href="https://github.com/Primebrook" className="contributor-link" target="_blank" rel="noreferrer">
             <img src={Brook} alt="Avatar" class="avatar"/>
           </a>
+          <span>Brook Abraha</span>
         </div>
       </div> 
     </div>
