@@ -99,7 +99,7 @@ def create_app(test_config=None):
                    FROM stop_searches_by_race''', {'force': forces_to_filter}).all()
             x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in no_stop_searches_by_race]
             y = [row[1] for row in no_stop_searches_by_race]
-            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_race]
+            text = [f'{row[1]} ({round(row[2], 1)}%)' for row in no_stop_searches_by_race]
             no_stop_searches_by_race = {'x': x, 'y': y, 'type': 'bar', 'text': text}
             no_stop_searches_by_police_ethnicity = db.session.execute(
                 '''WITH stop_searches_by_officer_race AS (
@@ -120,7 +120,7 @@ def create_app(test_config=None):
                    FROM stop_searches_by_officer_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
             x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in no_stop_searches_by_police_ethnicity]
             y = [row[1] for row in no_stop_searches_by_police_ethnicity]
-            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_police_ethnicity]
+            text = [f'{row[1]} ({round(row[2], 1)}%)' for row in no_stop_searches_by_police_ethnicity]
             no_stop_searches_by_police_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
             stop_search_outcomes_by_ethnicity = db.session.execute(
                 '''WITH outcomes_by_race AS (
@@ -141,7 +141,7 @@ def create_app(test_config=None):
                    FROM outcomes_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
             x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in stop_search_outcomes_by_ethnicity]
             y = [row[1] for row in stop_search_outcomes_by_ethnicity]
-            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_outcomes_by_ethnicity]
+            text = [f'{row[1]} ({round(row[2], 1)}%)' for row in stop_search_outcomes_by_ethnicity]
             stop_search_outcomes_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
             stop_search_object_of_search_by_ethnicity = db.session.execute(
                 '''WITH object_of_search_by_race AS (
@@ -162,7 +162,7 @@ def create_app(test_config=None):
                    FROM object_of_search_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter}).all()
             x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in stop_search_object_of_search_by_ethnicity]
             y = [row[1] for row in stop_search_object_of_search_by_ethnicity]
-            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_object_of_search_by_ethnicity]
+            text = [f'{row[1]} ({round(row[2], 1)}%)' for row in stop_search_object_of_search_by_ethnicity]
             stop_search_object_of_search_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
 
         else:
@@ -195,7 +195,7 @@ def create_app(test_config=None):
                    FROM stop_searches_by_race''', {'force': forces_to_filter, 'month': month_to_filter}).all()
             x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in no_stop_searches_by_race]
             y = [row[1] for row in no_stop_searches_by_race]
-            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_race]
+            text = [f'{row[1]} ({round(row[2], 1)}%)' for row in no_stop_searches_by_race]
             no_stop_searches_by_race = {'x': x, 'y': y, 'type': 'bar', 'text': text}
             no_stop_searches_by_police_ethnicity = db.session.execute(
                 '''WITH stop_searches_by_officer_race AS (
@@ -213,7 +213,7 @@ def create_app(test_config=None):
                    FROM stop_searches_by_officer_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter, 'month': month_to_filter}).all()
             x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in no_stop_searches_by_police_ethnicity]
             y = [row[1] for row in no_stop_searches_by_police_ethnicity]
-            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in no_stop_searches_by_police_ethnicity]
+            text = [f'{row[1]} ({round(row[2], 1)}%)' for row in no_stop_searches_by_police_ethnicity]
             no_stop_searches_by_police_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
             stop_search_outcomes_by_ethnicity = db.session.execute(
                 '''WITH outcomes_by_race AS (
@@ -231,7 +231,7 @@ def create_app(test_config=None):
                    FROM outcomes_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter, 'month': month_to_filter}).all()
             x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in stop_search_outcomes_by_ethnicity]
             y = [row[1] for row in stop_search_outcomes_by_ethnicity]
-            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_outcomes_by_ethnicity]
+            text = [f'{row[1]} ({round(row[2], 1)}%)' for row in stop_search_outcomes_by_ethnicity]
             stop_search_outcomes_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
             stop_search_object_of_search_by_ethnicity = db.session.execute(
                 '''WITH object_of_search_by_race AS (
@@ -249,7 +249,7 @@ def create_app(test_config=None):
                    FROM object_of_search_by_race''', {'force': forces_to_filter, 'ethnicity': ethnicity_to_filter, 'month': month_to_filter}).all()
             x = [re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')) for row in stop_search_object_of_search_by_ethnicity]
             y = [row[1] for row in stop_search_object_of_search_by_ethnicity]
-            text = [f'{row[1]}, ({round(row[2], 2)}%)' for row in stop_search_object_of_search_by_ethnicity]
+            text = [f'{row[1]} ({round(row[2], 1)}%)' for row in stop_search_object_of_search_by_ethnicity]
             stop_search_object_of_search_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
 
         results = {'figure_1': {'monthly_no_stop_search': no_stop_searches[0],
