@@ -203,13 +203,13 @@ const DashboardController = () => {
         <Spinner /> : 
         <div className="view2">
           <div className="chart">
-            <Chart data={data.breakdown_by_police_ethnicity} title={"Breakdown of suspect's race by officers race"} ylabel={'Stop and search count'} xlabel={'Race of officer conducting stop and search'}/>
+            <Chart data={data.breakdown_by_police_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by officer's race`} ylabel={'Stop and search count'} xlabel={'Race of officer conducting stop and search'}/>
           </div>
           <div className="chart">
-            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={"Breakdown of suspect's race by object of search"} ylabel={'Stop and search count'} xlabel={'Object for stop and search'}/>
+            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by object of search`} ylabel={'Stop and search count'} xlabel={'Object for stop and search'}/>
           </div>
           <div className="chart">
-            <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={"Breakdown of suspect's race by outcomes"} ylabel={'Stop and search count'} xlabel={'Outcome of stop and search'}/>
+            <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by outcomes`} ylabel={'Stop and search count'} xlabel={'Outcome of stop and search'}/>
           </div>
         </div>
       } 
