@@ -136,7 +136,7 @@ const DashboardController = () => {
     <div>
       <div className="select">
         <div className="force-select">
-          <span>Police force:</span>
+          <span>Choose a police force:</span>
           <Select
             initialValue={force}
             value={force}
@@ -151,7 +151,7 @@ const DashboardController = () => {
           </Select>
         </div>
         <div className="month-select">
-          <span>Month:</span>
+          <span>Choose a month:</span>
           <DatePicker
             selected={startDate}
             onChange={handleMonthChange}
@@ -162,7 +162,7 @@ const DashboardController = () => {
           />
         </div>
         <div className="race-select">
-          <span>Suspect's race:</span>
+          <span>Choose suspect's race:</span>
           <Select 
             initialValue={ethnicity}
             value={ethnicity}
