@@ -13,6 +13,7 @@
     background-color: var(--bg-colour-2);
     padding: 1.5rem;
     border-radius: 1rem;
+    width: clamp(25rem, 100%, 60rem);
 }
 
 .stop-search-no, .percentage-change {
@@ -56,6 +57,7 @@
     border-radius: 1rem;
     padding: 1rem;
     background-color: var(--bg-colour-2);
+    width: clamp(25rem, 100%, 60rem);
 }
 
 .chart svg.main-svg {
