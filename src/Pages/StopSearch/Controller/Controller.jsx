@@ -161,6 +161,20 @@ const DashboardController = () => {
             showMonthYearPicker
           />
         </div>
+        <div className="race-select">
+          <span>Suspect's race:</span>
+          <Select 
+            initialValue={ethnicity}
+            value={ethnicity}
+            onChange={handleEthnicityChange}
+            dropdownClassName='ethnicity-dropdown'
+            aria-label={'select police ethnicity data'}
+            >
+            {ethnicitySelectOptions.map(({value, label}) => 
+              <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
+            )}
+          </Select>   
+        </div>
       </div>
       {
         isForceLoading || isMonthsLoading || isView1DataLoading ? 
@@ -187,17 +201,7 @@ const DashboardController = () => {
           </div>
         </div>
       } 
-      <Select 
-        initialValue={ethnicity}
-        value={ethnicity}
-        onChange={handleEthnicityChange}
-        dropdownClassName='ethnicity-dropdown'
-        aria-label={'select police ethnicity data'}
-        >
-        {ethnicitySelectOptions.map(({value, label}) => 
-          <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
-        )}
-      </Select>          
+             
       {
         isEthnicityLoading || isView1DataLoading || isView2DataLoading ? 
         <Spinner /> : 
