@@ -93,15 +93,7 @@ h4 {
 }
 
 .stop-search-dashboard {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-area: 
-    'select'
-    'stop-search-no'
-    'chart1'
-    'chart2'
-    'chart3'
-    'chart14'
-    'contributors';
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
 }
