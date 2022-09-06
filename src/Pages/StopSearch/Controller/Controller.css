@@ -89,3 +89,17 @@ h4 {
     display: flex;
     gap: 2rem;
 }
+
+.stop-search-dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-area: 
+    'select'
+    'stop-search-no'
+    'chart1'
+    'chart2'
+    'chart3'
+    'chart14'
+    'contributors';
+    gap: 2rem;
+}

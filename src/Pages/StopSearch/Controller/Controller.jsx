@@ -133,7 +133,7 @@ const DashboardController = () => {
   useEffect(fetchMonths, [force])
  
   return (
-    <div>
+    <div className="stop-search-dashboard">
       <div className="select">
         <div className="force-select">
           <span>Choose a police force:</span>
