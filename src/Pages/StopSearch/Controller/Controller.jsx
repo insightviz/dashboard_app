@@ -179,42 +179,49 @@ const DashboardController = () => {
       {
         isForceLoading || isMonthsLoading || isView1DataLoading ? 
         <Spinner /> : 
-        <div className="view1">
-          <div className="monthly-stop-search-figure">
-            <div className="figure-title">
-              <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
-              <Info/>
-            </div>
-            <div className="stop-search-no">
-              <span className="month-stop-search">
-                {data.figure_1.monthly_no_stop_search}
-              </span>
-              <span className={`percentage-change 
-              ${data.figure_1.pct_change > 0 ? 'positive' : data.figure_1.pct_change === 0 ? '' : 'negative' }`}>
-                {data.figure_1.pct_change > 0 ? <ChevronUp /> : data.figure_1.pct_change === 0 ? <Minus /> : <ChevronDown />}
-                {data.figure_1.pct_change+'%'}
-              </span>
-            </div>
+        <div className="monthly-stop-search-figure">
+          <div className="figure-title">
+            <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
+            <Info/>
           </div>
-          <div className="chart">
-            <Chart data={data.breakdown_by_race} title={'Stop and search count by race'} ylabel={'Stop and search count'} xlabel={"Suspect's race"}/>
+          <div className="stop-search-no">
+            <span className="month-stop-search">
+              {data.figure_1.monthly_no_stop_search}
+            </span>
+            <span className={`percentage-change 
+            ${data.figure_1.pct_change > 0 ? 'positive' : data.figure_1.pct_change === 0 ? '' : 'negative' }`}>
+              {data.figure_1.pct_change > 0 ? <ChevronUp /> : data.figure_1.pct_change === 0 ? <Minus /> : <ChevronDown />}
+              {data.figure_1.pct_change+'%'}
+            </span>
           </div>
         </div>
+      }
+      {
+        isForceLoading || isMonthsLoading || isView1DataLoading ? 
+        <Spinner /> : 
+        <div className="chart">
+          <Chart data={data.breakdown_by_race} title={'Stop and search count by race'} ylabel={'Stop and search count'} xlabel={"Suspect's race"}/>
+        </div>
       } 
-             
       {
         isEthnicityLoading || isView1DataLoading || isView2DataLoading ? 
         <Spinner /> : 
-        <div className="view2">
-          <div className="chart">
-            <Chart data={data.breakdown_by_police_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by officer's race`} ylabel={'Stop and search count'} xlabel={'Race of officer conducting stop and search'}/>
-          </div>
-          <div className="chart">
-            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by object of search`} ylabel={'Stop and search count'} xlabel={'Object for stop and search'}/>
-          </div>
-          <div className="chart">
-            <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by outcomes`} ylabel={'Stop and search count'} xlabel={'Outcome of stop and search'}/>
-          </div>
+        <div className="chart">
+          <Chart data={data.breakdown_by_police_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by officer's race`} ylabel={'Stop and search count'} xlabel={'Race of officer conducting stop and search'}/>
+        </div>
+      }
+      {
+        isEthnicityLoading || isView1DataLoading || isView2DataLoading ? 
+        <Spinner /> : 
+        <div className="chart">
+          <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by object of search`} ylabel={'Stop and search count'} xlabel={'Object for stop and search'}/>
+        </div>          
+      }        
+      {
+        isEthnicityLoading || isView1DataLoading || isView2DataLoading ? 
+        <Spinner /> : 
+        <div className="chart">
+          <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by outcomes`} ylabel={'Stop and search count'} xlabel={'Outcome of stop and search'}/>
         </div>
       } 
       <div className="contributors">
