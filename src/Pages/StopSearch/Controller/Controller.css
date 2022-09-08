@@ -220,7 +220,7 @@ h1 {
 }
 
 @media (max-width: 1399px) and (min-width: 1000px) {
-    .select {
+    .select-inputs {
         grid-template-columns: minmax(min-content, max-content) .5rem minmax(min-content, max-content) 3rem minmax(min-content, max-content) .5rem minmax(min-content, max-content) 3rem minmax(min-content, max-content) .5rem minmax(min-content, max-content);
         grid-template-areas: 
         "force-label . force-dropdown . month-label . month-dropdown . race-label . race-dropdown";
