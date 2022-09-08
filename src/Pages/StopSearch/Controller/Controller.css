@@ -96,6 +96,10 @@
     font-size: 1.6rem;
 }
 
+.select-container .select {
+    flex-grow: 1;
+}
+
 .force-label {
     grid-area: force-label;
 }
