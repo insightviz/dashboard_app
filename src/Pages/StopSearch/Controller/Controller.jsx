@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select, Spinner } from "@geist-ui/core/";
+import { Select, Spinner, Tooltip } from "@geist-ui/core/";
 import Chart from '../Chart/Chart';
 import { allForceOptions, allEthnicityOptions, months } from '../../../Asset/Constants';
 import DatePicker from "react-datepicker";
@@ -136,7 +136,7 @@ const DashboardController = () => {
     <div className="stop-search-dashboard">
       <h1>UK stop and search dashboard</h1>
       <div className="select-container">
-        <h4>Select options</h4>
+        <h2>Select options</h2>
         <div className="select">
           <span className="force-label">Police force:</span>
           <div className="force-dropdown">
@@ -186,7 +186,9 @@ const DashboardController = () => {
           <>
             <div className="figure-title">
               <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
-              <Info/>
+              <Tooltip text={'Number of stop and searches in this month and percentage change compared to previous month'} placement="bottom">
+                <Info/>
+              </Tooltip>  
             </div>
             <div className="stop-search-no">
               <span className="month-stop-search">
@@ -233,7 +235,7 @@ const DashboardController = () => {
         </div>
       </div>
       <div className="contributors">
-        <h4>Contributors</h4>
+        <h2>Contributors</h2>
         <div className="avatar-images">
           <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank" rel="noreferrer">
             <img src={Eze} alt="Avatar" className="avatar"/>

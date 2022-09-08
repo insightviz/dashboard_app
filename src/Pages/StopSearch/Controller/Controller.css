@@ -11,6 +11,13 @@
     width: max-content;
 }
 
+.figure-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.4rem;
+}
+
 .stop-search-no, .percentage-change {
     font-size: 2.2rem;
     display: flex;
@@ -114,7 +121,7 @@
     width: 6rem;
 }
 
-h4 {
+h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
 }
@@ -187,6 +194,7 @@ h1 {
     align-items: center;
     font-size: 4.2rem;
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 @media(min-width: 1000px) {
