@@ -6,6 +6,7 @@
     border: 1px solid var(--accent-2);
     border-radius: .5rem;
     padding-left: 1rem;
+    width: 100%;
 }
 
 .datePicker:hover input {
@@ -78,7 +79,7 @@
     width: 100%;
 }
 
-.select {
+.select-inputs {
     display: grid;
     grid-template-columns: minmax(min-content, max-content) .5rem minmax(min-content, max-content);
     grid-template-areas: 
@@ -88,7 +89,7 @@
     row-gap: 2rem;
 }
 
-.select > * {
+.select-inputs > * {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -119,7 +120,7 @@
     grid-area: race-dropdown;
 }
 
-.select span {
+.select-inputs span {
     width: max-content;
     white-space: nowrap;
 }
