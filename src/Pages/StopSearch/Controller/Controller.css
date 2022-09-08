@@ -13,6 +13,7 @@
     background-color: var(--bg-colour-2);
     padding: 1.5rem;
     border-radius: 1rem;
+    width: max-content;
 }
 
 .stop-search-no, .percentage-change {
@@ -146,7 +147,7 @@ h4 {
     .stop-search-dashboard {
         grid-template-columns: 30rem 1fr;
         grid-template-areas: 
-        "stop-search-count stop-search-count"
+        ". stop-search-count"
         "select charts"
         "contributors charts";
     }
