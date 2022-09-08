@@ -59,10 +59,6 @@
 
 }
 
-.charts {
-    width: 100%;
-}
-
 .chart svg.main-svg {
     width: 100%;
 }
@@ -128,18 +124,12 @@ h4 {
 
 .stop-search-dashboard {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(30rem, 1fr);
     grid-template-areas: 
     "select"
     "stop-search-count"
     "charts"
     "contributors";
-    gap: 2rem;
-}
-
-.charts {
-    display: flex;
-    flex-direction: column;
     gap: 2rem;
 }
 
@@ -156,8 +146,12 @@ h4 {
     grid-area: stop-search-count;
 }
 
-#charts {
+.charts {
     grid-area: charts;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .contributors {
@@ -167,7 +161,7 @@ h4 {
 @media(min-width: 1000px) {
     .charts {
         display: grid;
-        grid-auto-columns: minmax(20rem, 1fr);
+        grid-auto-columns: minmax(30rem, 1fr);
         grid-auto-flow: column;
         gap: 2rem;
     }
