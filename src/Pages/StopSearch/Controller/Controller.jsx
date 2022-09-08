@@ -176,10 +176,11 @@ const DashboardController = () => {
           </Select>   
         </div>
       </div>
+      <div className="monthly-stop-search-figure">
       {
         isForceLoading || isMonthsLoading || isView1DataLoading ? 
-        <Spinner /> : 
-        <div className="monthly-stop-search-figure">
+        <Spinner /> :
+        <>
           <div className="figure-title">
             <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
             <Info/>
@@ -194,37 +195,38 @@ const DashboardController = () => {
               {data.figure_1.pct_change+'%'}
             </span>
           </div>
-        </div>
+        </> 
       }
+      </div>
       <div className="charts">
+        <div className="chart">
         {
           isForceLoading || isMonthsLoading || isView1DataLoading ?
           <Spinner /> :
-          <div className="chart">
             <Chart data={data.breakdown_by_race} title={'Stop and search count by race'} ylabel={'Stop and search count'} xlabel={"Suspect's race"}/>
-          </div>
         }
+        </div>
+        <div className="chart">
         {
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
-          <div className="chart">
             <Chart data={data.breakdown_by_police_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by officer's race`} ylabel={'Stop and search count'} xlabel={'Race of officer conducting stop and search'}/>
-          </div>
         }
+        </div>
+        <div className="chart">
         {
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
-          <div className="chart">
             <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by object of search`} ylabel={'Stop and search count'} xlabel={'Object for stop and search'}/>
-          </div>        
         }      
+        </div>        
+        <div className="chart">
         {
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
-          <div className="chart">
             <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by outcomes`} ylabel={'Stop and search count'} xlabel={'Outcome of stop and search'}/>
-          </div>
         }
+        </div>
       </div>
       <div className="contributors">
         <h4>Contributors</h4>
