@@ -110,16 +110,34 @@
 
 .avatar {
     border-radius: 50%;
-    width: 7rem;
+    width: 6rem;
 }
 
 h4 {
-    font-size: 1.6rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
 .avatar-images {
     display: flex;
     gap: 2rem;
+}
+
+.avatar-images a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 1.6rem;
+    color: var(--text-colour);
+}
+
+.avatar-images a:visited {
+    color: var(--text-colour);
+}
+
+.avatar-images a:hover {
+    color: var(--brand-orange);
 }
 
 .stop-search-dashboard {
@@ -203,5 +221,10 @@ h1 {
 
     .charts {
         grid-area: 3 / 2 / 5 / 3;
+    }
+
+    .avatar-images {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
