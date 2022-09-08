@@ -240,5 +240,6 @@ h1 {
 
     .select-container {
         align-items: flex-start;
+        border-bottom: 1px solid var(--accent-2);
     }
 }
