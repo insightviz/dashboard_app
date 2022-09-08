@@ -107,6 +107,12 @@ h4 {
     gap: 2rem;
 }
 
+.charts {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
 .select {
     grid-area: select;
 }
