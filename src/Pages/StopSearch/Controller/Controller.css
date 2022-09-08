@@ -230,7 +230,7 @@ h1 {
 
 @media(min-width: 1400px) {
     .stop-search-dashboard {
-        grid-template-columns: 30rem 1fr;
+        grid-template-columns: minmax(max-content, max-content) 1fr;
         grid-template-areas:
         "title title" 
         "stop-search-count stop-search-count"
