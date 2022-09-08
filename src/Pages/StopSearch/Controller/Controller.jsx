@@ -176,27 +176,29 @@ const DashboardController = () => {
           </div>
         </div>
       </div>
-      <div className="monthly-stop-search-figure">
-      {
-        isForceLoading || isMonthsLoading || isView1DataLoading ? 
-        <Spinner /> :
-        <>
-          <div className="figure-title">
-            <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
-            <Info/>
-          </div>
-          <div className="stop-search-no">
-            <span className="month-stop-search">
-              {data.figure_1.monthly_no_stop_search}
-            </span>
-            <span className={`percentage-change 
-            ${data.figure_1.pct_change > 0 ? 'positive' : data.figure_1.pct_change === 0 ? '' : 'negative' }`}>
-              {data.figure_1.pct_change > 0 ? <ChevronUp /> : data.figure_1.pct_change === 0 ? <Minus /> : <ChevronDown />}
-              {data.figure_1.pct_change+'%'}
-            </span>
-          </div>
-        </> 
-      }
+      <div className="monthly-stop-search-container">
+        <div className="monthly-stop-search-figure">
+        {
+          isForceLoading || isMonthsLoading || isView1DataLoading ? 
+          <Spinner /> :
+          <>
+            <div className="figure-title">
+              <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
+              <Info/>
+            </div>
+            <div className="stop-search-no">
+              <span className="month-stop-search">
+                {data.figure_1.monthly_no_stop_search}
+              </span>
+              <span className={`percentage-change 
+              ${data.figure_1.pct_change > 0 ? 'positive' : data.figure_1.pct_change === 0 ? '' : 'negative' }`}>
+                {data.figure_1.pct_change > 0 ? <ChevronUp /> : data.figure_1.pct_change === 0 ? <Minus /> : <ChevronDown />}
+                {data.figure_1.pct_change+'%'}
+              </span>
+            </div>
+          </> 
+        }
+        </div>
       </div>
       <div className="charts">
         <div className="chart">

@@ -64,12 +64,6 @@
     width: 100%;
 }
 
-.select-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .select {
     display: grid;
     grid-template-columns: minmax(min-content, max-content) .5rem minmax(min-content, max-content);
@@ -146,11 +140,16 @@ h4 {
     gap: 2rem;
 }
 
-.select {
+.select-container {
     grid-area: select;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.monthly-stop-search-figure {
+.monthly-stop-search-container {
+    display: flex;
+    justify-content: center;
     grid-area: stop-search-count;
 }
 
