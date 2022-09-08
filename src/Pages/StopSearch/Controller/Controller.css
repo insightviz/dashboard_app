@@ -48,12 +48,15 @@
 }
 
 .chart {
-    border: solid 1px #fff;
     border-radius: 1rem;
     padding: 1rem;
     background-color: var(--bg-colour-2);
     width: 100%;
-    min-height: 472px;
+    height: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .charts {
