@@ -251,4 +251,10 @@ h1 {
         align-items: flex-start;
         border-bottom: 1px solid var(--accent-2);
     }
+
+    .contributors {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }
