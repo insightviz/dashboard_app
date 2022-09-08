@@ -134,24 +134,24 @@ const DashboardController = () => {
  
   return (
     <div className="stop-search-dashboard">
-      <div className="select">
-        <div className="force-select">
-          <span>Choose a police force:</span>
-          <Select
-            initialValue={force}
-            value={force}
-            onChange={handleForceChange}
-            dropdownClassName='force-dropdown'
-            aria-label={'select police force data'}
-            disableMatchWidth
-          >
-            {forceSelectOptions.map(({value, label}) =>
-              <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
-            )}
-          </Select>
-        </div>
-        <div className="month-select">
-          <span>Choose a month:</span>
+      <div className="select-container">
+        <div className="select">
+          <span className="force-label">Choose a police force:</span>
+          <div className="force-dropdown">
+            <Select
+              initialValue={force}
+              value={force}
+              onChange={handleForceChange}
+              dropdownClassName='force-dropdown'
+              aria-label={'select police force data'}
+              disableMatchWidth
+            >
+              {forceSelectOptions.map(({value, label}) =>
+                <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
+                )}
+            </Select>
+          </div>
+          <span className="month-label">Choose a month:</span>
           <DatePicker
             selected={startDate}
             onChange={handleMonthChange}
@@ -159,21 +159,21 @@ const DashboardController = () => {
             wrapperClassName="datePicker"
             includeDates={availableMonths}
             showMonthYearPicker
-          />
-        </div>
-        <div className="race-select">
-          <span>Choose suspect's race:</span>
-          <Select 
-            initialValue={ethnicity}
-            value={ethnicity}
-            onChange={handleEthnicityChange}
-            dropdownClassName='ethnicity-dropdown'
-            aria-label={'select police ethnicity data'}
-            >
-            {ethnicitySelectOptions.map(({value, label}) => 
-              <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
-            )}
-          </Select>   
+            />
+          <span className="race-label">Choose suspect's race:</span>
+          <div className="race-dropdown">
+            <Select 
+              initialValue={ethnicity}
+              value={ethnicity}
+              onChange={handleEthnicityChange}
+              dropdownClassName='ethnicity-dropdown'
+              aria-label={'select police ethnicity data'}
+              >
+              {ethnicitySelectOptions.map(({value, label}) => 
+                <Select.Option key={value} value={value} aria-label={label}>{label}</Select.Option>
+                )}
+            </Select>   
+          </div>
         </div>
       </div>
       <div className="monthly-stop-search-figure">
