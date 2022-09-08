@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select, Spinner, Tooltip } from "@geist-ui/core/";
+import { Select, Spinner, Tooltip, Text } from "@geist-ui/core/";
 import Chart from '../Chart/Chart';
 import { allForceOptions, allEthnicityOptions, months } from '../../../Asset/Constants';
 import DatePicker from "react-datepicker";
@@ -186,7 +186,7 @@ const DashboardController = () => {
           <>
             <div className="figure-title">
               <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
-              <Tooltip text={'Number of stop and searches in this month and percentage change compared to previous month'} placement="bottom">
+              <Tooltip text={<Text font="1.4rem">Number of stop and searches in this month and percentage change compared to previous month</Text>} placement="bottom">
                 <Info/>
               </Tooltip>  
             </div>
