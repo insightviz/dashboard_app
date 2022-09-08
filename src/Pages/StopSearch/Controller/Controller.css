@@ -57,6 +57,7 @@
     padding: 1rem;
     background-color: var(--bg-colour-2);
     width: 100%;
+    min-height: 472px;
 }
 
 .charts {
@@ -95,17 +96,34 @@ h4 {
     gap: 2rem;
 }
 
-
-@media (max-width:1000px) {
-    .stop-search-dashboard {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-    }
+.stop-search-dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-area: 
+    "select"
+    "stop-search-count"
+    "charts"
+    "contributors";
+    gap: 2rem;
 }
 
-@media(min-width: 1001px) {
+.select {
+    grid-area: "select";
+}
+
+.monthly-stop-search-figure {
+    grid-area: "stop-search-count";
+}
+
+#charts {
+    grid-area: "charts";
+}
+
+.contributors {
+    grid-area: "contributors";
+}
+
+@media(min-width: 1000px) {
     .charts {
         display: grid;
         grid-auto-columns: minmax(20rem, 1fr);
