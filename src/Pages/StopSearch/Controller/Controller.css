@@ -126,11 +126,13 @@ h4 {
     display: grid;
     grid-template-columns: minmax(30rem, 1fr);
     grid-template-areas: 
+    "title"
     "select"
     "stop-search-count"
     "charts"
     "contributors";
     gap: 2rem;
+    padding: 2rem;
 }
 
 .select-container {
@@ -158,6 +160,15 @@ h4 {
     grid-area: contributors;
 }
 
+h1 {
+    grid-area: title;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    font-size: 4.2rem;
+    text-align: center;
+}
+
 @media(min-width: 1000px) {
     .charts {
         display: grid;
@@ -183,13 +194,14 @@ h4 {
 @media(min-width: 1400px) {
     .stop-search-dashboard {
         grid-template-columns: 30rem 1fr;
-        grid-template-areas: 
-        ". stop-search-count"
+        grid-template-areas:
+        "title title" 
+        "stop-search-count stop-search-count"
         "select charts"
         "contributors charts";
     }
 
     .charts {
-        grid-area: 2 / 2 / 4 / 3;
+        grid-area: 3 / 2 / 5 / 3;
     }
 }

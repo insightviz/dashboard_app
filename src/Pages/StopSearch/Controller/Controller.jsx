@@ -134,6 +134,7 @@ const DashboardController = () => {
  
   return (
     <div className="stop-search-dashboard">
+      <h1>UK stop and search dashboard</h1>
       <div className="select-container">
         <div className="select">
           <span className="force-label">Choose a police force:</span>
