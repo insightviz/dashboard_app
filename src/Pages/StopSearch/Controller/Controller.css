@@ -13,7 +13,6 @@
     background-color: var(--bg-colour-2);
     padding: 1.5rem;
     border-radius: 1rem;
-    width: clamp(25rem, 100%, 60rem);
 }
 
 .stop-search-no, .percentage-change {
@@ -57,7 +56,11 @@
     border-radius: 1rem;
     padding: 1rem;
     background-color: var(--bg-colour-2);
-    width: clamp(25rem, 100%, 60rem);
+    width: 100%;
+}
+
+.charts {
+    width: 100%;
 }
 
 .chart svg.main-svg {
@@ -92,8 +95,26 @@ h4 {
     gap: 2rem;
 }
 
-.stop-search-dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+
+@media (max-width:1000px) {
+    .stop-search-dashboard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+}
+
+@media(min-width: 1001px) {
+    .charts {
+        display: grid;
+        grid-auto-columns: minmax(20rem, 1fr);
+        grid-auto-flow: column;
+        gap: 2rem;
+        background-color: aqua;
+    }
+
+    .chart:nth-child(2n + 1) {
+        grid-column: 1;
+    }
 }
