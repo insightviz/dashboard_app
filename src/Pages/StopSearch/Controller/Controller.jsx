@@ -136,8 +136,9 @@ const DashboardController = () => {
     <div className="stop-search-dashboard">
       <h1>UK stop and search dashboard</h1>
       <div className="select-container">
+        <h4>Select options</h4>
         <div className="select">
-          <span className="force-label">Choose a police force:</span>
+          <span className="force-label">Police force:</span>
           <div className="force-dropdown">
             <Select
               initialValue={force}
@@ -152,7 +153,7 @@ const DashboardController = () => {
                 )}
             </Select>
           </div>
-          <span className="month-label">Choose a month:</span>
+          <span className="month-label">Month:</span>
           <DatePicker
             selected={startDate}
             onChange={handleMonthChange}
@@ -161,7 +162,7 @@ const DashboardController = () => {
             includeDates={availableMonths}
             showMonthYearPicker
             />
-          <span className="race-label">Choose suspect's race:</span>
+          <span className="race-label">Suspect's race:</span>
           <div className="race-dropdown">
             <Select 
               initialValue={ethnicity}
