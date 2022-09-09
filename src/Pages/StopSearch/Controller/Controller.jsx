@@ -202,7 +202,7 @@ const DashboardController = () => {
           <>
             <div className="figure-title">
               <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
-              <Tooltip text={<Text font="1.4rem">Number of stop and searches in this month and percentage change compared to previous month</Text>} placement="bottom">
+              <Tooltip text={<Text font="1.4rem">Number of stop and searches this month and percentage change compared to previous month</Text>} placement="bottomEnd">
                 <Info/>
               </Tooltip>  
             </div>
