@@ -225,28 +225,40 @@ const DashboardController = () => {
         {
           isForceLoading || isMonthsLoading || isView1DataLoading ?
           <Spinner /> :
-            <Chart data={data.breakdown_by_race} title={'Stop & search count by race'} ylabel={'Stop & search count'} xlabel={"Suspect's race"} chartWidth={chartWidth}/>
+          <>
+            <span>Stop and search count by race</span>
+            <Chart data={data.breakdown_by_race} ylabel={'Stop & search count'} xlabel={"Suspect's race"} chartWidth={chartWidth}/>
+          </>  
         }
         </div>
         <div className="chart">
         {
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
-            <Chart data={data.breakdown_by_police_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by officer's race`} ylabel={'Stop & search count'} xlabel={'Race of officer conducting stop & search'} chartWidth={chartWidth}/>
+          <>
+            <span>Breakdown of {ethnicity.toLowerCase()} suspects by officer's race</span>
+            <Chart data={data.breakdown_by_police_ethnicity} ylabel={'Stop & search count'} xlabel={'Race of officer conducting stop & search'} chartWidth={chartWidth}/>
+          </>  
         }
         </div>
         <div className="chart">
         {
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
-            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by object of search`} ylabel={'Stop & search count'} xlabel={'Object for stop & search'} chartWidth={chartWidth}/>
+          <>
+            <span>Breakdown of {ethnicity.toLowerCase()} suspects by object of search</span>
+            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} ylabel={'Stop & search count'} xlabel={'Object for stop & search'} chartWidth={chartWidth}/>
+          </>  
         }      
         </div>        
         <div className="chart">
         {
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
-            <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by outcomes`} ylabel={'Stop & search count'} xlabel={'Outcome of stop & search'} chartWidth={chartWidth}/>
+          <>
+            <span>Breakdown of {ethnicity.toLowerCase()} suspects by outcomes</span>
+            <Chart data={data.breakdown_of_outcomes_by_ethnicity} ylabel={'Stop & search count'} xlabel={'Outcome of stop & search'} chartWidth={chartWidth}/>
+          </>  
         }
         </div>
       </div>

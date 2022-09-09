@@ -65,14 +65,16 @@
 
 .chart {
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 1.5rem;
     background-color: var(--bg-colour-2);
     width: 100%;
     height: max-content;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    font-size: 2rem;
+    text-align: center;
 }
 
 .chart svg.main-svg {
