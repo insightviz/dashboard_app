@@ -19,6 +19,7 @@
     border-radius: 1rem;
     min-width: 33rem;
     min-height: 10.7rem;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
