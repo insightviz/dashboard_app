@@ -163,7 +163,7 @@ h2 {
 
 .stop-search-dashboard {
     display: grid;
-    grid-template-columns: minmax(30rem, 1fr);
+    grid-template-columns: minmax(28rem, 1fr);
     grid-template-areas: 
     "title"
     "select"
