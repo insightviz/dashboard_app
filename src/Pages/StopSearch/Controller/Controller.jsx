@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Select, Spinner, Tooltip, Text } from "@geist-ui/core/";
 import Chart from '../Chart/Chart';
 import { allForceOptions, allEthnicityOptions, months } from '../../../Asset/Constants';
@@ -131,6 +131,22 @@ const DashboardController = () => {
   }
   
   useEffect(fetchMonths, [force])
+
+  const [chartWidth, setChartWidth] = useState()
+  const chartRef = useRef()
+
+  const getChartWidth = () => {
+    const newChartWidth = chartRef.current.clientWidth;
+    setChartWidth(newChartWidth)
+  }
+
+  useEffect(() => {
+    getChartWidth();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", getChartWidth);
+  }, []);
  
   return (
     <div className="stop-search-dashboard">
@@ -205,32 +221,32 @@ const DashboardController = () => {
         </div>
       </div>
       <div className="charts">
-        <div className="chart">
+        <div className="chart" ref={chartRef}>
         {
           isForceLoading || isMonthsLoading || isView1DataLoading ?
           <Spinner /> :
-            <Chart data={data.breakdown_by_race} title={'Stop and search count by race'} ylabel={'Stop and search count'} xlabel={"Suspect's race"}/>
+            <Chart data={data.breakdown_by_race} title={'Stop and search count by race'} ylabel={'Stop and search count'} xlabel={"Suspect's race"} chartWidth={chartWidth}/>
         }
         </div>
         <div className="chart">
         {
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
-            <Chart data={data.breakdown_by_police_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by officer's race`} ylabel={'Stop and search count'} xlabel={'Race of officer conducting stop and search'}/>
+            <Chart data={data.breakdown_by_police_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by officer's race`} ylabel={'Stop and search count'} xlabel={'Race of officer conducting stop and search'} chartWidth={chartWidth}/>
         }
         </div>
         <div className="chart">
         {
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
-            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by object of search`} ylabel={'Stop and search count'} xlabel={'Object for stop and search'}/>
+            <Chart data={data.breakdown_of_object_of_search_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by object of search`} ylabel={'Stop and search count'} xlabel={'Object for stop and search'} chartWidth={chartWidth}/>
         }      
         </div>        
         <div className="chart">
         {
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
-            <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by outcomes`} ylabel={'Stop and search count'} xlabel={'Outcome of stop and search'}/>
+            <Chart data={data.breakdown_of_outcomes_by_ethnicity} title={`Breakdown of ${ethnicity.toLowerCase()} suspects by outcomes`} ylabel={'Stop and search count'} xlabel={'Outcome of stop and search'} chartWidth={chartWidth}/>
         }
         </div>
       </div>
