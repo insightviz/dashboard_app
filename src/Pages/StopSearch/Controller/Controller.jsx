@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Select, Spinner, Tooltip, Text } from "@geist-ui/core/";
 import Chart from '../Chart/Chart';
 import { allForceOptions, allEthnicityOptions, months } from '../../../Asset/Constants';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import TextField from '@mui/material/TextField';
 import "./Controller.css"
 import { ChevronDown, ChevronUp, Info, Minus } from '@geist-ui/icons'
 import Eze from '../../../Asset/Eze.jfif'
@@ -171,13 +171,14 @@ const DashboardController = () => {
           </div>
           <span className="month-label">Month:</span>
           <DatePicker
-            selected={startDate}
+            views={['year', 'month']}
+            openTo="year"
+            minDate={availableMonths[0]}
+            maxDate={availableMonths.slice(-1)[0]}
+            value={startDate}
             onChange={handleMonthChange}
-            dateFormat="MMMM yyyy"
-            wrapperClassName="datePicker"
-            includeDates={availableMonths}
-            showMonthYearPicker
-            />
+            renderInput={(params) => <TextField {...params} helperText={null} />}
+          />
           <span className="race-label">Suspect's race:</span>
           <div className="race-dropdown">
             <Select 
