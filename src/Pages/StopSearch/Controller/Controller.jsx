@@ -34,12 +34,21 @@ const DashboardController = () => {
     }
     
     fetch(url)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {  
+        throw Error(response.statusText); 
+      }
+      return response;
+    })
     .then(data => {
       setData(data)
       setView1DataLoading(false)
       setView2DataLoading(false)
-    });
+    })
+    .catch(function(error) {
+      console.log(error);
+      alert(error);
+    })
   }
   useEffect(loadData, [force, ethnicity, month])
 
@@ -49,7 +58,12 @@ const DashboardController = () => {
   const fetchForces = () => {
     setForceLoading(true)
     fetch('http://localhost:5000/stopsearch/forces')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {  
+        throw Error(response.statusText); 
+      }
+      return response;
+    })
     .then(data => {
       let forceSelectOptions = []
       allForceOptions.forEach(element => {
@@ -59,6 +73,9 @@ const DashboardController = () => {
       }); 
       setForceSelectOptions(forceSelectOptions)
       setForceLoading(false)
+    })
+    .catch(function(error) {
+      console.log(error);
     })
   }
   
@@ -80,7 +97,12 @@ const DashboardController = () => {
     }
     
     fetch(url)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {  
+        throw Error(response.statusText); 
+      }
+      return response;
+    })
     .then(data => {
       let ethnicitySelectOptions = []
       allEthnicityOptions.forEach(element => {
@@ -90,6 +112,9 @@ const DashboardController = () => {
       }); 
       setEthnicitySelectOptions(ethnicitySelectOptions)
       setEthnicityLoading(false)
+    })
+    .catch(function(error) {
+      console.log(error);
     })
   }
   
@@ -121,12 +146,20 @@ const DashboardController = () => {
     setMonthsLoading(true)
     let forceQueryString = force
     fetch(`http://localhost:5000/stopsearch/months?force=${forceQueryString}`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {  
+        throw Error(response.statusText); 
+      }
+      return response;
+    })
     .then(data => data.map((date) => new Date(date)))
     .then(data => {
       setStartDate(new Date(data.slice(-1)[0]))
       setAvailableMonths(data)
       setMonthsLoading(false)
+    })
+    .catch(function(error) {
+      console.log(error);
     })
   }
   
