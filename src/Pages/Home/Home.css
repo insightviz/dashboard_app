@@ -150,6 +150,7 @@ body.light .stop-search {
     padding: 1rem;
     width: clamp(200px, 50%, 300px);
     font-family: Sergoe;
+    border-radius: 1rem;
 }
 
 .text-card p {

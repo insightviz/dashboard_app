@@ -1,5 +1,5 @@
 import SignUpForm from "../SignUpForm/SignUpForm";
-import { useToasts } from '@geist-ui/core'
+import { useToasts, Text } from '@geist-ui/core'
 
 const SignUpController = () => {
   const { setToast } = useToasts()
@@ -17,7 +17,7 @@ const SignUpController = () => {
     }
   }).then(response => response.json())
   .then(response => setToast({
-    text: response.message,
+    text: <Text font="1.4rem">{response.message}</Text>,
     type: response.status,
     delay: 5000,
     actions: [action],

@@ -23,6 +23,7 @@ html {
 
 body.dark {
     --bg-colour: #000;
+    --bg-colour-t: rgba(0, 0, 0, .75);
     --bg-colour-2: #1c1c1e;
     --text-colour: #fff;
     --brand-orange: #f9a31a;
@@ -31,25 +32,32 @@ body.dark {
     --accent-1: #888;
     --accent-2: #333;
     background-color: var(--bg-colour);
+    --green: #80cbc3;
+    --red: #ef9a9a;
 }
 
 body.light {
     --bg-colour: #fff;
+    --bg-colour-t: rgba(255, 255, 255, .75);
     --bg-colour-2: #f2f2f6;
     --text-colour: #000;
     --brand-orange: #f9a31a;
     --brand-blue: #292974;
     --accent-1: #888;
-    --accent-2: #333;
+    --accent-2: #eaeaea;
     background-color: var(--bg-colour);
+    --green: #26A69A;
+    --red: #EF5350;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 100%;
 }
 
 .page-main {
     flex-grow: 1;
+    margin-top: 11rem;
 }
