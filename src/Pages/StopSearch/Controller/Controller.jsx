@@ -50,6 +50,7 @@ const DashboardController = () => {
       alert(error);
     })
   }
+
   useEffect(loadData, [force, ethnicity, month])
 
   const [isForceLoading, setForceLoading] = useState(true);
@@ -121,7 +122,8 @@ const DashboardController = () => {
   useEffect(fetchEthnicity, [force, month])
   
   const handleForceChange = (e) => {
-    setView1DataLoading(true)
+    setView1DataLoading(true);
+    setMonth(null);
     setForce(e);
     localStorage.setItem("force", e);
   }
