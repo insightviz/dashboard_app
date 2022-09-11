@@ -15,7 +15,7 @@ from get_available_datasets import get_available_datasets
 
 def check_datasets_saved() -> set:
     with Session(engine) as session:
-        statement = select(StopSearchRecords.force_id, StopSearchRecords.month).distinct()
+        statement = select(StopSearchRecords.force_id, StopSearchRecords.date).distinct()
         result = session.execute(statement).all()
         return set(result)
 

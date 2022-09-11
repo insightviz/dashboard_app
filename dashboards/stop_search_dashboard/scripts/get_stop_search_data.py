@@ -20,7 +20,6 @@ async def request_available_datasets(available_datasets: list[dict]) -> list[lis
         tasks = []
         counter = 1
         progress = 0
-        print(progress/total)
         for parameters in available_datasets:
             if counter%30==0:
                 #delay time from exprimenting
@@ -41,7 +40,7 @@ async def request_available_datasets(available_datasets: list[dict]) -> list[lis
                 progress+=1
                 print(f'{progress/total*100}%') 
                 #pause before next request from experimenting
-                await asyncio.sleep(.4)
+                await asyncio.sleep(.5)
 
         response = await asyncio.gather(*tasks)
     return response
@@ -60,12 +59,12 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
     
     url = 'https://data.police.uk/api/stops-force'
     response = await client.get(url, params=parameters)
-    if response.status_code in [429, 502, 504]:
+    if response.status_code == 429:
         #delay time from experimenting
         await asyncio.sleep(3)
         await get_requests(client, parameters)
 
-    elif response.status_code == 500:
+    elif response.status_code in [500, 502, 504]:
         pass
 
     elif response.status_code == 200:
