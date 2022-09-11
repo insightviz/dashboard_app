@@ -123,8 +123,16 @@
     grid-area: force-dropdown;
 }
 
-.MuiFormControl-root {
+.month-picker {
     grid-area: month-dropdown;
+}
+
+.month-picker > * {
+    flex-grow: 1;
+}
+
+.month-picker fieldset {
+    border: var(--accent-2) 1px solid;
 }
 
 .race-dropdown {

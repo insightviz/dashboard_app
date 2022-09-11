@@ -170,15 +170,17 @@ const DashboardController = () => {
             </Select>
           </div>
           <span className="month-label">Month:</span>
-          <DatePicker
-            views={['year', 'month']}
-            openTo="year"
-            minDate={availableMonths[0]}
-            maxDate={availableMonths.slice(-1)[0]}
-            value={startDate}
-            onChange={handleMonthChange}
-            renderInput={(params) => <TextField {...params} helperText={null} />}
-          />
+          <div className="month-picker">
+            <DatePicker
+              views={['year', 'month']}
+              openTo="year"
+              minDate={availableMonths[0]}
+              maxDate={availableMonths.slice(-1)[0]}
+              value={startDate}
+              onChange={handleMonthChange}
+              renderInput={(params) => <TextField {...params} helperText={null} />}
+            />
+          </div>
           <span className="race-label">Suspect's race:</span>
           <div className="race-dropdown">
             <Select 
