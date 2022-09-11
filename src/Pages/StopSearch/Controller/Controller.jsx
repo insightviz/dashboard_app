@@ -38,7 +38,7 @@ const DashboardController = () => {
       if (!response.ok) {  
         throw Error(response.statusText); 
       }
-      return response;
+      return response.json();
     })
     .then(data => {
       setData(data)
@@ -62,7 +62,7 @@ const DashboardController = () => {
       if (!response.ok) {  
         throw Error(response.statusText); 
       }
-      return response;
+      return response.json();
     })
     .then(data => {
       let forceSelectOptions = []
@@ -101,7 +101,7 @@ const DashboardController = () => {
       if (!response.ok) {  
         throw Error(response.statusText); 
       }
-      return response;
+      return response.json();
     })
     .then(data => {
       let ethnicitySelectOptions = []
@@ -150,7 +150,7 @@ const DashboardController = () => {
       if (!response.ok) {  
         throw Error(response.statusText); 
       }
-      return response;
+      return response.json();
     })
     .then(data => data.map((date) => new Date(date)))
     .then(data => {
