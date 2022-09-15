@@ -127,7 +127,7 @@
     grid-area: month-dropdown;
 }
 
-.month-picker > * {
+.month-picker > .MuiFormControl-root {
     flex-grow: 1;
 }
 
