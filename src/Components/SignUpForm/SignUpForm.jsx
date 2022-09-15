@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import './SignUpForm.css'
-import { MdAlternateEmail, MdPersonOutline } from "react-icons/md";
+import { User, AtSign } from '@geist-ui/icons'
 import { Button } from '@geist-ui/core'
 import { UserCheck } from '@geist-ui/icons'
 
@@ -15,7 +15,7 @@ function SignUpForm ({onSubmit}) {
           <div className="inputs">
             <div className="first-name-container">
               <div className="first-name-icon">
-                <MdPersonOutline size="2rem"/>
+                <User size="2rem"/>
               </div>
               <input className="first-name-input" 
                 {...register("firstName")} type="text" 
@@ -23,7 +23,7 @@ function SignUpForm ({onSubmit}) {
             </div>
             <div className="email-container">
               <div className="email-icon">
-                <MdAlternateEmail size="2rem"/>
+                <AtSign size="2rem"/>
               </div>
               <input className="email-input" 
                 {...register("email", { required: 'Email is required'})} 
