@@ -35,7 +35,7 @@
     fill: var(--text-colour);
 }
 
-@media (max-width: 831px) {
+@media (max-width: 901px) {
     .nav-menu {
     display: flex;
     flex-direction: column;
@@ -110,7 +110,7 @@ body.dark .logo-container:hover .name, body.dark .footer-logo:hover .name {
     fill: var(--blue-200);
 }
 
-@media (min-width:831px) {
+@media (min-width:901px) {
     .menu-icon, .theme-toggle {
         display: none;
     }

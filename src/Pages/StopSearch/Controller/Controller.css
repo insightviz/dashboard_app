@@ -225,7 +225,7 @@ h1 {
     margin-bottom: 2rem;
 }
 
-@media(min-width: 1000px) {
+@media(min-width: 1200px) {
     .charts {
         display: grid;
         grid-auto-columns: minmax(30rem, 1fr);
@@ -239,7 +239,7 @@ h1 {
     }
 }
 
-@media (max-width: 1399px) and (min-width: 1000px) {
+@media (max-width: 1535px) and (min-width: 1000px) {
     .select-inputs {
         grid-template-columns: minmax(min-content, max-content) .5rem minmax(min-content, max-content) 3rem minmax(min-content, max-content) .5rem minmax(min-content, max-content) 3rem minmax(min-content, max-content) .5rem minmax(min-content, max-content);
         grid-template-areas: 
@@ -248,7 +248,7 @@ h1 {
     }
 }
 
-@media(min-width: 1400px) {
+@media(min-width: 1536px) {
     .stop-search-dashboard {
         grid-template-columns: minmax(max-content, max-content) 1fr;
         grid-template-areas:
