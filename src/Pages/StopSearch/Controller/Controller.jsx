@@ -23,7 +23,6 @@ const DashboardController = () => {
   const [isView2DataLoading, setView2DataLoading] = useState(true);
   
   useEffect(() => {
-    ReactGA.initialize("G-V4MJ3V3C21");
     ReactGA.send("pageview");
   }, [])
   

@@ -7,7 +7,6 @@ function Home() {
   const navigate = useNavigate () 
 
   useEffect(() => {
-    ReactGA.initialize("G-V4MJ3V3C21");
     ReactGA.send("pageview");
   }, [])
   return (

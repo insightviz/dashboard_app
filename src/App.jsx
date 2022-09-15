@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Layout/Layout';
-import { lazy, Suspense, useContext } from 'react';
+import { lazy, Suspense, useContext, useEffect } from 'react';
 import { ThemeContext } from './AppTheme';
 import { GeistProvider, CssBaseline } from '@geist-ui/core'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import ReactGA from "react-ga4";
 
 
 const Home = lazy(() => import('./Pages/Home/Home'));
@@ -13,6 +14,11 @@ const Contact = lazy(() => import('./Pages/Contact/Contact'));
 const StopSearch = lazy(() => import('./Pages/StopSearch/StopSearch'));
 
 export default function App() {
+
+  useEffect(() => {
+    ReactGA.initialize("G-V4MJ3V3C21");
+  }, [])
+
   const { theme } = useContext(ThemeContext);
 
   const getDesignTokens = (mode: PaletteMode) => ({
