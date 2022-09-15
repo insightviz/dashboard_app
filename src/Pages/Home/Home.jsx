@@ -1,8 +1,15 @@
 import { Link, useNavigate  } from "react-router-dom";
+import { useEffect } from "react";
+import ReactGA from "react-ga4";
 import "./Home.css"
 
 function Home() {
   const navigate = useNavigate () 
+
+  useEffect(() => {
+    ReactGA.initialize("G-V4MJ3V3C21");
+    ReactGA.send("pageview");
+  }, [])
   return (
     <div className="home">
       <div className="title">

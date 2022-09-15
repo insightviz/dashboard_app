@@ -8,6 +8,7 @@ import "./Controller.css"
 import { ChevronDown, ChevronUp, Info, Minus } from '@geist-ui/icons'
 import Eze from '../../../Asset/Eze.jfif'
 import Brook from '../../../Asset/Brook.jfif'
+import ReactGA from "react-ga4";
 
 
 const DashboardController = () => {
@@ -20,6 +21,11 @@ const DashboardController = () => {
   const [data, setData] = useState(null);
   const [isView1DataLoading, setView1DataLoading] = useState(true);
   const [isView2DataLoading, setView2DataLoading] = useState(true);
+  
+  useEffect(() => {
+    ReactGA.initialize("G-V4MJ3V3C21");
+    ReactGA.send("pageview");
+  }, [])
   
   const loadData = () => {
     let forceQueryString = force
@@ -126,18 +132,33 @@ const DashboardController = () => {
     setMonth(null);
     setForce(e);
     localStorage.setItem("force", e);
+    ReactGA.event({
+      category: "force change",
+      action: "change force select",
+      label: e,
+    });
   }
 
   const handleEthnicityChange = (e) => {
     setView2DataLoading(true)
     setEthnicity(e);
     localStorage.setItem("ethnicity", e);
+    ReactGA.event({
+      category: "ethnicity change",
+      action: "change ethnicity select",
+      label: e,
+    });
   }
   
   const handleMonthChange = (date) => {
     setStartDate(date)
     setView1DataLoading(true)
     setMonth(`${date.getFullYear()}-${date.getMonth()+1<10?'0'+(date.getMonth()+1):date.getMonth()+1}`)
+    ReactGA.event({
+      category: "month change",
+      action: "change month select",
+      label: `${date.getFullYear()}-${date.getMonth()+1<10?'0'+(date.getMonth()+1):date.getMonth()+1}`,
+    });
   }
 
   const [startDate, setStartDate] = useState();

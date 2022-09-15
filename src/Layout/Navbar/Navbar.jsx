@@ -4,6 +4,7 @@ import { Moon, Sun, Display, Menu, X  } from '@geist-ui/icons';
 import { ThemeContext } from '../../AppTheme';
 import { useContext } from 'react';
 import { Select } from "@geist-ui/core/";
+import ReactGA from "react-ga4";
 
 
 function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
@@ -41,7 +42,14 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
           <Select 
             initialValue={mode}
             value={mode}
-            onChange={e => setMode(e)}
+            onChange={e => { 
+              setMode(e)
+              ReactGA.event({
+                category: "theme change",
+                action: "change theme select",
+                label: e,
+              });
+            }}
             dropdownClassName='theme-dropdown'
             aria-label={'dark or light theme for app'}
           >
