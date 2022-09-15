@@ -36,29 +36,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/')
-    def index():
-        return render_template('index.html')
-
-
-    @app.route('/contact')
-    def contact():
-        return render_template('contact.html')
-
-    @app.route('/stopsearch')
-    def stopsearch():
-        x, y = [], []
-        if request.args == {}:
-            results = db.session.execute('SELECT date, COUNT(*) FROM stop_search_records GROUP BY 1 ORDER BY 1 DESC LIMIT 12').all()
-        else:
-            forces_to_filter = tuple(request.args['force'].split(','))
-            results = db.session.execute('SELECT date, COUNT(*) FROM stop_search_records WHERE force_id in :force GROUP BY 1 ORDER BY 1 DESC LIMIT 12', {'force': forces_to_filter}).all()
-        for i in results:
-            x.append(i[0])
-            y.append(i[1])
-        return {'chart1': {'x': x, 'y': y, 'type': 'bar'}}
-
     @app.route('/stopsearch/data')
     def stopsearchdata():
         if 'month' not in request.args.keys():
