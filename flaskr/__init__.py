@@ -278,7 +278,7 @@ def create_app(test_config=None):
                    WHERE force_id = :force 
                    GROUP BY 1''', {'force': forces_to_filter}).all()
         available_months = [row[0] for row in available_months]
-        return jsonify(available_months[2:])
+        return jsonify(sorted(available_months)[2:])
           
     @app.route('/stopsearch/ethnicity')
     def ethnicity():
