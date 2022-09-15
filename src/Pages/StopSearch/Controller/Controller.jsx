@@ -42,7 +42,7 @@ const DashboardController = () => {
     fetch(url)
     .then(response => {
       if (!response.ok) {  
-        throw Error(response.statusText); 
+        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })
@@ -51,9 +51,8 @@ const DashboardController = () => {
       setView1DataLoading(false)
       setView2DataLoading(false)
     })
-    .catch(function(error) {
-      console.log(error);
-      setError({'error': true, 'message': error.message});
+    .catch((err) => {
+      setError({'error': true, 'message': err.message});
     })
   }
 
@@ -67,7 +66,7 @@ const DashboardController = () => {
     fetch('http://localhost:5000/stopsearch/forces')
     .then(response => {
       if (!response.ok) {  
-        throw Error(response.statusText); 
+        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })
@@ -81,9 +80,8 @@ const DashboardController = () => {
       setForceSelectOptions(forceSelectOptions)
       setForceLoading(false)
     })
-    .catch(function(error) {
-      console.log(error);
-      setError({'error': true, 'message': error.message});
+    .catch((err) => {
+      setError({'error': true, 'message': err.message});
     })
   }
   
@@ -107,7 +105,7 @@ const DashboardController = () => {
     fetch(url)
     .then(response => {
       if (!response.ok) {  
-        throw Error(response.statusText); 
+        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })
@@ -121,9 +119,8 @@ const DashboardController = () => {
       setEthnicitySelectOptions(ethnicitySelectOptions)
       setEthnicityLoading(false)
     })
-    .catch(function(error) {
-      console.log(error);
-      setError({'error': true, 'message': error.message});
+    .catch((err) => {
+      setError({'error': true, 'message': err.message});
     })
   }
   
@@ -176,7 +173,7 @@ const DashboardController = () => {
     fetch(`http://localhost:5000/stopsearch/months?force=${forceQueryString}`)
     .then(response => {
       if (!response.ok) {  
-        throw Error(response.statusText); 
+        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })
@@ -186,9 +183,8 @@ const DashboardController = () => {
       setAvailableMonths(data)
       setMonthsLoading(false)
     })
-    .catch(function(error) {
-      console.log(error);
-      setError({'error': true, 'message': error.message});
+    .catch((err) => {
+      setError({'error': true, 'message': err.message});
     })
   }
   
