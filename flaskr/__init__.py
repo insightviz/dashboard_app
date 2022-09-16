@@ -1,6 +1,5 @@
-from distutils.command.config import config
 import os
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from db.config import CONNECTION_STRING
 from flaskr.model import *
