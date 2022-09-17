@@ -21,6 +21,7 @@ const DashboardController = () => {
   const [data, setData] = useState(null);
   const [isView1DataLoading, setView1DataLoading] = useState(true);
   const [isView2DataLoading, setView2DataLoading] = useState(true);
+  const [error, setError] = useState({'error': false, 'message': null})
   
   useEffect(() => {
     ReactGA.send("pageview");
@@ -41,7 +42,7 @@ const DashboardController = () => {
     fetch(url)
     .then(response => {
       if (!response.ok) {  
-        throw Error(response.statusText); 
+        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })
@@ -50,9 +51,8 @@ const DashboardController = () => {
       setView1DataLoading(false)
       setView2DataLoading(false)
     })
-    .catch(function(error) {
-      console.log(error);
-      alert(error);
+    .catch((err) => {
+      setError({'error': true, 'message': err.message});
     })
   }
 
@@ -66,7 +66,7 @@ const DashboardController = () => {
     fetch('http://localhost:5000/stopsearch/forces')
     .then(response => {
       if (!response.ok) {  
-        throw Error(response.statusText); 
+        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })
@@ -80,8 +80,8 @@ const DashboardController = () => {
       setForceSelectOptions(forceSelectOptions)
       setForceLoading(false)
     })
-    .catch(function(error) {
-      console.log(error);
+    .catch((err) => {
+      setError({'error': true, 'message': err.message});
     })
   }
   
@@ -105,7 +105,7 @@ const DashboardController = () => {
     fetch(url)
     .then(response => {
       if (!response.ok) {  
-        throw Error(response.statusText); 
+        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })
@@ -119,8 +119,8 @@ const DashboardController = () => {
       setEthnicitySelectOptions(ethnicitySelectOptions)
       setEthnicityLoading(false)
     })
-    .catch(function(error) {
-      console.log(error);
+    .catch((err) => {
+      setError({'error': true, 'message': err.message});
     })
   }
   
@@ -130,6 +130,7 @@ const DashboardController = () => {
     setView1DataLoading(true);
     setMonth(null);
     setForce(e);
+    setError({'error': false, 'message': null});
     localStorage.setItem("force", e);
     ReactGA.event({
       category: "force change",
@@ -141,6 +142,7 @@ const DashboardController = () => {
   const handleEthnicityChange = (e) => {
     setView2DataLoading(true)
     setEthnicity(e);
+    setError({'error': false, 'message': null});
     localStorage.setItem("ethnicity", e);
     ReactGA.event({
       category: "ethnicity change",
@@ -153,6 +155,7 @@ const DashboardController = () => {
     setStartDate(date)
     setView1DataLoading(true)
     setMonth(`${date.getFullYear()}-${date.getMonth()+1<10?'0'+(date.getMonth()+1):date.getMonth()+1}`)
+    setError({'error': false, 'message': null});
     ReactGA.event({
       category: "month change",
       action: "change month select",
@@ -170,7 +173,7 @@ const DashboardController = () => {
     fetch(`http://localhost:5000/stopsearch/months?force=${forceQueryString}`)
     .then(response => {
       if (!response.ok) {  
-        throw Error(response.statusText); 
+        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })
@@ -180,8 +183,8 @@ const DashboardController = () => {
       setAvailableMonths(data)
       setMonthsLoading(false)
     })
-    .catch(function(error) {
-      console.log(error);
+    .catch((err) => {
+      setError({'error': true, 'message': err.message});
     })
   }
   
@@ -255,6 +258,8 @@ const DashboardController = () => {
       <div className="monthly-stop-search-container">
         <div className="monthly-stop-search-figure">
         {
+          error.error ? 
+          <>{error.message}</> :
           isForceLoading || isMonthsLoading || isView1DataLoading ? 
           <Spinner /> :
           <>
@@ -281,6 +286,8 @@ const DashboardController = () => {
       <div className="charts">
         <div className="chart" ref={chartRef}>
         {
+          error.error ? 
+          <>{error.message}</> :
           isForceLoading || isMonthsLoading || isView1DataLoading ?
           <Spinner /> :
           <>
@@ -291,6 +298,8 @@ const DashboardController = () => {
         </div>
         <div className="chart">
         {
+          error.error ? 
+          <>{error.message}</> :
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
           <>
@@ -301,6 +310,8 @@ const DashboardController = () => {
         </div>
         <div className="chart">
         {
+          error.error ? 
+          <>{error.message}</> :
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
           <>
@@ -311,6 +322,8 @@ const DashboardController = () => {
         </div>        
         <div className="chart">
         {
+          error.error ? 
+          <>{error.message}</> :
           isEthnicityLoading || isView1DataLoading || isView2DataLoading ?
           <Spinner /> :
           <>
