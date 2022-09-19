@@ -2,7 +2,6 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from db.config import CONNECTION_STRING
-from flaskr.model import *
 from sqlalchemy.exc import IntegrityError
 import re
 
@@ -15,10 +14,10 @@ def create_app(test_config=None):
     app.config.from_object(environment_configuration)
     #app.config['SQLALCHEMY_DATABASE_URI'] = CONNECTION_STRING
     #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    db.init_app(app)
+    #db.init_app(app)
     
-    with app.app_context():
-        db.create_all()
+    #with app.app_context():
+    #    db.create_all()
 
    
     @app.route('/stopsearch/data')
