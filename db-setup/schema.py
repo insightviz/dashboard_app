@@ -1,4 +1,4 @@
-from .config import Base, engine 
+from config import Base, engine 
 from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean
 
 class StopSearchRecords(Base): 
