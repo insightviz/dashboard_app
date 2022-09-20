@@ -27,5 +27,11 @@ class StopSearchRecords(Base):
     street_desc = Column(String)
     person_ethnicity = Column(String)
 
+class User(Base):
+    __tablename__ = 'users_registered'
+
+    id = Column(Integer, primary_key = True)
+    firstName = Column(String, nullable = True)
+    email = Column(String, nullable = False, unique=True)
 
 Base.metadata.create_all(engine) # This creates all tables above. By default CREATES are not issued for already existing tables.
