@@ -1,0 +1,9 @@
+FROM python:3
+
+WORKDIR /db-setup
+
+COPY . .
+
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+CMD ["python", "stop-search-scripts/scripts/get_stop_search_data.py"]
