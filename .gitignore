@@ -2,3 +2,7 @@
 *__pycache__
 .vscode
 .env*
+db-host.txt
+db-name.txt
+db-password.txt
+db-user.txt
