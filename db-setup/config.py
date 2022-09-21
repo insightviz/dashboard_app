@@ -1,14 +1,15 @@
 import os
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import create_engine
+from dotenv import load_dotenv
 
+load_dotenv()
 
 DB_CONFIG = {
-    'database': os.getenv('DB_NAME', 'insight_dashboards'),
-    'user': os.getenv('USER', 'postgres'),
-    'password': os.getenv('DB_PASSWORD', ''),
-    'host': os.getenv('DB_HOST', 'localhost'),
-    'port': os.getenv('DB_PORT', '5432'),
+    'database': os.environ.get('POSTGRES_DB'),
+    'user': os.environ.get('POSTGRES_USER'),
+    'password': os.environ.get('POSTGRES_PASSWORD'),
+    'host': os.environ.get('POSTGRES_HOST'),
 }
 
 CONNECTION_STRING = f"postgresql://{DB_CONFIG['user']}:{DB_CONFIG['password']}@{DB_CONFIG['host']}/{DB_CONFIG['database']}"
