@@ -4,6 +4,7 @@ from flask_cors import CORS
 from sqlalchemy.exc import IntegrityError
 from flask_sqlalchemy import SQLAlchemy
 import re
+from model import db, User
 
 build_directory = os.getcwd()+f'/build'
 static_directory = os.getcwd()+f'/build/static'
@@ -13,9 +14,7 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
     app.config.from_object("config.Config")
-
-    db = SQLAlchemy()
-
+    
     # initialize the app with the extension
     db.init_app(app)
     
