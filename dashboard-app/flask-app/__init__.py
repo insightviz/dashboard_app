@@ -5,6 +5,7 @@ from sqlalchemy.exc import IntegrityError
 from flask_sqlalchemy import SQLAlchemy
 import re
 
+build_directory = os.getcwd()+f'/build'
 static_directory = os.getcwd()+f'/build/static'
 
 def create_app():
@@ -20,8 +21,11 @@ def create_app():
     
     @app.route('/')
     def home():
-        path = os.getcwd()+f'/build'
-        return send_from_directory(directory=path, path='index.html')
+        return send_from_directory(directory=build_directory, path='index.html')
+
+    @app.route('/<file>')
+    def manifest(file):
+        return send_from_directory(directory=build_directory, path=file)
 
     @app.route('/static/<folder>/<file>')
     def css(folder, file):
