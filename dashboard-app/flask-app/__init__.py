@@ -1,17 +1,34 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from sqlalchemy.exc import IntegrityError
+from flask_sqlalchemy import SQLAlchemy
 import re
 
+static_directory = os.getcwd()+f'/build/static'
 
-def create_app(test_config=None):
+def create_app():
     # create and configure the app
     app = Flask(__name__)
     CORS(app)
     environment_configuration = os.environ['CONFIGURATION_SETUP']
     app.config.from_object(environment_configuration)
+
+    db = SQLAlchemy()
+
+    # initialize the app with the extension
+    db.init_app(app)
     
+    @app.route('/')
+    def home():
+        path = os.getcwd()+f'/build'
+        return send_from_directory(directory=path, path='index.html')
+
+    @app.route('/static/<folder>/<file>')
+    def css(folder, file):
+        path = folder + '/' + file
+        return send_from_directory(directory=static_directory, path=path)
+
     @app.route('/stopsearch/data')
     def stopsearchdata():
         if 'month' not in request.args.keys():
