@@ -11,8 +11,7 @@ def create_app():
     # create and configure the app
     app = Flask(__name__)
     CORS(app)
-    environment_configuration = os.environ['CONFIGURATION_SETUP']
-    app.config.from_object(environment_configuration)
+    app.config.from_object("config.Config")
 
     db = SQLAlchemy()
 
