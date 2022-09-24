@@ -6,8 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 import re
 from model import db, User
 
-build_directory = os.getcwd()+f'/build'
-static_directory = os.getcwd()+f'/build/static'
+build_directory = os.path.dirname(os.getcwd()) + f'/react_frontend/build'
+static_directory = os.path.dirname(os.getcwd()) + f'/react_frontend/build/static'
 
 def create_app():
     # create and configure the app

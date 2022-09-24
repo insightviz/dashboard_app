@@ -1,7 +1,7 @@
 version: "3"
 services:
   dashboard-app:
-    build: ./dashboard-app
+    build: .
     ports:
       - "5000:5000"
     depends_on:
@@ -34,11 +34,11 @@ services:
 
 secrets:
   db-user:
-    file: db-user.txt
+    file: credentials/db-user.txt
   db-password:
-    file: db-password.txt
+    file: credentials/db-password.txt
   db-name:
-    file: db-name.txt    
+    file: credentials/db-name.txt    
 
 volumes:
   insight-postgres-data:
