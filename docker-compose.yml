@@ -12,8 +12,8 @@ services:
   postgres-db:
     image: postgres
     environment:
-      POSTGRES_USER_FILE: run/secrets/db-user
-      POSTGRES_PASSWORD_FILE: run/secrets/db-password
+      POSTGRES_USER_FILE: /run/secrets/db-user
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
     secrets:
       - db-user
       - db-password
