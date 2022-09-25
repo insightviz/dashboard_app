@@ -9,7 +9,7 @@ const SignUpController = () => {
     handler: (event, cancel) => cancel()
   }
   const onSubmit = (data) => {
-  fetch("http://localhost:5000/signup", {
+  fetch("/signup", {
   method: "POST",
   body: JSON.stringify(data),
   headers: {

@@ -33,10 +33,10 @@ const DashboardController = () => {
     let url = ''
 
     if (month === null) {
-      url = `http://localhost:5000/stopsearch/data?force=${forceQueryString}&ethnicity=${ethnicityQueryString}`
+      url = `/stopsearch/data?force=${forceQueryString}&ethnicity=${ethnicityQueryString}`
     } else {
       let monthQueryString = month
-      url = `http://localhost:5000/stopsearch/data?force=${forceQueryString}&ethnicity=${ethnicityQueryString}&month=${monthQueryString}`
+      url = `/stopsearch/data?force=${forceQueryString}&ethnicity=${ethnicityQueryString}&month=${monthQueryString}`
     }
     
     fetch(url)
@@ -63,7 +63,7 @@ const DashboardController = () => {
 
   const fetchForces = () => {
     setForceLoading(true)
-    fetch('http://localhost:5000/stopsearch/forces')
+    fetch('/stopsearch/forces')
     .then(response => {
       if (!response.ok) {  
         throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
@@ -96,10 +96,10 @@ const DashboardController = () => {
     let url = ''
 
     if (month === null) {
-      url = `http://localhost:5000/stopsearch/ethnicity?force=${forceQueryString}`
+      url = `/stopsearch/ethnicity?force=${forceQueryString}`
     } else {
       let monthQueryString = month
-      url = `http://localhost:5000/stopsearch/ethnicity?force=${forceQueryString}&month=${monthQueryString}`
+      url = `/stopsearch/ethnicity?force=${forceQueryString}&month=${monthQueryString}`
     }
     
     fetch(url)
@@ -170,7 +170,7 @@ const DashboardController = () => {
   const fetchMonths = () => {
     setMonthsLoading(true)
     let forceQueryString = force
-    fetch(`http://localhost:5000/stopsearch/months?force=${forceQueryString}`)
+    fetch(`/stopsearch/months?force=${forceQueryString}`)
     .then(response => {
       if (!response.ok) {  
         throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
