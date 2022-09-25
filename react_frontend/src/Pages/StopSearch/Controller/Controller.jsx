@@ -127,28 +127,32 @@ const DashboardController = () => {
   useEffect(fetchEthnicity, [force, month])
   
   const handleForceChange = (e) => {
-    setView1DataLoading(true);
-    setMonth(null);
-    setForce(e);
-    setError({'error': false, 'message': null});
-    localStorage.setItem("force", e);
-    ReactGA.event({
-      category: "force change",
-      action: "change force select",
-      label: e,
-    });
+    if (e!=force) {
+      setView1DataLoading(true);
+      setMonth(null);
+      setForce(e);
+      setError({'error': false, 'message': null});
+      localStorage.setItem("force", e);
+      ReactGA.event({
+        category: "force change",
+        action: "change force select",
+        label: e,
+      });
+    }
   }
 
   const handleEthnicityChange = (e) => {
-    setView2DataLoading(true)
-    setEthnicity(e);
-    setError({'error': false, 'message': null});
-    localStorage.setItem("ethnicity", e);
-    ReactGA.event({
-      category: "ethnicity change",
-      action: "change ethnicity select",
-      label: e,
-    });
+    if (e!=ethnicity) {
+      setView2DataLoading(true)
+      setEthnicity(e);
+      setError({'error': false, 'message': null});
+      localStorage.setItem("ethnicity", e);
+      ReactGA.event({
+        category: "ethnicity change",
+        action: "change ethnicity select",
+        label: e,
+      });
+    }
   }
   
   const handleMonthChange = (date) => {
