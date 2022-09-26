@@ -5,6 +5,7 @@ from sqlalchemy.exc import IntegrityError
 from flask_sqlalchemy import SQLAlchemy
 import re
 from model import db, User
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 build_directory = os.path.dirname(os.getcwd()) + f'/react_frontend/build'
 static_directory = os.path.dirname(os.getcwd()) + f'/react_frontend/build/static'
@@ -18,6 +19,10 @@ def create_app():
     # initialize the app with the extension
     db.init_app(app)
     
+    app.wsgi_app = ProxyFix(
+        app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+    )
+
     @app.route('/')
     def home():
         return send_from_directory(directory=build_directory, path='index.html')

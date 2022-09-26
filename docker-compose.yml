@@ -2,15 +2,15 @@ version: "3"
 services:
   dashboard-app:
     build: .
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     restart: on-failure
     depends_on:
       postgres-db:
         condition: service_healthy
 
   postgres-db:
-    image: postgres
+    image: postgres:14.5
     environment:
       POSTGRES_USER_FILE: /run/secrets/db-user
       POSTGRES_PASSWORD_FILE: /run/secrets/db-password
@@ -28,6 +28,14 @@ services:
       timeout: 5s
       retries: 5
       
+  nginx-server:
+    build: ./nginx-server
+    ports:
+      - 8080:80
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+
   db-fill:
     build: ./db-setup
     depends_on:
