@@ -2,6 +2,11 @@ FROM python:3.10.7
 
 WORKDIR /db-setup
 
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+
+ENV PYTHONUNBUFFERED 1
+
 COPY . .
 
 RUN pip3 install --no-cache-dir -r requirements.txt

@@ -12,6 +12,11 @@ FROM python:3.10.7
 
 WORKDIR /dashboard_app/flask_backend
 
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+
+ENV PYTHONUNBUFFERED 1
+
 ENV VIRTUAL_ENV=/dashboard_app/flask_backend/venv
 
 RUN python -m venv $VIRTUAL_ENV
