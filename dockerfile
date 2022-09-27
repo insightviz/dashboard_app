@@ -15,7 +15,7 @@ FROM python:3.10.7
 ENV APP_USER=insight
 
 # create the app user
-RUN addgroup $APP_USER && adduser --ingroup $APP_USER $APP_USER
+RUN addgroup --uid 999 $APP_USER && adduser --ingroup $APP_USER --uid 999 $APP_USER
 
 # create the appropriate directories
 ENV HOME=/home/$APP_USER
