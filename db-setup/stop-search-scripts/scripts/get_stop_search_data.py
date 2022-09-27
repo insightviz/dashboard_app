@@ -2,6 +2,7 @@ import httpx
 import asyncio
 import time
 from sqlalchemy.orm import Session
+from sqlalchemy import select
 
 import os
 import sys
@@ -12,6 +13,21 @@ from schema import StopSearchRecords, engine
 from get_available_datasets import get_available_datasets
 from utils.helper_functions import clean_data
 
+def check_datasets_saved() -> set:
+    with Session(engine) as session:
+        statement = select(StopSearchRecords.force_id, StopSearchRecords.date).distinct()
+        result = session.execute(statement).all()
+        return set(result)
+
+
+def check_datasets_not_in_db() -> list[dict]:
+    available_datasets = get_available_datasets()
+    saved_datasets = check_datasets_saved()
+    new_datasets = []
+    for dataset in available_datasets:
+        if tuple(dataset.values()) not in saved_datasets:
+            new_datasets.append(dataset)
+    return new_datasets
 
 async def request_available_datasets(available_datasets: list[dict]) -> list[list[dict]]:
     total = len(available_datasets)
@@ -88,8 +104,8 @@ def save_stop_search_data_db(data: list[list[dict]]) -> None:
     
 if __name__ == '__main__':
     start = time.time()
-    available_datasets = get_available_datasets()
-    data = asyncio.run(request_available_datasets(available_datasets))
+    new_datasets = check_datasets_not_in_db()
+    data = asyncio.run(request_available_datasets(new_datasets))
     save_stop_search_data_db(data)
     end = time.time()
     print(f"Time-take to run script: {end-start}")
