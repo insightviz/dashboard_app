@@ -1,9 +1,35 @@
-FROM python:3
+FROM python:3.10.7
 
-WORKDIR /db-setup
+ENV APP_USER=insight
+
+# create the app user
+RUN addgroup --uid 999 $APP_USER && adduser --ingroup $APP_USER --uid 999 $APP_USER
+
+# create the appropriate directories
+ENV HOME=/home/$APP_USER
+ENV APP_HOME=$HOME/db-setup
+WORKDIR $APP_HOME
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+ENV VIRTUAL_ENV=$APP_HOME/venv
+
+RUN python -m venv $VIRTUAL_ENV
+
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+COPY requirements.txt requirements.txt
+
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN pip3 install --no-cache-dir -r requirements.txt
+# chown all the files to the app user
+RUN chown -R $APP_USER:$APP_USER $APP_HOME
+
+# change to the app user
+USER $APP_USER
 
 CMD ["python", "stop-search-scripts/scripts/get_stop_search_data.py"]

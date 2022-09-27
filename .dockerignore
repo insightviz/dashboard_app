@@ -1,0 +1,10 @@
+# node
+*/node_modules
+*/.pnp
+*.pnp.js
+*/build
+
+# python
+.python-version
+*__pycache__
+env-template.env*

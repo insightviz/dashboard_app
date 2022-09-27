@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkinsight=self.webpackChunkinsight||[]).push([[851],{9851:function(e,n,t){t.r(n);var i=t(2791),s=t(757),c=t(184);n.default=function(){return(0,i.useEffect)((function(){s.ZP.send("pageview")}),[]),(0,c.jsx)("h1",{children:"This is the contact page"})}}}]);
-//# sourceMappingURL=851.67aa06b5.chunk.js.map
