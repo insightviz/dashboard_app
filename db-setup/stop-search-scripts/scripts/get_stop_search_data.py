@@ -81,6 +81,9 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
         await get_requests(client, parameters)
 
     elif response.status_code in [500, 502, 504]:
+        if response.status_code == 500:
+            global restart 
+            restart = True
         pass
 
     elif response.status_code == 200:
@@ -104,8 +107,15 @@ def save_stop_search_data_db(data: list[list[dict]]) -> None:
     
 if __name__ == '__main__':
     start = time.time()
-    new_datasets = check_datasets_not_in_db()
-    data = asyncio.run(request_available_datasets(new_datasets))
-    save_stop_search_data_db(data)
+    restart = True
+    while restart:
+        for i in range(100):
+            # Default: execute once
+            restart = False
+            new_datasets = check_datasets_not_in_db()
+            data = asyncio.run(request_available_datasets(new_datasets))
+            save_stop_search_data_db(data)
+            if ~restart:
+                break
     end = time.time()
     print(f"Time-take to run script: {end-start}")
