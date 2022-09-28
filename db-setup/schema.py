@@ -1,5 +1,5 @@
 from config import Base, engine 
-from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, Index, text
+from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, Index, text, Date
 
 class StopSearchRecords(Base): 
     __tablename__ = "stop_search_records"
@@ -20,7 +20,7 @@ class StopSearchRecords(Base):
     operation_name = Column(String)
     object_of_search = Column(String, index=True)
     force_id = Column(String, index=True)
-    date = Column(String, index=True)
+    date = Column(Date, index=True)
     latitude = Column(Float)
     longitude = Column(Float)
     street_id = Column(Integer)
