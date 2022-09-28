@@ -82,9 +82,8 @@ async def get_requests(client:httpx.AsyncClient, parameters:dict):
         await get_requests(client, parameters)
 
     elif response.status_code in [500, 502, 504]:
-        if response.status_code == 500:
-            global restart 
-            restart = True
+        global restart 
+        restart = True
         pass
 
     elif response.status_code == 200:
