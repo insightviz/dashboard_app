@@ -1,4 +1,5 @@
 import json
+import re
 
 def get_dictionary_value(dictionary, keys):
     '''
@@ -40,7 +41,7 @@ async def clean_data(available_dataset, parameters:dict):
     for item in available_dataset:
 
         item['force_id'] = parameters['force']
-        item['date'] = parameters['date']
+        item['date'] = re.match('\d{4}-\d{2}', get_dictionary_value(item, ['datetime']))[0]
         del item['outcome_object']
         item['latitude'] = get_dictionary_value(item, ['location', 'latitude'])
         item['longitude'] = get_dictionary_value(item, ['location', 'longitude'])

@@ -20,7 +20,7 @@ class StopSearchRecords(Base):
     operation_name = Column(String)
     object_of_search = Column(String, index=True)
     force_id = Column(String, index=True)
-    date = Column(String)
+    date = Column(String, index=True)
     latitude = Column(Float)
     longitude = Column(Float)
     street_id = Column(Integer)
