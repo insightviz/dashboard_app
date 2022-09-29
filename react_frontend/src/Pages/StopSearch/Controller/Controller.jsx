@@ -278,9 +278,9 @@ const DashboardController = () => {
                 {data.figure_1.monthly_no_stop_search}
               </span>
               <span className={`percentage-change 
-              ${data.figure_1.pct_change > 0 ? 'positive' : data.figure_1.pct_change === 0 ? '' : 'negative' }`}>
-                {data.figure_1.pct_change > 0 ? <ChevronUp /> : data.figure_1.pct_change === 0 ? <Minus /> : <ChevronDown />}
-                {data.figure_1.pct_change+'%'}
+              ${data.figure_1.pct_change > 0 ? 'positive' : data.figure_1.pct_change === 0 || data.figure_1.pct_change === 'N/A' ? '' : 'negative' }`}>
+                {data.figure_1.pct_change > 0 ? <ChevronUp /> : data.figure_1.pct_change === 0 || data.figure_1.pct_change === 'N/A' ? <Minus /> : <ChevronDown />}
+                {data.figure_1.pct_change > 0 ? data.figure_1.pct_change+'%' : data.figure_1.pct_change === 0 || data.figure_1.pct_change === 'N/A' ? data.figure_1.pct_change : data.figure_1.pct_change+'%'}
               </span>
             </div>
           </> 
