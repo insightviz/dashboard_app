@@ -108,7 +108,7 @@ if __name__ == '__main__':
     start = time.time()
     restart = True
     while restart:
-        for i in range(100):
+        for i in range(50):
             # Default: execute once
             restart = False
             new_datasets = check_datasets_not_in_db()
