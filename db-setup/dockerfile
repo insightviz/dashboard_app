@@ -24,12 +24,24 @@ COPY requirements.txt requirements.txt
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
+RUN apt-get update && apt-get -y install cron
+
+# Copy cron file to the cron.d directory
+COPY fill_db.crontab /etc/cron.d/fill_db.crontab
+ 
+# Give execution rights on the cron job
+RUN chmod 0744 /etc/cron.d/fill_db.crontab
+
+# Apply cron job
+RUN crontab /etc/cron.d/fill_db.crontab
+ 
 COPY . .
 
 # chown all the files to the app user
 RUN chown -R $APP_USER:$APP_USER $APP_HOME
 
 # change to the app user
-USER $APP_USER
+#USER $APP_USER
 
-CMD ["python", "stop-search-scripts/scripts/get_stop_search_data.py"]
+# Run the command on container startup
+CMD python stop-search-scripts/scripts/get_stop_search_data.py && cron -f
