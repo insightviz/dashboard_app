@@ -59,7 +59,11 @@ def create_app():
                           WHERE force_id in :force)
                           AND
                           force_id in :force)''', {'force': forces_to_filter}).one()
-            pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+            if no_stop_searches_pm[0] == 0:
+                pct_change = 'N/A'
+            else:
+                pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+                pct_change = round(pct_change, 2)
             no_stop_searches_by_race = db.session.execute(
                 '''WITH stop_searches_by_race AS (
                        SELECT person_ethnicity, count(*) 
@@ -158,7 +162,11 @@ def create_app():
                    WHERE (date = (:month ::date - INTERVAL '1 month')
                           AND
                           force_id in :force)''', {'force': forces_to_filter, 'month': month_to_filter}).one()
-            pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+            if no_stop_searches_pm[0] == 0:
+                pct_change = 'N/A'
+            else:
+                pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+                pct_change = round(pct_change, 2)
             no_stop_searches_by_race = db.session.execute(
                 '''WITH stop_searches_by_race AS (
                        SELECT person_ethnicity, count(*) 
@@ -230,7 +238,7 @@ def create_app():
             stop_search_object_of_search_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
 
         results = {'figure_1': {'monthly_no_stop_search': no_stop_searches[0],
-                                'pct_change': round(pct_change, 2)},
+                                'pct_change': pct_change},
                    'breakdown_by_race': no_stop_searches_by_race,
                    'breakdown_by_police_ethnicity': no_stop_searches_by_police_ethnicity,
                    'breakdown_of_outcomes_by_ethnicity': stop_search_outcomes_by_ethnicity,
