@@ -107,14 +107,18 @@ def save_stop_search_data_db(data: list[list[dict]]) -> None:
 if __name__ == '__main__':
     start = time.time()
     restart = True
-    while restart:
-        for i in range(50):
+    n = 26
+    for i in range(1, n):
+        if restart==False:
+            break
+        else:
             # Default: execute once
             restart = False
+            print('Execution attempt number:', i)
+            print('Execution attempt number:', i)
+            print('Execution attempt number:', i)
             new_datasets = check_datasets_not_in_db()
             data = asyncio.run(request_available_datasets(new_datasets))
             save_stop_search_data_db(data)
-            if ~restart:
-                break
     end = time.time()
     print(f"Time-take to run script: {end-start}")
