@@ -17,6 +17,7 @@ def check_datasets_saved() -> set:
     with Session(engine) as session:
         statement = select(StopSearchRecords.force_id, StopSearchRecords.date).distinct()
         result = session.execute(statement).all()
+        result = [(row[0], str(row[1])[:-3]) for row in result]
         return set(result)
 
 

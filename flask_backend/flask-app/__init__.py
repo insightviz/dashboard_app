@@ -44,8 +44,8 @@ def create_app():
             no_stop_searches = db.session.execute(
                 '''SELECT count(*) 
                    FROM stop_search_records 
-                   WHERE (date_corrected=
-                         (SELECT max(date_corrected) as max_month 
+                   WHERE (date=
+                         (SELECT max(date) as max_month 
                           FROM stop_search_records
                           WHERE force_id in :force) 
                           AND
@@ -53,8 +53,8 @@ def create_app():
             no_stop_searches_pm = db.session.execute(
                 '''SELECT count(*) 
                    FROM stop_search_records 
-                   WHERE (date_corrected=
-                         (SELECT max(date_corrected) - INTERVAL '1 month' 
+                   WHERE (date=
+                         (SELECT max(date) - INTERVAL '1 month' 
                           FROM stop_search_records
                           WHERE force_id in :force)
                           AND
@@ -64,8 +64,8 @@ def create_app():
                 '''WITH stop_searches_by_race AS (
                        SELECT person_ethnicity, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_corrected=(
-                              SELECT max(date_corrected) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id in :force)
                               AND
@@ -82,8 +82,8 @@ def create_app():
                 '''WITH stop_searches_by_officer_race AS (
                        SELECT officer_defined_ethnicity, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_corrected=(
-                              SELECT max(date_corrected) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id in :force)
                               AND
@@ -103,8 +103,8 @@ def create_app():
                 '''WITH outcomes_by_race AS (
                        SELECT outcome, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_corrected=(
-                              SELECT max(date_corrected) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id in :force)
                               AND
@@ -124,8 +124,8 @@ def create_app():
                 '''WITH object_of_search_by_race AS (
                        SELECT object_of_search, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_corrected=(
-                              SELECT max(date_corrected) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id in :force)
                               AND
@@ -149,13 +149,13 @@ def create_app():
             no_stop_searches = db.session.execute(
                 '''SELECT count(*) 
                    FROM stop_search_records 
-                   WHERE (date_corrected = :month  
+                   WHERE (date = :month  
                           AND
                           force_id in :force)''', {'force': forces_to_filter, 'month': month_to_filter}).one()
             no_stop_searches_pm = db.session.execute(
                 '''SELECT count(*) 
                    FROM stop_search_records 
-                   WHERE (date_corrected = (:month ::date - INTERVAL '1 month')
+                   WHERE (date = (:month ::date - INTERVAL '1 month')
                           AND
                           force_id in :force)''', {'force': forces_to_filter, 'month': month_to_filter}).one()
             pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
@@ -163,7 +163,7 @@ def create_app():
                 '''WITH stop_searches_by_race AS (
                        SELECT person_ethnicity, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_corrected = :month
+                       WHERE (date = :month
                               AND
                               force_id in :force) group by 1
                    )
@@ -178,7 +178,7 @@ def create_app():
                 '''WITH stop_searches_by_officer_race AS (
                        SELECT officer_defined_ethnicity, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_corrected = :month
+                       WHERE (date = :month
                               AND
                               force_id in :force
                               AND 
@@ -196,7 +196,7 @@ def create_app():
                 '''WITH outcomes_by_race AS (
                        SELECT outcome, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_corrected = :month
+                       WHERE (date = :month
                               AND
                               force_id in :force
                               AND 
@@ -214,7 +214,7 @@ def create_app():
                 '''WITH object_of_search_by_race AS (
                        SELECT object_of_search, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_corrected = :month
+                       WHERE (date = :month
                               AND
                               force_id in :force
                               AND 
@@ -250,7 +250,7 @@ def create_app():
     def months():
         forces_to_filter = request.args['force']
         available_months = db.session.execute(
-                '''SELECT date_corrected 
+                '''SELECT date 
                    FROM stop_search_records
                    WHERE force_id = :force 
                    GROUP BY 1''', {'force': forces_to_filter}).all()
@@ -264,8 +264,8 @@ def create_app():
             available_ethnicity = db.session.execute(
                     '''SELECT person_ethnicity 
                        FROM stop_search_records
-                       WHERE (date_corrected=(
-                              SELECT max(date_corrected) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id = :force)
                               AND
@@ -278,7 +278,7 @@ def create_app():
             available_ethnicity = db.session.execute(
                     '''SELECT person_ethnicity 
                        FROM stop_search_records
-                       WHERE (date_corrected = :month
+                       WHERE (date = :month
                               AND
                               force_id = :force)
                        GROUP BY 1''', {'force': forces_to_filter, 'month': month_to_filter}).all()
