@@ -1,12 +1,12 @@
 from config import Base, engine 
-from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, Index, text, Date
 
 class StopSearchRecords(Base): 
     __tablename__ = "stop_search_records"
 
     id = Column(Integer, primary_key=True)
     age_range = Column(String)
-    outcome = Column(String)
+    outcome = Column(String, index=True)
     involved_person = Column(Boolean)
     self_defined_ethnicity = Column(String)
     gender = Column(String)
@@ -15,17 +15,17 @@ class StopSearchRecords(Base):
     datetime = Column(DateTime)
     removal_of_more_than_outer_clothing = Column(Boolean)
     operation = Column(Boolean)
-    officer_defined_ethnicity = Column(String)
+    officer_defined_ethnicity = Column(String, index=True)
     type = Column(String)
     operation_name = Column(String)
-    object_of_search = Column(String)
-    force_id = Column(String)
-    date = Column(String)
+    object_of_search = Column(String, index=True)
+    force_id = Column(String, index=True)
+    date = Column(Date, index=True)
     latitude = Column(Float)
     longitude = Column(Float)
     street_id = Column(Integer)
     street_desc = Column(String)
-    person_ethnicity = Column(String)
+    person_ethnicity = Column(String, index=True)
 
 class User(Base):
     __tablename__ = 'users_registered'

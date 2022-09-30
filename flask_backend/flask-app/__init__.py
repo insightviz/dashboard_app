@@ -44,8 +44,8 @@ def create_app():
             no_stop_searches = db.session.execute(
                 '''SELECT count(*) 
                    FROM stop_search_records 
-                   WHERE (date_trunc('month', datetime)=
-                         (SELECT date_trunc('month', max(datetime)) as max_month 
+                   WHERE (date=
+                         (SELECT max(date) as max_month 
                           FROM stop_search_records
                           WHERE force_id in :force) 
                           AND
@@ -53,19 +53,23 @@ def create_app():
             no_stop_searches_pm = db.session.execute(
                 '''SELECT count(*) 
                    FROM stop_search_records 
-                   WHERE (date_trunc('month', datetime)=
-                         (SELECT date_trunc('month', max(datetime)) - INTERVAL '1 month' 
+                   WHERE (date=
+                         (SELECT max(date) - INTERVAL '1 month' 
                           FROM stop_search_records
                           WHERE force_id in :force)
                           AND
                           force_id in :force)''', {'force': forces_to_filter}).one()
-            pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+            if no_stop_searches_pm[0] == 0:
+                pct_change = 'N/A'
+            else:
+                pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+                pct_change = round(pct_change, 2)
             no_stop_searches_by_race = db.session.execute(
                 '''WITH stop_searches_by_race AS (
                        SELECT person_ethnicity, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_trunc('month', datetime)=(
-                              SELECT date_trunc('month', max(datetime)) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id in :force)
                               AND
@@ -82,8 +86,8 @@ def create_app():
                 '''WITH stop_searches_by_officer_race AS (
                        SELECT officer_defined_ethnicity, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_trunc('month', datetime)=(
-                              SELECT date_trunc('month', max(datetime)) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id in :force)
                               AND
@@ -103,8 +107,8 @@ def create_app():
                 '''WITH outcomes_by_race AS (
                        SELECT outcome, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_trunc('month', datetime)=(
-                              SELECT date_trunc('month', max(datetime)) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id in :force)
                               AND
@@ -124,8 +128,8 @@ def create_app():
                 '''WITH object_of_search_by_race AS (
                        SELECT object_of_search, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_trunc('month', datetime)=(
-                              SELECT date_trunc('month', max(datetime)) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id in :force)
                               AND
@@ -149,21 +153,25 @@ def create_app():
             no_stop_searches = db.session.execute(
                 '''SELECT count(*) 
                    FROM stop_search_records 
-                   WHERE (date_trunc('month', datetime) = :month  
+                   WHERE (date = :month  
                           AND
                           force_id in :force)''', {'force': forces_to_filter, 'month': month_to_filter}).one()
             no_stop_searches_pm = db.session.execute(
                 '''SELECT count(*) 
                    FROM stop_search_records 
-                   WHERE (date_trunc('month', datetime) = (:month ::date - INTERVAL '1 month')
+                   WHERE (date = (:month ::date - INTERVAL '1 month')
                           AND
                           force_id in :force)''', {'force': forces_to_filter, 'month': month_to_filter}).one()
-            pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+            if no_stop_searches_pm[0] == 0:
+                pct_change = 'N/A'
+            else:
+                pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
+                pct_change = round(pct_change, 2)
             no_stop_searches_by_race = db.session.execute(
                 '''WITH stop_searches_by_race AS (
                        SELECT person_ethnicity, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_trunc('month', datetime) = :month
+                       WHERE (date = :month
                               AND
                               force_id in :force) group by 1
                    )
@@ -178,7 +186,7 @@ def create_app():
                 '''WITH stop_searches_by_officer_race AS (
                        SELECT officer_defined_ethnicity, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_trunc('month', datetime) = :month
+                       WHERE (date = :month
                               AND
                               force_id in :force
                               AND 
@@ -196,7 +204,7 @@ def create_app():
                 '''WITH outcomes_by_race AS (
                        SELECT outcome, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_trunc('month', datetime) = :month
+                       WHERE (date = :month
                               AND
                               force_id in :force
                               AND 
@@ -214,7 +222,7 @@ def create_app():
                 '''WITH object_of_search_by_race AS (
                        SELECT object_of_search, count(*) 
                        FROM stop_search_records 
-                       WHERE (date_trunc('month', datetime) = :month
+                       WHERE (date = :month
                               AND
                               force_id in :force
                               AND 
@@ -229,12 +237,15 @@ def create_app():
             text = [f'{row[1]} ({round(row[2], 1)}%)' for row in stop_search_object_of_search_by_ethnicity]
             stop_search_object_of_search_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
 
-        results = {'figure_1': {'monthly_no_stop_search': no_stop_searches[0],
-                                'pct_change': round(pct_change, 2)},
-                   'breakdown_by_race': no_stop_searches_by_race,
-                   'breakdown_by_police_ethnicity': no_stop_searches_by_police_ethnicity,
-                   'breakdown_of_outcomes_by_ethnicity': stop_search_outcomes_by_ethnicity,
-                   'breakdown_of_object_of_search_by_ethnicity': stop_search_object_of_search_by_ethnicity}
+        if no_stop_searches[0] == 0:
+            results = f"No data available for {forces_to_filter[0].replace('-', ' ')} police force!", 404
+        else:
+            results = {'figure_1': {'monthly_no_stop_search': no_stop_searches[0],
+                                    'pct_change': pct_change},
+                       'breakdown_by_race': no_stop_searches_by_race,
+                       'breakdown_by_police_ethnicity': no_stop_searches_by_police_ethnicity,
+                       'breakdown_of_outcomes_by_ethnicity': stop_search_outcomes_by_ethnicity,
+                       'breakdown_of_object_of_search_by_ethnicity': stop_search_object_of_search_by_ethnicity}
         return results
 
     @app.route('/stopsearch/forces')
@@ -250,7 +261,7 @@ def create_app():
     def months():
         forces_to_filter = request.args['force']
         available_months = db.session.execute(
-                '''SELECT date_trunc('month', datetime) 
+                '''SELECT date 
                    FROM stop_search_records
                    WHERE force_id = :force 
                    GROUP BY 1''', {'force': forces_to_filter}).all()
@@ -264,8 +275,8 @@ def create_app():
             available_ethnicity = db.session.execute(
                     '''SELECT person_ethnicity 
                        FROM stop_search_records
-                       WHERE (date_trunc('month', datetime)=(
-                              SELECT date_trunc('month', max(datetime)) as max_month 
+                       WHERE (date=(
+                              SELECT max(date) as max_month 
                               FROM stop_search_records
                               WHERE force_id = :force)
                               AND
@@ -278,7 +289,7 @@ def create_app():
             available_ethnicity = db.session.execute(
                     '''SELECT person_ethnicity 
                        FROM stop_search_records
-                       WHERE (date_trunc('month', datetime) = :month
+                       WHERE (date = :month
                               AND
                               force_id = :force)
                        GROUP BY 1''', {'force': forces_to_filter, 'month': month_to_filter}).all()
