@@ -42,7 +42,10 @@ const DashboardController = () => {
     fetch(url)
     .then(response => {
       if (!response.ok) {  
-        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
+        if (response.status === 404) {
+          throw new Error(`Status: ${response.status}, Message: Data for ${force.replace("-", " ")} police force ${response.statusText}`); 
+        }
+        throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
       }
       return response.json();
     })
@@ -66,7 +69,7 @@ const DashboardController = () => {
     fetch('/stopsearch/forces')
     .then(response => {
       if (!response.ok) {  
-        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
+        throw new Error(`Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })
@@ -105,7 +108,10 @@ const DashboardController = () => {
     fetch(url)
     .then(response => {
       if (!response.ok) {  
-        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
+        if (response.status === 404) {
+          throw new Error(`Status: ${response.status}, Message: Data for ${force.replace("-", " ")} police force ${response.statusText}`); 
+        }
+        throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
       }
       return response.json();
     })
@@ -177,7 +183,7 @@ const DashboardController = () => {
     fetch(`/stopsearch/months?force=${forceQueryString}`)
     .then(response => {
       if (!response.ok) {  
-        throw new Error(`Error! Status: ${response.status}, Message: ${response.statusText}`); 
+        throw new Error(`Status: ${response.status}, Message: ${response.statusText}`); 
       }
       return response.json();
     })

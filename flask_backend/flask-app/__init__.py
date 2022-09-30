@@ -237,12 +237,15 @@ def create_app():
             text = [f'{row[1]} ({round(row[2], 1)}%)' for row in stop_search_object_of_search_by_ethnicity]
             stop_search_object_of_search_by_ethnicity = {'x': x, 'y': y, 'type': 'bar', 'text': text}
 
-        results = {'figure_1': {'monthly_no_stop_search': no_stop_searches[0],
-                                'pct_change': pct_change},
-                   'breakdown_by_race': no_stop_searches_by_race,
-                   'breakdown_by_police_ethnicity': no_stop_searches_by_police_ethnicity,
-                   'breakdown_of_outcomes_by_ethnicity': stop_search_outcomes_by_ethnicity,
-                   'breakdown_of_object_of_search_by_ethnicity': stop_search_object_of_search_by_ethnicity}
+        if no_stop_searches[0] == 0:
+            results = f"No data available for {forces_to_filter[0].replace('-', ' ')} police force!", 404
+        else:
+            results = {'figure_1': {'monthly_no_stop_search': no_stop_searches[0],
+                                    'pct_change': pct_change},
+                       'breakdown_by_race': no_stop_searches_by_race,
+                       'breakdown_by_police_ethnicity': no_stop_searches_by_police_ethnicity,
+                       'breakdown_of_outcomes_by_ethnicity': stop_search_outcomes_by_ethnicity,
+                       'breakdown_of_object_of_search_by_ethnicity': stop_search_object_of_search_by_ethnicity}
         return results
 
     @app.route('/stopsearch/forces')
