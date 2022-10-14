@@ -1,2 +1,0 @@
-0 0 1 * * /home/insight/db-setup/venv/bin/python /home/insight/db-setup/stop-search-scripts/scripts/get_stop_search_data.py > /proc/1/fd/1 2>/proc/1/fd/2
-# An empty line is required at the end of this file for a valid cron file.
