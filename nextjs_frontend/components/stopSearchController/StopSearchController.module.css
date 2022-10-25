@@ -1,0 +1,253 @@
+.stopSearchDashboard {
+    display: grid;
+    grid-template-columns: minmax(28rem, 1fr);
+    grid-template-areas: 
+    "title"
+    "select"
+    "stop-search-count"
+    "charts"
+    "contributors";
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.stopSearchDashboard h1 {
+    grid-area: title;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    font-size: 4.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.selectContainer {
+    grid-area: select;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.selectContainer .select {
+    flex-grow: 1;
+}
+
+.selectContainer h2 {
+    font-size: var(--font-size--ml);
+    margin-bottom: 2rem;
+}
+
+
+.selectInputs {
+    display: grid;
+    grid-template-columns: minmax(min-content, max-content) .5rem minmax(min-content, max-content);
+    grid-template-areas: 
+    "force-label . force-dropdown"
+    "month-label . month-dropdown"
+    "race-label . race-dropdown";
+    row-gap: 2rem;
+}
+
+.selectInputs > * {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: var(--font-size--default);
+}
+
+.selectInputs span {
+    width: max-content;
+    white-space: nowrap;
+}
+
+.forceLabel {
+    grid-area: force-label;
+}
+
+.forceDropdown {
+    grid-area: force-dropdown;
+}
+
+.monthLabel {
+    grid-area: month-label;
+}
+
+.monthPicker {
+    grid-area: month-dropdown;
+}
+
+.monthPicker > .MuiFormControl-root {
+    flex-grow: 1;
+}
+
+.monthPicker fieldset {
+    border: var(--accent-2) 1px solid;
+}
+
+.raceLabel {
+    grid-area: race-label;
+}
+
+.raceDropdown {
+    grid-area: race-dropdown;
+}
+
+.monthlyStopSearchContainer {
+    display: flex;
+    justify-content: center;
+    grid-area: stop-search-count;
+}
+
+.monthlyStopSearchFigure {
+    background-color: var(--bg-colour-2);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    min-width: 28rem;
+    min-height: 10.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.figureTitle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    font-size: var(--font-size--small);
+}
+
+.stopSearchNo, .percentageChange {
+    font-size: 2.2rem;
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.stopSearchNo {
+    font-size: 3.2rem;
+    font-weight: bold;
+}
+
+.percentageChange {
+    gap: 1rem;
+}
+
+.negative {
+    color: var(--red);
+}
+
+.positive {
+    color: var(--green);
+}
+
+.charts {
+    grid-area: charts;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.chart {
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background-color: var(--bg-colour-2);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.chart svg.main-svg {
+    width: 100%;
+}
+
+.contributors {
+    grid-area: contributors;
+}
+
+.avatarImages {
+    display: flex;
+    gap: 2rem;
+}
+
+.avatarImages a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 1.6rem;
+    color: var(--text-colour);
+}
+
+.avatarImages a:visited {
+    color: var(--text-colour);
+}
+
+.avatarImages a:hover {
+    color: var(--brand-orange);
+}
+
+.avatar {
+    border-radius: 50%;
+}
+
+@media(min-width: 1200px) {
+    .charts {
+        display: grid;
+        grid-auto-columns: minmax(30rem, 1fr);
+        grid-auto-flow: column;
+        grid-auto-rows: minmax(38rem, 1fr);
+        gap: 2rem;
+    }
+
+    .chart:nth-child(2n + 1) {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 1535px) and (min-width: 1000px) {
+    .selectInputs {
+        grid-template-columns: minmax(min-content, max-content) .5rem minmax(min-content, max-content) 3rem minmax(min-content, max-content) .5rem minmax(min-content, max-content) 3rem minmax(min-content, max-content) .5rem minmax(min-content, max-content);
+        grid-template-areas: 
+        "force-label . force-dropdown . month-label . month-dropdown . race-label . race-dropdown";
+        row-gap: 2rem;
+    }
+}
+
+@media(min-width: 1536px) {
+    .stopSearchDashboard {
+        grid-template-columns: minmax(max-content, max-content) 1fr;
+        grid-template-areas:
+        "title title" 
+        "stop-search-count stop-search-count"
+        "select charts"
+        "contributors charts";
+    }
+
+    .charts {
+        grid-area: 3 / 2 / 5 / 3;
+    }
+
+    .avatarImages {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .selectContainer {
+        align-items: flex-start;
+        border-bottom: 1px solid var(--accent-2);
+    }
+
+    .contributors {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

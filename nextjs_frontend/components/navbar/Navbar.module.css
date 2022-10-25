@@ -1,0 +1,148 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+	position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    border-bottom: 1px solid var(--accent-2);
+    -webkit-backdrop-filter: blur(2rem);
+    backdrop-filter: blur(.75rem);
+    background-color: var(--bg-colour-t);
+}
+
+.navbarContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100rem;
+    width: 100%;
+}
+
+@media(min-width: 2200px) {
+    .navbarContainer {
+        max-width: 200rem;
+    }
+}
+
+.logoContainer {
+    display: flex;
+}
+
+.bulb, .name {
+    fill: var(--text-colour);
+}
+
+@media (max-width: 901px) {
+    .navMenu {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        padding: 10rem 4rem 4rem 4rem;
+        position: fixed;
+        inset: 0 0 0 0;
+        height: 100vh;
+        transform: translateX(-100%);
+        background-color: var(--bg-colour);
+        opacity: .98;
+        transition: all 0.5s ease-out;
+    }
+
+    .navMenu.active {
+        transform: translateX(0%);
+    }
+
+    .navMenu a {
+        border-bottom: 1px solid var(--accent-2);
+    }
+
+    .themeSelect {
+        display: none;
+    }
+
+    .menuIcon, .themeToggle {
+        cursor: pointer;
+    }
+
+    .menuIcon {
+        z-index: 1000;
+    }
+
+    .menuIcon, .themeToggle {
+        display: block;
+    }    
+}
+
+.navLinks {
+    font-size: var(--font-size--default);
+    color: var(--text-colour);
+}
+
+.logoContainer:hover .bulb {
+    animation-duration: .15s;
+    animation-name: flicker;
+    animation-iteration-count: 5;
+    animation-direction: alternate;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+}
+
+@keyframes flicker {
+    from { 
+        fill: var(--bg-colour);
+    }
+
+    to {
+        fill: var(--brand-orange);
+        filter: drop-shadow(.8rem .8rem .8rem var(--brand-orange));
+    } 
+}
+
+.logoContainer:hover .name {
+    transition-duration: .5s;
+    fill: var(--brand-blue);
+    transition-timing-function: ease-in;
+}
+
+body[data-theme="dark"] .logoContainer:hover .name {
+    fill: var(--blue-200);
+}
+
+@media (min-width:901px) {
+    .menuIcon, .themeToggle {
+        display: none;
+    }
+    
+    .themeSelect {
+        display: block;
+    }
+
+    .navMenu {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+    }
+    
+    .navLinks:hover {
+        border-bottom: 4px solid var(--text-colour);
+        transition: all 0.2s ease-out;
+    }
+    
+    .themeSelect span {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        width: 100%;
+    }
+    
+    .themeDropdown span {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        width: 100%;
+    }
+}

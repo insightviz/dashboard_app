@@ -1,0 +1,75 @@
+.signupForm {
+    padding: 5rem;
+}
+
+.signupForm form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem
+    ;
+}
+
+.formTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;  
+}
+
+.formTitle h2 {
+    font-size: var(--font-size--ml);
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem; 
+}
+
+@media (min-width: 830px) {
+    .inputs {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem; 
+    }
+}
+
+.firstNameContainer, .emailContainer {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    width: 100%;
+    max-width: 30rem;
+    border: 1px solid var(--accent-1);
+    border-radius: .5rem;
+}
+
+.firstNameIcon, .emailIcon {
+    display: flex;
+    align-items: center;
+    margin-left: .5rem;
+    position: absolute;
+}
+
+.firstNameInput, .emailInput {
+    width: 100%;
+    background-color: var(--bg-colour-2);
+    line-height: 2.5;
+    border: 0;
+    border-radius: .5rem;
+    font-size: var(--font-size--default);
+    padding-left: 3rem;
+    color: var(--text-colour);
+}
+
+.firstNameInput:focus, .emailInput:focus {
+    outline: none !important;
+    box-shadow: 0 0 1rem var(--brand-orange);
+}
+
+.firstNameInput::placeholder, .emailInput::placeholder {
+    color: var(--accent-1);
+}
