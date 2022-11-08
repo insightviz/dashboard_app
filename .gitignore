@@ -29,7 +29,11 @@ yarn-error.log*
 *__pycache__
 .vscode
 .env*
-db-host.txt
-db-name.txt
-db-password.txt
-db-user.txt
+*greenlet
+*greenlet-2.0.1.dist-info
+*include
+*psycopg2
+*psycopg2_binary-2.9.5.dist-info
+*psycopg2_binary.libs
+*sqlalchemy
+*SQLAlchemy-1.4.43.dist-info
