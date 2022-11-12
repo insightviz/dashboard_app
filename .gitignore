@@ -37,3 +37,4 @@ yarn-error.log*
 *psycopg2_binary.libs
 *sqlalchemy
 *SQLAlchemy-1.4.43.dist-info
+*.zip
