@@ -31,8 +31,9 @@ class User(Base):
 
 def signup(event, context):
     with Session(engine) as session:
-        firstName = event['body']['firstName']
-        email = event['body']['email']
+        user_data = json.loads(event['body'])
+        firstName = user_data['firstName']
+        email = user_data['email']
         
         #check if user is already registered
         inputs = {'firstName': firstName, 'email': email}
@@ -40,7 +41,7 @@ def signup(event, context):
         
         if user_exists == []:
             try:
-                user = User(**event['body'])
+                user = User(**user_data)
                 session.add(user)
                 session.commit()
                 if firstName == '':
@@ -49,13 +50,13 @@ def signup(event, context):
                     response = {'status': 'success', 'title': 'Subscribed', 'message': f"{firstName} is now subscribed"}
                 return {
                         'statusCode': 200,
-                        'body': response
+                        'body': json.dumps(response)
                 }
             except IntegrityError:
                 response = {'status': 'warning', 'title': 'Not subscribed', 'message': f"{email} is already subscribed"}
                 return {
                         'statusCode': 200,
-                        'body': response
+                        'body': json.dumps(response)
                 }
         else:
             if firstName == '':
@@ -64,5 +65,5 @@ def signup(event, context):
                 response = {'status': 'warning', 'title': 'Not subscribed', 'message': f"{firstName} is already subscribed"}
             return {
                     'statusCode': 200,
-                    'body': response
+                    'body': json.dumps(response)
             }
