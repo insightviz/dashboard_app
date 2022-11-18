@@ -14,7 +14,7 @@ export default function Home() {
       <div className={styles.dashboards}>
         <h2>Lastest Dashboards</h2>
         <div className={styles.dashboard_content}>
-          <Link href="/stopsearch">
+          <Link href="/stopsearch" legacyBehavior>
             <div className={styles.stop_search} >
               <div className={styles.text_card}>
                 <h3>Stop and search</h3>
