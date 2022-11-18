@@ -49,6 +49,36 @@
     color: var(--accent-1);
 }
 
+.logoContainer:hover .bulb {
+    animation-duration: .15s;
+    animation-name: flicker;
+    animation-iteration-count: 5;
+    animation-direction: alternate;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+}
+
+@keyframes flicker {
+    from { 
+        fill: var(--bg-colour);
+    }
+
+    to {
+        fill: var(--brand-orange);
+        filter: drop-shadow(.8rem .8rem .8rem var(--brand-orange));
+    } 
+}
+
+.logoContainer:hover .name {
+    transition-duration: .5s;
+    fill: var(--brand-blue);
+    transition-timing-function: ease-in;
+}
+
+body[data-theme="dark"] .logoContainer:hover .name {
+    fill: var(--blue-200);
+}
+
 @media (min-width: 830px) {
     .iconsContainer {
         display: flex;
