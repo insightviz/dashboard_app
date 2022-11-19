@@ -9,22 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "@geist-ui/core": "^2.3.8",
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
     "@geist-ui/icons": "^1.0.2",
-    "@mui/x-date-pickers": "^5.0.4",
+    "@mantine/core": "^5.8.0",
+    "@mantine/dates": "^5.8.0",
+    "@mantine/hooks": "^5.8.0",
+    "@mantine/next": "^5.8.0",
     "cookies-next": "^2.1.1",
-    "date-fns": "^2.29.3",
-    "next": "12.3.1",
+    "dayjs": "^1.11.6",
+    "next": "^13.0.4",
     "plotly.js": "^2.14.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.36.1",
     "react-plotly.js": "^2.6.0"
   },
   "devDependencies": {
     "eslint": "8.24.0",
-    "eslint-config-next": "12.3.1"
+    "eslint-config-next": "^13.0.4"
   }
 }
