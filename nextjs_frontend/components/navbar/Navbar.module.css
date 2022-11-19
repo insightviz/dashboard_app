@@ -129,20 +129,4 @@ body[data-theme="dark"] .logoContainer:hover .name {
         border-bottom: 4px solid var(--text-colour);
         transition: all 0.2s ease-out;
     }
-    
-    .themeSelect span {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 1.5rem;
-        width: 100%;
-    }
-    
-    .themeDropdown span {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 1.5rem;
-        width: 100%;
-    }
 }
