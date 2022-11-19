@@ -9,8 +9,8 @@ import { forwardRef } from 'react';
 const themeOptions = [
   {
     image: 
-    <Avatar radius="xl">
-      <Display size={18} />
+    <Avatar>
+      <Display size={16}/>
     </Avatar>,
     label: 'System',
     value: 'system',
@@ -18,16 +18,16 @@ const themeOptions = [
 
   {
     image: 
-    <Avatar color="yellow" radius="xl">
-      <Sun size={18} color="black"/>
+    <Avatar color="yellow">
+      <Sun size={16}/>
     </Avatar>,
     label: 'Light',
     value: 'light',
   },
   {
     image: 
-    <Avatar color="dark" radius="xl">
-      <Moon size={18} color="white"/>
+    <Avatar color="dark">
+      <Moon size={16}/>
     </Avatar>,
     label: 'Dark',
     value: 'dark',
@@ -88,12 +88,12 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
             data={themeOptions}
             maxDropdownHeight={400}
             searchable={true}
-            icon={themeOptions.image}
+            icon={mode == 'system' ? <Avatar><Display size={16}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={16}/> </Avatar>: <Avatar color="dark"><Moon size={16}/></Avatar>}
+            iconWidth={60}
             value={mode}
             onChange={e => { 
               setMode(e)
             }}
-            size="sm"
           />
         </div>
       </nav> 
