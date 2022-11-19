@@ -1,22 +1,24 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import { Fragment } from "react"
-import { CssBaseline } from '@geist-ui/core'
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import { ServerStyles, createStylesServer } from '@mantine/next';
 
-class MyDocument extends Document {
-  static async getInitialProps (ctx) {
-    const initialProps = await Document.getInitialProps(ctx)
-    const styles = CssBaseline.flush()
+// optional: you can provide your cache as a fist argument in createStylesServer function
+const stylesServer = createStylesServer();
 
+export default class _Document extends Document {
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+
+    // Add your app specific logic here
+    
     return {
       ...initialProps,
       styles: [
-        <Fragment key="1">
-          {initialProps.styles}
-          {styles}
-        </Fragment>,
+        initialProps.styles,
+        <ServerStyles html={initialProps.html} server={stylesServer} key="styles" />,
       ],
-    }
+    };
   }
+
   render() {
     return (
       <Html>
@@ -29,5 +31,3 @@ class MyDocument extends Document {
     );
   }
 }
-
-export default MyDocument;
