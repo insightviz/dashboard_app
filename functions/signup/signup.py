@@ -32,12 +32,12 @@ class User(Base):
 def signup(event, context):
     with Session(engine) as session:
         user_data = json.loads(event['body'])
-        firstName = user_data['firstName']
-        email = user_data['email']
+        firstName = user_data['firstName'].lower()
+        email = user_data['email'].lower()
         
         #check if user is already registered
-        inputs = {'firstName': firstName, 'email': email}
-        user_exists = session.execute('SELECT * FROM users_registered WHERE "firstName"=:firstName and "email"=:email', inputs).all()
+        user_data = {'firstName': firstName, 'email': email}
+        user_exists = session.execute('SELECT * FROM users_registered WHERE "firstName"=:firstName and "email"=:email', user_data).all()
         
         if user_exists == []:
             try:
@@ -47,7 +47,7 @@ def signup(event, context):
                 if firstName == '':
                     response = {'status': 'success', 'title': 'Subscribed', 'message': f"{email} is now subscribed"}
                 else:
-                    response = {'status': 'success', 'title': 'Subscribed', 'message': f"{firstName} is now subscribed"}
+                    response = {'status': 'success', 'title': 'Subscribed', 'message': f"{firstName.capitalize()} is now subscribed"}
                 return {
                         'statusCode': 200,
                         'body': json.dumps(response)
@@ -62,7 +62,7 @@ def signup(event, context):
             if firstName == '':
                 response = {'status': 'warning', 'title': 'Not subscribed', 'message': f"{email} is already subscribed"}
             else:
-                response = {'status': 'warning', 'title': 'Not subscribed', 'message': f"{firstName} is already subscribed"}
+                response = {'status': 'warning', 'title': 'Not subscribed', 'message': f"{firstName.capitalize()} is already subscribed"}
             return {
                     'statusCode': 200,
                     'body': json.dumps(response)
