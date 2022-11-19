@@ -1,42 +1,43 @@
-import { useForm } from "react-hook-form";
 import styles from './SignUpForm.module.css'
-import { User, AtSign } from '@geist-ui/icons'
-import { Button } from '@geist-ui/core'
-import { UserCheck } from '@geist-ui/icons'
+import { User, AtSign, UserCheck } from '@geist-ui/icons'
+import { TextInput, Button } from '@mantine/core';
 
-function SignUpForm ({onSubmit}) {
-    const { register, handleSubmit } = useForm();
-    return (
-      <section className={styles.signupForm}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles.formTitle}>
-            <h2>Subscribe for updates on new dashboards!</h2>
-          </div>
-          <div className={styles.inputs}>
-            <div className={styles.firstNameContainer}>
-              <div className={styles.firstNameIcon}>
-                <User size="2rem"/>
-              </div>
-              <input className={styles.firstNameInput} 
-                {...register("firstName")} type="text" 
-                placeholder="First Name" />
-            </div>
-            <div className={styles.emailContainer}>
-              <div className={styles.emailIcon}>
-                <AtSign size="2rem"/>
-              </div>
-              <input className={styles.emailInput} 
-                {...register("email", { required: 'Email is required'})} 
-                type="email" placeholder="Email Address" />
-            </div>
-            <Button
-              iconRight={<UserCheck />} auto onClick={handleSubmit(onSubmit)}>
-                Subscribe
-            </Button>
-          </div>
-        </form>
-      </section>
-    );
+export default function SignUpForm({onSubmit, form, isSubmittingFormData}) {
+  return (
+    <section className={styles.signupForm}>
+      <form onSubmit={form.onSubmit(onSubmit)}>
+        <div className={styles.formTitle}>
+          <h2>Subscribe for updates on new dashboards!</h2>
+        </div>
+        <div className={styles.inputs}>
+          <TextInput
+            className={styles.firstNameContainer}
+            icon={<User size={16}/>}
+            aria-label='First name input'
+            label="First Name"
+            placeholder="First Name"
+            {...form.getInputProps('firstName')}
+          />
+          <TextInput
+            className={styles.emailContainer}
+            icon={<AtSign size={16}/>}
+            aria-label='Email input'
+            withAsterisk
+            required
+            label="Email"
+            placeholder="your@email.com"
+            {...form.getInputProps('email')}
+            rightSectionWidth='500px'
+          />
+        </div>
+        <Button 
+          rightIcon={<UserCheck size={16} />} 
+          type="submit" 
+          variant="default" 
+          loading={isSubmittingFormData}>
+            Subscribe
+        </Button>
+      </form>
+    </section>
+  );
 }
-
-export default SignUpForm;

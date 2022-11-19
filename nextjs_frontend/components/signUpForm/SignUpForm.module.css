@@ -1,12 +1,13 @@
 .signupForm {
-    padding: 5rem;
+    padding:.8rem;
 }
 
 .signupForm form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem
-    ;
+    gap: 1.5rem;
+    align-items: center;
+    justify-items: center;
 }
 
 .formTitle {
@@ -38,38 +39,5 @@
 }
 
 .firstNameContainer, .emailContainer {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    width: 100%;
-    max-width: 30rem;
-    border: 1px solid var(--accent-1);
-    border-radius: .5rem;
-}
-
-.firstNameIcon, .emailIcon {
-    display: flex;
-    align-items: center;
-    margin-left: .5rem;
-    position: absolute;
-}
-
-.firstNameInput, .emailInput {
-    width: 100%;
-    background-color: var(--bg-colour-2);
-    line-height: 2.5;
-    border: 0;
-    border-radius: .5rem;
-    font-size: var(--font-size--default);
-    padding-left: 3rem;
-    color: var(--text-colour);
-}
-
-.firstNameInput:focus, .emailInput:focus {
-    outline: none !important;
-    box-shadow: 0 0 1rem var(--brand-orange);
-}
-
-.firstNameInput::placeholder, .emailInput::placeholder {
-    color: var(--accent-1);
+    min-width: 30rem;
 }
