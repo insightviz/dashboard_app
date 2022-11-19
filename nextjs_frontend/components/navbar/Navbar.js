@@ -85,10 +85,8 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
           <Select 
             itemComponent={SelectItem}
             data={themeOptions}
-            maxDropdownHeight={400}
             searchable={true}
             icon={mode == 'system' ? <Avatar><Display size={16}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={16}/> </Avatar>: <Avatar color="dark"><Moon size={16}/></Avatar>}
-            iconWidth={60}
             value={mode}
             onChange={e => { 
               setMode(e)
