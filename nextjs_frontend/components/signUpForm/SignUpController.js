@@ -33,7 +33,7 @@ const SignUpController = () => {
             title: response.title,
             message: response.message,
             autoClose: 5000,
-            icon: response.status == 'success' ? <Smile /> : <Meh />,
+            icon: response.status == 'success' ? <Smile size={20}/> : <Meh size={20}/>,
             color: response.status == 'success' ? 'teal' : 'red',
           })
       setIsSubmittingData(false)

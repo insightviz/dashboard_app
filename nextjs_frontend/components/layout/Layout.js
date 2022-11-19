@@ -31,7 +31,7 @@ export default function Layout({ children }) {
             },
             TextInput: {
               defaultProps:{
-                iconWidth: 40,
+                iconWidth: 50,
                 radius: 'xl',
                 size: 'md',
               }

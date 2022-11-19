@@ -10,7 +10,7 @@ const themeOptions = [
   {
     image: 
     <Avatar>
-      <Display size={16}/>
+      <Display size={20}/>
     </Avatar>,
     label: 'System',
     value: 'system',
@@ -19,7 +19,7 @@ const themeOptions = [
   {
     image: 
     <Avatar color="yellow">
-      <Sun size={16}/>
+      <Sun size={20}/>
     </Avatar>,
     label: 'Light',
     value: 'light',
@@ -27,7 +27,7 @@ const themeOptions = [
   {
     image: 
     <Avatar color="dark">
-      <Moon size={16}/>
+      <Moon size={20}/>
     </Avatar>,
     label: 'Dark',
     value: 'dark',
@@ -86,7 +86,7 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
             itemComponent={SelectItem}
             data={themeOptions}
             searchable={true}
-            icon={mode == 'system' ? <Avatar><Display size={16}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={16}/> </Avatar>: <Avatar color="dark"><Moon size={16}/></Avatar>}
+            icon={mode == 'system' ? <Avatar><Display size={20}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={20}/> </Avatar>: <Avatar color="dark"><Moon size={20}/></Avatar>}
             value={mode}
             onChange={e => { 
               setMode(e)
