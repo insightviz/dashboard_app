@@ -1,10 +1,54 @@
 import Link from 'next/link';
 import styles from "./Navbar.module.css"
-import { Moon, Sun, Display, Menu, X  } from '@geist-ui/icons';
+import { Moon, Sun, Display, Menu, X } from '@geist-ui/icons';
 import { useAppThemeContext } from '../../context/AppTheme';
-import { Select } from "@geist-ui/core/";
+import { Group, Avatar, Text, Select } from '@mantine/core';
+import { forwardRef } from 'react';
 //import ReactGA from "react-ga4";
 
+const themeOptions = [
+  {
+    image: 
+    <Avatar radius="xl">
+      <Display size={18} />
+    </Avatar>,
+    label: 'System',
+    value: 'system',
+  },
+
+  {
+    image: 
+    <Avatar color="yellow" radius="xl">
+      <Sun size={18} color="black"/>
+    </Avatar>,
+    label: 'Light',
+    value: 'light',
+  },
+  {
+    image: 
+    <Avatar color="dark" radius="xl">
+      <Moon size={18} color="white"/>
+    </Avatar>,
+    label: 'Dark',
+    value: 'dark',
+  },
+];
+
+const SelectItem = forwardRef(
+  ({ image, label, description, ...others }, ref) => (
+    <div ref={ref} {...others}>
+      <Group noWrap>
+        {image}
+        <div>
+          <Text size="sm">{label}</Text>
+          <Text size="xs" opacity={0.65}>
+            {description}
+          </Text>
+        </div>
+      </Group>
+    </div>
+  )
+);
 
 function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
   const { mode, setMode } = useAppThemeContext();
@@ -39,18 +83,18 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
         </div>
         <div className={styles.themeSelect}>
           <Select 
-            initialValue={mode}
+            label="Choose theme"
+            itemComponent={SelectItem}
+            data={themeOptions}
+            maxDropdownHeight={400}
+            searchable={true}
+            icon={themeOptions.image}
             value={mode}
             onChange={e => { 
               setMode(e)
             }}
-            dropdownClassName={styles.themeDropdown}
-            aria-label={'dark or light theme for app'}
-          >
-            <Select.Option value='system' aria-label='System mode'>{<><Display size={18} />System</>}</Select.Option>
-            <Select.Option value='light' aria-label='Light mode'>{<><Sun size={18} />Light</>}</Select.Option>
-            <Select.Option value='dark' aria-label='Dark mode'>{<><Moon size={18} />Dark</>}</Select.Option>
-          </Select>
+            size="sm"
+          />
         </div>
       </nav> 
     </header>
