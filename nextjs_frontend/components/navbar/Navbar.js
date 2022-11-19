@@ -83,7 +83,6 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
         </div>
         <div className={styles.themeSelect}>
           <Select 
-            label="Choose theme"
             itemComponent={SelectItem}
             data={themeOptions}
             maxDropdownHeight={400}
