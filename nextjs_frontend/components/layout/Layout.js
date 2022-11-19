@@ -26,7 +26,7 @@ export default function Layout({ children }) {
                 size: 'md',
                 radius: 'xl',
                 maxDropdownHeight: 400,
-                iconWidth: 60,
+                iconWidth: 50,
               }
             },
             TextInput: {

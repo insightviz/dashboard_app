@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: .8rem 2rem .8rem;
 	position: fixed;
     top: 0;
     width: 100%;
@@ -29,6 +29,13 @@
 
 .logoContainer {
     display: flex;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.navbarLogo {
+    width: 9rem;
+    height: auto;
 }
 
 .bulb, .name {
@@ -117,6 +124,7 @@ body[data-theme="dark"] .logoContainer:hover .name {
     
     .themeSelect {
         display: block;
+        max-width: 14rem;
     }
 
     .navMenu {
