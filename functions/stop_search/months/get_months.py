@@ -32,5 +32,5 @@ def get_months(event, context):
     
     return {
         'statusCode': 200,
-        'body': json.dumps(sorted(available_months)[2:], default=str)
+        'body': json.dumps(sorted(available_months), default=str)
     }
