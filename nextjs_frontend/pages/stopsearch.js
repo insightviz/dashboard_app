@@ -1,9 +1,9 @@
-import StopSearchDashboardController from '../components/stopSearchController/StopSearchController'
+import StopSearchDashboardController from '../components/stopSearchDashboard/StopSearchController'
 import { getCookie } from 'cookies-next';
 
-export default function StopSearch({savedForce, savedEthnicity}) {
+export default function StopSearch({savedForce}) {
     return (
-        <StopSearchDashboardController savedForce={savedForce} savedEthnicity={savedEthnicity}/> 
+        <StopSearchDashboardController savedForce={savedForce}/> 
     );
 }
 
@@ -12,7 +12,6 @@ export async function getServerSideProps(context) {
     return {
       props: {
           savedForce: getCookie('insightStopSearchForce', context) || 'metropolitan',
-          savedEthnicity: getCookie('insightStopSearchEthnicity', context) || 'White'
       },
     }
   }
