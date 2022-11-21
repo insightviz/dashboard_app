@@ -44,15 +44,5 @@ const allForceOptions = [
   {value: 'west-yorkshire', label: 'West Yorkshire Police'},
   {value: 'wiltshire', label: 'Wiltshire Police'}
 ]
-  
-const allEthnicityOptions = [
-  {value: 'Asian', label: 'Asian'},
-  {value: 'Black', label: 'Black'},
-  {value: 'Mixed', label: 'Mixed'},
-  {value: 'Other', label: 'Other'},
-  {value: 'White', label: 'White'}
-]
 
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-export { allForceOptions, allEthnicityOptions, months };
+export { allForceOptions };
