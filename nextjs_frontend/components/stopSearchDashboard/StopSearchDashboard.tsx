@@ -1,17 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { Select } from '@mantine/core';
 import { Spinner, Tooltip, Text } from "@geist-ui/core/";
-import { allForceOptions, allEthnicityOpt } from '../../assets/Constants';
+import { Loader } from '@mantine/core';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styles from "./StopSearchController.module.css";
 import { ChevronDown, ChevronUp, Info, Minus, Calendar } from '@geist-ui/icons';
-import { setCookie } from  'cookies-next';
+
 //import ReactGA from "react-ga4";
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import TextField from '@mui/material/TextField';
 //import { createStyles, Group, Paper, Text, ThemeIcon, SimpleGrid } from '@mantine/core';
 import { getMonthsNames } from '@mantine/dates';
+import  { error, forceSelectOption, Data } from './sharedTypes';
+import React from "react";
 
 const Chart = dynamic(() => import('../chart/Chart'), {
     ssr: false
@@ -19,6 +21,21 @@ const Chart = dynamic(() => import('../chart/Chart'), {
 
 const months = getMonthsNames('en', 'MMMM');
 
+
+
+interface DashboardProps {
+  force: string,
+  handleForceChange: (e: string) => void, 
+  availableMonths, 
+  startDate: Date, 
+  handleMonthChange: (e: Date ) => void,
+  error: error,
+  isDataLoading: boolean,
+  isForceLoading: boolean,
+  isMonthsLoading: boolean,
+  data: Data | undefined,
+  forceSelectOptions: forceSelectOption[]
+}
 const StopSearchDashboard = ({
   force,
   handleForceChange, 
@@ -26,11 +43,12 @@ const StopSearchDashboard = ({
   startDate, 
   handleMonthChange,
   error,
+  isDataLoading,
   isForceLoading,
   isMonthsLoading,
   data,
   forceSelectOptions
-}) => { 
+}: DashboardProps) => { 
   return (
     <div className={styles.stopSearchDashboard}>
       <h1>UK stop and search dashboard</h1>
@@ -45,7 +63,6 @@ const StopSearchDashboard = ({
               searchable={true}
               value={force}
               onChange={handleForceChange}
-              dropdownClassName={styles.forceDropdown}
             />
           </div>
           <span className={styles.monthLabel}>Month:</span>
@@ -57,7 +74,7 @@ const StopSearchDashboard = ({
               minDate={availableMonths[0]}
               maxDate={availableMonths.slice(-1)[0]}
               value={startDate}
-              onChange={handleMonthChange}
+              onChange={(e) => handleMonthChange(e)}
               renderInput={(params) => <TextField {...params} helperText={null} />}
             />
           </div>
@@ -68,8 +85,8 @@ const StopSearchDashboard = ({
         {
           error.error ? 
           <>{error.message}</> :
-          isForceLoading || isMonthsLoading ? 
-          <Spinner /> :
+          isForceLoading || isMonthsLoading || isDataLoading ? 
+          <Loader variant="bars" /> :
           <>
             <div className={styles.figureTitle}>
               <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
@@ -79,12 +96,12 @@ const StopSearchDashboard = ({
             </div>
             <div className={styles.stopSearchNo}>
               <span className="month-stop-search">
-                {data.monthly_no_stop_search.monthly_no_stop_search}
+                {data?.monthly_no_stop_search?.monthly_no_stop_search}
               </span>
-              <span className={`${styles.percentageChange} 
-              ${data.monthly_no_stop_search.pct_change > 0 ? styles.positive : data.monthly_no_stop_search.pct_change === 0 || data.monthly_no_stop_search.pct_change === 'N/A' ? '' : styles.negative }`}>
-                {data.monthly_no_stop_search.pct_change > 0 ? <ChevronUp /> : data.monthly_no_stop_search.pct_change === 0 || data.monthly_no_stop_search.pct_change === 'N/A' ? <Minus /> : <ChevronDown />}
-                {data.monthly_no_stop_search.pct_change > 0 ? data.monthly_no_stop_search.pct_change+'%' : data.monthly_no_stop_search.pct_change === 0 || data.monthly_no_stop_search.pct_change === 'N/A' ? data.monthly_no_stop_search.pct_change : data.monthly_no_stop_search.pct_change+'%'}
+              <span className={`${styles?.percentageChange} 
+              ${data?.monthly_no_stop_search?.pct_change > 0 ? styles?.positive : data?.monthly_no_stop_search?.pct_change === 0 || data?.monthly_no_stop_search?.pct_change === 'N/A' ? '' : styles?.negative }`}>
+                {data?.monthly_no_stop_search?.pct_change > 0 ? <ChevronUp /> : data?.monthly_no_stop_search?.pct_change === 0 || data?.monthly_no_stop_search?.pct_change === 'N/A' ? <Minus /> : <ChevronDown />}
+                {data?.monthly_no_stop_search?.pct_change > 0 ? data?.monthly_no_stop_search?.pct_change+'%' : data?.monthly_no_stop_search?.pct_change === 0 || data?.monthly_no_stop_search?.pct_change === 'N/A' ? data?.monthly_no_stop_search?.pct_change : data?.monthly_no_stop_search?.pct_change+'%'}
               </span>
             </div>
           </> 

@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import StopSearchDashboard from "./StopSearchDashboard.js";
+import StopSearchDashboard from "./StopSearchDashboard";
 import { allForceOptions } from '../../assets/Constants';
 import { setCookie } from  'cookies-next';
 //import ReactGA from "react-ga4";
 import dynamic from 'next/dynamic'
 import { getMonthsNames } from '@mantine/dates';
+import  { error, forceSelectOption, Data } from './sharedTypes';
+import React from "react";
 
 getMonthsNames('en', 'MMMM');
 
@@ -16,22 +18,30 @@ const fetchDataFromBackend = (url, parameters) => {
 
 };
 
-const StopSearchDashboardController = ({savedForce}) => { 
+interface ServerProps {
+  savedForce: string 
+}
+
+
+
+const StopSearchDashboardController = ({savedForce}: ServerProps) => { 
   const [force, setForce] = useState(savedForce);
-  const [month, setMonth] = useState(null);
+  const [month, setMonth] = useState<string>('');
   
-  const [data, setData] = useState(null);
-  const [error, setError] = useState({'error': false, 'message': null})
+  const [data, setData] = useState<Data | undefined>();
+  const [isDataLoading, setDataLoading] = useState(false);
+  const [error, setError] = useState<error>({'error': false, 'message': null})
   
   //useEffect(() => {
   //  ReactGA.send("pageview");
   //}, [])
   
   const loadData = () => {
+    setDataLoading(true)
     let forceQueryString = force
     let url = ''
 
-    if (month === null) {
+    if (month === '') {
       url = `/stopsearch/data?force=${forceQueryString}`
     } else {
       let monthQueryString = month
@@ -50,6 +60,7 @@ const StopSearchDashboardController = ({savedForce}) => {
     })
     .then(data => {
       setData(data)
+      setDataLoading(false)
     })
     .catch((err) => {
       setError({'error': true, 'message': err.message});
@@ -59,7 +70,7 @@ const StopSearchDashboardController = ({savedForce}) => {
   useEffect(loadData, [force, month])
 
   const [isForceLoading, setForceLoading] = useState(true);
-  const [forceSelectOptions, setForceSelectOptions] = useState([]);
+  const [forceSelectOptions, setForceSelectOptions] = useState<forceSelectOption[]>([]);
 
   const fetchForces = () => {
     setForceLoading(true)
@@ -71,7 +82,7 @@ const StopSearchDashboardController = ({savedForce}) => {
       return response.json();
     })
     .then(data => {
-      let forceSelectOptions = []
+      let forceSelectOptions: forceSelectOption[] = []
       allForceOptions.forEach(element => {
         if (data.includes(element.value)) {
           forceSelectOptions.push(element)
@@ -87,9 +98,9 @@ const StopSearchDashboardController = ({savedForce}) => {
   
   useEffect(fetchForces, [])
   
-  const handleForceChange = (e) => {
+  const handleForceChange = (e: string) => {
     if (e!=force) {
-      setMonth(null);
+      setMonth('');
       setForce(e);
       setError({'error': false, 'message': null});
       setCookie('insightStopSearchForce', e);
@@ -101,7 +112,7 @@ const StopSearchDashboardController = ({savedForce}) => {
     }
   }
   
-  const handleMonthChange = (date) => {
+  const handleMonthChange = (date: Date) => {
     setStartDate(date)
     setMonth(`${date.getFullYear()}-${date.getMonth()+1<10?'0'+(date.getMonth()+1):date.getMonth()+1}`)
     setError({'error': false, 'message': null});
@@ -112,7 +123,7 @@ const StopSearchDashboardController = ({savedForce}) => {
     //});
   }
 
-  const [startDate, setStartDate] = useState();
+  const [startDate, setStartDate] = useState<Date>(new Date());
   const [isMonthsLoading, setMonthsLoading] = useState(true);
   const [availableMonths, setAvailableMonths] = useState([]);
 
@@ -142,20 +153,20 @@ const StopSearchDashboardController = ({savedForce}) => {
   const [showChartTickLabels, setChartTickLabels] = useState()
   const chartRef = useRef()
 
-  const getChartWidth = () => {
-    if (chartRef.current) {
-      const newChartWidth = chartRef.current.clientWidth;
-      setChartTickLabels(newChartWidth > 550);
-    }
-  }
+  //const getChartWidth = () => {
+  //  if (chartRef.current) {
+  //    const newChartWidth = chartRef.current.clientWidth;
+  //    setChartTickLabels(newChartWidth > 550);
+  //  }
+  //}
 
-  useEffect(() => {
-    getChartWidth();
-    window.addEventListener("resize", getChartWidth);
-    return () => {
-      window.removeEventListener("resize", getChartWidth);
-    };
-  }, []);
+  //useEffect(() => {
+  //  getChartWidth();
+  //  window.addEventListener("resize", getChartWidth);
+  //  return () => {
+  //    window.removeEventListener("resize", getChartWidth);
+  //  };
+  //}, []);
 
   return (
     <StopSearchDashboard
@@ -165,6 +176,7 @@ const StopSearchDashboardController = ({savedForce}) => {
       startDate={startDate}
       handleMonthChange={handleMonthChange}
       error={error}
+      isDataLoading={isDataLoading}
       isForceLoading={isForceLoading}
       isMonthsLoading={isMonthsLoading}
       data={data}
