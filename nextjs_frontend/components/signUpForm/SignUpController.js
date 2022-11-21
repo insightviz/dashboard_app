@@ -1,4 +1,4 @@
-import SignUpForm from "../signUpForm/SignUpForm";
+import SignUpForm from "./SignUpForm";
 import { useForm } from '@mantine/form';
 import { useState } from "react";
 import { showNotification } from '@mantine/notifications';
