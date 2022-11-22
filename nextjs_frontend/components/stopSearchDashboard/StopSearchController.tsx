@@ -113,7 +113,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   }
   
   const handleMonthChange = (date: Date | null) => {
-    if (typeof date !== null) {
+    if (date instanceof Date) {
       setStartDate(date!)
       setMonth(`${date!.getFullYear()}-${date!.getMonth()+1<10?'0'+(date!.getMonth()+1):date!.getMonth()+1}`)
       setError({'error': false, 'message': null});

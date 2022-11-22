@@ -1,11 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { Select } from '@mantine/core';
-import { Spinner, Tooltip, Text } from "@geist-ui/core/";
-import { Loader } from '@mantine/core';
+import { Select, Loader } from '@mantine/core';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styles from "./StopSearchController.module.css";
-import { ChevronDown, ChevronUp, Info, Minus, Calendar } from '@geist-ui/icons';
-
+import { ChevronDown, ChevronUp, Info, Minus } from '@geist-ui/icons';
+import { styled } from '@mui/material/styles';
+import StatsGridIcons from './StatsGrid'
 //import ReactGA from "react-ga4";
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
@@ -21,7 +19,22 @@ const Chart = dynamic(() => import('../chart/Chart'), {
 
 const months = getMonthsNames('en', 'MMMM');
 
-
+const CssTextField = styled(TextField)({
+  '& label.Mui-focused': {
+    color: '#22b8e6',
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: '#ced4da',
+    },
+    '&:hover fieldset': {
+      borderColor: '#ced4da',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#22b8e6',
+    },
+  },
+});
 
 interface DashboardProps {
   force: string,
@@ -75,39 +88,16 @@ const StopSearchDashboard = ({
               maxDate={availableMonths.slice(-1)[0]}
               value={startDate}
               onChange={handleMonthChange}
-              renderInput={(params) => <TextField {...params} helperText={null} />}
+              renderInput={(params) => <CssTextField {...params} helperText={null} />}
             />
           </div>
         </div>
       </div>
-      <div className={styles.monthlyStopSearchContainer}>
-        <div className={styles.monthlyStopSearchFigure}>
-        {
-          error.error ? 
-          <>{error.message}</> :
-          isForceLoading || isMonthsLoading || isDataLoading ? 
-          <Loader variant="bars" /> :
-          <>
-            <div className={styles.figureTitle}>
-              <span>Number of stop and searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</span>
-              <Tooltip text={<Text font="1.4rem">Number of stop and searches this month and percentage change compared to previous month</Text>} placement="bottomEnd">
-                <Info/>
-              </Tooltip>  
-            </div>
-            <div className={styles.stopSearchNo}>
-              <span className="month-stop-search">
-                {data!.monthly_no_stop_search.monthly_no_stop_search}
-              </span>
-              <span className={`${styles.percentageChange} 
-              ${data!.monthly_no_stop_search.pct_change > 0 ? styles.positive : data!.monthly_no_stop_search.pct_change === 0 || data!.monthly_no_stop_search.pct_change === 'N/A' ? '' : styles.negative }`}>
-                {data!.monthly_no_stop_search.pct_change > 0 ? <ChevronUp /> : data!.monthly_no_stop_search.pct_change === 0 || data!.monthly_no_stop_search.pct_change === 'N/A' ? <Minus /> : <ChevronDown />}
-                {data!.monthly_no_stop_search.pct_change > 0 ? data!.monthly_no_stop_search.pct_change+'%' : data!.monthly_no_stop_search.pct_change === 0 || data!.monthly_no_stop_search.pct_change === 'N/A' ? data!.monthly_no_stop_search.pct_change : data!.monthly_no_stop_search.pct_change+'%'}
-              </span>
-            </div>
-          </> 
-        }
-        </div>
-      </div>
+      
+      {isForceLoading || isMonthsLoading || isDataLoading ?
+      <Loader variant="bars" /> :
+      <StatsGridIcons data={data!} startDate={startDate}/>
+      }
       <div className={styles.contributors}>
         <h2>Contributors</h2>
         <div className={styles.avatarImages}>
