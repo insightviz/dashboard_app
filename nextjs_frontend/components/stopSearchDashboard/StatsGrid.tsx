@@ -2,6 +2,7 @@ import { createStyles, Group, Paper, Text, ThemeIcon, SimpleGrid } from '@mantin
 import { ArrowDownRight, ArrowUpRight, Minus } from '@geist-ui/icons';
 import { Data } from './sharedTypes'
 import { getMonthsNames } from '@mantine/dates';
+
 const useStyles = createStyles((theme) => ({
   root: {
     padding: theme.spacing.xl * 1.5,
@@ -11,6 +12,7 @@ const useStyles = createStyles((theme) => ({
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
   },
 }));
+
 const months = getMonthsNames('en', 'MMMM');
 
 interface StatsUIProps {
@@ -51,19 +53,26 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
           <ThemeIcon
             color="gray"
             variant="light"
-            sx={(theme) => ({ color: monthly_no_stop_search.pct_change > 0 ? theme.colors.teal[6] : theme.colors.red[6] })}
+            sx={(theme) => ({ color: monthly_no_stop_search.pct_change > 0 ? theme.colors.teal[6] : monthly_no_stop_search.pct_change == 0 || monthly_no_stop_search.pct_change === 'N/A' ? theme.colors.gray[6] : theme.colors.red[6] })}
             size={38}
             radius="md"
           >
             <DiffIcon size={28} />
           </ThemeIcon>
         </Group>
+        {
+        monthly_no_stop_search.pct_change === 'N/A' ?
         <Text color="dimmed" size="sm" mt="md">
-          <Text component="span" color={monthly_no_stop_search.pct_change > 0 ? 'teal' : monthly_no_stop_search.pct_change == 0 ? 'grey' : 'red'} weight={700}>
+          No data for previous month
+        </Text>
+        :
+        <Text color="dimmed" size="sm" mt="md">
+          <Text component="span" color={monthly_no_stop_search.pct_change > 0 ? 'teal' : monthly_no_stop_search.pct_change == 0 ? 'gray' : 'red'} weight={700}>
             {monthly_no_stop_search.pct_change}%
           </Text>{' '}
           {monthly_no_stop_search.pct_change > 0 ? 'increase' : monthly_no_stop_search.pct_change === 0 ? 'no change' : 'decrease'} compared to last month
         </Text>
+        }
       </Paper>
     );
   };
@@ -86,15 +95,6 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
               {statItem.no_of_stop_and_searches}
             </Text>
           </div>
-          <ThemeIcon
-            color="gray"
-            variant="light"
-            sx={(theme) => ({ color: statItem.percentage > 0 ? theme.colors.teal[6] : theme.colors.red[6] })}
-            size={38}
-            radius="md"
-          >
-            <DiffIcon size={28} />
-          </ThemeIcon>
         </Group>
         <Text color="dimmed" size="sm" mt="md">
           <Text component="span" color={statItem.percentage > 0 ? 'teal' : 'red'} weight={700}>
@@ -125,15 +125,6 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
               {statItem.no_of_stop_and_searches}
             </Text>
           </div>
-          <ThemeIcon
-            color="gray"
-            variant="light"
-            sx={(theme) => ({ color: statItem.percentage > 0 ? theme.colors.teal[6] : theme.colors.red[6] })}
-            size={38}
-            radius="md"
-          >
-            <DiffIcon size={28} />
-          </ThemeIcon>
         </Group>
         <Text color="dimmed" size="sm" mt="md">
           <Text component="span" color={statItem.percentage > 0 ? 'teal' : 'red'} weight={700}>
