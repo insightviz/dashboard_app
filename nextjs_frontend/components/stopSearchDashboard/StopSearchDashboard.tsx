@@ -26,9 +26,9 @@ const months = getMonthsNames('en', 'MMMM');
 interface DashboardProps {
   force: string,
   handleForceChange: (e: string) => void, 
-  availableMonths, 
+  availableMonths: Date[], 
   startDate: Date, 
-  handleMonthChange: (e: Date ) => void,
+  handleMonthChange: (date: Date | null ) => void,
   error: error,
   isDataLoading: boolean,
   isForceLoading: boolean,
@@ -74,7 +74,7 @@ const StopSearchDashboard = ({
               minDate={availableMonths[0]}
               maxDate={availableMonths.slice(-1)[0]}
               value={startDate}
-              onChange={(e) => handleMonthChange(e)}
+              onChange={handleMonthChange}
               renderInput={(params) => <TextField {...params} helperText={null} />}
             />
           </div>
@@ -96,12 +96,12 @@ const StopSearchDashboard = ({
             </div>
             <div className={styles.stopSearchNo}>
               <span className="month-stop-search">
-                {data?.monthly_no_stop_search?.monthly_no_stop_search}
+                {data!.monthly_no_stop_search.monthly_no_stop_search}
               </span>
-              <span className={`${styles?.percentageChange} 
-              ${data?.monthly_no_stop_search?.pct_change > 0 ? styles?.positive : data?.monthly_no_stop_search?.pct_change === 0 || data?.monthly_no_stop_search?.pct_change === 'N/A' ? '' : styles?.negative }`}>
-                {data?.monthly_no_stop_search?.pct_change > 0 ? <ChevronUp /> : data?.monthly_no_stop_search?.pct_change === 0 || data?.monthly_no_stop_search?.pct_change === 'N/A' ? <Minus /> : <ChevronDown />}
-                {data?.monthly_no_stop_search?.pct_change > 0 ? data?.monthly_no_stop_search?.pct_change+'%' : data?.monthly_no_stop_search?.pct_change === 0 || data?.monthly_no_stop_search?.pct_change === 'N/A' ? data?.monthly_no_stop_search?.pct_change : data?.monthly_no_stop_search?.pct_change+'%'}
+              <span className={`${styles.percentageChange} 
+              ${data!.monthly_no_stop_search.pct_change > 0 ? styles.positive : data!.monthly_no_stop_search.pct_change === 0 || data!.monthly_no_stop_search.pct_change === 'N/A' ? '' : styles.negative }`}>
+                {data!.monthly_no_stop_search.pct_change > 0 ? <ChevronUp /> : data!.monthly_no_stop_search.pct_change === 0 || data!.monthly_no_stop_search.pct_change === 'N/A' ? <Minus /> : <ChevronDown />}
+                {data!.monthly_no_stop_search.pct_change > 0 ? data!.monthly_no_stop_search.pct_change+'%' : data!.monthly_no_stop_search.pct_change === 0 || data!.monthly_no_stop_search.pct_change === 'N/A' ? data!.monthly_no_stop_search.pct_change : data!.monthly_no_stop_search.pct_change+'%'}
               </span>
             </div>
           </> 

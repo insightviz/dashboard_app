@@ -14,9 +14,9 @@ const Chart = dynamic(() => import('../chart/Chart'), {
     ssr: false
 })
 
-const fetchDataFromBackend = (url, parameters) => {
+//const fetchDataFromBackend = (url, parameters) => {
 
-};
+//};
 
 interface ServerProps {
   savedForce: string 
@@ -112,10 +112,12 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     }
   }
   
-  const handleMonthChange = (date: Date) => {
-    setStartDate(date)
-    setMonth(`${date.getFullYear()}-${date.getMonth()+1<10?'0'+(date.getMonth()+1):date.getMonth()+1}`)
-    setError({'error': false, 'message': null});
+  const handleMonthChange = (date: Date | null) => {
+    if (typeof date !== null) {
+      setStartDate(date!)
+      setMonth(`${date!.getFullYear()}-${date!.getMonth()+1<10?'0'+(date!.getMonth()+1):date!.getMonth()+1}`)
+      setError({'error': false, 'message': null});
+    }
     //ReactGA.event({
     //  category: "month change",
     //  action: "change month select",
@@ -137,7 +139,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       }
       return response.json();
     })
-    .then(data => data.map((date) => new Date(date)))
+    .then(data => data.map((date: Date) => new Date(date)))
     .then(data => {
       setStartDate(new Date(data.slice(-1)[0]))
       setAvailableMonths(data)
