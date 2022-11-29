@@ -95,7 +95,7 @@ const StopSearchDashboard = ({
       </div>
       
       {isForceLoading || isMonthsLoading || isDataLoading ?
-      <Loader variant="bars" /> :
+      <Loader variant="bars" size='md' /> :
       <StatsGridIcons data={data!} startDate={startDate}/>
       }
       <div className={styles.contributors}>
