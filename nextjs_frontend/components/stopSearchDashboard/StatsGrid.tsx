@@ -2,6 +2,7 @@ import { createStyles, Group, Paper, Text, ThemeIcon, SimpleGrid } from '@mantin
 import { ArrowDownRight, ArrowUpRight, Minus } from '@geist-ui/icons';
 import { Data } from './sharedTypes'
 import { getMonthsNames } from '@mantine/dates';
+import { useAppThemeContext } from '../../context/AppTheme';
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -22,6 +23,7 @@ startDate: Date,
 
 export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
   const { classes } = useStyles();
+  const { theme } = useAppThemeContext();
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
     return (
@@ -81,23 +83,21 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
     return (
       <Paper withBorder p="xl" radius="xl" key={statItem.ethnicity}>
         <Group position="apart">
-          <div>
-            <Text
-              color="dimmed"
-              transform="uppercase"
-              weight={700}
-              size="xs"
-              className={classes.label}
-            >
-              {statItem.ethnicity}
-            </Text>
-            <Text weight={700} size="xl">
-              {statItem.no_of_stop_and_searches}
-            </Text>
-          </div>
+          <Text
+            color="dimmed"
+            transform="uppercase"
+            weight={700}
+            size="xs"
+            className={classes.label}
+          >
+            {statItem.ethnicity}
+          </Text>
+          <Text weight={700} size="xl">
+            {statItem.no_of_stop_and_searches}
+          </Text>
         </Group>
         <Text color="dimmed" size="sm" mt="md">
-          <Text component="span" color={statItem.percentage > 0 ? 'teal' : 'red'} weight={700}>
+          <Text component="span" color={ theme == 'light' ? 'black' : '#C1C2C5'} weight={700}>
             {statItem.percentage}%
           </Text>{' '}
           of total stop and searches
@@ -111,23 +111,21 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
     return (
       <Paper withBorder p="xl" radius="xl" key={statItem.gender}>
         <Group position="apart">
-          <div>
-            <Text
-              color="dimmed"
-              transform="uppercase"
-              weight={700}
-              size="xs"
-              className={classes.label}
-            >
-              {statItem.gender}
-            </Text>
-            <Text weight={700} size="xl">
-              {statItem.no_of_stop_and_searches}
-            </Text>
-          </div>
+          <Text
+            color="dimmed"
+            transform="uppercase"
+            weight={700}
+            size="xs"
+            className={classes.label}
+          >
+            {statItem.gender}
+          </Text>
+          <Text weight={700} size="xl">
+            {statItem.no_of_stop_and_searches}
+          </Text>
         </Group>
         <Text color="dimmed" size="sm" mt="md">
-          <Text component="span" color={statItem.percentage > 0 ? 'teal' : 'red'} weight={700}>
+          <Text component="span" color={ theme == 'light' ? 'black' : '#C1C2C5'} weight={700}>
             {statItem.percentage}%
           </Text>{' '}
           of total stop and searches
@@ -141,10 +139,10 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
       <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
         {totalStats(data)}
       </SimpleGrid>
-      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
+      <SimpleGrid cols={Object.keys(data.breakdown_by_race).length} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
         {raceBreakdownStats}
       </SimpleGrid>
-      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
+      <SimpleGrid cols={Object.keys(data.breakdown_by_gender).length} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
         {genderBreakdownStats}
       </SimpleGrid>
     </div>
