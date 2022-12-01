@@ -47,7 +47,7 @@ def get_data(event, context):
                 pct_change = 'N/A'
             else:
                 pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
-                pct_change = str(round(pct_change, 2))
+                pct_change = str(round(pct_change, 1))
             no_stop_searches_by_race = session.execute(
                 '''WITH stop_searches_by_race AS (
                        SELECT person_ethnicity, count(*) 
@@ -99,7 +99,7 @@ def get_data(event, context):
                 pct_change = 'N/A'
             else:
                 pct_change = (no_stop_searches[0] - no_stop_searches_pm[0])*100/no_stop_searches_pm[0]
-                pct_change = str(round(pct_change, 2))
+                pct_change = str(round(pct_change, 1))
             no_stop_searches_by_race = session.execute(
                 '''WITH stop_searches_by_race AS (
                        SELECT person_ethnicity, count(*) 
@@ -127,7 +127,7 @@ def get_data(event, context):
                    ORDER BY 2 DESC''', {'force': force_to_filter, 'month': month_to_filter}).all()
             no_stop_searches_by_gender = [{'gender': re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')), 'no_of_stop_and_searches': row[1], 'percentage': str(round(row[2], 1))} for row in no_stop_searches_by_gender]
         if no_stop_searches[0] == 0:
-            return {'statusCode': 400,
+            return {'statusCode': 200,
                     'body': json.dumps(f"No data available for {force_to_filter.replace('-', ' ')} police force!")}
         else:
             results = {'monthly_no_stop_search': {'monthly_no_stop_search': no_stop_searches[0],
