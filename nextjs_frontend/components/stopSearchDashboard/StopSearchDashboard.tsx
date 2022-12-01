@@ -1,14 +1,12 @@
 import { Select, Loader } from '@mantine/core';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styles from "./StopSearchController.module.css";
-import { ChevronDown, ChevronUp, Info, Minus } from '@geist-ui/icons';
 import { styled } from '@mui/material/styles';
 import StatsGridIcons from './StatsGrid'
 //import ReactGA from "react-ga4";
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import TextField from '@mui/material/TextField';
-//import { createStyles, Group, Paper, Text, ThemeIcon, SimpleGrid } from '@mantine/core';
+import { Title, Avatar, Text, Paper } from '@mantine/core';
 import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './sharedTypes';
 import React from "react";
@@ -64,53 +62,65 @@ const StopSearchDashboard = ({
 }: DashboardProps) => { 
   return (
     <div className={styles.stopSearchDashboard}>
-      <h1>UK stop and search dashboard</h1>
+      <Title order={1}>UK stop and search dashboard</Title>
       <div className={styles.selectContainer}>
-        <h2>Select options</h2>
+        <Title order={2}>Select options</Title>
         <div className={styles.selectInputs}>
-          <span className={styles.forceLabel}>Police force:</span>
           <div className={styles.forceDropdown}>
+            <span>Select police force:</span>
             <Select
-              label="Select police force"
               data={forceSelectOptions}
               searchable={true}
               value={force}
               onChange={handleForceChange}
-            />
+              />
           </div>
-          <span className={styles.monthLabel}>Month:</span>
           <div className={styles.monthPicker}>
+            <span>Select month:</span>
             <DatePicker
               views={['year', 'month']}
-              label="Select month"
               openTo="year"
               minDate={availableMonths[0]}
               maxDate={availableMonths.slice(-1)[0]}
               value={startDate}
               onChange={handleMonthChange}
-              renderInput={(params) => <CssTextField {...params} helperText={null} />}
+              renderInput={(params) => <CssTextField {...params} helperText={null} size="small" fullWidth/>}
             />
           </div>
         </div>
       </div>
-      
-      {isForceLoading || isMonthsLoading || isDataLoading ?
-      <Loader variant="bars" size='md' /> :
-      <StatsGridIcons data={data!} startDate={startDate}/>
-      }
+      <div className={styles.statsGrid}>
+        {
+        error.error ? 
+        <Paper withBorder p="xl" radius="xl">
+          <Text
+            color="dimmed"
+            transform="uppercase"
+            weight={700}
+            size="md"
+          >
+            {error.message}
+          </Text>
+        </Paper>
+         :
+        isForceLoading || isMonthsLoading || isDataLoading ?
+        <Loader variant="bars" size='md' /> :
+        <StatsGridIcons data={data!} startDate={startDate}/>
+        }
+      </div>
       <div className={styles.contributors}>
-        <h2>Contributors</h2>
+        <Title order={2}>Contributors</Title>
         <div className={styles.avatarImages}>
           <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank" rel="noreferrer">
-            <Image src='https://avatars.githubusercontent.com/u/57296341?v=4' layout="fixed" width={65} height={65} quality={100} alt="Avatar" className={styles.avatar}/>
+            <Avatar src="https://avatars.githubusercontent.com/u/57296341?v=4" alt="Eze Ahunanya" size="lg" radius="xl" />
             <span>Eze Ahunanya</span>
           </a>
           <a href="https://github.com/Primebrook" className="contributor-link" target="_blank" rel="noreferrer">
-            <Image src='https://avatars.githubusercontent.com/u/71849503?v=4' layout="fixed" width={65} height={65} quality={100} alt="Avatar" className={styles.avatar}/>
+            <Avatar src="https://avatars.githubusercontent.com/u/71849503?v=4" alt="Brook Abraha" size="lg" radius="xl" />
             <span>Brook Abraha</span>
           </a>
         </div>
-      </div> 
+      </div>
     </div>
   )
 }

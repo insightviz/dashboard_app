@@ -1,18 +1,9 @@
-import { createStyles, Group, Paper, Text, ThemeIcon, SimpleGrid } from '@mantine/core';
+import { Group, Paper, Text, ThemeIcon, SimpleGrid, Divider } from '@mantine/core';
 import { ArrowDownRight, ArrowUpRight, Minus } from '@geist-ui/icons';
 import { Data } from './sharedTypes'
 import { getMonthsNames } from '@mantine/dates';
 import { useAppThemeContext } from '../../context/AppTheme';
 
-const useStyles = createStyles((theme) => ({
-  root: {
-    padding: theme.spacing.xl * 1.5,
-  },
-
-  label: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-  },
-}));
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -22,7 +13,6 @@ startDate: Date,
 }
 
 export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
-  const { classes } = useStyles();
   const { theme } = useAppThemeContext();
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
@@ -35,18 +25,8 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
               transform="uppercase"
               weight={700}
               size="sm"
-              className={classes.label}
             >
-              Stop and searches
-            </Text>
-            <Text
-              color="dimmed"
-              transform="uppercase"
-              weight={700}
-              size="sm"
-              className={classes.label}
-            >
-              in {months[startDate.getMonth()]}, {startDate.getFullYear()}
+              Searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}
             </Text>
             <Text weight={700} size={32}>
               {monthly_no_stop_search.monthly_no_stop_search}
@@ -88,7 +68,6 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
             transform="uppercase"
             weight={700}
             size="xs"
-            className={classes.label}
           >
             {statItem.ethnicity}
           </Text>
@@ -116,7 +95,6 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
             transform="uppercase"
             weight={700}
             size="xs"
-            className={classes.label}
           >
             {statItem.gender}
           </Text>
@@ -135,16 +113,31 @@ export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
   });
 
   return (
-    <div className={classes.root}>
-      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
+    <SimpleGrid cols={1} spacing='xl' breakpoints={[
+      { maxWidth: 980, cols: 1, verticalSpacing: 'md' },
+      { maxWidth: 755, cols: 1, verticalSpacing: 'sm' },
+    ]}>
+      <Divider size="lg" labelProps={{'size': 'xl'}} label="Total stop and searches" labelPosition="center" />
+      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 980, cols: 1 }]}>
+        <div></div>
         {totalStats(data)}
       </SimpleGrid>
-      <SimpleGrid cols={Object.keys(data.breakdown_by_race).length} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
+      <Divider size="lg" labelProps={{'size': 'xl'}} label="Breakdown by race" labelPosition="center" />
+      <SimpleGrid cols={Object.keys(data.breakdown_by_race).length} 
+        breakpoints={[
+          { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
+          { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
+        ]} spacing="xl">
         {raceBreakdownStats}
       </SimpleGrid>
-      <SimpleGrid cols={Object.keys(data.breakdown_by_gender).length} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
+      <Divider size="lg" labelProps={{'size': 'xl'}} label="Breakdown by gender" labelPosition="center" />
+      <SimpleGrid cols={Object.keys(data.breakdown_by_gender).length} 
+        breakpoints={[
+          { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
+          { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
+        ]} spacing="xl">
         {genderBreakdownStats}
       </SimpleGrid>
-    </div>
+    </SimpleGrid>
   );
 }

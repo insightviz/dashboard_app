@@ -56,6 +56,9 @@ export default function Layout({ children }) {
           /** Put your mantine theme override here */
           colorScheme: theme,
           fontFamily: 'segoe',
+          headings: {
+            fontFamily: 'segoe',
+          },
           components: {
             Select: {
               defaultProps:{

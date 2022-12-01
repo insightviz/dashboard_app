@@ -50,7 +50,7 @@ body[data-theme="dark"] {
   --bg-colour: #000;
   --bg-colour-t: rgba(0, 0, 0, .75);
   --bg-colour-2: #1c1c1e;
-  --text-colour: #fff;
+  --text-colour: #C1C2C5;
   --brand-orange: #f9a31a;
   --brand-blue: #292974;
   --blue-200: #A3ABD6;
@@ -59,6 +59,7 @@ body[data-theme="dark"] {
   background-color: var(--bg-colour);
   --green: #80cbc3;
   --red: #ef9a9a;
+  --divider-colour: #373A40;
 }
 
 body[data-theme="light"] {
@@ -73,4 +74,5 @@ body[data-theme="light"] {
   background-color: var(--bg-colour);
   --green: #26A69A;
   --red: #EF5350;
+  --divider-colour: #ced4da;
 }
