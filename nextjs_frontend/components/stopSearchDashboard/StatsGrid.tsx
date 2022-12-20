@@ -1,23 +1,23 @@
 import { Group, Paper, Text, ThemeIcon, SimpleGrid, Divider } from '@mantine/core';
 import { ArrowDownRight, ArrowUpRight, Minus } from '@geist-ui/icons';
-import { Data } from './sharedTypes'
+import { Data } from './SharedTypes'
 import { getMonthsNames } from '@mantine/dates';
 import { useAppThemeContext } from '../../context/AppTheme';
-
 
 const months = getMonthsNames('en', 'MMMM');
 
 interface StatsUIProps {
 data: Data,
 startDate: Date,
+setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-export default function StatsGridIcons( {data, startDate } : StatsUIProps) {
+export default function StatsGridIcons( {data, startDate, setTotalModalOpened } : StatsUIProps) {
   const { theme } = useAppThemeContext();
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
     return (
-      <Paper withBorder p="xl" radius="xl">
+      <Paper withBorder p="xl" radius="xl" onClick={() => setTotalModalOpened(true)}>
         <Group position="apart">
           <div>
             <Text

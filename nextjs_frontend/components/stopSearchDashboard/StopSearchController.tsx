@@ -5,14 +5,9 @@ import { setCookie } from  'cookies-next';
 //import ReactGA from "react-ga4";
 import dynamic from 'next/dynamic'
 import { getMonthsNames } from '@mantine/dates';
-import  { error, forceSelectOption, Data } from './sharedTypes';
+import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
-
-getMonthsNames('en', 'MMMM');
-
-const Chart = dynamic(() => import('../chart/Chart'), {
-    ssr: false
-})
+import StopSearchModal from "./EnhancedDataModal";
 
 //const fetchDataFromBackend = (url, parameters) => {
 
@@ -32,6 +27,17 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   const [isDataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState<error>({'error': false, 'message': null})
   
+  const [isForceLoading, setForceLoading] = useState(true);
+  const [forceSelectOptions, setForceSelectOptions] = useState<forceSelectOption[]>([]);
+  
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [isMonthsLoading, setMonthsLoading] = useState(true);
+  const [availableMonths, setAvailableMonths] = useState([]);
+  
+  const [totalModalOpened, setTotalModalOpened] = useState<boolean>(false)
+  const [raceModalOpen, setRaceModalOpen] = useState<boolean>(false)
+  const [genderModalOpen, setGenderModalOpen] = useState<boolean>(false)
+
   //useEffect(() => {
   //  ReactGA.send("pageview");
   //}, [])
@@ -69,8 +75,6 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
 
   useEffect(loadData, [force, month])
 
-  const [isForceLoading, setForceLoading] = useState(true);
-  const [forceSelectOptions, setForceSelectOptions] = useState<forceSelectOption[]>([]);
 
   const fetchForces = () => {
     setForceLoading(true)
@@ -125,9 +129,6 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     //});
   }
 
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [isMonthsLoading, setMonthsLoading] = useState(true);
-  const [availableMonths, setAvailableMonths] = useState([]);
 
   const fetchMonths = () => {
     setMonthsLoading(true)
@@ -152,38 +153,32 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   
   useEffect(fetchMonths, [force])
 
-  const [showChartTickLabels, setChartTickLabels] = useState()
-  const chartRef = useRef()
-
-  //const getChartWidth = () => {
-  //  if (chartRef.current) {
-  //    const newChartWidth = chartRef.current.clientWidth;
-  //    setChartTickLabels(newChartWidth > 550);
-  //  }
-  //}
-
-  //useEffect(() => {
-  //  getChartWidth();
-  //  window.addEventListener("resize", getChartWidth);
-  //  return () => {
-  //    window.removeEventListener("resize", getChartWidth);
-  //  };
-  //}, []);
-
   return (
-    <StopSearchDashboard
-      force={force}
-      handleForceChange={handleForceChange}
-      availableMonths={availableMonths}
-      startDate={startDate}
-      handleMonthChange={handleMonthChange}
-      error={error}
-      isDataLoading={isDataLoading}
-      isForceLoading={isForceLoading}
-      isMonthsLoading={isMonthsLoading}
-      data={data}
-      forceSelectOptions={forceSelectOptions} 
-    />
+    <>
+      <StopSearchModal
+        totalModalOpened={totalModalOpened}
+        setTotalModalOpened={setTotalModalOpened}
+      />
+      <StopSearchDashboard
+        force={force}
+        handleForceChange={handleForceChange}
+        availableMonths={availableMonths}
+        startDate={startDate}
+        handleMonthChange={handleMonthChange}
+        error={error}
+        isDataLoading={isDataLoading}
+        isForceLoading={isForceLoading}
+        isMonthsLoading={isMonthsLoading}
+        data={data}
+        forceSelectOptions={forceSelectOptions} 
+        totalModalOpened={totalModalOpened}
+        setTotalModalOpened={setTotalModalOpened}
+        raceModalOpen={raceModalOpen}
+        setRaceModalOpen={setRaceModalOpen}
+        genderModalOpen={genderModalOpen}
+        setGenderModalOpen={setGenderModalOpen}
+      />
+    </>
   )
 }
 

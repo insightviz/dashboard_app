@@ -8,12 +8,8 @@ import dynamic from 'next/dynamic'
 import TextField from '@mui/material/TextField';
 import { Title, Avatar, Text, Paper } from '@mantine/core';
 import { getMonthsNames } from '@mantine/dates';
-import  { error, forceSelectOption, Data } from './sharedTypes';
-import React from "react";
-
-const Chart = dynamic(() => import('../chart/Chart'), {
-    ssr: false
-})
+import  { error, forceSelectOption, Data } from './SharedTypes';
+import React, { useState } from "react";
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -46,6 +42,12 @@ interface DashboardProps {
   isMonthsLoading: boolean,
   data: Data | undefined,
   forceSelectOptions: forceSelectOption[]
+  totalModalOpened: boolean,
+  setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
+  raceModalOpen: boolean,
+  setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  genderModalOpen: boolean,
+  setGenderModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 const StopSearchDashboard = ({
   force,
@@ -58,8 +60,10 @@ const StopSearchDashboard = ({
   isForceLoading,
   isMonthsLoading,
   data,
-  forceSelectOptions
+  forceSelectOptions,
+  setTotalModalOpened
 }: DashboardProps) => { 
+  
   return (
     <div className={styles.stopSearchDashboard}>
       <Title order={1}>UK stop and search dashboard</Title>
@@ -105,7 +109,11 @@ const StopSearchDashboard = ({
          :
         isForceLoading || isMonthsLoading || isDataLoading ?
         <Loader variant="bars" size='md' /> :
-        <StatsGridIcons data={data!} startDate={startDate}/>
+        <StatsGridIcons 
+          data={data!} 
+          startDate={startDate}
+          setTotalModalOpened={setTotalModalOpened}
+        />
         }
       </div>
       <div className={styles.contributors}>
