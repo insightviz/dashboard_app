@@ -61,7 +61,8 @@ const StopSearchDashboard = ({
   isMonthsLoading,
   data,
   forceSelectOptions,
-  setTotalModalOpened
+  setTotalModalOpened,
+  setRaceModalOpen
 }: DashboardProps) => { 
   
   return (
@@ -113,6 +114,7 @@ const StopSearchDashboard = ({
           data={data!} 
           startDate={startDate}
           setTotalModalOpened={setTotalModalOpened}
+          setRaceModalOpen={setRaceModalOpen}
         />
         }
       </div>

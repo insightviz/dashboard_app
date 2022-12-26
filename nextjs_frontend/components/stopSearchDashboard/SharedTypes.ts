@@ -30,3 +30,9 @@ export interface Data {
   breakdown_by_race: no_stop_searches_by_race[],
   breakdown_by_gender: no_stop_searches_by_gender[]
 }
+
+export interface enhancedData {
+  label: string,
+  count: number,
+  percentage: string
+}

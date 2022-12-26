@@ -8,6 +8,7 @@ import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
 import StopSearchModal from "./EnhancedDataModal";
+import RaceModal from "./RaceDataModal"
 
 //const fetchDataFromBackend = (url, parameters) => {
 
@@ -158,6 +159,10 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       <StopSearchModal
         totalModalOpened={totalModalOpened}
         setTotalModalOpened={setTotalModalOpened}
+      />
+      <RaceModal
+        raceModalOpen={raceModalOpen}
+        setRaceModalOpen={setRaceModalOpen}
       />
       <StopSearchDashboard
         force={force}

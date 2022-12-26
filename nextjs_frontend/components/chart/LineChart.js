@@ -30,7 +30,7 @@ ChartJS.register(
 function LineChart({ chartData, title }) {
   return (
     <div className="chart-container">
-      <Title order={2} align="center">{title}</Title>
+      <Title order={3} align="center">{title}</Title>
       <Line
         data={chartData}
         options={{
