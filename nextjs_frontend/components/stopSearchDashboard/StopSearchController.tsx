@@ -5,20 +5,34 @@ import { setCookie } from  'cookies-next';
 //import ReactGA from "react-ga4";
 import dynamic from 'next/dynamic'
 import { getMonthsNames } from '@mantine/dates';
-import  { error, forceSelectOption, Data } from './SharedTypes';
+import  { error, forceSelectOption, Data, enhancedData } from './SharedTypes';
 import React from "react";
 import StopSearchModal from "./EnhancedDataModal";
 import RaceModal from "./RaceDataModal"
+import GenderModal from "./GenderDataModal"
 
-//const fetchDataFromBackend = (url, parameters) => {
+const constructURL = (baseUrl: string, parameters: Record<string, string>) => {
+  const params = new URLSearchParams();
 
-//};
+  for (const key of Object.keys(parameters)) {
+    params.set(`${key}`, `${parameters[key]}`);
+  }
+
+  const fullUrl = `${baseUrl}?${params.toString()}`;
+  return fullUrl
+};
 
 interface ServerProps {
   savedForce: string 
 }
 
-
+async function fetchData(url: string) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`HTTP Error: ${response.status}, Message: ${response.statusText}`);
+  } 
+  return response.json(); 
+}
 
 const StopSearchDashboardController = ({savedForce}: ServerProps) => { 
   const [force, setForce] = useState(savedForce);
@@ -45,33 +59,22 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   
   const loadData = () => {
     setDataLoading(true)
-    let forceQueryString = force
     let url = ''
 
     if (month === '') {
-      url = `/stopsearch/data?force=${forceQueryString}`
+      url = constructURL('/stopsearch/data', {force: force})
     } else {
-      let monthQueryString = month
-      url = `/stopsearch/data?force=${forceQueryString}&month=${monthQueryString}`
+      url = constructURL('/stopsearch/data', {force: force, month: month})
     }
     
-    fetch(url)
-    .then(response => {
-      if (!response.ok) {  
-        if (response.status === 404) {
-          throw new Error(`Status: ${response.status}, Message: Data for ${force.replace("-", " ")} police force ${response.statusText}`); 
-        }
-        throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then(data => {
+    fetchData(url)
+    .then((data) => {
       setData(data)
       setDataLoading(false)
     })
-    .catch((err) => {
-      setError({'error': true, 'message': err.message});
-    })
+    .catch((error) => {
+      setError({'error': true, 'message': error.message})
+    });
   }
 
   useEffect(loadData, [force, month])
@@ -79,13 +82,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
 
   const fetchForces = () => {
     setForceLoading(true)
-    fetch('/stopsearch/forces')
-    .then(response => {
-      if (!response.ok) {  
-        throw new Error(`Status: ${response.status}, Message: ${response.statusText}`); 
-      }
-      return response.json();
-    })
+    fetchData('/stopsearch/forces')
     .then(data => {
       let forceSelectOptions: forceSelectOption[] = []
       allForceOptions.forEach(element => {
@@ -96,8 +93,8 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setForceSelectOptions(forceSelectOptions)
       setForceLoading(false)
     })
-    .catch((err) => {
-      setError({'error': true, 'message': err.message});
+    .catch((error) => {
+      setError({'error': true, 'message': error.message});
     })
   }
   
@@ -133,22 +130,15 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
 
   const fetchMonths = () => {
     setMonthsLoading(true)
-    let forceQueryString = force
-    fetch(`/stopsearch/months?force=${forceQueryString}`)
-    .then(response => {
-      if (!response.ok) {  
-        throw new Error(`Status: ${response.status}, Message: ${response.statusText}`); 
-      }
-      return response.json();
-    })
+    fetchData(constructURL('/stopsearch/months', {force: force}))
     .then(data => data.map((date: Date) => new Date(date)))
     .then(data => {
       setStartDate(new Date(data.slice(-1)[0]))
       setAvailableMonths(data)
       setMonthsLoading(false)
     })
-    .catch((err) => {
-      setError({'error': true, 'message': err.message});
+    .catch((error) => {
+      setError({'error': true, 'message': error.message});
     })
   }
   
@@ -163,6 +153,10 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       <RaceModal
         raceModalOpen={raceModalOpen}
         setRaceModalOpen={setRaceModalOpen}
+      />
+      <GenderModal
+        genderModalOpen={genderModalOpen}
+        setGenderModalOpen={setGenderModalOpen}
       />
       <StopSearchDashboard
         force={force}
