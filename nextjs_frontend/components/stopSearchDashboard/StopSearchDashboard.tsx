@@ -62,7 +62,8 @@ const StopSearchDashboard = ({
   data,
   forceSelectOptions,
   setTotalModalOpened,
-  setRaceModalOpen
+  setRaceModalOpen,
+  setGenderModalOpen
 }: DashboardProps) => { 
   
   return (
@@ -115,6 +116,7 @@ const StopSearchDashboard = ({
           startDate={startDate}
           setTotalModalOpened={setTotalModalOpened}
           setRaceModalOpen={setRaceModalOpen}
+          setGenderModalOpen={setGenderModalOpen}
         />
         }
       </div>

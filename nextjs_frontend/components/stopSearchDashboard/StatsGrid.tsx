@@ -11,9 +11,10 @@ data: Data,
 startDate: Date,
 setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
 setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+setGenderModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-export default function StatsGridIcons( {data, startDate, setTotalModalOpened, setRaceModalOpen } : StatsUIProps) {
+export default function StatsGridIcons( {data, startDate, setTotalModalOpened, setRaceModalOpen, setGenderModalOpen } : StatsUIProps) {
   const { theme } = useAppThemeContext();
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
@@ -92,7 +93,9 @@ export default function StatsGridIcons( {data, startDate, setTotalModalOpened, s
   const genderBreakdownStats = data.breakdown_by_gender.map((statItem) => {
     const DiffIcon = statItem.percentage > 0 ? ArrowUpRight : ArrowDownRight;
     return (
-      <Paper withBorder p="xl" radius="xl" key={statItem.gender}>
+      <Paper withBorder p="xl" radius="xl" key={statItem.gender}
+        onClick={statItem.gender.toLowerCase() !== 'not defined' ? () => setGenderModalOpen(true) : undefined }
+        sx={(theme) => (statItem.gender.toLowerCase() !== 'not defined' ? {cursor: 'pointer'} : {})}>
         <Group position="apart">
           <Text
             color="dimmed"

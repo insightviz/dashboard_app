@@ -4,12 +4,11 @@ import { useState } from 'react';
 import BarSegments from "../chart/BarSegments"
 
 interface ethnicityModalProps {
-    raceModalOpen: boolean,
-    setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    genderModalOpen: boolean,
+    setGenderModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const RaceModal = ({raceModalOpen, setRaceModalOpen}: ethnicityModalProps) => {
-  const [race, setRace] = useState('black');
+const GenderModal = ({genderModalOpen, setGenderModalOpen}: ethnicityModalProps) => {
   const [ethnicityChartData, setEthnicityChartData] = useState({
     datasets: [{
       label: 'Total number of stop and searches',
@@ -21,8 +20,8 @@ const RaceModal = ({raceModalOpen, setRaceModalOpen}: ethnicityModalProps) => {
 
   return (
       <Modal
-        opened={raceModalOpen}
-        onClose={() => setRaceModalOpen(false)}
+        opened={genderModalOpen}
+        onClose={() => setGenderModalOpen(false)}
         fullScreen
         zIndex={999}
       >
@@ -31,13 +30,12 @@ const RaceModal = ({raceModalOpen, setRaceModalOpen}: ethnicityModalProps) => {
           breakpoints={[
             { maxWidth: 980, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
           ]} spacing="xl">
-            <BarSegments chartData={testData.ethnicity_data.breakdown_by_police_ethnicity} title={`Race of police officer conducting searches for ${race} supspects`}/>
-            <BarSegments chartData={testData.ethnicity_data.breakdown_of_outcomes_by_ethnicity} title={`Outcome of searches for ${race} supspects`}/>
-            <BarSegments chartData={testData.ethnicity_data.breakdown_of_object_of_search_by_ethnicity} title={`Object for search for ${race} supspects`}/>
+            <BarSegments chartData={testData.gender_data.breakdown_of_outcomes_by_gender} title="Outcome of searches for ... supspects"/>
+            <BarSegments chartData={testData.gender_data.breakdown_of_object_of_search_by_gender} title="Object for search for ... supspects"/>
           </SimpleGrid>
         }
       </Modal>
   )
 }
 
-export default RaceModal;
+export default GenderModal;

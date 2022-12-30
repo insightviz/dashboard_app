@@ -1,9 +1,9 @@
 import React from "react";
 import { Title, SimpleGrid, Progress, Paper, Box, Text, Group } from '@mantine/core';
-import { enhancedData } from '../stopSearchDashboard/SharedTypes'
+import { segmentsData } from '../stopSearchDashboard/SharedTypes'
 
 interface barSegmentsProps {
-  chartData: enhancedData[],
+  chartData: segmentsData[],
   title: string
 }
 
