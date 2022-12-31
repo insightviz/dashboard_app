@@ -1,10 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import StopSearchDashboard from "./StopSearchDashboard";
 import { allForceOptions } from '../../assets/Constants';
 import { setCookie } from  'cookies-next';
 //import ReactGA from "react-ga4";
-import dynamic from 'next/dynamic'
-import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data, enhancedData } from './SharedTypes';
 import React from "react";
 import StopSearchModal from "./EnhancedDataModal";
@@ -37,6 +35,8 @@ async function fetchData(url: string) {
 const StopSearchDashboardController = ({savedForce}: ServerProps) => { 
   const [force, setForce] = useState(savedForce);
   const [month, setMonth] = useState<string>('');
+  const [race, setRace] = useState<string>('');
+  const [gender, setGender] = useState<string>('');
   
   const [data, setData] = useState<Data | undefined>();
   const [isDataLoading, setDataLoading] = useState(false);
@@ -126,7 +126,30 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     //  label: `${date.getFullYear()}-${date.getMonth()+1<10?'0'+(date.getMonth()+1):date.getMonth()+1}`,
     //});
   }
-
+  
+  const handleRaceChange = (e: string) => {
+    setRaceModalOpen(true)
+    if (e!=race) {
+      setRace(e);
+      //ReactGA.event({
+      //  category: "force change",
+      //  action: "change force select",
+      //  label: e,
+      //});
+    }
+  }
+  
+  const handleGenderChange = (e: string) => {
+    setGenderModalOpen(true)
+    if (e!=gender) {
+      setGender(e);
+      //ReactGA.event({
+      //  category: "force change",
+      //  action: "change force select",
+      //  label: e,
+      //});
+    }
+  }
 
   const fetchMonths = () => {
     setMonthsLoading(true)
@@ -149,14 +172,16 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       <StopSearchModal
         totalModalOpened={totalModalOpened}
         setTotalModalOpened={setTotalModalOpened}
-      />
+        />
       <RaceModal
         raceModalOpen={raceModalOpen}
         setRaceModalOpen={setRaceModalOpen}
+        race={race}
       />
       <GenderModal
         genderModalOpen={genderModalOpen}
         setGenderModalOpen={setGenderModalOpen}
+        gender={gender}
       />
       <StopSearchDashboard
         force={force}
@@ -169,13 +194,10 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         isForceLoading={isForceLoading}
         isMonthsLoading={isMonthsLoading}
         data={data}
-        forceSelectOptions={forceSelectOptions} 
-        totalModalOpened={totalModalOpened}
+        forceSelectOptions={forceSelectOptions}
         setTotalModalOpened={setTotalModalOpened}
-        raceModalOpen={raceModalOpen}
-        setRaceModalOpen={setRaceModalOpen}
-        genderModalOpen={genderModalOpen}
-        setGenderModalOpen={setGenderModalOpen}
+        handleRaceChange={handleRaceChange}
+        handleGenderChange={handleGenderChange}
       />
     </>
   )

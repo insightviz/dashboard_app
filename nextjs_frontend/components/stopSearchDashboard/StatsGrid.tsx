@@ -10,11 +10,17 @@ interface StatsUIProps {
 data: Data,
 startDate: Date,
 setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
-setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-setGenderModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+handleRaceChange: (date: string ) => void,
+handleGenderChange: (date: string ) => void,
 }
 
-export default function StatsGridIcons( {data, startDate, setTotalModalOpened, setRaceModalOpen, setGenderModalOpen } : StatsUIProps) {
+export default function StatsGridIcons({
+  data, 
+  startDate, 
+  setTotalModalOpened,
+  handleRaceChange,
+  handleGenderChange
+  } : StatsUIProps) {
   const { theme } = useAppThemeContext();
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
@@ -65,7 +71,7 @@ export default function StatsGridIcons( {data, startDate, setTotalModalOpened, s
     const DiffIcon = statItem.percentage > 0 ? ArrowUpRight : ArrowDownRight;
     return (
       <Paper withBorder p="xl" radius="xl" key={statItem.ethnicity} 
-        onClick={statItem.ethnicity.toLowerCase() !== 'not defined' ? () => setRaceModalOpen(true) : undefined }
+        onClick={statItem.ethnicity.toLowerCase() !== 'not defined' ? () => handleRaceChange(statItem.ethnicity) : undefined }
         sx={(theme) => (statItem.ethnicity.toLowerCase() !== 'not defined' ? {cursor: 'pointer'} : {})}>
         <Group position="apart">
           <Text
@@ -94,7 +100,7 @@ export default function StatsGridIcons( {data, startDate, setTotalModalOpened, s
     const DiffIcon = statItem.percentage > 0 ? ArrowUpRight : ArrowDownRight;
     return (
       <Paper withBorder p="xl" radius="xl" key={statItem.gender}
-        onClick={statItem.gender.toLowerCase() !== 'not defined' ? () => setGenderModalOpen(true) : undefined }
+        onClick={statItem.gender.toLowerCase() !== 'not defined' ? () => handleGenderChange(statItem.gender) : undefined }
         sx={(theme) => (statItem.gender.toLowerCase() !== 'not defined' ? {cursor: 'pointer'} : {})}>
         <Group position="apart">
           <Text

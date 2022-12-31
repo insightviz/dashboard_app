@@ -42,12 +42,9 @@ interface DashboardProps {
   isMonthsLoading: boolean,
   data: Data | undefined,
   forceSelectOptions: forceSelectOption[]
-  totalModalOpened: boolean,
   setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
-  raceModalOpen: boolean,
-  setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  genderModalOpen: boolean,
-  setGenderModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  handleRaceChange: (date: string ) => void,
+  handleGenderChange: (date: string ) => void,
 }
 const StopSearchDashboard = ({
   force,
@@ -62,8 +59,8 @@ const StopSearchDashboard = ({
   data,
   forceSelectOptions,
   setTotalModalOpened,
-  setRaceModalOpen,
-  setGenderModalOpen
+  handleRaceChange,
+  handleGenderChange
 }: DashboardProps) => { 
   
   return (
@@ -115,8 +112,8 @@ const StopSearchDashboard = ({
           data={data!} 
           startDate={startDate}
           setTotalModalOpened={setTotalModalOpened}
-          setRaceModalOpen={setRaceModalOpen}
-          setGenderModalOpen={setGenderModalOpen}
+          handleRaceChange={handleRaceChange}
+          handleGenderChange={handleGenderChange}
         />
         }
       </div>

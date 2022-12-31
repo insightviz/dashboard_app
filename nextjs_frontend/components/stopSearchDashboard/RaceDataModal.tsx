@@ -5,11 +5,11 @@ import BarSegments from "../chart/BarSegments"
 
 interface ethnicityModalProps {
     raceModalOpen: boolean,
-    setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    race: string
 }
 
-const RaceModal = ({raceModalOpen, setRaceModalOpen}: ethnicityModalProps) => {
-  const [race, setRace] = useState('black');
+const RaceModal = ({raceModalOpen, setRaceModalOpen, race}: ethnicityModalProps) => {
   const [ethnicityChartData, setEthnicityChartData] = useState({
     datasets: [{
       label: 'Total number of stop and searches',
@@ -31,9 +31,9 @@ const RaceModal = ({raceModalOpen, setRaceModalOpen}: ethnicityModalProps) => {
           breakpoints={[
             { maxWidth: 980, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
           ]} spacing="xl">
-            <BarSegments chartData={testData.ethnicity_data.breakdown_by_police_ethnicity} title={`Race of police officer conducting searches for ${race} supspects`}/>
-            <BarSegments chartData={testData.ethnicity_data.breakdown_of_outcomes_by_ethnicity} title={`Outcome of searches for ${race} supspects`}/>
-            <BarSegments chartData={testData.ethnicity_data.breakdown_of_object_of_search_by_ethnicity} title={`Object for search for ${race} supspects`}/>
+            <BarSegments chartData={testData.ethnicity_data.breakdown_by_police_ethnicity} title={`Race of police officer conducting searches for ${race.toLowerCase()} supspects`}/>
+            <BarSegments chartData={testData.ethnicity_data.breakdown_of_outcomes_by_ethnicity} title={`Outcome of searches for ${race.toLowerCase()} supspects`}/>
+            <BarSegments chartData={testData.ethnicity_data.breakdown_of_object_of_search_by_ethnicity} title={`Object for search for ${race.toLowerCase()} supspects`}/>
           </SimpleGrid>
         }
       </Modal>

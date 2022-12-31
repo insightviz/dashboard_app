@@ -5,10 +5,11 @@ import BarSegments from "../chart/BarSegments"
 
 interface ethnicityModalProps {
     genderModalOpen: boolean,
-    setGenderModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setGenderModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    gender: string
 }
 
-const GenderModal = ({genderModalOpen, setGenderModalOpen}: ethnicityModalProps) => {
+const GenderModal = ({genderModalOpen, setGenderModalOpen, gender}: ethnicityModalProps) => {
   const [ethnicityChartData, setEthnicityChartData] = useState({
     datasets: [{
       label: 'Total number of stop and searches',
@@ -30,8 +31,8 @@ const GenderModal = ({genderModalOpen, setGenderModalOpen}: ethnicityModalProps)
           breakpoints={[
             { maxWidth: 980, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
           ]} spacing="xl">
-            <BarSegments chartData={testData.gender_data.breakdown_of_outcomes_by_gender} title="Outcome of searches for ... supspects"/>
-            <BarSegments chartData={testData.gender_data.breakdown_of_object_of_search_by_gender} title="Object for search for ... supspects"/>
+            <BarSegments chartData={testData.gender_data.breakdown_of_outcomes_by_gender} title={`Outcome of searches for ${gender.toLowerCase()} supspects`}/>
+            <BarSegments chartData={testData.gender_data.breakdown_of_object_of_search_by_gender} title={`Object for search for ${gender.toLowerCase()} supspects`}/>
           </SimpleGrid>
         }
       </Modal>
