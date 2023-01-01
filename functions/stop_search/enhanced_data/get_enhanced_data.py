@@ -21,7 +21,7 @@ CONNECTION_STRING = f"postgresql://{CREDENTIALS['username']}:{CREDENTIALS['passw
 # connect with data
 engine = create_engine(url=CONNECTION_STRING, echo=True)
 
-def get__enhanced_data(event):
+def get_enhanced_data(event):
     with Session(engine) as session:
         if 'month' not in event['queryStringParameters'].keys():
             if all([key not in event['queryStringParameters'].keys() for key in ['ethnicity', 'gender']]):
