@@ -48,6 +48,11 @@ function LineChart({ chartData, title }) {
             tooltip: {
               enabled: true
             }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }}
       />

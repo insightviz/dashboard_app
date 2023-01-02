@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import { Title, Avatar, Text, Paper } from '@mantine/core';
 import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './SharedTypes';
-import React, { useState } from "react";
+import React from "react";
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -43,8 +43,9 @@ interface DashboardProps {
   data: Data | undefined,
   forceSelectOptions: forceSelectOption[]
   setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
-  handleRaceChange: (date: string ) => void,
-  handleGenderChange: (date: string ) => void,
+  handleTotalClick: () => void,
+  handleRaceChange: (race: string ) => void,
+  handleGenderChange: (gender: string ) => void,
 }
 const StopSearchDashboard = ({
   force,
@@ -59,6 +60,7 @@ const StopSearchDashboard = ({
   data,
   forceSelectOptions,
   setTotalModalOpened,
+  handleTotalClick,
   handleRaceChange,
   handleGenderChange
 }: DashboardProps) => { 
@@ -112,6 +114,7 @@ const StopSearchDashboard = ({
           data={data!} 
           startDate={startDate}
           setTotalModalOpened={setTotalModalOpened}
+          handleTotalClick={handleTotalClick}
           handleRaceChange={handleRaceChange}
           handleGenderChange={handleGenderChange}
         />

@@ -42,6 +42,11 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   const [isDataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState<error>({'error': false, 'message': null})
   
+  const [enhancedOverallData, setEnhancedOverallData] = useState<enhancedData | undefined>();
+  const [enhancedRaceData, setEnhancedRaceData] = useState<enhancedData | undefined>();
+  const [enhancedGenderData, setEnhancedGenderData] = useState<enhancedData | undefined>();
+  const [isEnhancedDataLoading, setEnhancedDataLoading] = useState(false);
+  
   const [isForceLoading, setForceLoading] = useState(true);
   const [forceSelectOptions, setForceSelectOptions] = useState<forceSelectOption[]>([]);
   
@@ -106,6 +111,11 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setForce(e);
       setError({'error': false, 'message': null});
       setCookie('insightStopSearchForce', e);
+      setRace('');
+      setGender('');
+      setEnhancedOverallData(undefined);
+      setEnhancedRaceData(undefined);
+      setEnhancedGenderData(undefined);
       //ReactGA.event({
       //  category: "force change",
       //  action: "change force select",
@@ -119,6 +129,10 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setStartDate(date!)
       setMonth(`${date!.getFullYear()}-${date!.getMonth()+1<10?'0'+(date!.getMonth()+1):date!.getMonth()+1}`)
       setError({'error': false, 'message': null});
+      setRace('');
+      setGender('');
+      setEnhancedRaceData(undefined);
+      setEnhancedGenderData(undefined);
     }
     //ReactGA.event({
     //  category: "month change",
@@ -126,25 +140,42 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     //  label: `${date.getFullYear()}-${date.getMonth()+1<10?'0'+(date.getMonth()+1):date.getMonth()+1}`,
     //});
   }
-  
-  const handleRaceChange = (e: string) => {
-    setRaceModalOpen(true)
-    if (e!=race) {
-      setRace(e);
+
+  const handleTotalClick = () => {
+    setTotalModalOpened(true)
+    if (typeof enhancedOverallData === 'undefined') {
+      setEnhancedDataLoading(true)
+      fetchEnhancedData('total', {force: force});
       //ReactGA.event({
-      //  category: "force change",
-      //  action: "change force select",
-      //  label: e,
-      //});
+        //  category: "force change",
+        //  action: "change force select",
+        //  label: e,
+        //});
+      }
     }
-  }
-  
-  const handleGenderChange = (e: string) => {
-    setGenderModalOpen(true)
-    if (e!=gender) {
-      setGender(e);
+    
+    const handleRaceChange = (e: string) => {
+      setRaceModalOpen(true)
+      if (e!=race) {
+        setEnhancedDataLoading(true)
+        fetchEnhancedData('race', {force: force, ethnicity: e});
+        setRace(e);
       //ReactGA.event({
-      //  category: "force change",
+        //  category: "force change",
+        //  action: "change force select",
+        //  label: e,
+        //});
+      }
+    }
+    
+    const handleGenderChange = (e: string) => {
+      setGenderModalOpen(true)
+      if (e!=gender) {
+        setEnhancedDataLoading(true)
+        fetchEnhancedData('gender', {force: force, gender: e});
+        setGender(e);
+        //ReactGA.event({
+          //  category: "force change",
       //  action: "change force select",
       //  label: e,
       //});
@@ -166,22 +197,76 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   }
   
   useEffect(fetchMonths, [force])
+  
+  const fetchEnhancedData = (dataType: string, queryparameters: any) => {
+    setEnhancedDataLoading(true)
+    if (dataType === 'total') {
+      let url = constructURL('/stopsearch/enhanceddata', queryparameters)
+      
+      fetchData(url)
+      .then(data => {
+        setEnhancedOverallData(data)
+        setEnhancedDataLoading(false)
+      })
+      .catch((error) => {
+        setError({'error': true, 'message': error.message});
+      })
+    } else if (dataType === 'race') {
+      let url = ''
+      if (month === '') {
+        url = constructURL('/stopsearch/enhanceddata', queryparameters)
+      } else {
+        url = constructURL('/stopsearch/enhanceddata', Object.assign(queryparameters, { month: month}))
+      }
 
+      fetchData(url)
+      .then(data => {
+        setEnhancedRaceData(data)
+        setEnhancedDataLoading(false)
+      })
+      .catch((error) => {
+        setError({'error': true, 'message': error.message});
+      })
+    } else {
+      let url = ''
+      if (month === '') {
+        url = constructURL('/stopsearch/enhanceddata', queryparameters)
+      } else {
+        url = constructURL('/stopsearch/enhanceddata', Object.assign(queryparameters, { month: month}))
+      }
+
+      fetchData(url)
+      .then(data => {
+        setEnhancedGenderData(data)
+        setEnhancedDataLoading(false)
+      })
+      .catch((error) => {
+        setError({'error': true, 'message': error.message});
+      })
+    }
+  }
+  
   return (
     <>
       <StopSearchModal
         totalModalOpened={totalModalOpened}
         setTotalModalOpened={setTotalModalOpened}
-        />
+        enhancedOverallData={enhancedOverallData!}
+        isEnhancedDataLoading={isEnhancedDataLoading}
+      />
       <RaceModal
         raceModalOpen={raceModalOpen}
         setRaceModalOpen={setRaceModalOpen}
         race={race}
+        enhancedRaceData={enhancedRaceData}
+        isEnhancedDataLoading={isEnhancedDataLoading}
       />
       <GenderModal
         genderModalOpen={genderModalOpen}
         setGenderModalOpen={setGenderModalOpen}
         gender={gender}
+        enhancedGenderData={enhancedGenderData}
+        isEnhancedDataLoading={isEnhancedDataLoading}
       />
       <StopSearchDashboard
         force={force}
@@ -196,6 +281,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         data={data}
         forceSelectOptions={forceSelectOptions}
         setTotalModalOpened={setTotalModalOpened}
+        handleTotalClick={handleTotalClick}
         handleRaceChange={handleRaceChange}
         handleGenderChange={handleGenderChange}
       />

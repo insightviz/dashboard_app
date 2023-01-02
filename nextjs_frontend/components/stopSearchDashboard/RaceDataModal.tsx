@@ -2,14 +2,22 @@ import { Modal, SimpleGrid, } from '@mantine/core';
 import testData from "./data";
 import { useState } from 'react';
 import BarSegments from "../chart/BarSegments"
+import  { enhancedData } from './SharedTypes';
 
 interface ethnicityModalProps {
     raceModalOpen: boolean,
     setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    race: string
+    race: string,
+    enhancedRaceData: enhancedData | undefined,
+    isEnhancedDataLoading: boolean
 }
 
-const RaceModal = ({raceModalOpen, setRaceModalOpen, race}: ethnicityModalProps) => {
+const RaceModal = ({
+  raceModalOpen, 
+  setRaceModalOpen, 
+  race,
+  enhancedRaceData,
+  isEnhancedDataLoading}: ethnicityModalProps) => {
   const [ethnicityChartData, setEthnicityChartData] = useState({
     datasets: [{
       label: 'Total number of stop and searches',

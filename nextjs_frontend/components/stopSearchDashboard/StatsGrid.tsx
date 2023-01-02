@@ -10,14 +10,16 @@ interface StatsUIProps {
 data: Data,
 startDate: Date,
 setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
-handleRaceChange: (date: string ) => void,
-handleGenderChange: (date: string ) => void,
+handleTotalClick: () => void,
+handleRaceChange: (race: string ) => void,
+handleGenderChange: (gender: string ) => void,
 }
 
 export default function StatsGridIcons({
   data, 
   startDate, 
   setTotalModalOpened,
+  handleTotalClick,
   handleRaceChange,
   handleGenderChange
   } : StatsUIProps) {
@@ -25,7 +27,7 @@ export default function StatsGridIcons({
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
     return (
-      <Paper withBorder p="xl" radius="xl" onClick={() => setTotalModalOpened(true)} sx={(theme) => ({cursor: 'pointer'})}>
+      <Paper withBorder p="xl" radius="xl" onClick={() => handleTotalClick()} sx={(theme) => ({cursor: 'pointer'})}>
         <Group position="apart">
           <div>
             <Text
