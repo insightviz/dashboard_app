@@ -7,6 +7,7 @@ import { NotificationsProvider } from '@mantine/notifications';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { emotionCache } from '../../EmotionCache'
 
 export default function Layout({ children }) {
   const { theme } = useAppThemeContext();
@@ -52,6 +53,7 @@ export default function Layout({ children }) {
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
+        emotionCache={emotionCache}
         theme={{
           /** Put your mantine theme override here */
           colorScheme: theme,
@@ -59,11 +61,12 @@ export default function Layout({ children }) {
           headings: {
             fontFamily: 'segoe',
           },
+          defaultRadius: 'xl',
+          respectReducedMotion: true,
           components: {
             Select: {
               defaultProps:{
                 size: 'md',
-                radius: 'xl',
                 maxDropdownHeight: 400,
                 iconWidth: 50,
               }
@@ -71,19 +74,17 @@ export default function Layout({ children }) {
             TextInput: {
               defaultProps:{
                 iconWidth: 50,
-                radius: 'xl',
                 size: 'md',
               }
             },
             Button: {
               defaultProps:{
-                radius: 'xl',
                 size: 'md',
               }
             },
             Avatar: {
               defaultProps:{
-                radius: 'xl'
+                size: "md"
               }
             }
           }

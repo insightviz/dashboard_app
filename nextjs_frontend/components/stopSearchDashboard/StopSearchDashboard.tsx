@@ -124,11 +124,11 @@ const StopSearchDashboard = ({
         <Title order={2}>Contributors</Title>
         <div className={styles.avatarImages}>
           <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank" rel="noreferrer">
-            <Avatar src="https://avatars.githubusercontent.com/u/57296341?v=4" alt="Eze Ahunanya" size="lg" radius="xl" />
+            <Avatar src="https://avatars.githubusercontent.com/u/57296341?v=4" alt="Eze Ahunanya" size="lg" />
             <span>Eze Ahunanya</span>
           </a>
           <a href="https://github.com/Primebrook" className="contributor-link" target="_blank" rel="noreferrer">
-            <Avatar src="https://avatars.githubusercontent.com/u/71849503?v=4" alt="Brook Abraha" size="lg" radius="xl" />
+            <Avatar src="https://avatars.githubusercontent.com/u/71849503?v=4" alt="Brook Abraha" size="lg" />
             <span>Brook Abraha</span>
           </a>
         </div>
