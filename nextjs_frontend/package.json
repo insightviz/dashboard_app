@@ -19,6 +19,7 @@
     "@mantine/hooks": "^5.8.2",
     "@mantine/next": "^5.8.0",
     "@mantine/notifications": "^5.8.2",
+    "@mantine/ssr": "^5.10.0",
     "@mui/x-date-pickers": "^5.0.8",
     "chart.js": "^4.0.1",
     "cookies-next": "^2.1.1",
