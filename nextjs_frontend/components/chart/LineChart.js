@@ -51,7 +51,15 @@ function LineChart({ chartData, title }) {
           },
           scales: {
             y: {
-              beginAtZero: true
+              beginAtZero: true,
+              grid: {
+                display: false,
+              }
+            },
+            x: {
+              grid: {
+                display: false,
+              }
             }
           }
         }}

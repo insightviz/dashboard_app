@@ -12,7 +12,7 @@ const OverallDataModalCharts = ({
       
   const overallChartData = {
     datasets: [{
-      label: 'Total number of stop and searches',
+      label: 'Total stop and searches',
       data: enhancedOverallData!.overall_enhanced_data!.past_monthly_stop_search.map(({ x, y}) => ({ x: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short' }).format(new Date(x)), y })),
       borderWidth: 1.5,
       tension: .25
