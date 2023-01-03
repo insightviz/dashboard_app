@@ -53,7 +53,7 @@ def get_enhanced_data(event, context):
                        ) 
                        GROUP BY 1, 2
                        ORDER BY 1 ASC, 3 DESC''', {'force': force_to_filter}).all()              
-                stop_searches_by_race = [{'x': str(row[0]), 'category': row[1], 'y': row[2]} for row in stop_searches_by_race if row[1]]
+                stop_searches_by_race = [{'x': str(row[0]), 'category': re.sub('^\s*$', 'Not Defined', str(row[1]).replace('None', 'Not defined')), 'y': row[2]} for row in stop_searches_by_race]
                 stop_searches_by_gender = session.execute(
                     '''SELECT date, gender, count(*) 
                        FROM stop_search_records 
@@ -67,7 +67,7 @@ def get_enhanced_data(event, context):
                        ) 
                        GROUP BY 1, 2
                        ORDER BY 1 ASC, 3 DESC''', {'force': force_to_filter}).all()              
-                stop_searches_by_gender = [{'x': str(row[0]), 'category': row[1], 'y': row[2]} for row in stop_searches_by_gender if row[1]]
+                stop_searches_by_gender = [{'x': str(row[0]), 'category': re.sub('^\s*$', 'Not Defined', str(row[1]).replace('None', 'Not defined')), 'y': row[2]} for row in stop_searches_by_gender]
             elif 'ethnicity' in event['queryStringParameters'].keys():
                 force_to_filter = event['queryStringParameters']['force']
                 ethnicity_to_filter = event['queryStringParameters']['ethnicity']
