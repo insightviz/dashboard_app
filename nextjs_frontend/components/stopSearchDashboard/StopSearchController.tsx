@@ -41,6 +41,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   const [data, setData] = useState<Data | undefined>();
   const [isDataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState<error>({'error': false, 'message': null})
+  const [modalError, setModalError] = useState<error>({'error': false, 'message': null})
   
   const [enhancedOverallData, setEnhancedOverallData] = useState<enhancedData | undefined>();
   const [enhancedRaceData, setEnhancedRaceData] = useState<enhancedData | undefined>();
@@ -74,7 +75,11 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     
     fetchData(url)
     .then((data) => {
-      setData(data)
+      if (typeof data == 'string') {
+        setError({'error': true, 'message': data})
+      } else {
+        setData(data)
+      }
       setDataLoading(false)
     })
     .catch((error) => {
@@ -144,6 +149,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   const handleTotalClick = () => {
     setTotalModalOpened(true)
     if (typeof enhancedOverallData === 'undefined') {
+      setModalError({'error': false, 'message': null});
       setEnhancedDataLoading(true)
       fetchEnhancedData('total', {force: force});
       //ReactGA.event({
@@ -151,34 +157,42 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         //  action: "change force select",
         //  label: e,
         //});
-      }
     }
+  }
     
-    const handleRaceChange = (e: string) => {
-      setRaceModalOpen(true)
+  const handleRaceChange = (e: string) => {
+    setRaceModalOpen(true)
+    if (typeof enhancedRaceData === 'undefined' || e!=race) {
       if (e!=race) {
-        setEnhancedDataLoading(true)
-        fetchEnhancedData('race', {force: force, ethnicity: e});
-        setRace(e);
+        setEnhancedRaceData(undefined);
+      }
+      setModalError({'error': false, 'message': null});
+      setEnhancedDataLoading(true)
+      fetchEnhancedData('race', {force: force, ethnicity: e});
+      setRace(e);
       //ReactGA.event({
         //  category: "force change",
         //  action: "change force select",
         //  label: e,
         //});
-      }
     }
+  }
     
-    const handleGenderChange = (e: string) => {
-      setGenderModalOpen(true)
-      if (e!=gender) {
-        setEnhancedDataLoading(true)
-        fetchEnhancedData('gender', {force: force, gender: e});
-        setGender(e);
-        //ReactGA.event({
-          //  category: "force change",
-      //  action: "change force select",
-      //  label: e,
-      //});
+  const handleGenderChange = (e: string) => {
+    setGenderModalOpen(true)
+    if (typeof enhancedRaceData === 'undefined' || e!=gender) {
+      if (e!=race) {
+        setEnhancedRaceData(undefined);
+      }
+      setModalError({'error': false, 'message': null});
+      setEnhancedDataLoading(true)
+      fetchEnhancedData('gender', {force: force, gender: e});
+      setGender(e);
+      //ReactGA.event({
+        //  category: "force change",
+    //  action: "change force select",
+    //  label: e,
+    //});
     }
   }
 
@@ -209,7 +223,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         setEnhancedDataLoading(false)
       })
       .catch((error) => {
-        setError({'error': true, 'message': error.message});
+        setModalError({'error': true, 'message': error.message});
       })
     } else if (dataType === 'race') {
       let url = ''
@@ -225,7 +239,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         setEnhancedDataLoading(false)
       })
       .catch((error) => {
-        setError({'error': true, 'message': error.message});
+        setModalError({'error': true, 'message': error.message});
       })
     } else {
       let url = ''
@@ -241,7 +255,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         setEnhancedDataLoading(false)
       })
       .catch((error) => {
-        setError({'error': true, 'message': error.message});
+        setModalError({'error': true, 'message': error.message});
       })
     }
   }
@@ -253,6 +267,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         setTotalModalOpened={setTotalModalOpened}
         enhancedOverallData={enhancedOverallData!}
         isEnhancedDataLoading={isEnhancedDataLoading}
+        modalError={modalError}
       />
       <RaceModal
         raceModalOpen={raceModalOpen}
@@ -260,6 +275,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         race={race}
         enhancedRaceData={enhancedRaceData}
         isEnhancedDataLoading={isEnhancedDataLoading}
+        modalError={modalError}
       />
       <GenderModal
         genderModalOpen={genderModalOpen}
@@ -267,6 +283,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         gender={gender}
         enhancedGenderData={enhancedGenderData}
         isEnhancedDataLoading={isEnhancedDataLoading}
+        modalError={modalError}
       />
       <StopSearchDashboard
         force={force}
