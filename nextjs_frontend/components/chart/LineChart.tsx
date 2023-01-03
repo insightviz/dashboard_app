@@ -27,7 +27,13 @@ ChartJS.register(
   Colors 
 );
 
-function LineChart({ chartData, title }) {
+interface lineChartProps {
+  chartData: any,
+  title: string
+}
+
+
+function LineChart({ chartData, title }: lineChartProps) {
   return (
     <div className="chart-container">
       <Title order={3} align="center">{title}</Title>
@@ -36,9 +42,6 @@ function LineChart({ chartData, title }) {
         options={{
           responsive: true,
           plugins: {
-            colors: {
-              enabled: true
-            },
             title: {
               display: false
             },
