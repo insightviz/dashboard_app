@@ -151,6 +151,7 @@ def get_data(event, context):
                        ORDER BY 2 DESC''', {'force': force_to_filter, 'month': month_to_filter}).all()
                 no_stop_searches_by_gender = [{'gender': re.sub('^\s*$', 'Not Defined', str(row[0]).replace('None', 'Not defined')), 'no_of_stop_and_searches': row[1], 'percentage': str(round(row[2], 1))} for row in no_stop_searches_by_gender]
             if no_stop_searches[0] == 0:
+                redis_cache.set(cache_key, json.dumps(f"No data available for {force_to_filter.replace('-', ' ')} police force!"))
                 return {'statusCode': 200,
                         'body': json.dumps(f"No data available for {force_to_filter.replace('-', ' ')} police force!")}
             else:
@@ -167,7 +168,6 @@ def get_data(event, context):
             _, last_day = calendar.monthrange(year, month)
 
             if 'month' not in event['queryStringParameters'].keys():
-                
                 date = datetime(year, month, last_day, 23, 59, 0)
                 redis_cache.set(cache_key, json.dumps(results), exat=int(date.timestamp()))
             else: 
