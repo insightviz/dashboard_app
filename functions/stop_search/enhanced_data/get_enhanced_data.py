@@ -50,6 +50,7 @@ def get_enhanced_data(event, context):
             if 'month' not in event['queryStringParameters'].keys():
                 if all([key not in event['queryStringParameters'].keys() for key in ['ethnicity', 'gender']]):
                     force_to_filter = event['queryStringParameters']['force']
+                    month_to_filter = event['queryStringParameters']['monthSliderValue']
                     stop_searches = session.execute(
                         '''SELECT date, count(*) 
                            FROM stop_search_records 
@@ -57,12 +58,12 @@ def get_enhanced_data(event, context):
                                   force_id = :force
                                   AND
                                   date > (
-                                      SELECT max(date) - INTERVAL '1 year' 
+                                      SELECT max(date) - INTERVAL :month MONTH 
                                       FROM stop_search_records
                                       WHERE force_id = :force)
                            ) 
                            GROUP BY 1
-                           ORDER BY 1 ASC''', {'force': force_to_filter}).all()
+                           ORDER BY 1 ASC''', {'force': force_to_filter, 'month': month_to_filter}).all()
                     stop_searches = [{'x': str(row[0]), 'y': row[1]} for row in stop_searches]
                     stop_searches_by_race = session.execute(
                         '''SELECT date, person_ethnicity, count(*) 
@@ -71,12 +72,12 @@ def get_enhanced_data(event, context):
                                   force_id = :force
                                   AND
                                   date > (
-                                      SELECT max(date) - INTERVAL '1 year' 
+                                      SELECT max(date) - INTERVAL :month MONTH 
                                       FROM stop_search_records
                                       WHERE force_id = :force)
                            ) 
                            GROUP BY 1, 2
-                           ORDER BY 1 ASC, 3 DESC''', {'force': force_to_filter}).all()              
+                           ORDER BY 1 ASC, 3 DESC''', {'force': force_to_filter, 'month': month_to_filter}).all()              
                     stop_searches_by_race = [{'x': str(row[0]), 'category': re.sub('^\s*$', 'Not Defined', str(row[1]).replace('None', 'Not defined')), 'y': row[2]} for row in stop_searches_by_race]
                     stop_searches_by_gender = session.execute(
                         '''SELECT date, gender, count(*) 
@@ -85,12 +86,12 @@ def get_enhanced_data(event, context):
                                   force_id = :force
                                   AND
                                   date > (
-                                      SELECT max(date) - INTERVAL '1 year' 
+                                      SELECT max(date) - INTERVAL :month MONTH 
                                       FROM stop_search_records
                                       WHERE force_id = :force)
                            ) 
                            GROUP BY 1, 2
-                           ORDER BY 1 ASC, 3 DESC''', {'force': force_to_filter}).all()              
+                           ORDER BY 1 ASC, 3 DESC''', {'force': force_to_filter, 'month': month_to_filter}).all()              
                     stop_searches_by_gender = [{'x': str(row[0]), 'category': re.sub('^\s*$', 'Not Defined', str(row[1]).replace('None', 'Not defined')), 'y': row[2]} for row in stop_searches_by_gender]
                 elif 'ethnicity' in event['queryStringParameters'].keys():
                     force_to_filter = event['queryStringParameters']['force']
