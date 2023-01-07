@@ -1,4 +1,4 @@
-import { Modal, Loader, Paper, Text, Title, SimpleGrid } from '@mantine/core';
+import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex } from '@mantine/core';
 import  { enhancedData, error } from './SharedTypes';
 import RaceModalCharts from './RaceDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
@@ -48,8 +48,15 @@ const RaceModal = ({
               </Text>
             </Paper>
              :
-             isEnhancedDataLoading ?
-             <Loader variant="bars" size='md' /> :
+            isEnhancedDataLoading ?
+            <Flex
+              mih={500}
+              justify="center"
+              align="center"
+              direction="column"
+            >
+              <Loader variant="bars" size='md' />
+            </Flex> :
              <RaceModalCharts enhancedRaceData={enhancedRaceData!} race={race}/>}
           </SimpleGrid>
         }

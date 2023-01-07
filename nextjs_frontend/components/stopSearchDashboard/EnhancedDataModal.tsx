@@ -1,4 +1,4 @@
-import { Modal, Loader, Paper, Text, Title, SimpleGrid } from '@mantine/core';
+import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex } from '@mantine/core';
 import  { enhancedData, error } from './SharedTypes';
 import  OverallDataModalCharts from './OverallDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
@@ -41,12 +41,19 @@ const StopSearchModal = ({
                 {modalError.message}
               </Text>
             </Paper>
-             :
-             isEnhancedDataLoading ?
-             <Loader variant="bars" size='md' /> :
-             <OverallDataModalCharts
-             enhancedOverallData={enhancedOverallData}
-             />}
+            :
+            isEnhancedDataLoading ?
+            <Flex
+              mih={500}
+              justify="center"
+              align="center"
+              direction="column"
+            >
+              <Loader variant="bars" size='md' />
+            </Flex> :
+            <OverallDataModalCharts
+            enhancedOverallData={enhancedOverallData}
+            />}
           </SimpleGrid>           
         }
       </Modal>

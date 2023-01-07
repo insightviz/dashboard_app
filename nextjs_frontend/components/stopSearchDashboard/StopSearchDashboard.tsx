@@ -6,7 +6,7 @@ import StatsGridIcons from './StatsGrid'
 //import ReactGA from "react-ga4";
 import dynamic from 'next/dynamic'
 import TextField from '@mui/material/TextField';
-import { Title, Avatar, Text, Paper } from '@mantine/core';
+import { Title, Avatar, Text, Paper, Flex } from '@mantine/core';
 import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
@@ -109,7 +109,14 @@ const StopSearchDashboard = ({
         </Paper>
          :
         isForceLoading || isMonthsLoading || isDataLoading ?
-        <Loader variant="bars" size='md' /> :
+        <Flex
+          mih={500}
+          justify="center"
+          align="center"
+          direction="column"
+        >
+          <Loader variant="bars" size='md' />
+        </Flex> :
         <StatsGridIcons 
           data={data!} 
           startDate={startDate}

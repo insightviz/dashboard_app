@@ -1,4 +1,4 @@
-import { Modal, Loader, Paper, Text, Title, SimpleGrid } from '@mantine/core';
+import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex } from '@mantine/core';
 import  { enhancedData, error } from './SharedTypes';
 import GenderModalCharts from './GenderDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
@@ -49,7 +49,14 @@ const GenderModal = ({
             </Paper>
              :
             isEnhancedDataLoading ?
-            <Loader variant="bars" size='md' /> :
+            <Flex
+              mih={500}
+              justify="center"
+              align="center"
+              direction="column"
+            >
+              <Loader variant="bars" size='md' />
+            </Flex> :
             <GenderModalCharts gender={gender} enhancedGenderData={enhancedGenderData!}/>}
           </SimpleGrid>
         }
