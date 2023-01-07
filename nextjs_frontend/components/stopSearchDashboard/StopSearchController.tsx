@@ -40,6 +40,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   const [totalModalOpened, setTotalModalOpened] = useState<boolean>(false)
   const [raceModalOpen, setRaceModalOpen] = useState<boolean>(false)
   const [genderModalOpen, setGenderModalOpen] = useState<boolean>(false)
+  const [monthSliderValue, setMonthSliderValue] = useState<string>('12')
 
   //useEffect(() => {
   //  ReactGA.send("pageview");
@@ -100,6 +101,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setCookie('insightStopSearchForce', e);
       setRace('');
       setGender('');
+      setMonthSliderValue('12');
       setEnhancedOverallData(undefined);
       setEnhancedRaceData(undefined);
       setEnhancedGenderData(undefined);
@@ -132,8 +134,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     setTotalModalOpened(true)
     if (typeof enhancedOverallData === 'undefined') {
       setModalError({'error': false, 'message': null});
-      setEnhancedDataLoading(true)
-      fetchEnhancedData('total', {force: force});
+      fetchEnhancedData('total', {force: force, monthSliderValue: monthSliderValue});
       //ReactGA.event({
         //  category: "force change",
         //  action: "change force select",
@@ -149,7 +150,6 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         setEnhancedRaceData(undefined);
       }
       setModalError({'error': false, 'message': null});
-      setEnhancedDataLoading(true)
       fetchEnhancedData('race', {force: force, ethnicity: e});
       setRace(e);
       //ReactGA.event({
@@ -167,7 +167,6 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         setEnhancedRaceData(undefined);
       }
       setModalError({'error': false, 'message': null});
-      setEnhancedDataLoading(true)
       fetchEnhancedData('gender', {force: force, gender: e});
       setGender(e);
       //ReactGA.event({
@@ -175,6 +174,13 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     //  action: "change force select",
     //  label: e,
     //});
+    }
+  }
+
+  const handleMonthSliderChange = (e: string) => {
+    if (e!=monthSliderValue) {
+      setMonthSliderValue(e)
+      fetchEnhancedData('total', {force: force, monthSliderValue: e});
     }
   }
 
@@ -251,6 +257,8 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         isEnhancedDataLoading={isEnhancedDataLoading}
         modalError={modalError}
         force={force}
+        monthSliderValue={monthSliderValue}
+        handleMonthSliderChange={handleMonthSliderChange}
         />
       <RaceModal
         raceModalOpen={raceModalOpen}

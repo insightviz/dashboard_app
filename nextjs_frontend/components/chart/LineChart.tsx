@@ -29,11 +29,12 @@ ChartJS.register(
 
 interface lineChartProps {
   chartData: any,
-  title: string
+  title: string,
+  months: number
 }
 
 
-function LineChart({ chartData, title }: lineChartProps) {
+function LineChart({ chartData, title, months }: lineChartProps) {
   return (
     <div className="chart-container">
       <Title order={3} align="center">{title}</Title>
@@ -62,8 +63,20 @@ function LineChart({ chartData, title }: lineChartProps) {
             x: {
               grid: {
                 display: false,
+              },
+              ticks: {
+                // For a category axis, the val is the index so the lookup via getLabelForValue is needed
+                callback: function(val, index) {
+                  if (months <= 12) {
+                    return this.getLabelForValue(val)
+                  } else if (months <= 24) {
+                    // Hide every 2nd tick label
+                    return index % 2 === 0 ? this.getLabelForValue(val) : null;
+                  } else {
+                    return index % 3 === 0 ? this.getLabelForValue(val) : null;
+                  }            
               }
-            }
+            }}
           }
         }}
       />

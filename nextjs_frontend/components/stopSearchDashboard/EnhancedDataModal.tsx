@@ -1,4 +1,4 @@
-import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex } from '@mantine/core';
+import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex, Radio } from '@mantine/core';
 import  { enhancedData, error } from './SharedTypes';
 import  OverallDataModalCharts from './OverallDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
@@ -9,7 +9,9 @@ interface stopSearchModalProps {
     enhancedOverallData: enhancedData,
     isEnhancedDataLoading: boolean,
     modalError: error,
-    force: string
+    force: string,
+    monthSliderValue: string,
+    handleMonthSliderChange: (e: string) => void
 }
 
 const StopSearchModal = ({
@@ -18,7 +20,9 @@ const StopSearchModal = ({
   enhancedOverallData,
   isEnhancedDataLoading,
   modalError,
-  force}: stopSearchModalProps) => {
+  force,
+  monthSliderValue,
+  handleMonthSliderChange}: stopSearchModalProps) => {
 
   return (
       <Modal
@@ -29,7 +33,17 @@ const StopSearchModal = ({
       >
         {
           <SimpleGrid cols={1} spacing="xl">
-            <Title order={1} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police stop and searches</Title>
+            <Title order={1} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police stop and searches over previous {monthSliderValue} months</Title>
+            <Radio.Group
+              value={monthSliderValue}
+              onChange={(e) => handleMonthSliderChange(e)}
+              name="monthSliderValue"
+              label="Select number of months:"
+            >
+              <Radio value="12" label="12 months" />
+              <Radio value="24" label="24 months" />
+              <Radio value="36" label="36 months" />
+            </Radio.Group>
             {modalError.error ? 
             <Paper withBorder p="xl" radius="xl">
               <Text
@@ -52,7 +66,8 @@ const StopSearchModal = ({
               <Loader variant="bars" size='md' />
             </Flex> :
             <OverallDataModalCharts
-            enhancedOverallData={enhancedOverallData}
+              enhancedOverallData={enhancedOverallData}
+              monthSliderValue={monthSliderValue}  
             />}
           </SimpleGrid>           
         }

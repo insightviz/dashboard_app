@@ -3,11 +3,13 @@ import LineChart from "../chart/LineChart"
 import  { enhancedData } from './SharedTypes';
 
 interface overallDataModalChartsProps {
-    enhancedOverallData: enhancedData
+    enhancedOverallData: enhancedData,
+    monthSliderValue: string
 }
 
 const OverallDataModalCharts = ({
-  enhancedOverallData
+  enhancedOverallData,
+  monthSliderValue
   }: overallDataModalChartsProps) => {
       
   const overallChartData = {
@@ -44,9 +46,9 @@ const OverallDataModalCharts = ({
       breakpoints={[
         { maxWidth: 980, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
       ]} spacing="xl">
-      <LineChart chartData={overallChartData} title="Stop and searches over previous 12 months"/>
-      <LineChart chartData={{datasets: raceDataset}} title="Stop and searches over previous 12 months broken down by race"/>
-      <LineChart chartData={{datasets: genderDataset}} title="Stop and searches over previous 12 months broken down by gender"/>
+      <LineChart chartData={overallChartData} title={`Total`} months={Number(monthSliderValue)}/>
+      <LineChart chartData={{datasets: raceDataset}} title={`Breakdown by race`} months={Number(monthSliderValue)}/>
+      <LineChart chartData={{datasets: genderDataset}} title={`Breakdown by gender`} months={Number(monthSliderValue)}/>
     </SimpleGrid>      
   )
 }
