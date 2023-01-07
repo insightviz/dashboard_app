@@ -159,7 +159,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         //});
     }
   }
-    
+  
   const handleGenderChange = (e: string) => {
     setGenderModalOpen(true)
     if (typeof enhancedRaceData === 'undefined' || e!=gender) {
@@ -179,6 +179,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
 
   const handleMonthSliderChange = (e: string) => {
     if (e!=monthSliderValue) {
+      setModalError({'error': false, 'message': null});
       setMonthSliderValue(e)
       fetchEnhancedData('total', {force: force, monthSliderValue: e});
     }
