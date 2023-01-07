@@ -6,6 +6,8 @@ import botocore
 import botocore.session 
 from aws_secretsmanager_caching import SecretCache, SecretCacheConfig 
 import redis
+import calendar
+from datetime import datetime
 
 # Connect to the ElastiCache cache
 CACHE_ENDPOINT = os.environ.get('cache_endpoint')
@@ -52,7 +54,15 @@ def get_months(event, context):
                        GROUP BY 1''', {'force': forces_to_filter}).all()
             available_months = [row[0] for row in available_months]
 
-            redis_cache.set(cache_key, json.dumps(sorted(available_months), default=str))
+            # Get the current year and month
+            year = datetime.now().year
+            month = datetime.now().month
+            
+            # Get the last day of the month
+            _, last_day = calendar.monthrange(year, month)
+                
+            date = datetime(year, month, last_day, 23, 59, 0)
+            redis_cache.set(cache_key, json.dumps(sorted(available_months), default=str), exat=int(date.timestamp()))
 
         return {
             'statusCode': 200,
