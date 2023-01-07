@@ -8,28 +8,10 @@ import React from "react";
 import StopSearchModal from "./EnhancedDataModal";
 import RaceModal from "./RaceDataModal"
 import GenderModal from "./GenderDataModal"
-
-const constructURL = (baseUrl: string, parameters: Record<string, string>) => {
-  const params = new URLSearchParams();
-
-  for (const key of Object.keys(parameters)) {
-    params.set(`${key}`, `${parameters[key]}`);
-  }
-
-  const fullUrl = `${baseUrl}?${params.toString()}`;
-  return fullUrl
-};
+import { constructURL, fetchData } from "../../assets/UtilFunctions"
 
 interface ServerProps {
   savedForce: string 
-}
-
-async function fetchData(url: string) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`HTTP Error: ${response.status}, Message: ${response.statusText}`);
-  } 
-  return response.json(); 
 }
 
 const StopSearchDashboardController = ({savedForce}: ServerProps) => { 
@@ -268,7 +250,8 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         enhancedOverallData={enhancedOverallData!}
         isEnhancedDataLoading={isEnhancedDataLoading}
         modalError={modalError}
-      />
+        force={force}
+        />
       <RaceModal
         raceModalOpen={raceModalOpen}
         setRaceModalOpen={setRaceModalOpen}
@@ -276,7 +259,9 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         enhancedRaceData={enhancedRaceData}
         isEnhancedDataLoading={isEnhancedDataLoading}
         modalError={modalError}
-      />
+        force={force}
+        startDate={startDate}
+        />
       <GenderModal
         genderModalOpen={genderModalOpen}
         setGenderModalOpen={setGenderModalOpen}
@@ -284,6 +269,8 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         enhancedGenderData={enhancedGenderData}
         isEnhancedDataLoading={isEnhancedDataLoading}
         modalError={modalError}
+        force={force}
+        startDate={startDate}
       />
       <StopSearchDashboard
         force={force}

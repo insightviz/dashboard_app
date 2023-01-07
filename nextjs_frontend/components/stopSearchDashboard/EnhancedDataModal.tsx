@@ -1,13 +1,15 @@
-import { Modal, Loader, Paper, Text } from '@mantine/core';
+import { Modal, Loader, Paper, Text, Title, SimpleGrid } from '@mantine/core';
 import  { enhancedData, error } from './SharedTypes';
 import  OverallDataModalCharts from './OverallDataModalCharts';
+import { sentenceCase } from "../../assets/UtilFunctions"
 
 interface stopSearchModalProps {
     totalModalOpened: boolean,
     setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
     enhancedOverallData: enhancedData,
     isEnhancedDataLoading: boolean,
-    modalError: error
+    modalError: error,
+    force: string
 }
 
 const StopSearchModal = ({
@@ -15,7 +17,8 @@ const StopSearchModal = ({
   setTotalModalOpened,
   enhancedOverallData,
   isEnhancedDataLoading,
-  modalError}: stopSearchModalProps) => {
+  modalError,
+  force}: stopSearchModalProps) => {
 
   return (
       <Modal
@@ -25,24 +28,26 @@ const StopSearchModal = ({
         zIndex={999}
       >
         {
-          modalError.error ? 
-          <Paper withBorder p="xl" radius="xl">
-            <Text
-              color="dimmed"
-              transform="uppercase"
-              weight={700}
-              size="md"
-            >
-              {modalError.message}
-            </Text>
-          </Paper>
-           :
-          isEnhancedDataLoading ?
-          <Loader variant="bars" size='md' /> :
-          <OverallDataModalCharts
-            enhancedOverallData={enhancedOverallData}
-          />
-            
+          <SimpleGrid cols={1} spacing="xl">
+            <Title order={1} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police stop and searches</Title>
+            {modalError.error ? 
+            <Paper withBorder p="xl" radius="xl">
+              <Text
+                color="dimmed"
+                transform="uppercase"
+                weight={700}
+                size="md"
+                >
+                {modalError.message}
+              </Text>
+            </Paper>
+             :
+             isEnhancedDataLoading ?
+             <Loader variant="bars" size='md' /> :
+             <OverallDataModalCharts
+             enhancedOverallData={enhancedOverallData}
+             />}
+          </SimpleGrid>           
         }
       </Modal>
   )

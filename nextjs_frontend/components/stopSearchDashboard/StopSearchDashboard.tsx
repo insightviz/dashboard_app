@@ -117,6 +117,7 @@ const StopSearchDashboard = ({
           handleTotalClick={handleTotalClick}
           handleRaceChange={handleRaceChange}
           handleGenderChange={handleGenderChange}
+          force={force}
         />
         }
       </div>

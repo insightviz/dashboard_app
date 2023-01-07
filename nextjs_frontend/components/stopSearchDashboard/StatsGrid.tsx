@@ -13,6 +13,7 @@ setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
 handleTotalClick: () => void,
 handleRaceChange: (race: string ) => void,
 handleGenderChange: (gender: string ) => void,
+force: string
 }
 
 export default function StatsGridIcons({
@@ -21,7 +22,8 @@ export default function StatsGridIcons({
   setTotalModalOpened,
   handleTotalClick,
   handleRaceChange,
-  handleGenderChange
+  handleGenderChange,
+  force
   } : StatsUIProps) {
   const { theme } = useAppThemeContext();
   const totalStats = ({monthly_no_stop_search}: Data) => {
@@ -36,7 +38,15 @@ export default function StatsGridIcons({
               weight={700}
               size="sm"
             >
-              Searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}
+              {force.replace(/[-]/g, ' ')} searches
+            </Text>
+            <Text
+              color="dimmed"
+              transform="uppercase"
+              weight={700}
+              size="sm"
+            >
+              in {months[startDate.getMonth()]}, {startDate.getFullYear()}
             </Text>
             <Text weight={700} size={32}>
               {monthly_no_stop_search.monthly_no_stop_search}
