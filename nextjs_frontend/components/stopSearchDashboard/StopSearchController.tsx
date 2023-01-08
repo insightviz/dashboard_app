@@ -293,7 +293,6 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         isMonthsLoading={isMonthsLoading}
         data={data}
         forceSelectOptions={forceSelectOptions}
-        setTotalModalOpened={setTotalModalOpened}
         handleTotalClick={handleTotalClick}
         handleRaceChange={handleRaceChange}
         handleGenderChange={handleGenderChange}

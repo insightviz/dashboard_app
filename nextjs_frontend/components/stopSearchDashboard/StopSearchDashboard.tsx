@@ -42,7 +42,6 @@ interface DashboardProps {
   isMonthsLoading: boolean,
   data: Data | undefined,
   forceSelectOptions: forceSelectOption[]
-  setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
   handleTotalClick: () => void,
   handleRaceChange: (race: string ) => void,
   handleGenderChange: (gender: string ) => void,
@@ -59,7 +58,6 @@ const StopSearchDashboard = ({
   isMonthsLoading,
   data,
   forceSelectOptions,
-  setTotalModalOpened,
   handleTotalClick,
   handleRaceChange,
   handleGenderChange
@@ -120,7 +118,6 @@ const StopSearchDashboard = ({
         <StatsGridIcons 
           data={data!} 
           startDate={startDate}
-          setTotalModalOpened={setTotalModalOpened}
           handleTotalClick={handleTotalClick}
           handleRaceChange={handleRaceChange}
           handleGenderChange={handleGenderChange}

@@ -3,13 +3,13 @@ import { ArrowDownRight, ArrowUpRight, Minus } from '@geist-ui/icons';
 import { Data } from './SharedTypes'
 import { getMonthsNames } from '@mantine/dates';
 import { useAppThemeContext } from '../../context/AppTheme';
+import { useElementSize  } from '@mantine/hooks';
 
 const months = getMonthsNames('en', 'MMMM');
 
 interface StatsUIProps {
 data: Data,
 startDate: Date,
-setTotalModalOpened: React.Dispatch<React.SetStateAction<boolean>>,
 handleTotalClick: () => void,
 handleRaceChange: (race: string ) => void,
 handleGenderChange: (gender: string ) => void,
@@ -18,36 +18,49 @@ force: string
 
 export default function StatsGridIcons({
   data, 
-  startDate, 
-  setTotalModalOpened,
+  startDate,
   handleTotalClick,
   handleRaceChange,
   handleGenderChange,
   force
   } : StatsUIProps) {
   const { theme } = useAppThemeContext();
+  const { ref, width } = useElementSize();
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
     return (
-      <Paper withBorder p="xl" radius="xl" onClick={() => handleTotalClick()} sx={(theme) => ({cursor: 'pointer'})}>
+      <Paper withBorder p="xl" radius="xl" onClick={() => handleTotalClick()} sx={(theme) => ({cursor: 'pointer'})} ref={ref}>
         <Group position="apart">
           <div>
-            <Text
-              color="dimmed"
-              transform="uppercase"
-              weight={700}
-              size="sm"
-            >
-              {force.replace(/[-]/g, ' ')} searches
-            </Text>
-            <Text
-              color="dimmed"
-              transform="uppercase"
-              weight={700}
-              size="sm"
-            >
-              in {months[startDate.getMonth()]}, {startDate.getFullYear()}
-            </Text>
+            {
+              width > 350 ?
+              <Text
+                color="dimmed"
+                transform="uppercase"
+                weight={700}
+                size="sm"
+              >
+                {force.replace(/[-]/g, ' ')} searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}
+              </Text> :
+              <>
+                <Text
+                  color="dimmed"
+                  transform="uppercase"
+                  weight={700}
+                  size="sm"
+                >
+                  {force.replace(/[-]/g, ' ')} searches
+                </Text>
+                <Text
+                  color="dimmed"
+                  transform="uppercase"
+                  weight={700}
+                  size="sm"
+                  >
+                  in {months[startDate.getMonth()]}, {startDate.getFullYear()}
+                </Text>
+              </>
+            }
             <Text weight={700} size={32}>
               {monthly_no_stop_search.monthly_no_stop_search}
             </Text>
