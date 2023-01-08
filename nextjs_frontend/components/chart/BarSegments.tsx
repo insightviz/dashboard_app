@@ -1,6 +1,7 @@
 import React from "react";
 import { Title, SimpleGrid, Progress, Paper, Box, Text, Group } from '@mantine/core';
-import { segmentsData } from '../stopSearchDashboard/SharedTypes'
+import { segmentsData } from '../stopSearchDashboard/SharedTypes';
+import { useElementSize  } from '@mantine/hooks';
 
 interface barSegmentsProps {
   chartData: segmentsData[],
@@ -8,13 +9,14 @@ interface barSegmentsProps {
 }
 
 function BarSegments({ chartData, title }: barSegmentsProps) {
+  const { ref, width } = useElementSize();
   const colourPalete = ["blue.4", "green.4", "red.4", "yellow.4", "orange.4", "violet.4", "gray.4", "lime.4", "indigo.4", "grape.4"] 
   const colourPalete1 = ["theme.colors.blue[4]", "theme.colors.green[4]", "theme.colors.red[4]", "theme.colors.yellow[4]", "theme.colors.orange[4]", "theme.colors.violet[4]", "theme.colors.gray[4]", "theme.colors.lime[4]", "theme.colors.indigo[4]", "theme.colors.grape[4]"] 
 
   const segments = chartData.map((segment, index) => ({
     value: parseFloat(segment.percentage),
     color: colourPalete[index],
-    label: parseFloat(segment.percentage) > 20 ? `${segment.percentage}%` : undefined,
+    label: width > 650 ? parseFloat(segment.percentage) > 10 ? `${segment.percentage}%` : undefined : parseFloat(segment.percentage) > 20 ? `${segment.percentage}%` : undefined,
   }));
 
   const descriptions = chartData.map((stat, index) => (
@@ -35,7 +37,7 @@ function BarSegments({ chartData, title }: barSegmentsProps) {
     </Box>
   ));
   return (
-    <div className="chart-container">
+    <div className="chart-container" ref={ref}>
       <Paper withBorder p="md" radius="md">
         <Title order={3} align="center">{title}</Title>
         <Progress
