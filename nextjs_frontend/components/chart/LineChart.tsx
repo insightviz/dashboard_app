@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Title } from '@mantine/core';
+import { useElementSize  } from '@mantine/hooks';
 
 
 ChartJS.register(
@@ -34,9 +35,10 @@ interface lineChartProps {
 }
 
 
-function LineChart({ chartData, title, months }: lineChartProps) {
+function LineChart({ chartData, title, months}: lineChartProps) {
+  const { ref, width } = useElementSize();
   return (
-    <div className="chart-container">
+    <div className="chart-container" ref={ref}>
       <Title order={3} align="center">{title}</Title>
       <Line
         data={chartData}
@@ -67,14 +69,25 @@ function LineChart({ chartData, title, months }: lineChartProps) {
               ticks: {
                 // For a category axis, the val is the index so the lookup via getLabelForValue is needed
                 callback: function(val, index) {
-                  if (months <= 12) {
-                    return this.getLabelForValue(val)
-                  } else if (months <= 24) {
-                    // Hide every 2nd tick label
-                    return index % 2 === 0 ? this.getLabelForValue(val) : null;
+                  if (width>=600) {
+                    if (months <= 12) {
+                      return this.getLabelForValue(Number(val))
+                    } else if (months <= 24) {
+                      // Hide every 2nd tick label
+                      return index % 2 === 0 ? this.getLabelForValue(Number(val)) : null;
+                    } else {
+                      return index % 3 === 0 ? this.getLabelForValue(Number(val)) : null;
+                    }
                   } else {
-                    return index % 3 === 0 ? this.getLabelForValue(val) : null;
-                  }            
+                    if (months <= 12) {
+                      return index % 3 === 0 ? this.getLabelForValue(Number(val)) : null;
+                    } else if (months <= 24) {
+                      // Hide every 2nd tick label
+                      return index % 6 === 0 ? this.getLabelForValue(Number(val)) : null;
+                    } else {
+                      return index % 8 === 0 ? this.getLabelForValue(Number(val)) : null;
+                    }
+                  }
               }
             }}
           }
