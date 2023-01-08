@@ -34,16 +34,20 @@ const StopSearchModal = ({
         {
           <SimpleGrid cols={1} spacing="xl">
             <Title order={1} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police stop and searches over previous {monthSliderValue} months</Title>
-            <Radio.Group
-              value={monthSliderValue}
-              onChange={(e) => handleMonthSliderChange(e)}
-              name="monthSliderValue"
-              label="Select number of months:"
+            <Flex
+              justify="center"
             >
-              <Radio value="12" label="12 months" />
-              <Radio value="24" label="24 months" />
-              <Radio value="36" label="36 months" />
-            </Radio.Group>
+              <Radio.Group
+                value={monthSliderValue}
+                onChange={(e) => handleMonthSliderChange(e)}
+                name="monthSliderValue"
+                label="Select number of months:"
+                >
+                <Radio value="12" label="12 months" />
+                <Radio value="24" label="24 months" />
+                <Radio value="36" label="36 months" />
+              </Radio.Group>
+            </Flex>
             {modalError.error ? 
             <Paper withBorder p="xl" radius="xl">
               <Text
