@@ -61,7 +61,6 @@ export default function Layout({ children }) {
           headings: {
             fontFamily: 'segoe',
           },
-          defaultRadius: 'xl',
           respectReducedMotion: true,
           components: {
             Select: {
@@ -69,22 +68,26 @@ export default function Layout({ children }) {
                 size: 'md',
                 maxDropdownHeight: 400,
                 iconWidth: 50,
+                radius: 'xl',
               }
             },
             TextInput: {
               defaultProps:{
                 iconWidth: 50,
                 size: 'md',
+                radius: 'xl',
               }
             },
             Button: {
               defaultProps:{
                 size: 'md',
+                radius: 'xl',
               }
             },
             Avatar: {
               defaultProps:{
-                size: "md"
+                size: "md",
+                radius: 'xl',
               }
             }
           }
