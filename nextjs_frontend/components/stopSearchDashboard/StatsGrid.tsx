@@ -190,7 +190,7 @@ export default function StatsGridIcons({
   return (
     <motion.div
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: .9 }}      
+      exit={{ opacity: 0, scale: .95 }}      
       transition={{ duration: .2 }}
       key="stats-grid">
       <SimpleGrid cols={1} spacing='xl' breakpoints={[
