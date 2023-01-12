@@ -117,7 +117,8 @@ export default function StatsGridIcons({
         }}
         whileTap={{ 
           scale: statItem.ethnicity.toLowerCase() !== 'not defined' ? 0.95 : 1,
-          transition: { duration: .1} }}>
+          transition: { duration: .1} }}
+        key={statItem.ethnicity}>
         <Paper withBorder p="xl" radius="xl" key={statItem.ethnicity} 
           onClick={statItem.ethnicity.toLowerCase() !== 'not defined' ? () => handleRaceChange(statItem.ethnicity) : undefined }
           sx={(theme) => (statItem.ethnicity.toLowerCase() !== 'not defined' ? {cursor: 'pointer'} : {})}>
@@ -157,7 +158,8 @@ export default function StatsGridIcons({
         }}
         whileTap={{ 
           scale: statItem.gender.toLowerCase() !== 'not defined' ? 0.95 : 1,
-          transition: { duration: .1} }}>
+          transition: { duration: .1} }}
+        key={statItem.gender}>
         <Paper withBorder p="xl" radius="xl" key={statItem.gender}
           onClick={statItem.gender.toLowerCase() !== 'not defined' ? () => handleGenderChange(statItem.gender) : undefined }
           sx={(theme) => (statItem.gender.toLowerCase() !== 'not defined' ? {cursor: 'pointer'} : {})}>
