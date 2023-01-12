@@ -10,6 +10,7 @@ import { Title, Avatar, Text, Paper, Flex } from '@mantine/core';
 import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -93,37 +94,51 @@ const StopSearchDashboard = ({
         </div>
       </div>
       <div className={styles.statsGrid}>
-        {
-        error.error ? 
-        <Paper withBorder p="xl" radius="xl">
-          <Text
-            color="dimmed"
-            transform="uppercase"
-            weight={700}
-            size="md"
-          >
-            {error.message}
-          </Text>
-        </Paper>
-         :
-        isForceLoading || isMonthsLoading || isDataLoading ?
-        <Flex
-          mih={500}
-          justify="center"
-          align="center"
-          direction="column"
-        >
-          <Loader variant="bars" size='md' />
-        </Flex> :
-        <StatsGridIcons 
-          data={data!} 
-          startDate={startDate}
-          handleTotalClick={handleTotalClick}
-          handleRaceChange={handleRaceChange}
-          handleGenderChange={handleGenderChange}
-          force={force}
-        />
-        }
+        <AnimatePresence initial={false} mode="wait">
+          {
+            error.error ? 
+            <motion.div
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: .7 }}
+              transition={{ duration: 0.2 }}
+              key="error-message">
+              <Paper withBorder p="xl" radius="xl">
+                <Text
+                  color="dimmed"
+                  transform="uppercase"
+                  weight={700}
+                  size="md"
+                  >
+                  {error.message}
+                </Text>
+              </Paper>
+            </motion.div>
+            :
+            isForceLoading || isMonthsLoading || isDataLoading ?
+            <motion.div
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.1 }}
+              key="loader">
+              <Flex
+                mih={637.08}
+                justify="center"
+                align="center"
+                direction="column">
+                <Loader variant="bars" size='md' />
+              </Flex>
+            </motion.div> :
+            <StatsGridIcons 
+              data={data!} 
+              startDate={startDate}
+              handleTotalClick={handleTotalClick}
+              handleRaceChange={handleRaceChange}
+              handleGenderChange={handleGenderChange}
+              force={force}
+            />
+          }
+        </AnimatePresence>
       </div>
       <div className={styles.contributors}>
         <Title order={2}>Contributors</Title>

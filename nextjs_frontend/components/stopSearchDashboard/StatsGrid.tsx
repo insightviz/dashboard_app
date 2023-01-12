@@ -33,7 +33,7 @@ export default function StatsGridIcons({
       <motion.div
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.5 }}
         whileHover={{
           scale: 1.04,
           transition: { duration: .2 },
@@ -45,7 +45,7 @@ export default function StatsGridIcons({
           <Group position="apart">
             <div>
               {
-                width > 350 ?
+                width > 400 ?
                 <Text
                   color="dimmed"
                   transform="uppercase"
@@ -110,7 +110,7 @@ export default function StatsGridIcons({
       <motion.div
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.5 }}
         whileHover={{
           scale: statItem.ethnicity.toLowerCase() !== 'not defined' ? data.breakdown_by_race.length > 3 ? 1.04 : 1.02 : 1,
           transition: { duration: .2 },
@@ -151,7 +151,7 @@ export default function StatsGridIcons({
       <motion.div
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.5 }}
         whileHover={{
           scale: statItem.gender.toLowerCase() !== 'not defined' ? data.breakdown_by_gender.length > 3 ? 1.04 : 1.02 : 1,
           transition: { duration: .2 },
@@ -188,31 +188,37 @@ export default function StatsGridIcons({
   });
 
   return (
-    <SimpleGrid cols={1} spacing='xl' breakpoints={[
-      { maxWidth: 980, cols: 1, verticalSpacing: 'md' },
-      { maxWidth: 755, cols: 1, verticalSpacing: 'sm' },
-    ]}>
-      <Divider size="lg" labelProps={{'size': 'xl'}} label="Total stop and searches" labelPosition="center" />
-      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 980, cols: 1 }]}>
-        <div></div>
-        {totalStats(data)}
+    <motion.div
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: .9 }}      
+      transition={{ duration: .2 }}
+      key="stats-grid">
+      <SimpleGrid cols={1} spacing='xl' breakpoints={[
+        { maxWidth: 980, cols: 1, verticalSpacing: 'md' },
+        { maxWidth: 755, cols: 1, verticalSpacing: 'sm' },
+      ]}>
+        <Divider size="lg" labelProps={{'size': 'xl'}} label="Total stop and searches" labelPosition="center" />
+        <SimpleGrid cols={3} breakpoints={[{ maxWidth: 980, cols: 1 }]}>
+          <div></div>
+          {totalStats(data)}
+        </SimpleGrid>
+        <Divider size="lg" labelProps={{'size': 'xl'}} label="Breakdown by race" labelPosition="center" />
+        <SimpleGrid cols={Object.keys(data.breakdown_by_race).length} 
+          breakpoints={[
+            { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
+            { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
+          ]} spacing="xl">
+          {raceBreakdownStats}
+        </SimpleGrid>
+        <Divider size="lg" labelProps={{'size': 'xl'}} label="Breakdown by gender" labelPosition="center" />
+        <SimpleGrid cols={Object.keys(data.breakdown_by_gender).length} 
+          breakpoints={[
+            { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
+            { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
+          ]} spacing="xl">
+          {genderBreakdownStats}
+        </SimpleGrid>
       </SimpleGrid>
-      <Divider size="lg" labelProps={{'size': 'xl'}} label="Breakdown by race" labelPosition="center" />
-      <SimpleGrid cols={Object.keys(data.breakdown_by_race).length} 
-        breakpoints={[
-          { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
-          { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
-        ]} spacing="xl">
-        {raceBreakdownStats}
-      </SimpleGrid>
-      <Divider size="lg" labelProps={{'size': 'xl'}} label="Breakdown by gender" labelPosition="center" />
-      <SimpleGrid cols={Object.keys(data.breakdown_by_gender).length} 
-        breakpoints={[
-          { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
-          { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
-        ]} spacing="xl">
-        {genderBreakdownStats}
-      </SimpleGrid>
-    </SimpleGrid>
+    </motion.div>
   );
 }
