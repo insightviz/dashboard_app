@@ -21,6 +21,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .h1 span {
@@ -117,6 +119,9 @@
   font-size: var(--font-size--large);
   color: var(--text-colour);
   font-family: Segoe;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 700;
 }
 
 .dashboard_content {
@@ -125,6 +130,7 @@
   gap: 20rem;
   align-items: center;
   color: var(--text-colour);
+  min-width: 100%;
 }
 
 
@@ -134,7 +140,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  width: 100vw;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,15 +158,19 @@ body[data-theme="dark"] .stop_search {
 
 .text_card {
   background-color: var(--bg-colour-2);
-  padding: 1rem;
+  padding: 2.4rem;
   width: clamp(20rem, 80%, 30rem);
   font-family: Segoe;
-  border-radius: 1rem;
+  border-radius: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  border: 1px solid var(--card-border);
 }
 
 .text_card p {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .text_card a:visited {
@@ -172,9 +182,13 @@ body[data-theme="dark"] .stop_search {
 }
 
 .text_card h3 {
+  margin-top: 0;
+  margin-bottom: 0;
   font-size: var(--font-size--ml);
+  font-weight: 700;
 }
 
 .text_card p, .text_card a {
+  font-weight: 700;
   font-size: var(--font-size--default);
 }
