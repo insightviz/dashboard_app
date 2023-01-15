@@ -85,7 +85,7 @@
     font-size: var(--font-size--default);
     color: var(--text-colour);
     font-weight: 700;
-    padding: .8rem;
+    padding: 1rem;
     border-radius: 1.5rem;
 }
 
