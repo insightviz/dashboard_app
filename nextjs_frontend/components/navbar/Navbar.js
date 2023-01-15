@@ -5,6 +5,7 @@ import { useAppThemeContext } from '../../context/AppTheme';
 import { Group, Avatar, Text, Select } from '@mantine/core';
 import { forwardRef } from 'react';
 //import ReactGA from "react-ga4";
+import { Burger } from '@mantine/core';
 
 const themeOptions = [
   {
@@ -51,12 +52,17 @@ const SelectItem = forwardRef(
 );
 
 function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
-  const { mode, setMode } = useAppThemeContext();
+  const { mode, setMode, theme } = useAppThemeContext();
   return (
     <header className={styles.navbar}>
       <nav className={styles.navbarContainer}>
         <div className={styles.menuIcon} onClick={handleClick}>
-          {click ? <X size="4rem"/> : <Menu size="4rem"/>}
+          <Burger
+            opened={click}
+            onClick={handleClick}
+            size='md'
+            color={theme == 'dark' ? '#C1C2C5' : '#000'}
+          />
         </div>
         <Link href="/" className={styles.logoContainer}>
           <svg className={styles.navbarLogo} width="160" height="71" viewBox="0 0 160 71" fill="none" xmlns="http://www.w3.org/2000/svg">
