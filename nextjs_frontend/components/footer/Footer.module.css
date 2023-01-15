@@ -44,6 +44,7 @@
     display: flex;
     padding: 1rem;
     border-radius: 1.5rem;
+    transition: all 0.2s ease-out;
 }
 
 .socialIcons a:hover {

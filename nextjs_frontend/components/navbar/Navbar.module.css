@@ -85,6 +85,8 @@
     font-size: var(--font-size--default);
     color: var(--text-colour);
     font-weight: 700;
+    padding: .8rem;
+    border-radius: 1.5rem;
 }
 
 .logoContainer:hover .bulb {
@@ -134,7 +136,7 @@ body[data-theme="dark"] .logoContainer:hover .name {
     }
     
     .navLinks:hover {
-        border-bottom: 4px solid var(--text-colour);
         transition: all 0.2s ease-out;
+        background-color: var(--card-border);
     }
 }
