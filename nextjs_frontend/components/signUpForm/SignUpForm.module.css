@@ -1,7 +1,3 @@
-.signupForm {
-    padding:.8rem;
-}
-
 .signupForm form {
     display: flex;
     flex-direction: column;
@@ -19,6 +15,8 @@
 
 .formTitle h2 {
     font-size: var(--font-size--ml);
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .inputs {
