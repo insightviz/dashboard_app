@@ -17,8 +17,8 @@ export default function Home() {
           <Link href="/stopsearch" legacyBehavior>
             <div className={styles.stop_search} >
               <div className={styles.text_card}>
-                <h3>Stop and search</h3>
-                <p>{"Insights from stop and search data released by 'police.uk'."}</p>
+                <h3>UK Stop and searches</h3>
+                <p>{"Insights from stop and search data released by 'POLICE.UK'"}</p>
                 <Link href="/stopsearch">Discover insights here</Link>
               </div>
             </div>
