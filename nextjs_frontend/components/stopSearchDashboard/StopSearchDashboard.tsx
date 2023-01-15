@@ -77,6 +77,8 @@ const StopSearchDashboard = ({
               searchable={true}
               value={force}
               onChange={handleForceChange}
+              transition='fade'
+              transitionDuration={500}
               />
           </div>
           <div className={styles.monthPicker}>

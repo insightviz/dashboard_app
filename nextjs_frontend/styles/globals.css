@@ -43,7 +43,7 @@ a {
 
 .page-main {
   flex-grow: 1;
-  margin-top: 11rem;
+  margin-top: 8rem;
 }
 
 body[data-theme="dark"] {

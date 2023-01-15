@@ -96,7 +96,9 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
             value={mode}
             onChange={e => { 
               setMode(e)
-            }}
+            }}            
+            transition='fade'
+            transitionDuration={500}
           />
         </div>
       </nav> 
