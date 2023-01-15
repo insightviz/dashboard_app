@@ -52,20 +52,21 @@
 
 @keyframes change-colour {
   from { 
-      color: var(--text-colour);
+    color: var(--text-colour);
   }
 
-  40% {
-      color: var(--brand-orange);        
-      text-shadow: 0 0 5rem var(--brand-orange);
+  33% {
+    color: var(--brand-orange);        
+    text-shadow: 0 0 5rem var(--brand-orange);
   }
-
-  50% {
-      color: var(--text-colour);
+    
+  66% {
+    color: var(--text-colour);
+    text-shadow: 0 0 0 var(--brand-orange);
   }
 
   to {
-      color: var(--text-colour);
+    color: var(--text-colour);
   }  
 }
 
@@ -88,20 +89,19 @@
 
 @keyframes change-colour-two {
   from { 
-      color: var(--text-colour);
+    color: var(--text-colour);
   }
 
-  40% {
-      color: var(--brand-blue);
-      text-shadow: 0 0 2rem var(--brand-blue);
+  33% {
+    color: var(--brand-blue);
     }
     
-  50% {
-      color: var(--text-colour);
+  66% {
+    color: var(--text-colour);
   }
 
   to {
-      color: var(--text-colour);
+    color: var(--text-colour);
   } 
 }
 
