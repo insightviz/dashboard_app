@@ -42,6 +42,12 @@
 
 .socialIcons a {
     display: flex;
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+
+.socialIcons a:hover {
+    background-color: var(--card-border);
 }
 
 .websiteRights {

@@ -29,13 +29,13 @@ const Footer = () => {
           </Link>
           <div className={styles.socialIcons}>
             <a href="https://www.instagram.com/insight.viz" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon-instagram">
-              <Instagram size="3rem" color={theme==='dark'?'white':'black'}/>
+              <Instagram size="2.5rem" color={theme==='dark'?'#C1C2C5':'black'}/>
             </a>
             <a href="https://github.com/insightviz" target="_blank" rel="noreferrer" aria-label="Github" className="social-icon-github">
-              <Github size="3rem" color={theme==='dark'?'white':'black'}/>
+              <Github size="2.5rem" color={theme==='dark'?'#C1C2C5':'black'}/>
             </a>
             <a href="https://www.linkedin.com/company/insight-viz/" target="_blank"  rel="noreferrer" aria-label="linkedin" className="social-icon-linkedin">
-              <Linkedin size="3rem" color={theme==='dark'?'white':'black'}/>
+              <Linkedin size="2.5rem" color={theme==='dark'?'#C1C2C5':'black'}/>
             </a>
           </div>
         </div>

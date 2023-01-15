@@ -84,6 +84,7 @@
 .navLinks {
     font-size: var(--font-size--default);
     color: var(--text-colour);
+    font-weight: 700;
 }
 
 .logoContainer:hover .bulb {
