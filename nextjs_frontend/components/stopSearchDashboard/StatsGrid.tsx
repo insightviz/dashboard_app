@@ -42,37 +42,16 @@ export default function StatsGridIcons({
           scale: 0.95,
           transition: { duration: .1} }}>
         <Paper withBorder p="xl" radius="xl" onClick={() => handleTotalClick()} sx={(theme) => ({cursor: 'pointer'})} ref={ref}>
-          <Group position="apart">
+          <Group position="apart" noWrap>
             <div>
-              {
-                width > 400 ?
-                <Text
-                  color="dimmed"
-                  transform="uppercase"
-                  weight={700}
-                  size="sm"
-                >
-                  {force.replace(/[-]/g, ' ')} searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}
-                </Text> :
-                <>
-                  <Text
-                    color="dimmed"
-                    transform="uppercase"
-                    weight={700}
-                    size="sm"
-                  >
-                    {force.replace(/[-]/g, ' ')} searches
-                  </Text>
-                  <Text
-                    color="dimmed"
-                    transform="uppercase"
-                    weight={700}
-                    size="sm"
-                    >
-                    in {months[startDate.getMonth()]}, {startDate.getFullYear()}
-                  </Text>
-                </>
-              }
+              <Text
+                color="dimmed"
+                transform="uppercase"
+                weight={700}
+                size="sm"
+              >
+                {force.replace(/[-]/g, ' ')} searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}
+              </Text> 
               <Text weight={700} size={32}>
                 {monthly_no_stop_search.monthly_no_stop_search}
               </Text>
@@ -122,7 +101,7 @@ export default function StatsGridIcons({
         <Paper withBorder p="xl" radius="xl" key={statItem.ethnicity} 
           onClick={statItem.ethnicity.toLowerCase() !== 'not defined' ? () => handleRaceChange(statItem.ethnicity) : undefined }
           sx={(theme) => (statItem.ethnicity.toLowerCase() !== 'not defined' ? {cursor: 'pointer'} : {})}>
-          <Group position="apart">
+          <Group position="apart" noWrap>
             <Text
               color="dimmed"
               transform="uppercase"
@@ -163,7 +142,7 @@ export default function StatsGridIcons({
         <Paper withBorder p="xl" radius="xl" key={statItem.gender}
           onClick={statItem.gender.toLowerCase() !== 'not defined' ? () => handleGenderChange(statItem.gender) : undefined }
           sx={(theme) => (statItem.gender.toLowerCase() !== 'not defined' ? {cursor: 'pointer'} : {})}>
-          <Group position="apart">
+          <Group position="apart" noWrap>
             <Text
               color="dimmed"
               transform="uppercase"
