@@ -32,6 +32,8 @@ const RaceModal = ({
         onClose={() => setRaceModalOpen(false)}
         fullScreen
         zIndex={999}
+        transition='fade'
+        transitionDuration={500}
       >
         {
           <SimpleGrid cols={1} spacing="xl">              

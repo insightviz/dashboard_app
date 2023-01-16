@@ -30,6 +30,8 @@ const StopSearchModal = ({
         onClose={() => setTotalModalOpened(false)}
         fullScreen
         zIndex={999}
+        transition='fade'
+        transitionDuration={500}
       >
         {
           <SimpleGrid cols={1} spacing="xl">
@@ -42,6 +44,7 @@ const StopSearchModal = ({
                 onChange={(e) => handleMonthSliderChange(e)}
                 name="monthSliderValue"
                 label="Select number of months:"
+                spacing='md'
                 >
                 <Radio value="12" label="12 months" />
                 <Radio value="24" label="24 months" />
