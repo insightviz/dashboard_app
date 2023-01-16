@@ -1,4 +1,5 @@
 import { Group, Paper, Text, ThemeIcon, SimpleGrid, Divider } from '@mantine/core';
+import { useViewportSize } from '@mantine/hooks';
 import { ArrowDownRight, ArrowUpRight, Minus } from '@geist-ui/icons';
 import { Data } from './SharedTypes'
 import { getMonthsNames } from '@mantine/dates';
@@ -25,6 +26,7 @@ export default function StatsGridIcons({
   force
   } : StatsUIProps) {
   const { theme } = useAppThemeContext();
+  const { width } = useViewportSize();
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
     return (
@@ -77,6 +79,11 @@ export default function StatsGridIcons({
             {monthly_no_stop_search.pct_change > 0 ? 'increase' : monthly_no_stop_search.pct_change === 0 ? 'no change' : 'decrease'} compared to last month
           </Text>
           }
+          {
+            width < 901 ?
+            <Text size="sm" mt="md" color="dimmed">Expand +</Text> :
+            <></> 
+          }
         </Paper>
       </motion.div>      
     );
@@ -118,6 +125,11 @@ export default function StatsGridIcons({
             </Text>{' '}
             of total stop and searches
           </Text>
+          {
+            (width < 901) && (statItem.ethnicity.toLowerCase() !== 'not defined') ?
+            <Text size="sm" mt="md" color="dimmed">Expand +</Text> :
+            <></> 
+          }
         </Paper>
       </motion.div>
     );
@@ -159,6 +171,11 @@ export default function StatsGridIcons({
             </Text>{' '}
             of total stop and searches
           </Text>
+          {
+            (width < 901) && (statItem.gender.toLowerCase() !== 'not defined') ?
+            <Text size="sm" mt="md" color="dimmed">Expand +</Text> :
+            <></> 
+          }
         </Paper>
       </motion.div>
     );
