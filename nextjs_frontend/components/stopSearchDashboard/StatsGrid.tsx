@@ -3,7 +3,6 @@ import { ArrowDownRight, ArrowUpRight, Minus } from '@geist-ui/icons';
 import { Data } from './SharedTypes'
 import { getMonthsNames } from '@mantine/dates';
 import { useAppThemeContext } from '../../context/AppTheme';
-import { useElementSize  } from '@mantine/hooks';
 import { motion } from "framer-motion"
 
 const months = getMonthsNames('en', 'MMMM');
@@ -26,7 +25,6 @@ export default function StatsGridIcons({
   force
   } : StatsUIProps) {
   const { theme } = useAppThemeContext();
-  const { ref, width } = useElementSize();
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
     return (
@@ -41,7 +39,7 @@ export default function StatsGridIcons({
         whileTap={{ 
           scale: 0.95,
           transition: { duration: .1} }}>
-        <Paper withBorder p="xl" radius="xl" onClick={() => handleTotalClick()} sx={(theme) => ({cursor: 'pointer'})} ref={ref}>
+        <Paper withBorder p="xl" radius="xl" onClick={() => handleTotalClick()} sx={(theme) => ({cursor: 'pointer'})}>
           <Group position="apart" noWrap>
             <div>
               <Text
