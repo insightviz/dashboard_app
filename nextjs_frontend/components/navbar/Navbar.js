@@ -6,6 +6,7 @@ import { Group, Avatar, Text, Select } from '@mantine/core';
 import { forwardRef } from 'react';
 //import ReactGA from "react-ga4";
 import { Burger } from '@mantine/core';
+import { motion, AnimatePresence } from "framer-motion";
 
 const themeOptions = [
   {
@@ -84,7 +85,36 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
           <Link href="/services" className={styles.navLinks} onClick={closeMobileMenu}>Services</Link>
         </div>
         <div className={styles.themeToggle} onClick={handleThemeToggle}>
-          {mode==='system' ? <Display size={28}/> : (mode==='light' ? <Sun size={28}/> : <Moon size={28}/>)}
+          <AnimatePresence initial={false} mode="wait">
+            {
+              mode==='system' ? 
+              <motion.div
+                initial={{ y: -15, scale: .8 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: 15, scale: .8 }}
+                transition={{ duration: 0.3 }}
+                key="system">
+                <Display size={28}/>
+              </motion.div> :
+              (mode==='light' ? 
+              <motion.div
+                initial={{ y: -15, scale: .8 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: 15, scale: .8 }}
+                transition={{ duration: 0.3 }}
+                key="light">
+                <Sun size={28}/>
+              </motion.div> :
+              <motion.div
+                initial={{ y: -15, scale: .8 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: 15, scale: .8 }}
+                transition={{ duration: 0.3 }}
+                key="dark">
+                <Moon size={28}/>
+              </motion.div>)
+            }
+          </AnimatePresence>
         </div>
         <div className={styles.themeSelect}>
           <Select 
