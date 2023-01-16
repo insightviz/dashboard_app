@@ -197,12 +197,12 @@ export default function StatsGridIcons({
         { maxWidth: 980, cols: 1, verticalSpacing: 'md' },
         { maxWidth: 755, cols: 1, verticalSpacing: 'sm' },
       ]}>
-        <Divider size="lg" labelProps={{'size': 'xl'}} label="Total stop and searches" labelPosition="center" />
+        <Divider size="lg" labelProps={{'size': '26px', weight: 700}} label="Total stop and searches" labelPosition="center" />
         <SimpleGrid cols={3} breakpoints={[{ maxWidth: 980, cols: 1 }]}>
           <div></div>
           {totalStats(data)}
         </SimpleGrid>
-        <Divider size="lg" labelProps={{'size': 'xl'}} label="Breakdown by race" labelPosition="center" />
+        <Divider size="lg" labelProps={{'size': '26px', weight: 700}} label="Breakdown by race" labelPosition="center" />
         <SimpleGrid cols={Object.keys(data.breakdown_by_race).length} 
           breakpoints={[
             { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
@@ -210,7 +210,7 @@ export default function StatsGridIcons({
           ]} spacing="xl">
           {raceBreakdownStats}
         </SimpleGrid>
-        <Divider size="lg" labelProps={{'size': 'xl'}} label="Breakdown by gender" labelPosition="center" />
+        <Divider size="lg" labelProps={{'size': '26px', weight: 700}} label="Breakdown by gender" labelPosition="center" />
         <SimpleGrid cols={Object.keys(data.breakdown_by_gender).length} 
           breakpoints={[
             { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },

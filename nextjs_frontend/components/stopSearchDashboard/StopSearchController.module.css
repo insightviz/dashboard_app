@@ -14,10 +14,6 @@
     grid-area: title;
     display: flex;
     justify-self: center;
-    align-items: center;
-    font-size: 4.2rem;
-    text-align: center;
-    margin-bottom: 0;
 }
 
 .selectContainer {
@@ -47,6 +43,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.selectInputs span {
+    font-weight: 700;
 }
 
 .monthPicker {

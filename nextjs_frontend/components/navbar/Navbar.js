@@ -16,7 +16,6 @@ const themeOptions = [
     label: 'System',
     value: 'system',
   },
-
   {
     image: 
     <Avatar color="yellow">
