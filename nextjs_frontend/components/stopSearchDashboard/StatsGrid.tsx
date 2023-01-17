@@ -33,7 +33,7 @@ export default function StatsGridIcons({
       <motion.div
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.3 }}
         whileHover={{
           scale: 1.04,
           transition: { duration: .2 },
@@ -94,7 +94,7 @@ export default function StatsGridIcons({
       <motion.div
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.3 }}
         whileHover={{
           scale: statItem.ethnicity.toLowerCase() !== 'not defined' ? data.breakdown_by_race.length > 3 ? 1.04 : 1.02 : 1,
           transition: { duration: .2 },
@@ -140,7 +140,7 @@ export default function StatsGridIcons({
       <motion.div
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.3 }}
         whileHover={{
           scale: statItem.gender.toLowerCase() !== 'not defined' ? data.breakdown_by_gender.length > 3 ? 1.04 : 1.02 : 1,
           transition: { duration: .2 },
@@ -185,7 +185,7 @@ export default function StatsGridIcons({
     <motion.div
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: .95 }}      
-      transition={{ duration: .2 }}
+      transition={{ duration: .3 }}
       key="stats-grid">
       <SimpleGrid cols={1} spacing='xl' breakpoints={[
         { maxWidth: 980, cols: 1, verticalSpacing: 'md' },

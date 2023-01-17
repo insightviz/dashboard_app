@@ -127,7 +127,7 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
               setMode(e)
             }}            
             transition='fade'
-            transitionDuration={500}
+            transitionDuration={400}
           />
         </div>
       </nav> 

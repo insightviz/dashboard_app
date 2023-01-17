@@ -78,7 +78,7 @@ const StopSearchDashboard = ({
               value={force}
               onChange={handleForceChange}
               transition='fade'
-              transitionDuration={500}
+              transitionDuration={400}
               />
           </div>
           <div className={styles.monthPicker}>
@@ -103,7 +103,7 @@ const StopSearchDashboard = ({
               initial={{ opacity: 0, scale: 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: .7 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3 }}
               key="error-message">
               <Paper withBorder p="xl" radius="xl">
                 <Text
@@ -121,7 +121,7 @@ const StopSearchDashboard = ({
             <motion.div
               initial={{ opacity: 0, scale: 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.1 }}
+              transition={{ duration: 0.3 }}
               key="loader">
               <Flex
                 mih={637.08}
