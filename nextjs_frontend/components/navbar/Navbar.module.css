@@ -29,7 +29,7 @@
 
 .logoContainer {
     display: flex;
-    padding-right: 5rem;
+    padding-right: 5.2rem;
 }
 
 .navbarLogo {
@@ -70,15 +70,23 @@
 
     .menuIcon, .themeToggle {
         cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .themeToggle {
+        padding: .5rem;
     }
 
     .menuIcon {
         z-index: 1000;
     }
 
-    .menuIcon, .themeToggle {
-        display: block;
-    }    
+    .logoContainer {
+        padding-right: 0;
+    }
+    
 }
 
 .navLinks {
@@ -132,7 +140,7 @@ body[data-theme="dark"] .logoContainer:hover .name {
     .navMenu {
         display: flex;
         flex-direction: row;
-        gap: 2rem;
+        gap: 1rem;
     }
     
     .navLinks:hover {

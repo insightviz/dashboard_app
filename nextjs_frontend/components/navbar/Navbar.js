@@ -84,38 +84,39 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
           <Link href="/" className={styles.navLinks} onClick={closeMobileMenu}>Home</Link>
           <Link href="/services" className={styles.navLinks} onClick={closeMobileMenu}>Services</Link>
         </div>
-        <div className={styles.themeToggle} onClick={handleThemeToggle}>
-          <AnimatePresence initial={false} mode="wait">
-            {
-              mode==='system' ? 
-              <motion.div
-                initial={{ y: -15, scale: .8 }}
-                animate={{ y: 0, scale: 1 }}
-                exit={{ y: 15, scale: .8 }}
-                transition={{ duration: 0.3 }}
-                key="system">
-                <Display size={28}/>
-              </motion.div> :
-              (mode==='light' ? 
-              <motion.div
-                initial={{ y: -15, scale: .8 }}
-                animate={{ y: 0, scale: 1 }}
-                exit={{ y: 15, scale: .8 }}
-                transition={{ duration: 0.3 }}
-                key="light">
-                <Sun size={28}/>
-              </motion.div> :
-              <motion.div
-                initial={{ y: -15, scale: .8 }}
-                animate={{ y: 0, scale: 1 }}
-                exit={{ y: 15, scale: .8 }}
-                transition={{ duration: 0.3 }}
-                key="dark">
-                <Moon size={28}/>
-              </motion.div>)
-            }
-          </AnimatePresence>
-        </div>
+        <AnimatePresence initial={false} mode="wait">
+          {
+            mode==='system' ? 
+            <motion.div
+              className={styles.themeToggle} onClick={handleThemeToggle}
+              initial={{ y: -15, scale: .8 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 15, scale: .8 }}
+              transition={{ duration: 0.3 }}
+              key="system">
+              <Display size={24}/>
+            </motion.div> :
+            (mode==='light' ? 
+            <motion.div
+              className={styles.themeToggle} onClick={handleThemeToggle}
+              initial={{ y: -15, scale: .8 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 15, scale: .8 }}
+              transition={{ duration: 0.3 }}
+              key="light">
+              <Sun size={24}/>
+            </motion.div> :
+            <motion.div
+              className={styles.themeToggle} onClick={handleThemeToggle}
+              initial={{ y: -15, scale: .8 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 15, scale: .8 }}
+              transition={{ duration: 0.3 }}
+              key="dark">
+              <Moon size={24}/>
+            </motion.div>)
+          }
+        </AnimatePresence>
         <div className={styles.themeSelect}>
           <Select 
             itemComponent={SelectItem}
