@@ -30,6 +30,7 @@
   font-family: segoe-black;
   font-size: 3.8rem;
   color: var(--text-colour);
+  text-align: center;
 }
 
 
@@ -133,9 +134,8 @@
   min-width: 100%;
 }
 
-
 .stop_search {
-  height: 60vh;
+  height: clamp(25rem, 60vh, 100rem);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

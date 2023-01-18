@@ -97,6 +97,6 @@ body[data-theme="dark"] .logoContainer:hover .name {
     }
 
     .socialIcons {
-        gap: 5rem;
+        gap: 2rem;
     }
 }
