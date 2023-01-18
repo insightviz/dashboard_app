@@ -27,6 +27,10 @@ export default class _Document extends Document {
         <body>
           <Main />
           <NextScript />
+          <noscript dangerouslySetInnerHTML={{
+            __html: `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PL5CDQD"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`
+            }}/>
         </body>
       </Html>
     );

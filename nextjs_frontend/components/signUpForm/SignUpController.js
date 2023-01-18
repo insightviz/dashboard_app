@@ -3,6 +3,7 @@ import { useForm } from '@mantine/form';
 import { useState } from "react";
 import { showNotification } from '@mantine/notifications';
 import { Smile, Meh } from '@geist-ui/icons'
+import ReactGA from "react-ga4";
 
 const SignUpController = () => {
   const [isSubmittingFormData, setIsSubmittingData] = useState(false)
@@ -38,6 +39,10 @@ const SignUpController = () => {
           })
       setIsSubmittingData(false)
     })
+    ReactGA.event({
+      category: "signup",
+      action: "signup",
+    });
   }
   
   return (

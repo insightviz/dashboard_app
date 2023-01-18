@@ -3,8 +3,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styles from "./StopSearchController.module.css";
 import { styled } from '@mui/material/styles';
 import StatsGridIcons from './StatsGrid'
-//import ReactGA from "react-ga4";
-import dynamic from 'next/dynamic'
 import TextField from '@mui/material/TextField';
 import { Title, Avatar, Text, Paper, Flex } from '@mantine/core';
 import { getMonthsNames } from '@mantine/dates';

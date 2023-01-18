@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import StopSearchDashboard from "./StopSearchDashboard";
 import { allForceOptions } from '../../assets/Constants';
 import { setCookie } from  'cookies-next';
-//import ReactGA from "react-ga4";
+import ReactGA from "react-ga4";
 import  { error, forceSelectOption, Data, enhancedData } from './SharedTypes';
 import React from "react";
 import StopSearchModal from "./EnhancedDataModal";
@@ -42,9 +42,6 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   const [genderModalOpen, setGenderModalOpen] = useState<boolean>(false)
   const [monthSliderValue, setMonthSliderValue] = useState<string>('12')
 
-  //useEffect(() => {
-  //  ReactGA.send("pageview");
-  //}, [])
   
   const loadData = () => {
     setDataLoading(true)
@@ -105,11 +102,11 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setEnhancedOverallData(undefined);
       setEnhancedRaceData(undefined);
       setEnhancedGenderData(undefined);
-      //ReactGA.event({
-      //  category: "force change",
-      //  action: "change force select",
-      //  label: e,
-      //});
+      ReactGA.event({
+        category: "force_select",
+        action: "force_select",
+        label: e,
+      });
     }
   }
   
@@ -122,12 +119,12 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setGender('');
       setEnhancedRaceData(undefined);
       setEnhancedGenderData(undefined);
+      ReactGA.event({
+        category: "month_select",
+        action: "month_select",
+        label: `${date!.getFullYear()}-${date!.getMonth()+1<10?'0'+(date!.getMonth()+1):date!.getMonth()+1}`,
+      });
     }
-    //ReactGA.event({
-    //  category: "month change",
-    //  action: "change month select",
-    //  label: `${date.getFullYear()}-${date.getMonth()+1<10?'0'+(date.getMonth()+1):date.getMonth()+1}`,
-    //});
   }
 
   const handleTotalClick = () => {
@@ -135,11 +132,11 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     if (typeof enhancedOverallData === 'undefined') {
       setModalError({'error': false, 'message': null});
       fetchEnhancedData('total', {force: force, monthSliderValue: monthSliderValue});
-      //ReactGA.event({
-        //  category: "force change",
-        //  action: "change force select",
-        //  label: e,
-        //});
+      ReactGA.event({
+        category: "enhanced_overall_data",
+        action: "enhanced_overall_data",
+        label: [force, monthSliderValue].join('-'),
+      });
     }
   }
     
@@ -152,11 +149,19 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setModalError({'error': false, 'message': null});
       fetchEnhancedData('race', {force: force, ethnicity: e});
       setRace(e);
-      //ReactGA.event({
-        //  category: "force change",
-        //  action: "change force select",
-        //  label: e,
-        //});
+      if ([force, e, month==''?undefined:month].join('-').slice(-1) === "-") {
+        ReactGA.event({
+          category: "enhanced_race_data",
+          action: "enhanced_race_data",
+          label: [force, e, month==''?undefined:month].join('-').slice(0, -1),
+        });
+      } else {
+        ReactGA.event({
+          category: "enhanced_race_data",
+          action: "enhanced_race_data",
+          label: [force, e, month==''?undefined:month].join('-'),
+        });
+      }
     }
   }
   
@@ -169,11 +174,19 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setModalError({'error': false, 'message': null});
       fetchEnhancedData('gender', {force: force, gender: e});
       setGender(e);
-      //ReactGA.event({
-        //  category: "force change",
-    //  action: "change force select",
-    //  label: e,
-    //});
+      if ([force, e, month==''?undefined:month].join('-').slice(-1) === "-") {
+        ReactGA.event({
+          category: "enhanced_gender_data",
+          action: "enhanced_gender_data",
+          label: [force, e, month==''?undefined:month].join('-').slice(0, -1),
+        });
+      } else {
+        ReactGA.event({
+          category: "enhanced_gender_data",
+          action: "enhanced_gender_data",
+          label: [force, e, month==''?undefined:month].join('-'),
+        });
+      }
     }
   }
 
@@ -182,6 +195,11 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setModalError({'error': false, 'message': null});
       setMonthSliderValue(e)
       fetchEnhancedData('total', {force: force, monthSliderValue: e});
+      ReactGA.event({
+        category: "enhanced_overall_data",
+        action: "enhanced_overall_data",
+        label: [force, e].join('-'),
+      });
     }
   }
 

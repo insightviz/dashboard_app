@@ -4,7 +4,7 @@ import { Moon, Sun, Display, Menu, X } from '@geist-ui/icons';
 import { useAppThemeContext } from '../../context/AppTheme';
 import { Group, Avatar, Text, Select } from '@mantine/core';
 import { forwardRef } from 'react';
-//import ReactGA from "react-ga4";
+import ReactGA from "react-ga4";
 import { Burger } from '@mantine/core';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -126,6 +126,11 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
             value={mode}
             onChange={e => { 
               setMode(e)
+              ReactGA.event({
+                category: "theme_select",
+                action: "theme_select",
+                label: e,
+              });
             }}            
             transition='fade'
             transitionDuration={400}
