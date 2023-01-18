@@ -122,7 +122,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       ReactGA.event({
         category: "month_select",
         action: "month_select",
-        label: `${date!.getFullYear()}-${date!.getMonth()+1<10?'0'+(date!.getMonth()+1):date!.getMonth()+1}`,
+        label: [force, `${date!.getFullYear()}-${date!.getMonth()+1<10?'0'+(date!.getMonth()+1):date!.getMonth()+1}`].join('-'),
       });
     }
   }
@@ -149,11 +149,12 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setModalError({'error': false, 'message': null});
       fetchEnhancedData('race', {force: force, ethnicity: e});
       setRace(e);
-      if ([force, e, month==''?undefined:month].join('-').slice(-1) === "-") {
+      if (month === '') {
+        console.log(`${startDate.getFullYear()}-${startDate.getMonth()+1<10?'0'+(startDate.getMonth()+1):startDate.getMonth()+1}`)
         ReactGA.event({
           category: "enhanced_race_data",
           action: "enhanced_race_data",
-          label: [force, e, month==''?undefined:month].join('-').slice(0, -1),
+          label: [force, e, `${startDate.getFullYear()}-${startDate.getMonth()+1<10?'0'+(startDate.getMonth()+1):startDate.getMonth()+1}`].join('-'),
         });
       } else {
         ReactGA.event({
@@ -174,11 +175,11 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       setModalError({'error': false, 'message': null});
       fetchEnhancedData('gender', {force: force, gender: e});
       setGender(e);
-      if ([force, e, month==''?undefined:month].join('-').slice(-1) === "-") {
+      if (month === '') {
         ReactGA.event({
           category: "enhanced_gender_data",
           action: "enhanced_gender_data",
-          label: [force, e, month==''?undefined:month].join('-').slice(0, -1),
+          label: [force, e, `${startDate.getFullYear()}-${startDate.getMonth()+1<10?'0'+(startDate.getMonth()+1):startDate.getMonth()+1}`].join('-'),
         });
       } else {
         ReactGA.event({
