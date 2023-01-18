@@ -4,7 +4,7 @@ import { ArrowDownRight, ArrowUpRight, Minus } from '@geist-ui/icons';
 import { Data } from './SharedTypes'
 import { getMonthsNames } from '@mantine/dates';
 import { useAppThemeContext } from '../../context/AppTheme';
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -27,13 +27,14 @@ export default function StatsGridIcons({
   } : StatsUIProps) {
   const { theme } = useAppThemeContext();
   const { width } = useViewportSize();
+  const shouldReduceMotion = useReducedMotion()
   const totalStats = ({monthly_no_stop_search}: Data) => {
     const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
     return (
       <motion.div
-        initial={{ opacity: 0, scale: 0.7 }}
+        initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
         whileHover={{
           scale: 1.04,
           transition: { duration: .2 },
@@ -92,9 +93,9 @@ export default function StatsGridIcons({
   const raceBreakdownStats = data.breakdown_by_race.map((statItem) => {
     return (
       <motion.div
-        initial={{ opacity: 0, scale: 0.7 }}
+        initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
         whileHover={{
           scale: statItem.ethnicity.toLowerCase() !== 'not defined' ? data.breakdown_by_race.length > 3 ? 1.04 : 1.02 : 1,
           transition: { duration: .2 },
@@ -138,9 +139,9 @@ export default function StatsGridIcons({
   const genderBreakdownStats = data.breakdown_by_gender.map((statItem) => {
     return (
       <motion.div
-        initial={{ opacity: 0, scale: 0.7 }}
+        initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
         whileHover={{
           scale: statItem.gender.toLowerCase() !== 'not defined' ? data.breakdown_by_gender.length > 3 ? 1.04 : 1.02 : 1,
           transition: { duration: .2 },
@@ -184,8 +185,8 @@ export default function StatsGridIcons({
   return (
     <motion.div
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: .95 }}      
-      transition={{ duration: .3 }}
+      exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .95 }}      
+      transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
       key="stats-grid">
       <SimpleGrid cols={1} spacing='xl' breakpoints={[
         { maxWidth: 980, cols: 1, verticalSpacing: 'md' },

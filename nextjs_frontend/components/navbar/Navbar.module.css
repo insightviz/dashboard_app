@@ -53,7 +53,7 @@
         transform: translateX(-100%);
         background-color: var(--bg-colour);
         opacity: .98;
-        transition: all 0.5s ease-out;
+        transition: all 0.3s ease-out;
     }
 
     .navMenu.active {
@@ -146,5 +146,11 @@ body[data-theme="dark"] .logoContainer:hover .name {
     .navLinks:hover {
         transition: all 0.2s ease-out;
         background-color: var(--card-border);
+    }
+}
+
+@media (prefers-reduced-motion) {
+    .navMenu {
+        transition: all 0s ease-out;
     }
 }

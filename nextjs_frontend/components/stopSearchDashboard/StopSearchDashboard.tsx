@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 
 const months = getMonthsNames('en', 'MMMM');
@@ -62,6 +62,7 @@ const StopSearchDashboard = ({
   handleGenderChange
 }: DashboardProps) => { 
   const { width } = useViewportSize();
+  const shouldReduceMotion = useReducedMotion()
   return (
     <div className={styles.stopSearchDashboard}>
       <Title order={1} size={42} align="center">UK stop and search dashboard</Title>
@@ -98,10 +99,10 @@ const StopSearchDashboard = ({
           {
             error.error ? 
             <motion.div
-              initial={{ opacity: 0, scale: 0.7 }}
+              initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: .7 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
               key="error-message">
               <Paper withBorder p="xl" radius="xl">
                 <Text
@@ -117,9 +118,9 @@ const StopSearchDashboard = ({
             :
             isForceLoading || isMonthsLoading || isDataLoading ?
             <motion.div
-              initial={{ opacity: 0, scale: 0.7 }}
+              initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
               key="loader">
               <Flex
                 mih={width > 500 ? 637.08 : 350}

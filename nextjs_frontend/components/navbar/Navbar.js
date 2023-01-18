@@ -6,7 +6,7 @@ import { Group, Avatar, Text, Select } from '@mantine/core';
 import { forwardRef } from 'react';
 import ReactGA from "react-ga4";
 import { Burger } from '@mantine/core';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const themeOptions = [
   {
@@ -53,6 +53,7 @@ const SelectItem = forwardRef(
 
 function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
   const { mode, setMode, theme } = useAppThemeContext();
+  const shouldReduceMotion = useReducedMotion()
   return (
     <header className={styles.navbar}>
       <nav className={styles.navbarContainer}>
@@ -89,29 +90,29 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
             mode==='system' ? 
             <motion.div
               className={styles.themeToggle} onClick={handleThemeToggle}
-              initial={{ y: -15, scale: .8 }}
+              initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
               animate={{ y: 0, scale: 1 }}
-              exit={{ y: 15, scale: .8 }}
-              transition={{ duration: 0.3 }}
+              exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
               key="system">
               <Display size={24}/>
             </motion.div> :
             (mode==='light' ? 
             <motion.div
               className={styles.themeToggle} onClick={handleThemeToggle}
-              initial={{ y: -15, scale: .8 }}
+              initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
               animate={{ y: 0, scale: 1 }}
-              exit={{ y: 15, scale: .8 }}
-              transition={{ duration: 0.3 }}
+              exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
               key="light">
               <Sun size={24}/>
             </motion.div> :
             <motion.div
               className={styles.themeToggle} onClick={handleThemeToggle}
-              initial={{ y: -15, scale: .8 }}
+              initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
               animate={{ y: 0, scale: 1 }}
-              exit={{ y: 15, scale: .8 }}
-              transition={{ duration: 0.3 }}
+              exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
               key="dark">
               <Moon size={24}/>
             </motion.div>)
