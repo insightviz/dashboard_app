@@ -1,0 +1,194 @@
+.home {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 2rem;
+  padding-top: 2rem;
+  grid-template-areas: 
+  "title"
+  "dashboards";
+}
+
+.title {
+  grid-area: title;
+}
+
+.title, .dashboards h2 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.h1  {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.h1 span {
+  display: block;
+  font-family: segoe-black;
+  font-size: 3.8rem;
+  color: var(--text-colour);
+  text-align: center;
+}
+
+
+@media (min-width: 470px) and (max-width: 590px) {
+  .h1 span {
+    font-size: 5.6rem;
+  }
+}
+
+@media(min-width: 590px) {
+  .h1 span {
+      font-size: 7.2rem;
+  }
+}
+
+.h1 .one {
+  animation-duration: 6s;
+  animation-name: change-colour;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
+
+@keyframes change-colour {
+  from { 
+    color: var(--text-colour);
+  }
+
+  33% {
+    color: var(--brand-orange);        
+    text-shadow: 0 0 5rem var(--brand-orange);
+  }
+    
+  66% {
+    color: var(--text-colour);
+    text-shadow: 0 0 0 var(--brand-orange);
+  }
+
+  to {
+    color: var(--text-colour);
+  }  
+}
+
+.h1 .two {
+  animation-duration: 6s;
+  animation-name: change-colour-two;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+  animation-delay: 2s;
+}
+
+
+.h1 .three {
+  animation-duration: 6s;
+  animation-name: change-colour-two;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+  animation-delay: 4s;
+}
+
+@keyframes change-colour-two {
+  from { 
+    color: var(--text-colour);
+  }
+
+  33% {
+    color: var(--brand-blue);
+    }
+    
+  66% {
+    color: var(--text-colour);
+  }
+
+  to {
+    color: var(--text-colour);
+  } 
+}
+
+.dashboards {
+  grid-area: dashboards;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.dashboards h2 {
+  font-size: var(--font-size--large);
+  color: var(--text-colour);
+  font-family: Segoe;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.dashboard_content {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+  align-items: center;
+  color: var(--text-colour);
+  min-width: 100%;
+}
+
+.stop_search {
+  height: clamp(25rem, 60vh, 100rem);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+body[data-theme="light"] .stop_search {
+  background-image: url(/stop_search.jpg);
+}
+
+body[data-theme="dark"] .stop_search {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/stop_search.jpg);
+}
+
+.text_card {
+  background-color: var(--bg-colour-2);
+  padding: 2.4rem;
+  width: clamp(20rem, 80%, 30rem);
+  font-family: Segoe;
+  border-radius: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  border: 1px solid var(--card-border);
+}
+
+.text_card p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.text_card a:visited {
+  color: var(--text-colour);
+}
+
+.text_card a:hover {
+  color: var(--brand-orange);
+}
+
+.text_card h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: var(--font-size--ml);
+  font-weight: 700;
+}
+
+.text_card p, .text_card a {
+  font-weight: 700;
+  font-size: var(--font-size--default);
+}

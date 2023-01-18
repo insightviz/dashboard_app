@@ -1,0 +1,42 @@
+{
+  "name": "nextjs_frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.5",
+    "@geist-ui/icons": "^1.0.2",
+    "@mantine/core": "^5.8.2",
+    "@mantine/dates": "^5.8.2",
+    "@mantine/form": "^5.8.2",
+    "@mantine/hooks": "^5.8.2",
+    "@mantine/next": "^5.8.0",
+    "@mantine/notifications": "^5.8.2",
+    "@mantine/ssr": "^5.10.0",
+    "@mui/x-date-pickers": "^5.0.8",
+    "chart.js": "^4.0.1",
+    "cookies-next": "^2.1.1",
+    "date-fns": "^2.29.3",
+    "framer-motion": "^8.3.3",
+    "next": "^13.0.4",
+    "plotly.js": "^2.14.0",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.0.1",
+    "react-dom": "^18.2.0",
+    "react-ga4": "^1.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "eslint": "8.24.0",
+    "eslint-config-next": "^13.0.4",
+    "typescript": "^4.9.3"
+  }
+}

@@ -1,0 +1,128 @@
+.stopSearchDashboard {
+    display: grid;
+    grid-template-columns: minmax(28rem, 1fr);
+    grid-template-areas: 
+    "title"
+    "select"
+    "statsGrid"
+    "contributors";
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.stopSearchDashboard h1 {
+    grid-area: title;
+    display: flex;
+    justify-self: center;
+}
+
+.selectContainer {
+    grid-area: select;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+
+.selectInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.selectInputs > * {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.forceDropdown {
+    grid-area: force-dropdown;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.selectInputs span {
+    font-weight: 700;
+}
+
+.monthPicker {
+    grid-area: month-dropdown;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 20.6rem;
+}
+
+.statsGrid {
+    grid-area: statsGrid;
+}
+
+.contributors {
+    grid-area: contributors;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.avatarImages {
+    display: flex;
+    gap: 3rem;
+}
+
+.avatarImages a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-colour);
+}
+
+.avatarImages a:visited {
+    color: var(--text-colour);
+}
+
+.avatarImages a:hover {
+    color: var(--brand-orange);
+}
+
+@media (max-width: 1535px) and (min-width: 800px) {
+    .selectInputs {
+        flex-direction: row;
+        gap: 3rem;
+    }
+}
+
+@media(min-width: 1536px) {
+    .stopSearchDashboard {
+        grid-template-columns: minmax(max-content, max-content) 1fr;
+        grid-template-areas:
+        "title title"
+        "select statsGrid"
+        "contributors statsGrid";
+    }
+
+    .statsGrid {
+        grid-area: 2 / 2 / 4 / 3;
+    }
+
+    .avatarImages {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .selectContainer {
+        align-items: flex-start;
+        padding-bottom: 2rem;
+        border-bottom: 4px solid var(--divider-colour);
+    }
+
+    .contributors {
+        justify-content: center;
+        align-items: flex-start;
+    }
+}

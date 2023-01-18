@@ -1,0 +1,80 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: segoe;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: segoe;
+  src: url(./Segoe-UI.ttf);
+}
+
+@font-face {
+  font-family: segoe-black;
+  src: url(./seguibl.ttf);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+:root {
+  font-size: 62.5%; /* (62.5/100) * 16px = 10px */
+  --font-size--small: 1.4rem;
+  --font-size--default: 1.6rem;
+  --font-size--ml: 2rem;
+  --font-size--large: 2.4rem;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+}
+
+.page-main {
+  flex-grow: 1;
+  margin-top: 8.5rem;
+}
+
+body[data-theme="dark"] {
+  --bg-colour: #000;
+  --bg-colour-t: rgba(0, 0, 0, .75);
+  --bg-colour-2: #1A1B1E;
+  --text-colour: #C1C2C5;
+  --brand-orange: #f9a31a;
+  --brand-blue: #292974;
+  --blue-200: #A3ABD6;
+  --accent-1: #888;
+  --accent-2: #333;
+  background-color: var(--bg-colour);
+  --green: #80cbc3;
+  --red: #ef9a9a;
+  --divider-colour: #373A40;
+  --card-border: #373A40;
+}
+
+body[data-theme="light"] {
+  --bg-colour: #fff;
+  --bg-colour-t: rgba(255, 255, 255, .75);
+  --bg-colour-2: #f2f2f6;
+  --text-colour: #000;
+  --brand-orange: #f9a31a;
+  --brand-blue: #292974;
+  --accent-1: #888;
+  --accent-2: #eaeaea;
+  background-color: var(--bg-colour);
+  --green: #26A69A;
+  --red: #EF5350;
+  --divider-colour: #ced4da;
+  --card-border: #DEE2E6;
+}

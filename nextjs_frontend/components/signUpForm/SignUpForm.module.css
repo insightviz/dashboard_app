@@ -1,0 +1,41 @@
+.signupForm form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.formTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;  
+}
+
+.formTitle h2 {
+    font-size: var(--font-size--ml);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem; 
+}
+
+@media (min-width: 830px) {
+    .inputs {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem; 
+    }
+}
+
+.firstNameContainer, .emailContainer {
+    min-width: 30rem;
+}
