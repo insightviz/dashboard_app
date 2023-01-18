@@ -1,14 +1,14 @@
-import { Select, Loader } from '@mantine/core';
+import { Select, Loader, Title, Avatar, Text, Paper, Flex } from '@mantine/core';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styles from "./StopSearchController.module.css";
 import { styled } from '@mui/material/styles';
 import StatsGridIcons from './StatsGrid'
 import TextField from '@mui/material/TextField';
-import { Title, Avatar, Text, Paper, Flex } from '@mantine/core';
 import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useViewportSize } from '@mantine/hooks';
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -61,7 +61,7 @@ const StopSearchDashboard = ({
   handleRaceChange,
   handleGenderChange
 }: DashboardProps) => { 
-  
+  const { width } = useViewportSize();
   return (
     <div className={styles.stopSearchDashboard}>
       <Title order={1} size={42} align="center">UK stop and search dashboard</Title>
@@ -122,7 +122,7 @@ const StopSearchDashboard = ({
               transition={{ duration: 0.3 }}
               key="loader">
               <Flex
-                mih={637.08}
+                mih={width > 500 ? 637.08 : 350}
                 justify="center"
                 align="center"
                 direction="column">
