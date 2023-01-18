@@ -33,7 +33,7 @@ const RaceModal = ({
         fullScreen
         zIndex={999}
         transition='fade'
-        transitionDuration={500}
+        transitionDuration={400}
       >
         {
           <SimpleGrid cols={1} spacing="xl">              
