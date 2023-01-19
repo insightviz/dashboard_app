@@ -73,7 +73,6 @@ const StopSearchDashboard = ({
             <span>Select police force:</span>
             <Select
               data={forceSelectOptions}
-              searchable={true}
               value={force}
               onChange={handleForceChange}
               transition='fade'

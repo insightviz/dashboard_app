@@ -137,7 +137,6 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: Navb
           <Select 
             itemComponent={SelectItem}
             data={themeOptions}
-            searchable={true}
             icon={mode == 'system' ? <Avatar><Display size={20}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={20}/> </Avatar>: <Avatar color="dark"><Moon size={20}/></Avatar>}
             value={mode}
             onChange={e => { 
