@@ -67,7 +67,7 @@ const StopSearchDashboard = ({
     <div className={styles.stopSearchDashboard}>
       <Title order={1} size={42} align="center">UK stop and search dashboard</Title>
       <div className={styles.selectContainer}>
-        <Title order={2} size={26}>Select options</Title>
+        <Title order={2} size={24}>Select options</Title>
         <div className={styles.selectInputs}>
           <div className={styles.forceDropdown}>
             <span>Select police force:</span>
@@ -142,7 +142,7 @@ const StopSearchDashboard = ({
         </AnimatePresence>
       </div>
       <div className={styles.contributors}>
-        <Title order={2} size={26}>Contributors</Title>
+        <Title order={2} size={24}>Contributors</Title>
         <div className={styles.avatarImages}>
           <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank" rel="noreferrer">
             <Avatar src="https://avatars.githubusercontent.com/u/57296341?v=4" alt="Eze Ahunanya" size="lg" />
