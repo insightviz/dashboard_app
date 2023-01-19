@@ -77,6 +77,7 @@ const StopSearchDashboard = ({
               onChange={handleForceChange}
               transition='fade'
               transitionDuration={400}
+              maxDropdownHeight={300}
               />
           </div>
           <div className={styles.monthPicker}>
