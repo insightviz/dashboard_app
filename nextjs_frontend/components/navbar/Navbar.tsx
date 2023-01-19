@@ -57,6 +57,8 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
   )
 );
 
+SelectItem.displayName = "SelectItem";
+
 interface NavbarProps {
   click: boolean,
   handleClick: () => void,
