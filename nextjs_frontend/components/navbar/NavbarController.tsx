@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAppThemeContext } from '../../context/AppTheme';
 
 const NavbarController = ()  => {
-    const { mode, setMode } = useAppThemeContext();
+    const { mode, changeMode } = useAppThemeContext();
     // model
     const [click, setClick] = useState(false);
     
@@ -13,13 +13,13 @@ const NavbarController = ()  => {
     const handleThemeToggle = () => {
         switch (mode) {
             case 'system': 
-            setMode('light')
+            changeMode('light')
             break;
-            case 'light': setMode('dark')
+            case 'light': changeMode('dark')
             break;
-            case 'dark': setMode('system')
+            case 'dark': changeMode('system')
             break;
-            default: setMode('system')
+            default: changeMode('system')
             break;
         }
     }

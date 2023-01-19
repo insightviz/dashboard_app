@@ -5,6 +5,11 @@ import { showNotification } from '@mantine/notifications';
 import { Smile, Meh } from '@geist-ui/icons'
 import ReactGA from "react-ga4";
 
+interface FormValues {
+  firstName: string;
+  email: string;
+}
+
 const SignUpController = () => {
   const [isSubmittingFormData, setIsSubmittingData] = useState(false)
   const form = useForm({
@@ -18,7 +23,7 @@ const SignUpController = () => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: FormValues) => {
     setIsSubmittingData(true)
     form.reset()
     fetch("/signup", {

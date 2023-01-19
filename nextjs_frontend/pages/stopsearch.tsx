@@ -22,7 +22,7 @@ export default function StopSearch({savedForce}: StopSearchPageProps) {
     );
 }
 
-export async function getServerSideProps(context){
+export async function getServerSideProps(context: any){
     return {
       props: {
           savedForce: String(getCookie('insightStopSearchForce', context) || 'metropolitan'),

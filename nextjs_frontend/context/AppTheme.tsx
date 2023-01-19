@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext, Dispatch, SetStateAction } from 'react';
 import { setCookie } from  'cookies-next';
 
 const localStorageKey = "mode";
@@ -6,13 +6,27 @@ const modes = ["system", "light", "dark"]
 export const ThemeContext = createContext({
   mode: "",
   theme: "",
-  setMode: () => {}
+  changeMode: (e: string) => {}
 });
 
-const ThemeProvider = ({ children, savedMode, savedTheme }) => {
+interface AppThemeProps {
+  children: React.ReactNode,
+  savedMode: string,
+  savedTheme: string
+}
+
+interface ContextType {
+  mode: string,
+  theme: string,
+  setMode: Dispatch<SetStateAction<string>>
+}
+
+const ThemeProvider = ({ children, savedMode, savedTheme }: AppThemeProps) => {
   // This holds the information about dark mode/light mode
   const [mode, setMode] = useState(savedMode);
   const [theme, setTheme] = useState(savedTheme);
+
+  const changeMode = (e: string) => {setMode(e)}
     
   useEffect(() => {
     setCookie('insightMode', mode);
@@ -31,7 +45,7 @@ const ThemeProvider = ({ children, savedMode, savedTheme }) => {
   
     // As the system value can change, we define an event listener when in system mode
     // to track down its changes
-    const listener = (event, MediaQueryListEvent) => {
+    const listener = (event: any) => {
       setTheme(event.matches ? "dark" : "light");
     };
     isSystemInDarkMode.addEventListener('change', listener);
@@ -46,7 +60,7 @@ const ThemeProvider = ({ children, savedMode, savedTheme }) => {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, mode, setMode }}>
+    <ThemeContext.Provider value={{ theme, mode, changeMode }}>
       {children}
     </ThemeContext.Provider>
   );

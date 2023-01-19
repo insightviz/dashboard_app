@@ -2,7 +2,21 @@ import styles from './SignUpForm.module.css'
 import { User, AtSign, UserCheck } from '@geist-ui/icons'
 import { TextInput, Button } from '@mantine/core';
 
-export default function SignUpForm({onSubmit, form, isSubmittingFormData}) {
+import { UseFormReturnType } from '@mantine/form';
+
+interface FormValues {
+  firstName: string;
+  email: string;
+}
+
+
+interface SignUpFormProps {
+  onSubmit: (data: FormValues) => void, 
+  form: UseFormReturnType<FormValues>, 
+  isSubmittingFormData: boolean
+}
+
+export default function SignUpForm({onSubmit, form, isSubmittingFormData}: SignUpFormProps) {
   return (
     <section className={styles.signupForm}>
       <form onSubmit={form.onSubmit(onSubmit)}>

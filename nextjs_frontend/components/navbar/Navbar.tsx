@@ -65,7 +65,7 @@ interface NavbarProps {
 }
 
 function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: NavbarProps) {
-  const { mode, setMode, theme } = useAppThemeContext();
+  const { mode, changeMode, theme } = useAppThemeContext();
   const shouldReduceMotion = useReducedMotion()
   return (
     <header className={styles.navbar}>
@@ -139,7 +139,7 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: Navb
             icon={mode == 'system' ? <Avatar><Display size={20}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={20}/> </Avatar>: <Avatar color="dark"><Moon size={20}/></Avatar>}
             value={mode}
             onChange={e => { 
-              setMode(e)
+              changeMode(String(e))
               ReactGA.event({
                 category: "theme_select",
                 action: "theme_select",
