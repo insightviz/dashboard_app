@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from "./Navbar.module.css"
-import { Moon, Sun, Display, Menu, X } from '@geist-ui/icons';
+import { Moon, Sun, Display } from '@geist-ui/icons';
 import { useAppThemeContext } from '../../context/AppTheme';
 import { Group, Avatar, Text, Select } from '@mantine/core';
 import { forwardRef } from 'react';
@@ -56,6 +56,8 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
     </div>
   )
 );
+
+SelectItem.displayName = "SelectItem";
 
 interface NavbarProps {
   click: boolean,
