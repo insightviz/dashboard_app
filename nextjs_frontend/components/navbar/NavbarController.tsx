@@ -9,7 +9,14 @@ const NavbarController = ()  => {
     const [click, setClick] = useState(false);
     
     //controller
-    const handleClick = () => setClick(!click);
+    const handleClick = () => {
+        setClick(!click);
+        ReactGA.event({
+            category: "menu_open",
+            action: "menu_open",
+            label: String(!click),
+          });
+    }
     const closeMobileMenu = () => setClick(false);
     const handleThemeToggle = () => {
         switch (mode) {
