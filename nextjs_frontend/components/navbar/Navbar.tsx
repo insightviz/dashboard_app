@@ -35,8 +35,14 @@ const themeOptions = [
   },
 ];
 
-const SelectItem = forwardRef(
-  ({ image, label, description, ...others }, ref) => (
+interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+  image: string;
+  label: string;
+  description: string;
+}
+
+const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+  ({ image, label, description, ...others }: ItemProps, ref) => (
     <div ref={ref} {...others}>
       <Group noWrap>
         {image}
@@ -51,7 +57,14 @@ const SelectItem = forwardRef(
   )
 );
 
-function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
+interface NavbarProps {
+  click: boolean,
+  handleClick: () => void,
+  closeMobileMenu: () => void,
+  handleThemeToggle: () => void,
+}
+
+function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: NavbarProps) {
   const { mode, setMode, theme } = useAppThemeContext();
   const shouldReduceMotion = useReducedMotion()
   return (
@@ -130,7 +143,7 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }) {
               ReactGA.event({
                 category: "theme_select",
                 action: "theme_select",
-                label: e,
+                label: String(e),
               });
             }}            
             transition='fade'
