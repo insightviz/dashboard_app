@@ -65,7 +65,7 @@ const StopSearchDashboard = ({
   const shouldReduceMotion = useReducedMotion()
   return (
     <div className={styles.stopSearchDashboard}>
-      <Title order={1} size={42} align="center">UK stop and search dashboard</Title>
+      <Title order={1} size={32} align="center">UK stop and search dashboard</Title>
       <div className={styles.selectContainer}>
         <Title order={2} size={24}>Select options</Title>
         <div className={styles.selectInputs}>
