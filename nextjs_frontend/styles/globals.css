@@ -56,7 +56,6 @@ body[data-theme="dark"] {
   --blue-200: #A3ABD6;
   --accent-1: #888;
   --accent-2: #333;
-  background-color: var(--bg-colour);
   --green: #80cbc3;
   --red: #ef9a9a;
   --divider-colour: #373A40;
@@ -72,9 +71,13 @@ body[data-theme="light"] {
   --brand-blue: #292974;
   --accent-1: #888;
   --accent-2: #eaeaea;
-  background-color: var(--bg-colour);
   --green: #26A69A;
   --red: #EF5350;
   --divider-colour: #ced4da;
   --card-border: #DEE2E6;
+}
+
+body {
+  color: var(--text-colour);
+  background-color: var(--bg-colour);
 }
