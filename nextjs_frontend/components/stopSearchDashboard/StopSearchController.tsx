@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import StopSearchDashboard from "./StopSearchDashboard";
 import { allForceOptions } from '../../assets/Constants';
 import { setCookie } from  'cookies-next';
 import ReactGA from "react-ga4";
-import  { error, forceSelectOption, Data, enhancedData } from './SharedTypes';
-import React from "react";
+import { error, forceSelectOption, Data, enhancedData } from './SharedTypes';
 import StopSearchModal from "./EnhancedDataModal";
 import RaceModal from "./RaceDataModal"
 import GenderModal from "./GenderDataModal"
