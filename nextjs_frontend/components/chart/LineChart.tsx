@@ -39,7 +39,7 @@ function LineChart({ chartData, title, months}: lineChartProps) {
   const { ref, width } = useElementSize();
   return (
     <Paper withBorder p="md" radius="md" className="chart-container" ref={ref}>
-      <Title order={3} align="center">{title}</Title>
+      <Title order={3} size={20} align="center">{title}</Title>
       <Line
         data={chartData}
         options={{
