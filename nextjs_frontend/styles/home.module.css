@@ -45,82 +45,6 @@
   }
 }
 
-@-webkit-keyframes change-colour {
-  from { 
-    color: var(--text-colour);
-  }
-
-  33% {
-    color: var(--brand-orange);        
-    text-shadow: 0 0 5rem var(--brand-orange);
-  }
-    
-  66% {
-    color: var(--text-colour);
-    text-shadow: 0 0 0 var(--brand-orange);
-  }
-  
-  to {
-    color: var(--text-colour);
-  }  
-}
-@-moz-keyframes change-colour {
-  from { 
-    color: var(--text-colour);
-  }
-
-  33% {
-    color: var(--brand-orange);        
-    text-shadow: 0 0 5rem var(--brand-orange);
-  }
-    
-  66% {
-    color: var(--text-colour);
-    text-shadow: 0 0 0 var(--brand-orange);
-  }
-  
-  to {
-    color: var(--text-colour);
-  }  
-}
-@-ms-keyframes change-colour {
-  from { 
-    color: var(--text-colour);
-  }
-
-  33% {
-    color: var(--brand-orange);        
-    text-shadow: 0 0 5rem var(--brand-orange);
-  }
-    
-  66% {
-    color: var(--text-colour);
-    text-shadow: 0 0 0 var(--brand-orange);
-  }
-  
-  to {
-    color: var(--text-colour);
-  }  
-}
-@-o-keyframes change-colour {
-  from { 
-    color: var(--text-colour);
-  }
-
-  33% {
-    color: var(--brand-orange);        
-    text-shadow: 0 0 5rem var(--brand-orange);
-  }
-    
-  66% {
-    color: var(--text-colour);
-    text-shadow: 0 0 0 var(--brand-orange);
-  }
-  
-  to {
-    color: var(--text-colour);
-  }  
-}
 @keyframes change-colour {
   from { 
     color: var(--text-colour);
@@ -141,74 +65,6 @@
   }  
 }
 
-@-webkit-keyframes change-colour-two {
-  from { 
-    color: var(--text-colour);
-  }
-
-  33% {
-    color: var(--brand-blue);
-    }
-    
-  66% {
-    color: var(--text-colour);
-  }
-
-  to {
-    color: var(--text-colour);
-  } 
-}
-@-moz-keyframes change-colour-two {
-  from { 
-    color: var(--text-colour);
-  }
-
-  33% {
-    color: var(--brand-blue);
-    }
-    
-  66% {
-    color: var(--text-colour);
-  }
-
-  to {
-    color: var(--text-colour);
-  } 
-}
-@-ms-keyframes change-colour-two {
-  from { 
-    color: var(--text-colour);
-  }
-
-  33% {
-    color: var(--brand-blue);
-    }
-    
-  66% {
-    color: var(--text-colour);
-  }
-
-  to {
-    color: var(--text-colour);
-  } 
-}
-@-o-keyframes change-colour-two {
-  from { 
-    color: var(--text-colour);
-  }
-
-  33% {
-    color: var(--brand-blue);
-    }
-    
-  66% {
-    color: var(--text-colour);
-  }
-
-  to {
-    color: var(--text-colour);
-  } 
-}
 @keyframes change-colour-two {
   from { 
     color: var(--text-colour);
@@ -232,22 +88,6 @@
   animation-name: change-colour;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in;
-  -webkit-animation-duration: 6s;
-  -webkit-animation-name: change-colour;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in;
-  -moz-animation-duration: 6s;
-  -moz-animation-name: change-colour;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: ease-in;
-  -o-animation-duration: 6s;
-  -o-animation-name: change-colour;
-  -o-animation-iteration-count: infinite;
-  -o-animation-timing-function: ease-in;
-  -ms-animation-duration: 6s;
-  -ms-animation-name: change-colour;
-  -ms-animation-iteration-count: infinite;
-  -ms-animation-timing-function: ease-in;
 }
 
 .h1 .two {
@@ -256,26 +96,6 @@
   animation-iteration-count: infinite;
   animation-timing-function: ease-in;
   animation-delay: 2s;
-  -webkit-animation-duration: 6s;
-  -webkit-animation-name: change-colour-two;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in;
-  -webkit-animation-delay: 2s;
-  -moz-animation-duration: 6s;
-  -moz-animation-name: change-colour-two;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: ease-in;
-  -moz-animation-delay: 2s;
-  -o-animation-duration: 6s;
-  -o-animation-name: change-colour-two;
-  -o-animation-iteration-count: infinite;
-  -o-animation-timing-function: ease-in;
-  -o-animation-delay: 2s;
-  -ms-animation-duration: 6s;
-  -ms-animation-name: change-colour-two;
-  -ms-animation-iteration-count: infinite;
-  -ms-animation-timing-function: ease-in;
-  -ms-animation-delay: 2s;
 }
 
 .h1 .three {
@@ -284,26 +104,6 @@
   animation-iteration-count: infinite;
   animation-timing-function: ease-in;
   animation-delay: 4s;
-  -webkit-animation-duration: 6s;
-  -webkit-animation-name: change-colour-two;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in;
-  -webkit-animation-delay: 4s;
-  -moz-animation-duration: 6s;
-  -moz-animation-name: change-colour-two;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: ease-in;
-  -moz-animation-delay: 4s;
-  -o-animation-duration: 6s;
-  -o-animation-name: change-colour-two;
-  -o-animation-iteration-count: infinite;
-  -o-animation-timing-function: ease-in;
-  -o-animation-delay: 4s;
-  -ms-animation-duration: 6s;
-  -ms-animation-name: change-colour-two;
-  -ms-animation-iteration-count: infinite;
-  -ms-animation-timing-function: ease-in;
-  -ms-animation-delay: 4s;
 }
 
 .dashboards {
