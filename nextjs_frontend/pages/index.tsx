@@ -20,7 +20,7 @@ export default function Home() {
           </h1>
         </div>
         <div className={styles.dashboards}>
-          <h2>Lastest Dashboards</h2>
+          <h2>Lastest Dashboard</h2>
           <div className={styles.dashboard_content}>
             <Link href="/stopsearch" legacyBehavior>
               <div className={styles.stop_search} >

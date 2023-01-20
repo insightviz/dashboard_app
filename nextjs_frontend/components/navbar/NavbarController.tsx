@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import { useState } from 'react';
 import { useAppThemeContext } from '../../context/AppTheme';
+import ReactGA from "react-ga4";
 
 const NavbarController = ()  => {
     const { mode, changeMode } = useAppThemeContext();
@@ -8,18 +9,48 @@ const NavbarController = ()  => {
     const [click, setClick] = useState(false);
     
     //controller
-    const handleClick = () => setClick(!click);
+    const handleClick = () => {
+        setClick(!click);
+        ReactGA.event({
+            category: "menu_open",
+            action: "menu_open",
+            label: String(!click),
+          });
+    }
     const closeMobileMenu = () => setClick(false);
     const handleThemeToggle = () => {
         switch (mode) {
             case 'system': 
-            changeMode('light')
+              changeMode('light')
+              ReactGA.event({
+                  category: "theme_select",
+                  action: "theme_select",
+                  label: String('light'),
+                });
             break;
-            case 'light': changeMode('dark')
+            case 'light': 
+              changeMode('dark')
+              ReactGA.event({
+                  category: "theme_select",
+                  action: "theme_select",
+                  label: String('dark'),
+                });
             break;
-            case 'dark': changeMode('system')
+            case 'dark': 
+              changeMode('system')
+              ReactGA.event({
+                  category: "theme_select",
+                  action: "theme_select",
+                  label: String('system'),
+                });
             break;
-            default: changeMode('system')
+            default: 
+              changeMode('system')
+              ReactGA.event({
+                  category: "theme_select",
+                  action: "theme_select",
+                  label: String('system'),
+                });
             break;
         }
     }

@@ -36,11 +36,11 @@ export default function StatsGridIcons({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
         whileHover={{
-          scale: 1.04,
+          scale: width < 901 ? 1 : 1.04,
           transition: { duration: .2 },
         }}
         whileTap={{ 
-          scale: 0.95,
+          scale: width < 901 ? 0.98 : 0.95,
           transition: { duration: .1} }}>
         <Paper withBorder p="xl" radius="xl" onClick={() => handleTotalClick()} sx={(theme) => ({cursor: 'pointer'})}>
           <Group position="apart" noWrap>
@@ -97,11 +97,11 @@ export default function StatsGridIcons({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
         whileHover={{
-          scale: statItem.ethnicity.toLowerCase() !== 'not defined' ? data.breakdown_by_race.length > 3 ? 1.04 : 1.02 : 1,
+          scale: width < 901 ? 1 : statItem.ethnicity.toLowerCase() !== 'not defined' ? data.breakdown_by_race.length > 3 ? 1.04 : 1.02 : 1,
           transition: { duration: .2 },
         }}
         whileTap={{ 
-          scale: statItem.ethnicity.toLowerCase() !== 'not defined' ? 0.95 : 1,
+          scale: width < 901 ? 0.98 : statItem.ethnicity.toLowerCase() !== 'not defined' ? 0.95 : 1,
           transition: { duration: .1} }}
         key={statItem.ethnicity}>
         <Paper withBorder p="xl" radius="xl" key={statItem.ethnicity} 
@@ -143,11 +143,11 @@ export default function StatsGridIcons({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
         whileHover={{
-          scale: statItem.gender.toLowerCase() !== 'not defined' ? data.breakdown_by_gender.length > 3 ? 1.04 : 1.02 : 1,
+          scale: width < 901 ? 1 : statItem.gender.toLowerCase() !== 'not defined' ? data.breakdown_by_gender.length > 3 ? 1.04 : 1.02 : 1,
           transition: { duration: .2 },
         }}
         whileTap={{ 
-          scale: statItem.gender.toLowerCase() !== 'not defined' ? 0.95 : 1,
+          scale: width < 901 ? 0.98 : statItem.gender.toLowerCase() !== 'not defined' ? 0.95 : 1,
           transition: { duration: .1} }}
         key={statItem.gender}>
         <Paper withBorder p="xl" radius="xl" key={statItem.gender}

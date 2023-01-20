@@ -1,8 +1,6 @@
 import StopSearchDashboardController from '../components/stopSearchDashboard/StopSearchController'
 import { getCookie } from 'cookies-next';
-import { InferGetServerSidePropsType } from 'next'
 import React from 'react';
-import { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 
 interface StopSearchPageProps { // <--- your custom page props
