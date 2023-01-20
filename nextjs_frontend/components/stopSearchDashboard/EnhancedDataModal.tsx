@@ -35,7 +35,7 @@ const StopSearchModal = ({
       >
         {
           <SimpleGrid cols={1} spacing="xl">
-            <Title order={1} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police stop and searches over previous {monthSliderValue} months</Title>
+            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police stop and searches over previous {monthSliderValue} months</Title>
             <Flex
               justify="center"
             >

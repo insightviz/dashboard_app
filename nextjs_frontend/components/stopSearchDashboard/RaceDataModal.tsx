@@ -37,7 +37,7 @@ const RaceModal = ({
       >
         {
           <SimpleGrid cols={1} spacing="xl">              
-            <Title order={1} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</Title>
+            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</Title>
             {modalError.error ? 
             <Paper withBorder p="xl" radius="xl">
               <Text
