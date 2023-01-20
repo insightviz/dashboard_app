@@ -47,6 +47,7 @@ a {
 }
 
 body[data-theme="dark"] {
+  color-scheme: dark;
   --bg-colour: #000;
   --bg-colour-t: rgba(0, 0, 0, .5);
   --bg-colour-2: #1A1B1E;
@@ -60,9 +61,12 @@ body[data-theme="dark"] {
   --red: #ef9a9a;
   --divider-colour: #373A40;
   --card-border: #373A40;
+  color: var(--text-colour);
+  background-color: var(--bg-colour);
 }
 
 body[data-theme="light"] {
+  color-scheme: light;
   --bg-colour: #fff;
   --bg-colour-t: rgba(255, 255, 255, .5);
   --bg-colour-2: #f2f2f6;
@@ -75,9 +79,6 @@ body[data-theme="light"] {
   --red: #EF5350;
   --divider-colour: #ced4da;
   --card-border: #DEE2E6;
-}
-
-body {
   color: var(--text-colour);
   background-color: var(--bg-colour);
 }
