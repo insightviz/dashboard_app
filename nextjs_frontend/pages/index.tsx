@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from '../styles/home.module.css'
 import Head from 'next/head';
+import { Text, Title } from '@mantine/core';
 
 export default function Home() {  
   return (
@@ -14,6 +15,12 @@ export default function Home() {
       <div className={styles.home}>
         <div className={styles.title}>
           <h1 className={styles.h1}>
+            <Title span size={38} align="center" className={styles.one}>INSIGHT</Title>
+            <Title span size={38} align="center" className={styles.two}>IN A DATA</Title>
+            <Title span size={38} align="center" className={styles.three}>FILLED WORLD</Title>
+            <Text span size={38} align="center" className={styles.one}>INSIGHT</Text>
+            <Text span size={38} align="center" className={styles.two}>IN A DATA</Text>
+            <Text span size={38} align="center" className={styles.three}>FILLED WORLD</Text>
             <span className={styles.one}>INSIGHT</span>
             <span className={styles.two}>IN A DATA</span>
             <span className={styles.three}>FILLED WORLD</span>
