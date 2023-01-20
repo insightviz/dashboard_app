@@ -41,20 +41,18 @@ function BarSegments({ chartData, title }: barSegmentsProps) {
     </Box>
   ));
   return (
-    <div className="chart-container" ref={ref}>
-      <Paper withBorder p="md" radius="md">
-        <Title order={3} align="center">{title}</Title>
-        <Progress
-          sections={segments}
-          size={34}
-          mt="xl"
-          radius="xl"
-        />
-        <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'xs', cols: 1 }]} mt="xl">
-          {descriptions}
-        </SimpleGrid>
-      </Paper>
-    </div>
+    <Paper withBorder p="md" radius="md" className="chart-container" ref={ref}>
+      <Title order={3} align="center">{title}</Title>
+      <Progress
+        sections={segments}
+        size={34}
+        mt="xl"
+        radius="xl"
+      />
+      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'xs', cols: 1 }]} mt="xl">
+        {descriptions}
+      </SimpleGrid>
+    </Paper>
   );
 }
 export default BarSegments;
