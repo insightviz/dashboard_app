@@ -42,7 +42,7 @@ function BarSegments({ chartData, title }: barSegmentsProps) {
   ));
   return (
     <Paper withBorder p="md" radius="md" className="chart-container" ref={ref}>
-      <Title order={3} align="center">{title}</Title>
+      <Title order={3} size={20} align="center">{title}</Title>
       <Progress
         sections={segments}
         size={34}
