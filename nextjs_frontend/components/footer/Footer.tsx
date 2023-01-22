@@ -1,6 +1,8 @@
 import SignUpController from "../signUpForm/SignUpController";
 import Link from 'next/link';
-import { Linkedin, Github, Instagram } from '@geist-ui/icons'
+import  Linkedin from '@geist-ui/icons/linkedin'
+import Github from '@geist-ui/icons/github'
+import Instagram from '@geist-ui/icons/instagram'
 import { useAppThemeContext } from '../../context/AppTheme';
 import styles from './Footer.module.css'
 

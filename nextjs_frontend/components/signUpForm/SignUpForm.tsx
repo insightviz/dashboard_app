@@ -1,7 +1,8 @@
 import styles from './SignUpForm.module.css'
-import { User, AtSign, UserCheck } from '@geist-ui/icons'
+import User from '@geist-ui/icons/user'
+import AtSign from '@geist-ui/icons/atSign'
+import UserCheck from '@geist-ui/icons/userCheck'
 import { TextInput, Button } from '@mantine/core';
-
 import { UseFormReturnType } from '@mantine/form';
 
 interface FormValues {

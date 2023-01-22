@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import styles from "./Navbar.module.css"
-import { Moon, Sun, Display } from '@geist-ui/icons';
+import Moon from '@geist-ui/icons/moon';
+import Sun from '@geist-ui/icons/sun';
+import Display from '@geist-ui/icons/display';
 import { useAppThemeContext } from '../../context/AppTheme';
-import { Group, Avatar, Text, Select } from '@mantine/core';
+import { Group, Avatar, Text, Select, Burger } from '@mantine/core';
 import { forwardRef } from 'react';
 import ReactGA from "react-ga4";
-import { Burger } from '@mantine/core';
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const themeOptions = [

@@ -1,7 +1,9 @@
 import { Group, Paper, Text, ThemeIcon, SimpleGrid, Divider } from '@mantine/core';
 import { useViewportSize } from '@mantine/hooks';
-import { ArrowDownRight, ArrowUpRight, Minus } from '@geist-ui/icons';
-import { Data } from './SharedTypes'
+import ArrowDownRight from '@geist-ui/icons/arrowDownRight'
+import ArrowUpRight from '@geist-ui/icons/arrowUpRight';
+import Minus from '@geist-ui/icons/minus';
+import { Data } from './SharedTypes';
 import { getMonthsNames } from '@mantine/dates';
 import { useAppThemeContext } from '../../context/AppTheme';
 import { motion, useReducedMotion } from "framer-motion"
