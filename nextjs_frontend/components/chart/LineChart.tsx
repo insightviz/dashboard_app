@@ -5,10 +5,8 @@ import {
   LinearScale,
   PointElement,
   LineElement,
-  Title as TitleJS,
   Tooltip,
   Legend,
-  TimeScale,
   Colors 
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
@@ -21,10 +19,8 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  TitleJS,
   Tooltip,
   Legend,
-  TimeScale,
   Colors 
 );
 
