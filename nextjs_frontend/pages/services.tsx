@@ -7,7 +7,6 @@ export default function Services() {
       <Head>
         <meta charSet="utf-8" />
         <title>Services</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name='description' content='Services page'/>
       </Head>
       <Title order={1} align="center" size={32} mt={20}>Nothing to see on the services page</Title>
