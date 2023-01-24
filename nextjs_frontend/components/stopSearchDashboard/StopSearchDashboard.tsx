@@ -2,13 +2,17 @@ import { Select, Loader, Title, Avatar, Text, Paper, Flex } from '@mantine/core'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styles from "./StopSearchController.module.css";
 import { styled } from '@mui/material/styles';
-import StatsGridIcons from './StatsGrid'
 import TextField from '@mui/material/TextField';
 import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
+import dynamic from 'next/dynamic'
+
+const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
+  ssr: false,
+})
 
 const months = getMonthsNames('en', 'MMMM');
 

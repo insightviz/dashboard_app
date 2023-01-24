@@ -4,10 +4,18 @@ import { allForceOptions } from '../../assets/Constants';
 import { setCookie } from  'cookies-next';
 import ReactGA from "react-ga4";
 import { error, forceSelectOption, Data, enhancedData } from './SharedTypes';
-import StopSearchModal from "./EnhancedDataModal";
-import RaceModal from "./RaceDataModal"
-import GenderModal from "./GenderDataModal"
 import { constructURL, fetchData } from "../../assets/UtilFunctions"
+import dynamic from 'next/dynamic'
+
+const StopSearchModal = dynamic(() => import('./EnhancedDataModal'), {
+  ssr: false,
+})
+const RaceModal = dynamic(() => import('./RaceDataModal'), {
+  ssr: false,
+})
+const GenderModal = dynamic(() => import('./GenderDataModal'), {
+  ssr: false,
+})
 
 interface ServerProps {
   savedForce: string 
@@ -269,36 +277,48 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   
   return (
     <>
-      <StopSearchModal
-        totalModalOpened={totalModalOpened}
-        setTotalModalOpened={setTotalModalOpened}
-        enhancedOverallData={enhancedOverallData!}
-        isEnhancedDataLoading={isEnhancedDataLoading}
-        modalError={modalError}
-        force={force}
-        monthSliderValue={monthSliderValue}
-        handleMonthSliderChange={handleMonthSliderChange}
-        />
-      <RaceModal
-        raceModalOpen={raceModalOpen}
-        setRaceModalOpen={setRaceModalOpen}
-        race={race}
-        enhancedRaceData={enhancedRaceData}
-        isEnhancedDataLoading={isEnhancedDataLoading}
-        modalError={modalError}
-        force={force}
-        startDate={startDate}
-        />
-      <GenderModal
-        genderModalOpen={genderModalOpen}
-        setGenderModalOpen={setGenderModalOpen}
-        gender={gender}
-        enhancedGenderData={enhancedGenderData}
-        isEnhancedDataLoading={isEnhancedDataLoading}
-        modalError={modalError}
-        force={force}
-        startDate={startDate}
-      />
+      {
+        totalModalOpened && (
+          <StopSearchModal
+            totalModalOpened={totalModalOpened}
+            setTotalModalOpened={setTotalModalOpened}
+            enhancedOverallData={enhancedOverallData!}
+            isEnhancedDataLoading={isEnhancedDataLoading}
+            modalError={modalError}
+            force={force}
+            monthSliderValue={monthSliderValue}
+            handleMonthSliderChange={handleMonthSliderChange}
+            />
+        )
+      }
+      {
+        raceModalOpen && (
+          <RaceModal
+            raceModalOpen={raceModalOpen}
+            setRaceModalOpen={setRaceModalOpen}
+            race={race}
+            enhancedRaceData={enhancedRaceData}
+            isEnhancedDataLoading={isEnhancedDataLoading}
+            modalError={modalError}
+            force={force}
+            startDate={startDate}
+            />
+        )
+      }
+      {
+        genderModalOpen && (
+          <GenderModal
+            genderModalOpen={genderModalOpen}
+            setGenderModalOpen={setGenderModalOpen}
+            gender={gender}
+            enhancedGenderData={enhancedGenderData}
+            isEnhancedDataLoading={isEnhancedDataLoading}
+            modalError={modalError}
+            force={force}
+            startDate={startDate}
+          />
+        )
+      }
       <StopSearchDashboard
         force={force}
         handleForceChange={handleForceChange}

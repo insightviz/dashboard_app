@@ -1,8 +1,6 @@
 import { useState, useEffect, createContext, useContext, Dispatch, SetStateAction } from 'react';
 import { setCookie } from  'cookies-next';
 
-const localStorageKey = "mode";
-const modes = ["system", "light", "dark"]
 export const ThemeContext = createContext({
   mode: "",
   theme: "",
@@ -13,12 +11,6 @@ interface AppThemeProps {
   children: React.ReactNode,
   savedMode: string,
   savedTheme: string
-}
-
-interface ContextType {
-  mode: string,
-  theme: string,
-  setMode: Dispatch<SetStateAction<string>>
 }
 
 const ThemeProvider = ({ children, savedMode, savedTheme }: AppThemeProps) => {

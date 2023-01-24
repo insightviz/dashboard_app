@@ -2,7 +2,8 @@ import SignUpForm from "./SignUpForm";
 import { useForm } from '@mantine/form';
 import { useState } from "react";
 import { showNotification } from '@mantine/notifications';
-import { Smile, Meh } from '@geist-ui/icons'
+import Smile from '@geist-ui/icons/smile'
+import Meh from '@geist-ui/icons/meh'
 import ReactGA from "react-ga4";
 
 interface FormValues {

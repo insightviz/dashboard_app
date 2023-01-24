@@ -1,17 +1,8 @@
 import '../styles/globals.css'
-import Layout from '../components/layout/Layout'
-import ThemeProvider from '../context/AppTheme';
-import { getCookie } from 'cookies-next';
-import { AppProps, AppContext } from 'next/app';
+import { AppProps } from 'next/app';
 import Script from 'next/script'
 
-type CustomPageProps = AppProps & { // <--- your custom page props
-  savedMode: string,
-  savedTheme: string,
-}
-
-
-function MyApp({ Component, pageProps, savedMode, savedTheme }: CustomPageProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return ( 
     <>
       <Script id="google-tag">
@@ -21,18 +12,9 @@ function MyApp({ Component, pageProps, savedMode, savedTheme }: CustomPageProps)
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-PL5CDQD');;`}
       </Script>
-      <ThemeProvider savedMode={savedMode} savedTheme={savedTheme}>
-        <Layout>
-          <Component {...pageProps}/>
-        </Layout>
-      </ThemeProvider>
+      <Component {...pageProps}/>
     </>
   )
 }
 
 export default MyApp;
-
-MyApp.getInitialProps = async ({ctx}: AppContext) => ({
-  savedMode: getCookie('insightMode', ctx) || 'system',
-  savedTheme: getCookie('insightTheme', ctx) || 'light',
-});
