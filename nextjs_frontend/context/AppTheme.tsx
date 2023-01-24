@@ -25,6 +25,7 @@ const ThemeProvider = ({ children, savedMode, savedTheme }: AppThemeProps) => {
     if (mode !== "system") {
       setTheme(mode);
       setCookie('insightTheme', mode);
+      document.body.dataset.theme = mode;
       return;
     }
     
@@ -33,7 +34,8 @@ const ThemeProvider = ({ children, savedMode, savedTheme }: AppThemeProps) => {
     // If system mode, immediately change theme according to the current system value
     setTheme(newTheme);
     setCookie('insightTheme', newTheme);
-    
+    // Set data-theme attribute to selected theme for body tag
+    document.body.dataset.theme = newTheme;
   
     // As the system value can change, we define an event listener when in system mode
     // to track down its changes
@@ -45,11 +47,6 @@ const ThemeProvider = ({ children, savedMode, savedTheme }: AppThemeProps) => {
       isSystemInDarkMode.removeEventListener('change', listener);
     };
   }, [mode]);
-
-  useEffect(() => {
-    // Set data-theme attribute to selected theme for body tag
-    document.body.dataset.theme = theme;
-  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, mode, changeMode }}>
