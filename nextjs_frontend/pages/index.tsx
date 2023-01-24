@@ -31,9 +31,7 @@ export default function Home({savedMode, savedTheme}: PageProps) {
           <div className={styles.dashboards}>
             <h2>Lastest Dashboard</h2>
             <div className={styles.dashboard_content}>
-              <Link href="/stopsearch" legacyBehavior>
-                <CardHome />
-              </Link>
+              <CardHome />
             </div>
           </div>
         </div>
