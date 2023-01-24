@@ -17,21 +17,21 @@ const CardHome = () => {
       {
         theme == 'dark' ? 
         width < 600 ?
-        <Image className={styles.image} src={StopSearchMobileDark} alt='test'
+        <Image className={styles.image} src={StopSearchMobileDark} alt='Stop and search image' priority
         fill
         object-fit='cover' 
         /> 
         :
-        <Image className={styles.image} src={StopSearchDesktopDark} alt='test'
+        <Image className={styles.image} src={StopSearchDesktopDark} alt='Stop and search image' priority
         fill
         object-fit='cover' />
         :
         width < 600 ?
-        <Image className={styles.image} src={StopSearchMobileLight} alt='test'
+        <Image className={styles.image} src={StopSearchMobileLight} alt='Stop and search image' priority
         fill
         object-fit='cover' /> 
         :
-        <Image className={styles.image} src={StopSearchDesktopLight} alt='test'
+        <Image className={styles.image} src={StopSearchDesktopLight} alt='Stop and search image' priority
         fill
         object-fit='cover' />
       }
