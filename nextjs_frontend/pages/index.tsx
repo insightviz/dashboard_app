@@ -4,13 +4,14 @@ import Head from 'next/head';
 import { getCookie } from 'cookies-next';
 import Layout from '../components/layout/Layout'
 import ThemeProvider from '../context/AppTheme';
+import CardHome from '../components/cardHome/CardHome';
 
 interface PageProps{
   savedMode: string,
   savedTheme: string,
 }
 
-export default function Home({savedMode, savedTheme}: PageProps) {  
+export default function Home({savedMode, savedTheme}: PageProps) { 
   return (
     <ThemeProvider savedMode={savedMode} savedTheme={savedTheme}>
       <Layout>          
@@ -30,15 +31,7 @@ export default function Home({savedMode, savedTheme}: PageProps) {
           <div className={styles.dashboards}>
             <h2>Lastest Dashboard</h2>
             <div className={styles.dashboard_content}>
-              <Link href="/stopsearch" legacyBehavior>
-                <div className={styles.stop_search} >
-                  <div className={styles.text_card}>
-                    <h3>UK Stop and searches</h3>
-                    <p>{"Insights from stop and search data released by 'POLICE.UK'"}</p>
-                    <Link href="/stopsearch">Discover insights here</Link>
-                  </div>
-                </div>
-              </Link>
+              <CardHome />
             </div>
           </div>
         </div>
