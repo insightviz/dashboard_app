@@ -50,14 +50,14 @@
         position: fixed;
         inset: 0 0 0 0;
         height: 100vh;
-        transform: translateX(-100%);
         background-color: var(--bg-colour);
-        opacity: .98;
-        transition: all 0.3s ease-out;
+        opacity: 0;
     }
-
+    
     .navMenu.active {
         transform: translateX(0%);
+        opacity: .98;
+        transition: all 0.3s ease-out;
     }
 
     .navMenu a {
