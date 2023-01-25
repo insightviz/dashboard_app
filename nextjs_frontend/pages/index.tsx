@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import styles from '../styles/home.module.css'
 import Head from 'next/head';
 import { getCookie } from 'cookies-next';
