@@ -1,37 +1,15 @@
 import { Select, Loader, Title, Avatar, Text, Paper, Flex } from '@mantine/core';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styles from "./StopSearchController.module.css";
-import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
+import DatePickerWrapper from '../datePicker/DatePicker';
 
 const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
   ssr: false,
 })
-
-const months = getMonthsNames('en', 'MMMM');
-
-const CssTextField = styled(TextField)({
-  '& label.Mui-focused': {
-    color: '#22b8e6',
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#ced4da',
-    },
-    '&:hover fieldset': {
-      borderColor: '#ced4da',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#22b8e6',
-    },
-  },
-});
 
 interface DashboardProps {
   force: string,
@@ -86,14 +64,10 @@ const StopSearchDashboard = ({
           </div>
           <div className={styles.monthPicker}>
             <span>Select month:</span>
-            <DatePicker
-              views={['year', 'month']}
-              openTo="year"
-              minDate={availableMonths[0]}
-              maxDate={availableMonths.slice(-1)[0]}
-              value={startDate}
-              onChange={handleMonthChange}
-              renderInput={(params) => <CssTextField {...params} helperText={null} size="small" fullWidth/>}
+            <DatePickerWrapper
+              availableMonths={availableMonths}
+              startDate={startDate}
+              handleMonthChange={handleMonthChange}
             />
           </div>
         </div>
