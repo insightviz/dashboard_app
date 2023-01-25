@@ -6,6 +6,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
 import DatePickerWrapper from '../datePicker/DatePicker';
+import { Dayjs } from "dayjs";
 
 const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
   ssr: false,
@@ -14,9 +15,9 @@ const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
 interface DashboardProps {
   force: string,
   handleForceChange: (e: string) => void, 
-  availableMonths: Date[], 
-  startDate: Date, 
-  handleMonthChange: (date: Date | null ) => void,
+  availableMonths: Dayjs[], 
+  startDate: Dayjs, 
+  handleMonthChange: (Dayjs: Dayjs | null ) => void,
   error: error,
   isDataLoading: boolean,
   isForceLoading: boolean,

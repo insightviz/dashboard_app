@@ -7,12 +7,13 @@ import { Data } from './SharedTypes';
 import { getMonthsNames } from '@mantine/dates';
 import { useAppThemeContext } from '../../context/AppTheme';
 import { motion, useReducedMotion } from "framer-motion"
+import { Dayjs } from "dayjs";
 
 const months = getMonthsNames('en', 'MMMM');
 
 interface StatsUIProps {
 data: Data,
-startDate: Date,
+startDate: Dayjs,
 handleTotalClick: () => void,
 handleRaceChange: (race: string ) => void,
 handleGenderChange: (gender: string ) => void,
@@ -53,7 +54,7 @@ export default function StatsGridIcons({
                 weight={700}
                 size="sm"
               >
-                {force.replace(/[-]/g, ' ')} searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}
+                {force.replace(/[-]/g, ' ')} searches in {months[startDate.month()]}, {startDate.year()}
               </Text> 
               <Text weight={700} size={32}>
                 {monthly_no_stop_search.monthly_no_stop_search}

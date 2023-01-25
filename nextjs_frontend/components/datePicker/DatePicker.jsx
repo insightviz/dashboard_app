@@ -1,6 +1,6 @@
 import { useAppThemeContext } from '../../context/AppTheme';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { styled } from '@mui/material/styles';
@@ -66,7 +66,7 @@ export default function DatePickerWrapper({
   
   return (
     <ThemeProvider theme={muiTheme}>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           views={['year', 'month']}
           openTo="year"

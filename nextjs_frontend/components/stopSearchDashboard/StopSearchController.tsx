@@ -6,6 +6,7 @@ import ReactGA from "react-ga4";
 import { error, forceSelectOption, Data, enhancedData } from './SharedTypes';
 import { constructURL, fetchData } from "../../assets/UtilFunctions"
 import dynamic from 'next/dynamic'
+import dayjs, { Dayjs } from "dayjs";
 
 const StopSearchModal = dynamic(() => import('./EnhancedDataModal'), {
   ssr: false,
@@ -40,7 +41,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   const [isForceLoading, setForceLoading] = useState(true);
   const [forceSelectOptions, setForceSelectOptions] = useState<forceSelectOption[]>([]);
   
-  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [startDate, setStartDate] = useState<Dayjs>(dayjs());
   const [isMonthsLoading, setMonthsLoading] = useState(true);
   const [availableMonths, setAvailableMonths] = useState([]);
   
@@ -117,10 +118,10 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     }
   }
   
-  const handleMonthChange = (date: Date | null) => {
-    if (date instanceof Date) {
+  const handleMonthChange = (date: Dayjs | null) => {
+    if (dayjs.isDayjs(date)) {
       setStartDate(date!)
-      setMonth(`${date!.getFullYear()}-${date!.getMonth()+1<10?'0'+(date!.getMonth()+1):date!.getMonth()+1}`)
+      setMonth(`${date!.year()}-${date!.month()+1<10?'0'+(date!.month()+1):date!.month()+1}`)
       setError({'error': false, 'message': null});
       setRace('');
       setGender('');
@@ -129,7 +130,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       ReactGA.event({
         category: "month_select",
         action: "month_select",
-        label: [force, `${date!.getFullYear()}-${date!.getMonth()+1<10?'0'+(date!.getMonth()+1):date!.getMonth()+1}`].join('-'),
+        label: [force, `${date!.year()}-${date!.month()+1<10?'0'+(date!.month()+1):date!.month()+1}`].join('-'),
       });
     }
   }
@@ -157,17 +158,17 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
       fetchEnhancedData('race', {force: force, ethnicity: e});
       setRace(e);
       if (month === '') {
-        console.log(`${startDate.getFullYear()}-${startDate.getMonth()+1<10?'0'+(startDate.getMonth()+1):startDate.getMonth()+1}`)
+        console.log(`${startDate.year()}-${startDate.month()+1<10?'0'+(startDate.month()+1):startDate.month()+1}`)
         ReactGA.event({
           category: "enhanced_race_data",
           action: "enhanced_race_data",
-          label: [force, e, `${startDate.getFullYear()}-${startDate.getMonth()+1<10?'0'+(startDate.getMonth()+1):startDate.getMonth()+1}`].join('-'),
+          label: [force, e, `${startDate.year()}-${startDate.month()+1<10?'0'+(startDate.month()+1):startDate.month()+1}`].join('-'),
         });
       } else {
         ReactGA.event({
           category: "enhanced_race_data",
           action: "enhanced_race_data",
-          label: [force, e, month==''?undefined:month].join('-'),
+          label: [force, e, month].join('-'),
         });
       }
     }
@@ -186,13 +187,13 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
         ReactGA.event({
           category: "enhanced_gender_data",
           action: "enhanced_gender_data",
-          label: [force, e, `${startDate.getFullYear()}-${startDate.getMonth()+1<10?'0'+(startDate.getMonth()+1):startDate.getMonth()+1}`].join('-'),
+          label: [force, e, `${startDate.year()}-${startDate.month()+1<10?'0'+(startDate.month()+1):startDate.month()+1}`].join('-'),
         });
       } else {
         ReactGA.event({
           category: "enhanced_gender_data",
           action: "enhanced_gender_data",
-          label: [force, e, month==''?undefined:month].join('-'),
+          label: [force, e, month].join('-'),
         });
       }
     }
@@ -214,9 +215,9 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   const fetchMonths = () => {
     setMonthsLoading(true)
     fetchData(constructURL('/stopsearch/months', {force: force}))
-    .then(data => data.map((date: Date) => new Date(date)))
+    .then(data => data.map((date: Date) => dayjs(date)))
     .then(data => {
-      setStartDate(new Date(data.slice(-1)[0]))
+      setStartDate(dayjs(data.slice(-1)[0]))
       setAvailableMonths(data)
       setMonthsLoading(false)
     })
