@@ -4,6 +4,7 @@ import RaceModalCharts from './RaceDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
 import { getMonthsNames } from '@mantine/dates';
 import { Dayjs } from 'dayjs';
+import { useReducedMotion } from '@mantine/hooks';
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -27,14 +28,15 @@ const RaceModal = ({
   modalError,
   force,
   startDate}: ethnicityModalProps) => {
+  const shouldReduceMotion = useReducedMotion()
   return (
       <Modal
         opened={raceModalOpen}
         onClose={() => setRaceModalOpen(false)}
         fullScreen
         zIndex={999}
-        transition='fade'
-        transitionDuration={400}
+        transition={shouldReduceMotion ? undefined : 'fade'}
+        transitionDuration={shouldReduceMotion ? 0 : 400}
       >
         {
           <SimpleGrid cols={1} spacing="xl">              

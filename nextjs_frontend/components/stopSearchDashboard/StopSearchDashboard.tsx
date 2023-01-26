@@ -58,8 +58,8 @@ const StopSearchDashboard = ({
               data={forceSelectOptions}
               value={force}
               onChange={handleForceChange}
-              transition='fade'
-              transitionDuration={400}
+              transition={shouldReduceMotion ? undefined : 'fade'}
+              transitionDuration={shouldReduceMotion ? 0 : 400}
               maxDropdownHeight={300}
               />
           </div>

@@ -4,6 +4,7 @@ import GenderModalCharts from './GenderDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
 import { getMonthsNames } from '@mantine/dates';
 import { Dayjs } from 'dayjs';
+import { useReducedMotion } from '@mantine/hooks';
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -27,14 +28,15 @@ const GenderModal = ({
   modalError,
   force,
   startDate}: genderModalProps) => {
+  const shouldReduceMotion = useReducedMotion()
   return (
       <Modal
         opened={genderModalOpen}
         onClose={() => setGenderModalOpen(false)}
         fullScreen
         zIndex={999}
-        transition='fade'
-        transitionDuration={400}
+        transition={shouldReduceMotion ? undefined : 'fade'}
+        transitionDuration={shouldReduceMotion ? 0 : 400}
       >
         {          
           <SimpleGrid cols={1} spacing="xl">

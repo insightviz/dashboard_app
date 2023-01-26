@@ -2,6 +2,7 @@ import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex, Radio } from '@man
 import  { enhancedData, error } from './SharedTypes';
 import  OverallDataModalCharts from './OverallDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
+import { useReducedMotion } from '@mantine/hooks';
 
 interface stopSearchModalProps {
     totalModalOpened: boolean,
@@ -23,15 +24,15 @@ const StopSearchModal = ({
   force,
   monthSliderValue,
   handleMonthSliderChange}: stopSearchModalProps) => {
-
+  const shouldReduceMotion = useReducedMotion()
   return (
       <Modal
         opened={totalModalOpened}
         onClose={() => setTotalModalOpened(false)}
         fullScreen
         zIndex={999}
-        transition='fade'
-        transitionDuration={400}
+        transition={shouldReduceMotion ? undefined : 'fade'}
+        transitionDuration={shouldReduceMotion ? 0 : 400}
       >
         {
           <SimpleGrid cols={1} spacing="xl">
