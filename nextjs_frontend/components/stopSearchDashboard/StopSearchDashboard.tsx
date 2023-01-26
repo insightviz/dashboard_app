@@ -62,6 +62,7 @@ const StopSearchDashboard = ({
               value={force}
               onChange={handleForceChange}
               maxDropdownHeight={300}
+              ariaLabel='Police Force Select'
               />
           </div>
           <div className={styles.monthPicker}>
