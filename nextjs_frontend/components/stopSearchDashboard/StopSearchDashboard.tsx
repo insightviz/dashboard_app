@@ -7,6 +7,7 @@ import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
 import DatePickerWrapper from '../datePicker/DatePicker';
 import { Dayjs } from "dayjs";
+import Image from 'next/image'
 
 const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
   ssr: false,
@@ -130,11 +131,11 @@ const StopSearchDashboard = ({
         <Title order={2} size={24}>Contributors</Title>
         <div className={styles.avatarImages}>
           <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank" rel="noreferrer">
-            <Avatar src="https://avatars.githubusercontent.com/u/57296341?v=4" alt="Eze Ahunanya" size="lg" />
+            <Image className={styles.image} src="https://avatars.githubusercontent.com/u/57296341?v=4" alt='Eze Ahunanya image' width={56} height={56} /> 
             <span>Eze Ahunanya</span>
           </a>
           <a href="https://github.com/Primebrook" className="contributor-link" target="_blank" rel="noreferrer">
-            <Avatar src="https://avatars.githubusercontent.com/u/71849503?v=4" alt="Brook Abraha" size="lg" />
+            <Image className={styles.image} src="https://avatars.githubusercontent.com/u/71849503?v=4" alt='Brook Abraha image' width={56} height={56} /> 
             <span>Brook Abraha</span>
           </a>
         </div>

@@ -90,6 +90,10 @@
     color: var(--brand-orange);
 }
 
+.image {
+    border-radius: 50%;
+}
+
 @media (max-width: 1535px) and (min-width: 800px) {
     .selectInputs {
         flex-direction: row;
