@@ -14,7 +14,7 @@ export async function fetchData(url: string) {
   if (!response.ok) {
     throw new Error(`HTTP Error: ${response.status}, Message: ${response.statusText}`);
   } 
-  return response.json(); 
+  return await response.json(); 
 }
 
 export function sentenceCase(str: string) {
