@@ -1,44 +1,23 @@
 import { Select, Loader, Title, Avatar, Text, Paper, Flex } from '@mantine/core';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styles from "./StopSearchController.module.css";
-import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import { getMonthsNames } from '@mantine/dates';
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { AnimatePresence, useReducedMotion, m, LazyMotion, domAnimation } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
+import DatePickerWrapper from '../datePicker/DatePicker';
+import { Dayjs } from "dayjs";
 
 const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
   ssr: false,
 })
 
-const months = getMonthsNames('en', 'MMMM');
-
-const CssTextField = styled(TextField)({
-  '& label.Mui-focused': {
-    color: '#22b8e6',
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#ced4da',
-    },
-    '&:hover fieldset': {
-      borderColor: '#ced4da',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#22b8e6',
-    },
-  },
-});
-
 interface DashboardProps {
   force: string,
   handleForceChange: (e: string) => void, 
-  availableMonths: Date[], 
-  startDate: Date, 
-  handleMonthChange: (date: Date | null ) => void,
+  availableMonths: Dayjs[], 
+  startDate: Dayjs, 
+  handleMonthChange: (Dayjs: Dayjs | null ) => void,
   error: error,
   isDataLoading: boolean,
   isForceLoading: boolean,
@@ -86,14 +65,10 @@ const StopSearchDashboard = ({
           </div>
           <div className={styles.monthPicker}>
             <span>Select month:</span>
-            <DatePicker
-              views={['year', 'month']}
-              openTo="year"
-              minDate={availableMonths[0]}
-              maxDate={availableMonths.slice(-1)[0]}
-              value={startDate}
-              onChange={handleMonthChange}
-              renderInput={(params) => <CssTextField {...params} helperText={null} size="small" fullWidth/>}
+            <DatePickerWrapper
+              availableMonths={availableMonths}
+              startDate={startDate}
+              handleMonthChange={handleMonthChange}
             />
           </div>
         </div>
@@ -102,38 +77,42 @@ const StopSearchDashboard = ({
         <AnimatePresence initial={false} mode="wait">
           {
             error.error ? 
-            <motion.div
-              initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="error-message">
-              <Paper withBorder p="xl" radius="xl">
-                <Text
-                  color="dimmed"
-                  transform="uppercase"
-                  weight={700}
-                  size="md"
-                  >
-                  {error.message}
-                </Text>
-              </Paper>
-            </motion.div>
+            <LazyMotion features={domAnimation}>
+              <m.div
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="error-message">
+                <Paper withBorder p="xl" radius="xl">
+                  <Text
+                    color="dimmed"
+                    transform="uppercase"
+                    weight={700}
+                    size="md"
+                    >
+                    {error.message}
+                  </Text>
+                </Paper>
+              </m.div>
+            </LazyMotion>
             :
             isForceLoading || isMonthsLoading || isDataLoading ?
-            <motion.div
-              initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="loader">
-              <Flex
-                mih={width > 500 ? 637.08 : 350}
-                justify="center"
-                align="center"
-                direction="column">
-                <Loader variant="bars" size='md' />
-              </Flex>
-            </motion.div> :
+            <LazyMotion features={domAnimation}>
+              <m.div
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="loader">
+                <Flex
+                  mih={width > 500 ? 637.08 : 350}
+                  justify="center"
+                  align="center"
+                  direction="column">
+                  <Loader variant="bars" size='md' />
+                </Flex>
+              </m.div>
+            </LazyMotion> :
             <StatsGridIcons 
               data={data!} 
               startDate={startDate}

@@ -1,10 +1,14 @@
-import SignUpController from "../signUpForm/SignUpController";
 import Link from 'next/link';
-import  Linkedin from '@geist-ui/icons/linkedin'
+import Linkedin from '@geist-ui/icons/linkedin'
 import Github from '@geist-ui/icons/github'
 import Instagram from '@geist-ui/icons/instagram'
 import { useAppThemeContext } from '../../context/AppTheme';
 import styles from './Footer.module.css'
+import dynamic from 'next/dynamic'
+
+const SignUpController = dynamic(() =>
+  import('../signUpForm/SignUpController')
+)
 
 const Footer = () => {
   const { theme } = useAppThemeContext();

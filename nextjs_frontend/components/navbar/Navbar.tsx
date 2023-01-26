@@ -4,61 +4,14 @@ import Moon from '@geist-ui/icons/moon';
 import Sun from '@geist-ui/icons/sun';
 import Display from '@geist-ui/icons/display';
 import { useAppThemeContext } from '../../context/AppTheme';
-import { Group, Avatar, Text, Select, Burger } from '@mantine/core';
-import { forwardRef } from 'react';
-import ReactGA from "react-ga4";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Burger } from '@mantine/core';
+import { useReducedMotion, m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
+import { useViewportSize } from '@mantine/hooks';
+import dynamic from 'next/dynamic'
 
-const themeOptions = [
-  {
-    image: 
-    <Avatar>
-      <Display size={20}/>
-    </Avatar>,
-    label: 'System',
-    value: 'system',
-  },
-  {
-    image: 
-    <Avatar color="yellow">
-      <Sun size={20}/>
-    </Avatar>,
-    label: 'Light',
-    value: 'light',
-  },
-  {
-    image: 
-    <Avatar color="dark">
-      <Moon size={20}/>
-    </Avatar>,
-    label: 'Dark',
-    value: 'dark',
-  },
-];
-
-interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-  image: string;
-  label: string;
-  description: string;
-}
-
-const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-  ({ image, label, description, ...others }: ItemProps, ref) => (
-    <div ref={ref} {...others}>
-      <Group noWrap>
-        {image}
-        <div>
-          <Text size="sm">{label}</Text>
-          <Text size="xs" opacity={0.65}>
-            {description}
-          </Text>
-        </div>
-      </Group>
-    </div>
-  )
-);
-
-SelectItem.displayName = "SelectItem";
+const SelectWrapper = dynamic(() =>
+  import('../select/SelectWrapper')
+)
 
 interface NavbarProps {
   click: boolean,
@@ -68,18 +21,24 @@ interface NavbarProps {
 }
 
 function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: NavbarProps) {
-  const { mode, changeMode, theme } = useAppThemeContext();
+  const { mode, theme } = useAppThemeContext();
   const shouldReduceMotion = useReducedMotion()
+  const { width } = useViewportSize()
   return (
     <header className={styles.navbar}>
       <nav className={styles.navbarContainer}>
         <div className={styles.menuIcon} onClick={handleClick}>
-          <Burger
-            opened={click}
-            onClick={handleClick}
-            size='md'
-            color={theme == 'dark' ? '#C1C2C5' : '#000'}
-          />
+          {
+            width < 901 ?
+            <Burger
+              opened={click}
+              onClick={handleClick}
+              size='md'
+              color={theme == 'dark' ? '#C1C2C5' : '#000'}
+            />
+            :
+            <></>
+          }
         </div>
         <Link href="/" className={styles.logoContainer}>
           <svg className={styles.navbarLogo} width="160" height="71" viewBox="0 0 160 71" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,53 +63,49 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: Navb
         <AnimatePresence initial={false} mode="wait">
           {
             mode==='system' ? 
-            <motion.div
-              className={styles.themeToggle} onClick={handleThemeToggle}
-              initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
-              animate={{ y: 0, scale: 1 }}
-              exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="system">
-              <Display size={24}/>
-            </motion.div> :
+            <LazyMotion features={domAnimation}>
+              <m.div
+                className={styles.themeToggle} onClick={handleThemeToggle}
+                initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="system">
+                <Display size={24}/>
+              </m.div>
+            </LazyMotion> :
             (mode==='light' ? 
-            <motion.div
-              className={styles.themeToggle} onClick={handleThemeToggle}
-              initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
-              animate={{ y: 0, scale: 1 }}
-              exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="light">
-              <Sun size={24}/>
-            </motion.div> :
-            <motion.div
-              className={styles.themeToggle} onClick={handleThemeToggle}
-              initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
-              animate={{ y: 0, scale: 1 }}
-              exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="dark">
-              <Moon size={24}/>
-            </motion.div>)
+            <LazyMotion features={domAnimation}>
+              <m.div
+                className={styles.themeToggle} onClick={handleThemeToggle}
+                initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="light">
+                <Sun size={24}/>
+              </m.div>
+            </LazyMotion> :
+            <LazyMotion features={domAnimation}>
+              <m.div
+                className={styles.themeToggle} onClick={handleThemeToggle}
+                initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="dark">
+                <Moon size={24}/>
+              </m.div>
+            </LazyMotion>)
           }
         </AnimatePresence>
         <div className={styles.themeSelect}>
-          <Select 
-            itemComponent={SelectItem}
-            data={themeOptions}
-            icon={mode == 'system' ? <Avatar><Display size={20}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={20}/> </Avatar>: <Avatar color="dark"><Moon size={20}/></Avatar>}
-            value={mode}
-            onChange={e => { 
-              changeMode(String(e))
-              ReactGA.event({
-                category: "theme_select",
-                action: "theme_select",
-                label: String(e),
-              });
-            }}            
-            transition='fade'
-            transitionDuration={400}
-          />
+          {
+            width > 900 ?
+            <SelectWrapper /> 
+            :
+            <></>
+          }
         </div>
       </nav> 
     </header>

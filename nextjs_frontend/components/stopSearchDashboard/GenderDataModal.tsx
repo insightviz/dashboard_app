@@ -3,6 +3,7 @@ import  { enhancedData, error } from './SharedTypes';
 import GenderModalCharts from './GenderDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
 import { getMonthsNames } from '@mantine/dates';
+import { Dayjs } from 'dayjs';
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -14,7 +15,7 @@ interface genderModalProps {
     isEnhancedDataLoading: boolean,
     modalError: error,
     force: string,
-    startDate: Date
+    startDate: Dayjs
 }
 
 const GenderModal = ({
@@ -37,7 +38,7 @@ const GenderModal = ({
       >
         {          
           <SimpleGrid cols={1} spacing="xl">
-            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[startDate.getMonth()]}, {startDate.getFullYear()}</Title>
+            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[startDate.month()]}, {startDate.year()}</Title>
             {modalError.error ? 
             <Paper withBorder p="xl" radius="xl">
               <Text
