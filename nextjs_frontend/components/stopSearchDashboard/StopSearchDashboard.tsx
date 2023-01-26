@@ -1,4 +1,4 @@
-import { Select, Loader, Title, Avatar, Text, Paper, Flex } from '@mantine/core';
+import { Loader, Title, Avatar, Text, Paper, Flex } from '@mantine/core';
 import styles from "./StopSearchController.module.css";
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
