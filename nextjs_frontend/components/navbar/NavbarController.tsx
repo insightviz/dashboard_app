@@ -1,7 +1,8 @@
 import Navbar from "./Navbar";
 import { useState } from 'react';
 import { useAppThemeContext } from '../../context/AppTheme';
-import ReactGA from "react-ga4";
+
+const ReactGA = ( await import('react-ga4')).default
 
 const NavbarController = ()  => {
     const { mode, changeMode } = useAppThemeContext();

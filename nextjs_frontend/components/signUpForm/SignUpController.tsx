@@ -4,7 +4,8 @@ import { useState } from "react";
 import { showNotification } from '@mantine/notifications';
 import Smile from '@geist-ui/icons/smile'
 import Meh from '@geist-ui/icons/meh'
-import ReactGA from "react-ga4";
+
+const ReactGA = ( await import('react-ga4')).default
 
 interface FormValues {
   firstName: string;

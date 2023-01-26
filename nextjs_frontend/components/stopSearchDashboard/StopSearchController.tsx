@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import StopSearchDashboard from "./StopSearchDashboard";
 import { allForceOptions } from '../../assets/Constants';
 import { setCookie } from  'cookies-next';
-import ReactGA from "react-ga4";
 import { error, forceSelectOption, Data, enhancedData } from './SharedTypes';
 import { constructURL, fetchData } from "../../assets/UtilFunctions"
 import dynamic from 'next/dynamic'
@@ -17,6 +16,7 @@ const RaceModal = dynamic(() => import('./RaceDataModal'), {
 const GenderModal = dynamic(() => import('./GenderDataModal'), {
   ssr: false,
 })
+const ReactGA = ( await import('react-ga4')).default
 
 interface ServerProps {
   savedForce: string 

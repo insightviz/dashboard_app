@@ -4,8 +4,9 @@ import Sun from '@geist-ui/icons/sun';
 import Display from '@geist-ui/icons/display';
 import { useAppThemeContext } from '../../context/AppTheme';
 import { forwardRef } from 'react';
-import ReactGA from "react-ga4";
 import { useReducedMotion } from '@mantine/hooks';
+
+const ReactGA = ( await import('react-ga4')).default
 
 const themeOptions = [
   {
