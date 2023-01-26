@@ -11,6 +11,9 @@ import { Dayjs } from "dayjs";
 const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
   ssr: false,
 })
+const SelectWrapper = dynamic(() =>
+  import('../select/SelectWrapper')
+)
 
 interface DashboardProps {
   force: string,
@@ -54,12 +57,10 @@ const StopSearchDashboard = ({
         <div className={styles.selectInputs}>
           <div className={styles.forceDropdown}>
             <span>Select police force:</span>
-            <Select
-              data={forceSelectOptions}
+            <SelectWrapper
+              selectOptions={forceSelectOptions}
               value={force}
               onChange={handleForceChange}
-              transition={shouldReduceMotion ? undefined : 'fade'}
-              transitionDuration={shouldReduceMotion ? 0 : 400}
               maxDropdownHeight={300}
               />
           </div>

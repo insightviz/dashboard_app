@@ -6,7 +6,8 @@ interface SelectWrapperProps {
   selectOptions: any,
   icons?: any,
   value: string,
-  onChange: (e:string) => void
+  onChange: (e:string) => void,
+  maxDropdownHeight?: number
 }
 
 function SelectWrapper({
@@ -14,7 +15,8 @@ function SelectWrapper({
   selectOptions,
   icons,
   value,
-  onChange
+  onChange,
+  maxDropdownHeight
 }:SelectWrapperProps) {
   const shouldReduceMotion = useReducedMotion()
   return (
@@ -26,6 +28,7 @@ function SelectWrapper({
       onChange={onChange}            
       transition={shouldReduceMotion ? undefined : 'fade'}
       transitionDuration={shouldReduceMotion ? 0 : 400}
+      maxDropdownHeight={maxDropdownHeight}
     />        
   );
 }
