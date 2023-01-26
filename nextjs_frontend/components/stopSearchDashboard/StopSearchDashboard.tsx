@@ -2,7 +2,7 @@ import { Select, Loader, Title, Avatar, Text, Paper, Flex } from '@mantine/core'
 import styles from "./StopSearchController.module.css";
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { AnimatePresence, useReducedMotion, m, LazyMotion, domAnimation } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
 import DatePickerWrapper from '../datePicker/DatePicker';
@@ -77,38 +77,42 @@ const StopSearchDashboard = ({
         <AnimatePresence initial={false} mode="wait">
           {
             error.error ? 
-            <motion.div
-              initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="error-message">
-              <Paper withBorder p="xl" radius="xl">
-                <Text
-                  color="dimmed"
-                  transform="uppercase"
-                  weight={700}
-                  size="md"
-                  >
-                  {error.message}
-                </Text>
-              </Paper>
-            </motion.div>
+            <LazyMotion features={domAnimation}>
+              <m.div
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="error-message">
+                <Paper withBorder p="xl" radius="xl">
+                  <Text
+                    color="dimmed"
+                    transform="uppercase"
+                    weight={700}
+                    size="md"
+                    >
+                    {error.message}
+                  </Text>
+                </Paper>
+              </m.div>
+            </LazyMotion>
             :
             isForceLoading || isMonthsLoading || isDataLoading ?
-            <motion.div
-              initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="loader">
-              <Flex
-                mih={width > 500 ? 637.08 : 350}
-                justify="center"
-                align="center"
-                direction="column">
-                <Loader variant="bars" size='md' />
-              </Flex>
-            </motion.div> :
+            <LazyMotion features={domAnimation}>
+              <m.div
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="loader">
+                <Flex
+                  mih={width > 500 ? 637.08 : 350}
+                  justify="center"
+                  align="center"
+                  direction="column">
+                  <Loader variant="bars" size='md' />
+                </Flex>
+              </m.div>
+            </LazyMotion> :
             <StatsGridIcons 
               data={data!} 
               startDate={startDate}

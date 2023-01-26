@@ -5,7 +5,7 @@ import Sun from '@geist-ui/icons/sun';
 import Display from '@geist-ui/icons/display';
 import { useAppThemeContext } from '../../context/AppTheme';
 import { Burger } from '@mantine/core';
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useReducedMotion, m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
 
@@ -63,34 +63,40 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: Navb
         <AnimatePresence initial={false} mode="wait">
           {
             mode==='system' ? 
-            <motion.div
-              className={styles.themeToggle} onClick={handleThemeToggle}
-              initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
-              animate={{ y: 0, scale: 1 }}
-              exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="system">
-              <Display size={24}/>
-            </motion.div> :
+            <LazyMotion features={domAnimation}>
+              <m.div
+                className={styles.themeToggle} onClick={handleThemeToggle}
+                initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="system">
+                <Display size={24}/>
+              </m.div>
+            </LazyMotion> :
             (mode==='light' ? 
-            <motion.div
-              className={styles.themeToggle} onClick={handleThemeToggle}
-              initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
-              animate={{ y: 0, scale: 1 }}
-              exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="light">
-              <Sun size={24}/>
-            </motion.div> :
-            <motion.div
-              className={styles.themeToggle} onClick={handleThemeToggle}
-              initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
-              animate={{ y: 0, scale: 1 }}
-              exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              key="dark">
-              <Moon size={24}/>
-            </motion.div>)
+            <LazyMotion features={domAnimation}>
+              <m.div
+                className={styles.themeToggle} onClick={handleThemeToggle}
+                initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="light">
+                <Sun size={24}/>
+              </m.div>
+            </LazyMotion> :
+            <LazyMotion features={domAnimation}>
+              <m.div
+                className={styles.themeToggle} onClick={handleThemeToggle}
+                initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
+                animate={{ y: 0, scale: 1 }}
+                exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                key="dark">
+                <Moon size={24}/>
+              </m.div>
+            </LazyMotion>)
           }
         </AnimatePresence>
         <div className={styles.themeSelect}>
