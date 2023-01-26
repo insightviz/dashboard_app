@@ -1,10 +1,12 @@
-import NavbarController from "../navbar/NavbarController";
-import Footer from "../footer/Footer";
 import { useAppThemeContext } from '../../context/AppTheme';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 import { emotionCache } from '../../EmotionCache'
+import dynamic from 'next/dynamic'
+
+const NavbarController = dynamic(() => import('../navbar/NavbarController'))
+const Footer = dynamic(() => import('../footer/Footer'))
 
 export default function Layout({ children }) {
   const { theme } = useAppThemeContext();
