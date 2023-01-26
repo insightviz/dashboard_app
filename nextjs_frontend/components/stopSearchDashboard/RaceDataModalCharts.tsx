@@ -1,6 +1,10 @@
 import { SimpleGrid, } from '@mantine/core';
-import BarSegments from "../chart/BarSegments"
 import  { enhancedData } from './SharedTypes';
+import dynamic from 'next/dynamic'
+
+const BarSegments = dynamic(() => import('../chart/BarSegments'), {
+  ssr: false,
+})
 
 interface raceModalChartsProps {
     race: string,
