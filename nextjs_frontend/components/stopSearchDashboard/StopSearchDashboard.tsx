@@ -1,4 +1,4 @@
-import { Loader, Title, Avatar, Text, Paper, Flex } from '@mantine/core';
+import { Loader, Title, Flex } from '@mantine/core';
 import styles from "./StopSearchController.module.css";
 import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
@@ -14,6 +14,9 @@ const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
 })
 const SelectWrapper = dynamic(() =>
   import('../select/SelectWrapper')
+)
+const ErrorWrapper = dynamic(() =>
+  import('./errorComponent/ErrorWarning')
 )
 
 interface DashboardProps {
@@ -87,16 +90,7 @@ const StopSearchDashboard = ({
                 exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 key="error-message">
-                <Paper withBorder p="xl" radius="xl">
-                  <Text
-                    color="dimmed"
-                    transform="uppercase"
-                    weight={700}
-                    size="md"
-                    >
-                    {error.message}
-                  </Text>
-                </Paper>
+                <ErrorWrapper error={error}/>
               </m.div>
             </LazyMotion>
             :
