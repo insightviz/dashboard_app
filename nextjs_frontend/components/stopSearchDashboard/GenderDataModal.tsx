@@ -1,38 +1,36 @@
 import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex } from '@mantine/core';
-import  { enhancedData, error } from './SharedTypes';
 import GenderModalCharts from './GenderDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
 import { getMonthsNames } from '@mantine/dates';
 import { Dayjs } from 'dayjs';
 import { useReducedMotion } from '@mantine/hooks';
 
+const FetchEnhancedGenderData = (await import('./dashboardHooks/FetchEnhancedGenderData')).default
+
 const months = getMonthsNames('en', 'MMMM');
 
 interface genderModalProps {
     genderModalOpen: boolean,
-    setGenderModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    openGenderModal: (e: boolean) => void,
     gender: string,
-    enhancedGenderData: enhancedData | undefined,
-    isEnhancedDataLoading: boolean,
-    modalError: error,
+    month: string,
     force: string,
-    startDate: Dayjs
+    datePickerDate: Dayjs
 }
 
 const GenderModal = ({
   genderModalOpen, 
-  setGenderModalOpen, 
+  openGenderModal, 
   gender,
-  enhancedGenderData,
-  isEnhancedDataLoading,
-  modalError,
+  month,
   force,
-  startDate}: genderModalProps) => {
+  datePickerDate}: genderModalProps) => {
   const shouldReduceMotion = useReducedMotion()
+  const { enhancedData, isEnhancedDataLoading, enhancedDataError } = FetchEnhancedGenderData(force, gender, month)
   return (
       <Modal
         opened={genderModalOpen}
-        onClose={() => setGenderModalOpen(false)}
+        onClose={() => openGenderModal(false)}
         fullScreen
         zIndex={999}
         transition={shouldReduceMotion ? undefined : 'fade'}
@@ -40,8 +38,8 @@ const GenderModal = ({
       >
         {          
           <SimpleGrid cols={1} spacing="xl">
-            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[startDate.month()]}, {startDate.year()}</Title>
-            {modalError.error ? 
+            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[datePickerDate.month()]}, {datePickerDate.year()}</Title>
+            {enhancedDataError ? 
             <Paper withBorder p="xl" radius="xl">
               <Text
                 color="dimmed"
@@ -49,7 +47,9 @@ const GenderModal = ({
                 weight={700}
                 size="md"
               >
-                {modalError.message}
+                {enhancedDataError.message} 
+                Status code: {enhancedDataError.status} 
+                Error: {enhancedDataError.info}
               </Text>
             </Paper>
              :
@@ -62,7 +62,7 @@ const GenderModal = ({
             >
               <Loader variant="bars" size='md' />
             </Flex> :
-            <GenderModalCharts gender={gender} enhancedGenderData={enhancedGenderData!}/>}
+            <GenderModalCharts gender={gender} enhancedData={enhancedData}/>}
           </SimpleGrid>
         }
       </Modal>

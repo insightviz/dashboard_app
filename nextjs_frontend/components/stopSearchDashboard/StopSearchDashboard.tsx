@@ -1,13 +1,17 @@
 import { Loader, Title, Flex } from '@mantine/core';
 import styles from "./StopSearchController.module.css";
-import  { error, forceSelectOption, Data } from './SharedTypes';
 import React from "react";
 import { AnimatePresence, useReducedMotion, m, LazyMotion, domAnimation } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
 import DatePickerWrapper from '../datePicker/DatePicker';
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import Image from 'next/image'
+import { useEffect } from 'react';
+
+const FetchForces = (await import('./dashboardHooks/FetchForces')).default
+const FetchData = (await import('./dashboardHooks/FetchData')).default
+const FetchMonths = (await import('./dashboardHooks/FetchMonths')).default
 
 const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
   ssr: false,
@@ -21,38 +25,38 @@ const ErrorWrapper = dynamic(() =>
 
 interface DashboardProps {
   force: string,
+  month: string,
   handleForceChange: (e: string) => void, 
-  availableMonths: Dayjs[], 
-  startDate: Dayjs, 
+  datePickerDate: Dayjs, 
   handleMonthChange: (Dayjs: Dayjs | null ) => void,
-  error: error,
-  isDataLoading: boolean,
-  isForceLoading: boolean,
-  isMonthsLoading: boolean,
-  data: Data | undefined,
-  forceSelectOptions: forceSelectOption[]
   handleTotalClick: () => void,
   handleRaceChange: (race: string ) => void,
   handleGenderChange: (gender: string ) => void,
+  changeDatePickerDate: (e: Dayjs) => void
 }
 const StopSearchDashboard = ({
   force,
+  month,
   handleForceChange, 
-  availableMonths, 
-  startDate, 
+  datePickerDate,
   handleMonthChange,
-  error,
-  isDataLoading,
-  isForceLoading,
-  isMonthsLoading,
-  data,
-  forceSelectOptions,
   handleTotalClick,
   handleRaceChange,
-  handleGenderChange
+  handleGenderChange,
+  changeDatePickerDate
 }: DashboardProps) => { 
   const { width } = useViewportSize();
   const shouldReduceMotion = useReducedMotion()
+  const { data, isDataLoading, dataError } = FetchData(force, month)
+  const { forcesData, isForcesLoading, forceError } = FetchForces()
+  const { monthsData, isMonthsLoading, monthsError } = FetchMonths(force)
+
+  useEffect(() => {
+    if (monthsData) {
+      changeDatePickerDate(dayjs(monthsData.slice(-1)[0]))
+    }
+  }, [monthsData, changeDatePickerDate])
+
   return (
     <div className={styles.stopSearchDashboard}>
       <Title order={1} size={32} align="center">UK stop and search dashboard</Title>
@@ -61,28 +65,36 @@ const StopSearchDashboard = ({
         <div className={styles.selectInputs}>
           <div className={styles.forceDropdown}>
             <span>Select police force:</span>
-            <SelectWrapper
-              selectOptions={forceSelectOptions}
-              value={force}
-              onChange={handleForceChange}
-              maxDropdownHeight={300}
-              ariaLabel='Police Force Select'
-              />
+            {
+              forcesData && (
+                <SelectWrapper
+                  selectOptions={forcesData}
+                  value={force}
+                  onChange={handleForceChange}
+                  maxDropdownHeight={300}
+                  ariaLabel='Police Force Select'
+                  />
+              )
+            }
           </div>
           <div className={styles.monthPicker}>
             <span>Select month:</span>
-            <DatePickerWrapper
-              availableMonths={availableMonths}
-              startDate={startDate}
-              handleMonthChange={handleMonthChange}
-            />
+            {
+              monthsData && (
+                <DatePickerWrapper
+                  monthsData={monthsData}
+                  datePickerDate={datePickerDate}
+                  handleMonthChange={handleMonthChange}
+                  />
+              )
+            }
           </div>
         </div>
       </div>
       <div className={styles.statsGrid}>
         <AnimatePresence initial={false} mode="wait">
           {
-            error.error ? 
+            dataError || forceError || monthsError || typeof data == 'string' ? 
             <LazyMotion features={domAnimation}>
               <m.div
                 initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
@@ -90,11 +102,22 @@ const StopSearchDashboard = ({
                 exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 key="error-message">
-                <ErrorWrapper error={error}/>
+                {
+                  typeof data == 'string' ?
+                  <ErrorWrapper errorMessage={data}/>
+                  :
+                  dataError ? 
+                  <ErrorWrapper errorMessage={dataError!.message} errorStatus={dataError!.status} errorInfo={dataError!.info} />
+                  :
+                  forceError ?
+                  <ErrorWrapper errorMessage={forceError!.message} errorStatus={forceError!.status} errorInfo={forceError!.info} />
+                  :
+                  <ErrorWrapper errorMessage={monthsError!.message} errorStatus={monthsError!.status} errorInfo={monthsError!.info} />
+                }
               </m.div>
             </LazyMotion>
             :
-            isForceLoading || isMonthsLoading || isDataLoading ?
+            isForcesLoading || isMonthsLoading || isDataLoading ?
             <LazyMotion features={domAnimation}>
               <m.div
                 initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
@@ -112,7 +135,7 @@ const StopSearchDashboard = ({
             </LazyMotion> :
             <StatsGridIcons 
               data={data!} 
-              startDate={startDate}
+              startDate={datePickerDate}
               handleTotalClick={handleTotalClick}
               handleRaceChange={handleRaceChange}
               handleGenderChange={handleGenderChange}

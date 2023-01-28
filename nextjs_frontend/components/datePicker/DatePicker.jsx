@@ -25,8 +25,8 @@ const CssTextField = styled(TextField)({
 
 
 export default function DatePickerWrapper({
-  availableMonths,
-  startDate,
+  monthsData,
+  datePickerDate,
   handleMonthChange
 }) {
   const { theme } = useAppThemeContext();
@@ -70,9 +70,9 @@ export default function DatePickerWrapper({
         <DatePicker
           views={['year', 'month']}
           openTo="year"
-          minDate={availableMonths[0]}
-          maxDate={availableMonths.slice(-1)[0]}
-          value={startDate}
+          minDate={monthsData[0]}
+          maxDate={monthsData.slice(-1)[0]}
+          value={datePickerDate}
           onChange={handleMonthChange}
           renderInput={(params) => <CssTextField {...params} helperText={null} size="small" fullWidth/>}
         />

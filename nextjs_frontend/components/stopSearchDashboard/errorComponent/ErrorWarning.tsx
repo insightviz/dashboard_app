@@ -2,10 +2,14 @@ import { Text, Paper } from '@mantine/core';
 import  { error } from '../SharedTypes';
 
 interface ErrorProps {
-  error: error,
+  errorMessage: string | null,
+  errorStatus?: number | null,
+  errorInfo?: string | null,
 }
 const ErrorWrapper = ({
-  error  
+  errorMessage,
+  errorStatus,
+  errorInfo  
 }: ErrorProps) => { 
   return (    
     <Paper withBorder p="xl" radius="xl">
@@ -15,7 +19,11 @@ const ErrorWrapper = ({
         weight={700}
         size="md"
         >
-        {error.message}
+          <>
+            {errorMessage} 
+            {errorStatus ? `Status code: `+{errorStatus}: undefined }
+            {errorInfo ? `Error: `+{errorInfo}: undefined }
+          </>
       </Text>
     </Paper>
   )

@@ -1,38 +1,36 @@
 import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex } from '@mantine/core';
-import  { enhancedData, error } from './SharedTypes';
 import RaceModalCharts from './RaceDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
 import { getMonthsNames } from '@mantine/dates';
 import { Dayjs } from 'dayjs';
 import { useReducedMotion } from '@mantine/hooks';
 
+const FetchEnhancedRaceData = (await import('./dashboardHooks/FetchEnhancedRaceData')).default
+
 const months = getMonthsNames('en', 'MMMM');
 
 interface ethnicityModalProps {
     raceModalOpen: boolean,
-    setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    openRaceModal: (e: boolean) => void,
     race: string,
-    enhancedRaceData: enhancedData | undefined,
-    isEnhancedDataLoading: boolean,
-    modalError: error,
+    month: string,
     force: string,
-    startDate: Dayjs
+    datePickerDate: Dayjs
 }
 
 const RaceModal = ({
   raceModalOpen, 
-  setRaceModalOpen, 
+  openRaceModal, 
   race,
-  enhancedRaceData,
-  isEnhancedDataLoading,
-  modalError,
+  month,
   force,
-  startDate}: ethnicityModalProps) => {
+  datePickerDate}: ethnicityModalProps) => {
   const shouldReduceMotion = useReducedMotion()
+  const { enhancedData, isEnhancedDataLoading, enhancedDataError } = FetchEnhancedRaceData(force, race, month)
   return (
       <Modal
         opened={raceModalOpen}
-        onClose={() => setRaceModalOpen(false)}
+        onClose={() => openRaceModal(false)}
         fullScreen
         zIndex={999}
         transition={shouldReduceMotion ? undefined : 'fade'}
@@ -40,8 +38,8 @@ const RaceModal = ({
       >
         {
           <SimpleGrid cols={1} spacing="xl">              
-            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[startDate.month()]}, {startDate.year()}</Title>
-            {modalError.error ? 
+            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[datePickerDate.month()]}, {datePickerDate.year()}</Title>
+            {enhancedDataError ? 
             <Paper withBorder p="xl" radius="xl">
               <Text
                 color="dimmed"
@@ -49,7 +47,9 @@ const RaceModal = ({
                 weight={700}
                 size="md"
                 >
-                {modalError.message}
+                {enhancedDataError.message} 
+                Status code: {enhancedDataError.status} 
+                Error: {enhancedDataError.info}
               </Text>
             </Paper>
              :
@@ -62,7 +62,7 @@ const RaceModal = ({
             >
               <Loader variant="bars" size='md' />
             </Flex> :
-             <RaceModalCharts enhancedRaceData={enhancedRaceData!} race={race}/>}
+             <RaceModalCharts enhancedData={enhancedData} race={race}/>}
           </SimpleGrid>
         }
       </Modal>

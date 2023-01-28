@@ -1,6 +1,7 @@
 export interface error {
-    error: boolean,
-    message: string | null
+  info?: string,
+  status?: number,
+  message: string | null
 }
 
 export interface forceSelectOption {
