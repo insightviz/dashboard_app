@@ -26,7 +26,7 @@ const GenderModal = ({
   force,
   datePickerDate}: genderModalProps) => {
   const shouldReduceMotion = useReducedMotion()
-  const { enhancedData, isEnhancedDataLoading, enhancedDataError } = FetchEnhancedGenderData(force, gender, month)
+  const { enhancedData, enhancedDataError } = FetchEnhancedGenderData(force, gender, month)
   return (
       <Modal
         opened={genderModalOpen}
@@ -77,7 +77,7 @@ const GenderModal = ({
               }
             </Paper>
              :
-            isEnhancedDataLoading ?
+            !enhancedData ?
             <Flex
               mih={500}
               justify="center"

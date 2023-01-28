@@ -20,7 +20,7 @@ const StopSearchModal = ({
   monthSliderValue,
   handleMonthSliderChange}: stopSearchModalProps) => {
   const shouldReduceMotion = useReducedMotion()
-  const { enhancedData, isEnhancedDataLoading, enhancedDataError } = FetchEnhancedOverallData(force, monthSliderValue)
+  const { enhancedData, enhancedDataError } = FetchEnhancedOverallData(force, monthSliderValue)
   return (
     <Modal
       opened={totalModalOpened}
@@ -86,7 +86,7 @@ const StopSearchModal = ({
               }
           </Paper>
           :
-          isEnhancedDataLoading ?
+          !enhancedData ?
           <Flex
             mih={500}
             justify="center"

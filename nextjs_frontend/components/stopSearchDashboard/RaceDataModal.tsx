@@ -26,7 +26,7 @@ const RaceModal = ({
   force,
   datePickerDate}: ethnicityModalProps) => {
   const shouldReduceMotion = useReducedMotion()
-  const { enhancedData, isEnhancedDataLoading, enhancedDataError } = FetchEnhancedRaceData(force, race, month)
+  const { enhancedData, enhancedDataError } = FetchEnhancedRaceData(force, race, month)
   return (
     <Modal
       opened={raceModalOpen}
@@ -77,7 +77,7 @@ const RaceModal = ({
               }
           </Paper>
            :
-          isEnhancedDataLoading ?
+          !enhancedData ?
           <Flex
             mih={500}
             justify="center"
