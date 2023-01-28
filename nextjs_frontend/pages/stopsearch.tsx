@@ -1,13 +1,9 @@
 import StopSearchDashboardController from '../components/stopSearchDashboard/StopSearchController'
 import { getCookie } from 'cookies-next';
-import React from 'react';
 import Head from 'next/head';
 import Layout from '../components/layout/Layout'
 import ThemeProvider from '../context/AppTheme';
-import { preload } from 'swr'
-import { constructURL, fetcher } from '../assets/UtilFunctions';
-import { ForceFetcher } from '../components/stopSearchDashboard/dashboardHooks/FetchForces';
-import { MonthFetcher } from '../components/stopSearchDashboard/dashboardHooks/FetchMonths';
+import { constructURL } from '../assets/UtilFunctions';
 
 interface StopSearchPageProps { // <--- your custom page props
     savedForce: string,
@@ -16,9 +12,6 @@ interface StopSearchPageProps { // <--- your custom page props
 }
 
 export default function StopSearch({savedForce, savedMode, savedTheme}: StopSearchPageProps) {
-  preload(constructURL('/stopsearch/data', {force: savedForce}), fetcher)
-  preload('/stopsearch/forces', ForceFetcher)
-  preload(constructURL('/stopsearch/months', {force: savedForce}), MonthFetcher)
   return (        
     <ThemeProvider savedMode={savedMode} savedTheme={savedTheme}>
       <Layout>
@@ -26,7 +19,9 @@ export default function StopSearch({savedForce, savedMode, savedTheme}: StopSear
           <meta charSet="utf-8" />
           <title>Stop and Search Dashboard</title>
           <meta name='description' content='Stop and search dashboard showing data for UK police forces'/>
-          <link rel="preload" href="/stopsearch" as="fetch" crossOrigin="anonymous"></link>
+          <link rel="preload" href={constructURL('https://api.insightviz.com/stopsearch/data', {force: savedForce})} as="fetch" crossOrigin="anonymous"></link>
+          <link rel="preload" href='https://api.insightviz.com/stopsearch/forces' as="fetch" crossOrigin="anonymous"></link>
+          <link rel="preload" href={constructURL('https://api.insightviz.com/stopsearch/months', {force: savedForce})} as="fetch" crossOrigin="anonymous"></link>
         </Head>
         <StopSearchDashboardController savedForce={savedForce}/> 
       </Layout>

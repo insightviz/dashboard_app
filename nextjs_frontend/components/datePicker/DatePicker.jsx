@@ -56,7 +56,7 @@ export default function DatePickerWrapper({
     shape: {borderRadius: '32px'},
     typography: {
       fontSize: 22.4,
-      fontFamily: 'segoe'
+      fontFamily: 'var(--noto-font)'
     }
   });
 

@@ -23,9 +23,9 @@ export default function Layout({ children }) {
         theme={{
           /** Put your mantine theme override here */
           colorScheme: theme,
-          fontFamily: 'segoe',
+          fontFamily: 'var(--noto-font)',
           headings: {
-            fontFamily: 'segoe',
+            fontFamily: 'var(--noto-font)',
           },
           respectReducedMotion: true,
           components: {
