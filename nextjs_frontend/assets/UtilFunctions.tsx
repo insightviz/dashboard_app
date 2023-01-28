@@ -29,7 +29,7 @@ export const fetcher = async (url:string) => {
     error.status = res.status
     throw error
   }
-  if (url.includes('/stopsearch/data')) {
+  if (url.includes('/stopsearch/data') || url.includes('/stopsearch/enhanceddata')) {
     return res.json()
   } else if (url.includes('/stopsearch/forces')) {
     let forceSelectOptions: forceSelectOption[] = []
