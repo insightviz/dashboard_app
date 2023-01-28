@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from "dayjs"
 import useSWR from 'swr'
 import  { error } from '../SharedTypes';
 
-const MonthFetcher = async (url:string) => {
+export const MonthFetcher = async (url:string) => {
     const res = await fetch(url)
     
     // If the status code is not in the range 200-299,

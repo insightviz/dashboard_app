@@ -2,7 +2,7 @@ import allForceOptions from '../../../assets/Constants';
 import { forceSelectOption, error } from '../SharedTypes';
 import useSWRImmutable from 'swr'
 
-const ForceFetcher = async (url:string) => {
+export const ForceFetcher = async (url:string) => {
     const res = await fetch(url)
     
     // If the status code is not in the range 200-299,
