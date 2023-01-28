@@ -1,4 +1,7 @@
-import { error } from "../components/stopSearchDashboard/SharedTypes";
+import { error, forceSelectOption } from "../components/stopSearchDashboard/SharedTypes";
+import allForceOptions from "./Constants";
+import dayjs from "dayjs"
+
 export const constructURL = (baseUrl: string, parameters: Record<string, string>) => {
     const params = new URLSearchParams();
   
@@ -26,5 +29,19 @@ export const fetcher = async (url:string) => {
     error.status = res.status
     throw error
   }
-  return res.json()
+  if (url.includes('/stopsearch/data')) {
+    return res.json()
+  } else if (url.includes('/stopsearch/forces')) {
+    let forceSelectOptions: forceSelectOption[] = []
+    const data = await res.json()
+    allForceOptions.forEach(element => {
+      if (data.includes(element.value)) {
+        forceSelectOptions.push(element)
+      }        
+    });     
+    return forceSelectOptions
+  } else if (url.includes('/stopsearch/months')) {
+    const data = await res.json() 
+    return data.map((date: Date) => dayjs(date))
+  }
 }
