@@ -49,9 +49,9 @@ const StopSearchDashboard = ({
 }: DashboardProps) => { 
   const { width } = useViewportSize();
   const shouldReduceMotion = useReducedMotion()
-  const { data, isDataLoading, dataError } = FetchData(force, month)
-  const { forcesData, isForcesLoading, forceError } = FetchForces()
-  const { monthsData, isMonthsLoading, monthsError } = FetchMonths(force)
+  const { data, dataError } = FetchData(force, month)
+  const { forcesData, forceError } = FetchForces()
+  const { monthsData, monthsError } = FetchMonths(force)
 
   useEffect(() => {
     if (monthsData) {
@@ -66,28 +66,32 @@ const StopSearchDashboard = ({
         <Title order={2} size={24}>Select options</Title>
         <div className={styles.selectInputs}>
           <div className={styles.forceDropdown}>
-            <span>Select police force:</span>
             {
               forcesData && (
-                <SelectWrapper
-                  selectOptions={forcesData}
-                  value={force}
-                  onChange={handleForceChange}
-                  maxDropdownHeight={300}
-                  ariaLabel='Police Force Select'
-                  />
+                <>
+                  <span>Select police force:</span>
+                  <SelectWrapper
+                    selectOptions={forcesData}
+                    value={force}
+                    onChange={handleForceChange}
+                    maxDropdownHeight={300}
+                    ariaLabel='Police Force Select'
+                    />
+                </>
               )
             }
           </div>
           <div className={styles.monthPicker}>
-            <span>Select month:</span>
             {
               monthsData && (
-                <DatePickerWrapper
-                  monthsData={monthsData}
-                  datePickerDate={datePickerDate}
-                  handleMonthChange={handleMonthChange}
-                  />
+                <>
+                  <span>Select month:</span>
+                  <DatePickerWrapper
+                    monthsData={monthsData}
+                    datePickerDate={datePickerDate}
+                    handleMonthChange={handleMonthChange}
+                    />
+                </>
               )
             }
           </div>
