@@ -26,7 +26,7 @@ export default function StopSearch({savedForce, savedMode, savedTheme}: StopSear
           <meta charSet="utf-8" />
           <title>Stop and Search Dashboard</title>
           <meta name='description' content='Stop and search dashboard showing data for UK police forces'/>
-          <link rel="preload" href="/stopsearch" as="fetch" crossorigin="anonymous"></link>
+          <link rel="preload" href="/stopsearch" as="fetch" crossOrigin="anonymous"></link>
         </Head>
         <StopSearchDashboardController savedForce={savedForce}/> 
       </Layout>
