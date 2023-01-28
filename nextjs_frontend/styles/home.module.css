@@ -22,7 +22,8 @@
 
 .h1 span {
   display: block;
-  font-family: segoe-black;
+  font-family: var(--noto-font);
+  font-weight: 900;
   font-size: 3.8rem;
   text-align: center;
 }
@@ -111,7 +112,7 @@
 .dashboards h2 {
   font-size: var(--font-size--large);
   color: var(--text-colour);
-  font-family: Segoe;
+  font-family: var(--noto-font);
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 700;
@@ -150,7 +151,7 @@
   background-color: var(--bg-colour-2);
   padding: 2.4rem;
   width: clamp(20rem, 80%, 30rem);
-  font-family: Segoe;
+  font-family: var(--noto-font);
   border-radius: 3.2rem;
   display: flex;
   flex-direction: column;
