@@ -119,7 +119,7 @@ const StopSearchDashboard = ({
               </m.div>
             </LazyMotion>
             :
-            isForcesLoading || isMonthsLoading || isDataLoading ?
+            !data ?
             <LazyMotion features={domAnimation}>
               <m.div
                 initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
@@ -136,7 +136,7 @@ const StopSearchDashboard = ({
               </m.div>
             </LazyMotion> :
             <StatsGridIcons 
-              data={data!} 
+              data={data} 
               startDate={datePickerDate}
               handleTotalClick={handleTotalClick}
               handleRaceChange={handleRaceChange}
