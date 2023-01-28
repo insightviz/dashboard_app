@@ -1,69 +1,95 @@
 import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex } from '@mantine/core';
-import  { enhancedData, error } from './SharedTypes';
 import RaceModalCharts from './RaceDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
 import { getMonthsNames } from '@mantine/dates';
 import { Dayjs } from 'dayjs';
+import { useReducedMotion } from '@mantine/hooks';
+
+const FetchEnhancedRaceData = (await import('./dashboardHooks/FetchEnhancedRaceData')).default
 
 const months = getMonthsNames('en', 'MMMM');
 
 interface ethnicityModalProps {
     raceModalOpen: boolean,
-    setRaceModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    openRaceModal: (e: boolean) => void,
     race: string,
-    enhancedRaceData: enhancedData | undefined,
-    isEnhancedDataLoading: boolean,
-    modalError: error,
+    month: string,
     force: string,
-    startDate: Dayjs
+    datePickerDate: Dayjs
 }
 
 const RaceModal = ({
   raceModalOpen, 
-  setRaceModalOpen, 
+  openRaceModal, 
   race,
-  enhancedRaceData,
-  isEnhancedDataLoading,
-  modalError,
+  month,
   force,
-  startDate}: ethnicityModalProps) => {
+  datePickerDate}: ethnicityModalProps) => {
+  const shouldReduceMotion = useReducedMotion()
+  const { enhancedData, isEnhancedDataLoading, enhancedDataError } = FetchEnhancedRaceData(force, race, month)
   return (
-      <Modal
-        opened={raceModalOpen}
-        onClose={() => setRaceModalOpen(false)}
-        fullScreen
-        zIndex={999}
-        transition='fade'
-        transitionDuration={400}
-      >
-        {
-          <SimpleGrid cols={1} spacing="xl">              
-            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[startDate.month()]}, {startDate.year()}</Title>
-            {modalError.error ? 
-            <Paper withBorder p="xl" radius="xl">
-              <Text
+    <Modal
+      opened={raceModalOpen}
+      onClose={() => openRaceModal(false)}
+      fullScreen
+      zIndex={999}
+      transition={shouldReduceMotion ? undefined : 'fade'}
+      transitionDuration={shouldReduceMotion ? 0 : 400}
+    >
+      {
+        <SimpleGrid cols={1} spacing="xl">              
+          <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[datePickerDate.month()]}, {datePickerDate.year()}</Title>
+          {enhancedDataError ? 
+          <Paper withBorder p="xl" radius="xl">
+            <Text
                 color="dimmed"
                 transform="uppercase"
                 weight={700}
                 size="md"
-                >
-                {modalError.message}
+              >
+                {enhancedDataError.message} 
               </Text>
-            </Paper>
-             :
-            isEnhancedDataLoading ?
-            <Flex
-              mih={500}
-              justify="center"
-              align="center"
-              direction="column"
-            >
-              <Loader variant="bars" size='md' />
-            </Flex> :
-             <RaceModalCharts enhancedRaceData={enhancedRaceData!} race={race}/>}
-          </SimpleGrid>
-        }
-      </Modal>
+              {
+                enhancedDataError.status ?
+                <Text
+                  color="dimmed"
+                  transform="uppercase"
+                  weight={700}
+                  size="md"
+                >
+                  Status code: {enhancedDataError.status} 
+                </Text>
+                :
+                undefined
+              }
+              {
+                enhancedDataError.info ?
+                <Text
+                  color="dimmed"
+                  transform="uppercase"
+                  weight={700}
+                  size="md"
+                >
+                  Error: {enhancedDataError.info.message}
+                </Text>
+                :
+                undefined
+              }
+          </Paper>
+           :
+          isEnhancedDataLoading ?
+          <Flex
+            mih={500}
+            justify="center"
+            align="center"
+            direction="column"
+          >
+            <Loader variant="bars" size='md' />
+          </Flex> :
+           <RaceModalCharts enhancedData={enhancedData} race={race}/>}
+        </SimpleGrid>
+      }
+    </Modal>
   )
 }
 

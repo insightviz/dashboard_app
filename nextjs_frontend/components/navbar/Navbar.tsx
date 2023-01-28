@@ -8,19 +8,74 @@ import { Burger } from '@mantine/core';
 import { useReducedMotion, m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
+import { Group, Avatar, Text, Select } from '@mantine/core';
+import { forwardRef } from 'react';
 
 const SelectWrapper = dynamic(() =>
   import('../select/SelectWrapper')
 )
+const ReactGA = ( await import('react-ga4')).default
+
+const themeOptions = [
+  {
+    image: 
+    <Avatar>
+      <Display size={20}/>
+    </Avatar>,
+    label: 'System',
+    value: 'system',
+  },
+  {
+    image: 
+    <Avatar color="yellow">
+      <Sun size={20}/>
+    </Avatar>,
+    label: 'Light',
+    value: 'light',
+  },
+  {
+    image: 
+    <Avatar color="dark">
+      <Moon size={20}/>
+    </Avatar>,
+    label: 'Dark',
+    value: 'dark',
+  },
+];
+
+interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+  image: string;
+  label: string;
+  description: string;
+}
+
+const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+  ({ image, label, description, ...others }: ItemProps, ref) => (
+    <div ref={ref} {...others}>
+      <Group noWrap>
+        {image}
+        <div>
+          <Text size="sm">{label}</Text>
+          <Text size="xs" opacity={0.65}>
+            {description}
+          </Text>
+        </div>
+      </Group>
+    </div>
+  )
+);
+
+SelectItem.displayName = "SelectItem";
 
 interface NavbarProps {
   click: boolean,
   handleClick: () => void,
   closeMobileMenu: () => void,
   handleThemeToggle: () => void,
+  handleThemeSelectChange: (e:string) => void,
 }
 
-function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: NavbarProps) {
+function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handleThemeSelectChange }: NavbarProps) {
   const { mode, theme } = useAppThemeContext();
   const shouldReduceMotion = useReducedMotion()
   const { width } = useViewportSize()
@@ -35,12 +90,13 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: Navb
               onClick={handleClick}
               size='md'
               color={theme == 'dark' ? '#C1C2C5' : '#000'}
+              aria-label='Menu button'
             />
             :
             <></>
           }
         </div>
-        <Link href="/" className={styles.logoContainer}>
+        <Link href="/" className={styles.logoContainer} aria-label='Home'>
           <svg className={styles.navbarLogo} width="160" height="71" viewBox="0 0 160 71" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path className={styles.bulb} d="M18.0754 52.72C17.9595 52.7214 17.8445 52.6995 17.7371 52.6558C17.6297 52.612 17.5322 52.5473 17.4502 52.4653C17.3682 52.3833 17.3034 52.2858 17.2597 52.1784C17.2159 52.071 17.1941 51.956 17.1954 51.84V44.57C17.1899 43.5632 16.9673 42.5695 16.5428 41.6566C16.1182 40.7436 15.5018 39.933 14.7354 39.28C12.4892 37.3656 10.7608 34.9167 9.70941 32.159C8.65802 29.4012 8.31743 26.4232 8.71902 23.4993C9.12061 20.5754 10.2515 17.7995 12.0074 15.4273C13.7634 13.0551 16.088 11.1629 18.7672 9.92496C21.4464 8.68699 24.394 8.14305 27.3386 8.34325C30.2832 8.54345 33.1301 9.48135 35.617 11.0706C38.104 12.6598 40.1511 14.8492 41.5698 17.4372C42.9886 20.0253 43.7333 22.9287 43.7354 25.88C43.7354 26.1108 43.6438 26.3321 43.4806 26.4952C43.3174 26.6584 43.0962 26.75 42.8654 26.75C42.6347 26.75 42.4134 26.6584 42.2502 26.4952C42.0871 26.3321 41.9954 26.1108 41.9954 25.88C42.0002 23.7602 41.5797 21.661 40.7588 19.7066C39.9379 17.7522 38.7333 15.9823 37.2163 14.5017C35.6993 13.0211 33.9008 11.8598 31.927 11.0866C29.9533 10.3133 27.8445 9.94387 25.7254 10C22.4943 10.0547 19.3573 11.0964 16.7352 12.9852C14.1131 14.874 12.1315 17.5196 11.0562 20.567C9.98091 23.6144 9.8634 26.9178 10.7195 30.0339C11.5755 33.15 13.3642 35.9297 15.8454 38C16.8099 38.8127 17.5852 39.8261 18.1172 40.9696C18.6492 42.113 18.925 43.3589 18.9254 44.62V51.89C18.9153 52.1104 18.8219 52.3186 18.6641 52.4727C18.5063 52.6268 18.2959 52.7152 18.0754 52.72Z" fill="white"/>
           <path className={styles.bulb} d="M26.1253 9.09311e-05C26.05 -0.00126484 25.9753 0.0125524 25.9055 0.0407176C25.8358 0.0688828 25.7724 0.110818 25.7192 0.16402C25.666 0.217222 25.6241 0.280599 25.5959 0.350368C25.5677 0.420136 25.5539 0.494864 25.5553 0.570091V5.88009C25.5735 6.017 25.6409 6.14263 25.7448 6.23362C25.8487 6.3246 25.9821 6.37476 26.1203 6.37476C26.2584 6.37476 26.3918 6.3246 26.4957 6.23362C26.5997 6.14263 26.667 6.017 26.6853 5.88009V0.570091C26.6866 0.495714 26.6731 0.421817 26.6455 0.352716C26.618 0.283615 26.577 0.220695 26.5248 0.167631C26.4727 0.114566 26.4105 0.0724203 26.3419 0.0436544C26.2733 0.0148885 26.1997 7.90696e-05 26.1253 9.09311e-05Z" fill="white"/>
@@ -62,6 +118,7 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: Navb
         </div>
         <AnimatePresence initial={false} mode="wait">
           {
+            width < 901 ?
             mode==='system' ? 
             <LazyMotion features={domAnimation}>
               <m.div
@@ -97,12 +154,21 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle }: Navb
                 <Moon size={24}/>
               </m.div>
             </LazyMotion>)
+            :
+            <></>
           }
         </AnimatePresence>
         <div className={styles.themeSelect}>
           {
             width > 900 ?
-            <SelectWrapper /> 
+            <SelectWrapper 
+              itemComponent={SelectItem}
+              selectOptions={themeOptions}
+              icons={mode == 'system' ? <Avatar><Display size={20}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={20}/> </Avatar>: <Avatar color="dark"><Moon size={20}/></Avatar>}
+              value={mode}
+              onChange={handleThemeSelectChange}
+              ariaLabel='Theme Select'
+              /> 
             :
             <></>
           }

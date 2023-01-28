@@ -45,4 +45,4 @@ const allForceOptions = [
   {value: 'wiltshire', label: 'Wiltshire Police'}
 ]
 
-export { allForceOptions };
+export default allForceOptions ;

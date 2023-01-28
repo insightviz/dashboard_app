@@ -1,10 +1,16 @@
 import '../styles/globals.css'
 import { AppProps } from 'next/app';
 import Script from 'next/script'
+import { SWRConfig } from 'swr';
+import { fetcher } from '../assets/UtilFunctions';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return ( 
-    <>
+    <SWRConfig
+      value={{
+        fetcher: fetcher
+      }}
+    >
       <Script id="google-tag">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -13,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           })(window,document,'script','dataLayer','GTM-PL5CDQD');;`}
       </Script>
       <Component {...pageProps}/>
-    </>
+    </SWRConfig>    
   )
 }
 
