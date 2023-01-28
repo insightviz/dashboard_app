@@ -51,15 +51,39 @@ const StopSearchModal = ({
           {enhancedDataError ? 
           <Paper withBorder p="xl" radius="xl">
             <Text
-              color="dimmed"
-              transform="uppercase"
-              weight={700}
-              size="md"
+                color="dimmed"
+                transform="uppercase"
+                weight={700}
+                size="md"
               >
-              {enhancedDataError.message} 
-              Status code: {enhancedDataError.status} 
-              Error: {enhancedDataError.info}
-            </Text>
+                {enhancedDataError.message} 
+              </Text>
+              {
+                enhancedDataError.status ?
+                <Text
+                  color="dimmed"
+                  transform="uppercase"
+                  weight={700}
+                  size="md"
+                >
+                  Status code: {enhancedDataError.status} 
+                </Text>
+                :
+                undefined
+              }
+              {
+                enhancedDataError.info ?
+                <Text
+                  color="dimmed"
+                  transform="uppercase"
+                  weight={700}
+                  size="md"
+                >
+                  Error: {enhancedDataError.info.message}
+                </Text>
+                :
+                undefined
+              }
           </Paper>
           :
           isEnhancedDataLoading ?

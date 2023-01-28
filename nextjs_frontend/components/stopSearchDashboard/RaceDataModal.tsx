@@ -28,44 +28,68 @@ const RaceModal = ({
   const shouldReduceMotion = useReducedMotion()
   const { enhancedData, isEnhancedDataLoading, enhancedDataError } = FetchEnhancedRaceData(force, race, month)
   return (
-      <Modal
-        opened={raceModalOpen}
-        onClose={() => openRaceModal(false)}
-        fullScreen
-        zIndex={999}
-        transition={shouldReduceMotion ? undefined : 'fade'}
-        transitionDuration={shouldReduceMotion ? 0 : 400}
-      >
-        {
-          <SimpleGrid cols={1} spacing="xl">              
-            <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[datePickerDate.month()]}, {datePickerDate.year()}</Title>
-            {enhancedDataError ? 
-            <Paper withBorder p="xl" radius="xl">
-              <Text
+    <Modal
+      opened={raceModalOpen}
+      onClose={() => openRaceModal(false)}
+      fullScreen
+      zIndex={999}
+      transition={shouldReduceMotion ? undefined : 'fade'}
+      transitionDuration={shouldReduceMotion ? 0 : 400}
+    >
+      {
+        <SimpleGrid cols={1} spacing="xl">              
+          <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[datePickerDate.month()]}, {datePickerDate.year()}</Title>
+          {enhancedDataError ? 
+          <Paper withBorder p="xl" radius="xl">
+            <Text
                 color="dimmed"
                 transform="uppercase"
                 weight={700}
                 size="md"
-                >
+              >
                 {enhancedDataError.message} 
-                Status code: {enhancedDataError.status} 
-                Error: {enhancedDataError.info}
               </Text>
-            </Paper>
-             :
-            isEnhancedDataLoading ?
-            <Flex
-              mih={500}
-              justify="center"
-              align="center"
-              direction="column"
-            >
-              <Loader variant="bars" size='md' />
-            </Flex> :
-             <RaceModalCharts enhancedData={enhancedData} race={race}/>}
-          </SimpleGrid>
-        }
-      </Modal>
+              {
+                enhancedDataError.status ?
+                <Text
+                  color="dimmed"
+                  transform="uppercase"
+                  weight={700}
+                  size="md"
+                >
+                  Status code: {enhancedDataError.status} 
+                </Text>
+                :
+                undefined
+              }
+              {
+                enhancedDataError.info ?
+                <Text
+                  color="dimmed"
+                  transform="uppercase"
+                  weight={700}
+                  size="md"
+                >
+                  Error: {enhancedDataError.info.message}
+                </Text>
+                :
+                undefined
+              }
+          </Paper>
+           :
+          isEnhancedDataLoading ?
+          <Flex
+            mih={500}
+            justify="center"
+            align="center"
+            direction="column"
+          >
+            <Loader variant="bars" size='md' />
+          </Flex> :
+           <RaceModalCharts enhancedData={enhancedData} race={race}/>}
+        </SimpleGrid>
+      }
+    </Modal>
   )
 }
 

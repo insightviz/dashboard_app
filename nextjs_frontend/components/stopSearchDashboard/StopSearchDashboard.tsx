@@ -104,15 +104,15 @@ const StopSearchDashboard = ({
                 key="error-message">
                 {
                   typeof data == 'string' ?
-                  <ErrorWrapper errorMessage={data}/>
+                  <ErrorWrapper message={data}/>
                   :
                   dataError ? 
-                  <ErrorWrapper errorMessage={dataError!.message} errorStatus={dataError!.status} errorInfo={dataError!.info} />
+                  <ErrorWrapper message={dataError!.message} status={dataError!.status} info={dataError!.info} />
                   :
                   forceError ?
-                  <ErrorWrapper errorMessage={forceError!.message} errorStatus={forceError!.status} errorInfo={forceError!.info} />
+                  <ErrorWrapper message={forceError!.message} status={forceError!.status} info={forceError!.info} />
                   :
-                  <ErrorWrapper errorMessage={monthsError!.message} errorStatus={monthsError!.status} errorInfo={monthsError!.info} />
+                  <ErrorWrapper message={monthsError!.message} status={monthsError!.status} info={monthsError!.info} />
                 }
               </m.div>
             </LazyMotion>

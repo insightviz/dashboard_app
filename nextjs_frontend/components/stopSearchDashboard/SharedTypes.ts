@@ -1,5 +1,5 @@
 export interface error {
-  info?: string,
+  info?: Record<string, string>,
   status?: number,
   message: string | null
 }
