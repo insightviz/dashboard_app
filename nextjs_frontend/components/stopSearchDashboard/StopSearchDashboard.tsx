@@ -55,7 +55,7 @@ const StopSearchDashboard = ({
     if (monthsData) {
       changeDatePickerDate(dayjs(monthsData.slice(-1)[0]))
     }
-  }, [monthsData, changeDatePickerDate])
+  }, [monthsData])
 
   return (
     <div className={styles.stopSearchDashboard}>
