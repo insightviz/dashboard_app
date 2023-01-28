@@ -4,7 +4,6 @@ import React from "react";
 import { AnimatePresence, useReducedMotion, m, LazyMotion, domAnimation } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
-import DatePickerWrapper from '../datePicker/DatePicker';
 import dayjs, { Dayjs } from "dayjs";
 import Image from 'next/image'
 import { useEffect } from 'react';
@@ -18,6 +17,9 @@ const StatsGridIcons = dynamic(() => import('./StatsGrid'), {
 })
 const SelectWrapper = dynamic(() =>
   import('../select/SelectWrapper')
+)
+const DatePickerWrapper = dynamic(() =>
+  import('../datePicker/DatePicker')
 )
 const ErrorWrapper = dynamic(() =>
   import('./errorComponent/ErrorWarning')
