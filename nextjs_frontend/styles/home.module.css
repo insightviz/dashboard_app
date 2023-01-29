@@ -126,66 +126,9 @@
   color: var(--text-colour);
   min-width: 100%;
 }
-.stop_search {
-  position: relative;
-  width: 100%;
-  cursor: pointer;
-  z-index: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@media (min-width: 1300px) {
-  .stop_search {
-    max-width: 1300px;
-  }
-  
-  .image {
-    border-radius: 3.2rem;
-  }
-}
-
 
 .text_card {
-  background-color: var(--bg-colour-2);
-  padding: 2.4rem;
-  width: clamp(20rem, 80%, 30rem);
-  font-family: var(--noto-font);
-  border-radius: 3.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-  border: 1px solid var(--card-border);
-  z-index: 1;
-  position: relative;
-}
-
-.image {
-  z-index: 0;
-}
-
-.text_card p {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.text_card a:visited {
-  color: var(--text-colour);
-}
-
-.text_card a:hover {
-  color: var(--brand-orange);
-}
-
-.text_card h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: var(--font-size--ml);
-  font-weight: 700;
-}
-
-.text_card p, .text_card a {
-  font-weight: 700;
-  font-size: var(--font-size--default);
+  width: 100vw;
+  min-width: 28rem;
+  max-width: 64rem;
 }
