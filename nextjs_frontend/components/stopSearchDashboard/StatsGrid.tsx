@@ -212,6 +212,7 @@ export default function StatsGridIcons({
             breakpoints={[
               { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
               { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
+              { maxWidth: 350, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
             ]} spacing="xl">
             {raceBreakdownStats}
           </SimpleGrid>
@@ -220,6 +221,7 @@ export default function StatsGridIcons({
             breakpoints={[
               { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
               { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
+              { maxWidth: 350, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
             ]} spacing="xl">
             {genderBreakdownStats}
           </SimpleGrid>
