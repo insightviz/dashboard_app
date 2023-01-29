@@ -65,35 +65,25 @@ const StopSearchDashboard = ({
       <div className={styles.selectContainer}>
         <Title order={2} size={24}>Select options</Title>
         <div className={styles.selectInputs}>
-          <div className={styles.forceDropdown}>
-            {
-              forcesData && (
-                <>
-                  <span>Select police force:</span>
-                  <SelectWrapper
-                    selectOptions={forcesData}
-                    value={force}
-                    onChange={handleForceChange}
-                    maxDropdownHeight={300}
-                    ariaLabel='Police Force Select'
-                    />
-                </>
-              )
-            }
+          <div className={styles.forceDropdown}>            
+            <span>Select police force:</span>
+            <SelectWrapper
+              selectOptions={forcesData?forcesData:['Loading...']}
+              value={forcesData?force:'Loading...'}
+              onChange={handleForceChange}
+              maxDropdownHeight={300}
+              ariaLabel='Police Force Select'
+              disabled={forcesData?false:true}
+              />
           </div>
-          <div className={styles.monthPicker}>
-            {
-              monthsData && (
-                <>
-                  <span>Select month:</span>
-                  <DatePickerWrapper
-                    monthsData={monthsData}
-                    datePickerDate={datePickerDate}
-                    handleMonthChange={handleMonthChange}
-                    />
-                </>
-              )
-            }
+          <div className={styles.monthPicker}>           
+            <span>Select month:</span>
+            <DatePickerWrapper
+              monthsData={monthsData?monthsData:[dayjs()]}
+              datePickerDate={datePickerDate}
+              handleMonthChange={handleMonthChange}
+              disabled={monthsData?false:true}
+              />
           </div>
         </div>
       </div>
@@ -141,7 +131,7 @@ const StopSearchDashboard = ({
             </LazyMotion> :
             <StatsGridIcons 
               data={data} 
-              startDate={datePickerDate}
+              datePickerDate={datePickerDate}
               handleTotalClick={handleTotalClick}
               handleRaceChange={handleRaceChange}
               handleGenderChange={handleGenderChange}
