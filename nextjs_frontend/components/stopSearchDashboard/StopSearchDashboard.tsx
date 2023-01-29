@@ -75,6 +75,7 @@ const StopSearchDashboard = ({
               ariaLabel='Police Force Select'
               disabled={forcesData?false:true}
               className={styles.forceDropdown}
+              icons={forcesData?undefined:<Loader size='sm' />}
               />
           </div>
           <div className={styles.monthPickerWrapper}>           
