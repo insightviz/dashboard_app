@@ -52,7 +52,7 @@ const ThemeProvider = ({ children }: AppThemeProps) => {
 
   return (
     <ThemeContext.Provider value={{ theme, mode, changeMode }}>
-      {children}
+      { theme && (children)}
     </ThemeContext.Provider>
   );
 }
