@@ -80,20 +80,19 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handle
   return (
     <header className={styles.navbar}>
       <nav className={styles.navbarContainer}>
-        <div className={styles.menuIcon} onClick={handleClick}>
-          {
-            width < 901 ?
-            <Burger
-              opened={click}
-              onClick={handleClick}
-              size='md'
-              color={theme == 'dark' ? '#C1C2C5' : '#000'}
-              aria-label='Menu button'
-            />
-            :
-            <></>
-          }
-        </div>
+        {
+          width < 901 ?
+          <Burger
+            opened={click}
+            onClick={handleClick}
+            size='md'
+            color={theme == 'dark' ? '#C1C2C5' : '#000'}
+            aria-label='Menu button'
+            className={styles.menuIcon}
+          />
+          :
+          <></>
+        }
         <Link href="/" className={styles.logoContainer} aria-label='Home'>
           <svg className={styles.navbarLogo} width="160" height="71" viewBox="0 0 160 71" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path className={styles.bulb} d="M18.0754 52.72C17.9595 52.7214 17.8445 52.6995 17.7371 52.6558C17.6297 52.612 17.5322 52.5473 17.4502 52.4653C17.3682 52.3833 17.3034 52.2858 17.2597 52.1784C17.2159 52.071 17.1941 51.956 17.1954 51.84V44.57C17.1899 43.5632 16.9673 42.5695 16.5428 41.6566C16.1182 40.7436 15.5018 39.933 14.7354 39.28C12.4892 37.3656 10.7608 34.9167 9.70941 32.159C8.65802 29.4012 8.31743 26.4232 8.71902 23.4993C9.12061 20.5754 10.2515 17.7995 12.0074 15.4273C13.7634 13.0551 16.088 11.1629 18.7672 9.92496C21.4464 8.68699 24.394 8.14305 27.3386 8.34325C30.2832 8.54345 33.1301 9.48135 35.617 11.0706C38.104 12.6598 40.1511 14.8492 41.5698 17.4372C42.9886 20.0253 43.7333 22.9287 43.7354 25.88C43.7354 26.1108 43.6438 26.3321 43.4806 26.4952C43.3174 26.6584 43.0962 26.75 42.8654 26.75C42.6347 26.75 42.4134 26.6584 42.2502 26.4952C42.0871 26.3321 41.9954 26.1108 41.9954 25.88C42.0002 23.7602 41.5797 21.661 40.7588 19.7066C39.9379 17.7522 38.7333 15.9823 37.2163 14.5017C35.6993 13.0211 33.9008 11.8598 31.927 11.0866C29.9533 10.3133 27.8445 9.94387 25.7254 10C22.4943 10.0547 19.3573 11.0964 16.7352 12.9852C14.1131 14.874 12.1315 17.5196 11.0562 20.567C9.98091 23.6144 9.8634 26.9178 10.7195 30.0339C11.5755 33.15 13.3642 35.9297 15.8454 38C16.8099 38.8127 17.5852 39.8261 18.1172 40.9696C18.6492 42.113 18.925 43.3589 18.9254 44.62V51.89C18.9153 52.1104 18.8219 52.3186 18.6641 52.4727C18.5063 52.6268 18.2959 52.7152 18.0754 52.72Z" fill="white"/>
@@ -156,21 +155,20 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handle
             <></>
           }
         </AnimatePresence>
-        <div className={styles.themeSelect}>
-          {
-            width > 900 ?
-            <SelectWrapper 
-              itemComponent={SelectItem}
-              selectOptions={themeOptions}
-              icons={mode == 'system' ? <Avatar><Display size={20}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={20}/> </Avatar>: <Avatar color="dark"><Moon size={20}/></Avatar>}
-              value={mode}
-              onChange={handleThemeSelectChange}
-              ariaLabel='Theme Select'
-              /> 
-            :
-            <></>
-          }
-        </div>
+        {
+          width > 900 ?
+          <SelectWrapper 
+            itemComponent={SelectItem}
+            selectOptions={themeOptions}
+            icons={mode == 'system' ? <Avatar><Display size={20}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={20}/> </Avatar>: <Avatar color="dark"><Moon size={20}/></Avatar>}
+            value={mode}
+            onChange={handleThemeSelectChange}
+            ariaLabel='Theme Select'
+            className={styles.themeSelect}
+            /> 
+          :
+          <></>
+        }
       </nav> 
     </header>
   );

@@ -10,6 +10,7 @@ interface SelectWrapperProps {
   maxDropdownHeight?: number,
   ariaLabel?: string
   disabled?: boolean
+  className?: string
 }
 
 function SelectWrapper({
@@ -20,7 +21,8 @@ function SelectWrapper({
   onChange,
   maxDropdownHeight,
   ariaLabel,
-  disabled
+  disabled,
+  className
 }:SelectWrapperProps) {
   const shouldReduceMotion = useReducedMotion()
   return (
@@ -35,6 +37,7 @@ function SelectWrapper({
       maxDropdownHeight={maxDropdownHeight}
       aria-label={ariaLabel}
       disabled={disabled}
+      className={className}
     />        
   );
 }
