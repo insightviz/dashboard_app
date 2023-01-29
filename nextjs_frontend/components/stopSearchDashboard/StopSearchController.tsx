@@ -155,17 +155,21 @@ const StopSearchDashboardController = () => {
           />
         )
       }
-      <StopSearchDashboard
-        force={force}
-        month={month}
-        handleForceChange={handleForceChange}
-        handleMonthChange={handleMonthChange}
-        handleTotalClick={handleTotalClick}
-        handleRaceChange={handleRaceChange}
-        handleGenderChange={handleGenderChange}
-        changeDatePickerDate={changeDatePickerDate}
-        datePickerDate={datePickerDate}
-      />
+      {
+        force && (
+          <StopSearchDashboard
+            force={force}
+            month={month}
+            handleForceChange={handleForceChange}
+            handleMonthChange={handleMonthChange}
+            handleTotalClick={handleTotalClick}
+            handleRaceChange={handleRaceChange}
+            handleGenderChange={handleGenderChange}
+            changeDatePickerDate={changeDatePickerDate}
+            datePickerDate={datePickerDate}
+          />          
+        )
+      }
     </>
   )
 }
