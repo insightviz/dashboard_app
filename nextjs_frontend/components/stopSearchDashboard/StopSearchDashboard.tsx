@@ -74,7 +74,7 @@ const StopSearchDashboard = ({
               maxDropdownHeight={300}
               ariaLabel='Police Force Select'
               disabled={forcesData?false:true}
-              className={styles.forceDropdown}
+              className={styles.forceSelect}
               icons={forcesData?undefined:<Loader size='sm' />}
               />
           </div>
