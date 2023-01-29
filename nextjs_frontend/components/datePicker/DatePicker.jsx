@@ -28,7 +28,8 @@ export default function DatePickerWrapper({
   monthsData,
   datePickerDate,
   handleMonthChange,
-  disabled
+  disabled,
+  className
 }) {
   const { theme } = useAppThemeContext();
 
@@ -76,6 +77,7 @@ export default function DatePickerWrapper({
           value={datePickerDate}
           onChange={handleMonthChange}
           disabled={disabled}
+          className={className}
           renderInput={(params) => <CssTextField {...params} helperText={null} size="small" fullWidth/>}
         />
       </LocalizationProvider>
