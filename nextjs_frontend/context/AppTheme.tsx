@@ -1,5 +1,4 @@
-import { useState, useEffect, createContext, useContext, Dispatch, SetStateAction } from 'react';
-import { setCookie } from  'cookies-next';
+import { useState, useEffect, createContext, useContext } from 'react';
 
 export const ThemeContext = createContext({
   mode: "",
@@ -8,23 +7,26 @@ export const ThemeContext = createContext({
 });
 
 interface AppThemeProps {
-  children: React.ReactNode,
-  savedMode: string,
-  savedTheme: string
+  children: React.ReactNode
 }
 
-const ThemeProvider = ({ children, savedMode, savedTheme }: AppThemeProps) => {
+const ThemeProvider = ({ children }: AppThemeProps) => {
   // This holds the information about dark mode/light mode
-  const [mode, setMode] = useState(savedMode);
-  const [theme, setTheme] = useState(savedTheme);
+  const [mode, setMode] = useState<string>('');
+  const [theme, setTheme] = useState<string>('');
 
-  const changeMode = (e: string) => {setMode(e)}
+  const changeMode = (e: string) => {
+    setMode(e)
+    localStorage.setItem('insightMode', e);
+  }
     
   useEffect(() => {
-    setCookie('insightMode', mode);
+    setMode(localStorage.getItem('insightMode') || 'system') 
+  }, []);
+
+  useEffect(() => {
     if (mode !== "system") {
       setTheme(mode);
-      setCookie('insightTheme', mode);
       document.body.dataset.theme = mode;
       return;
     }
@@ -33,7 +35,7 @@ const ThemeProvider = ({ children, savedMode, savedTheme }: AppThemeProps) => {
     const newTheme = isSystemInDarkMode.matches ? "dark" : "light"
     // If system mode, immediately change theme according to the current system value
     setTheme(newTheme);
-    setCookie('insightTheme', newTheme);
+    localStorage.setItem('insightTheme', newTheme);
     // Set data-theme attribute to selected theme for body tag
     document.body.dataset.theme = newTheme;
   

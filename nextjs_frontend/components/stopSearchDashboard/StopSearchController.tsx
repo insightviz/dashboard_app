@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StopSearchDashboard from "./StopSearchDashboard";
-import { setCookie } from  'cookies-next';
 import dynamic from 'next/dynamic'
 import dayjs, { Dayjs } from "dayjs";
 
@@ -15,12 +14,8 @@ const GenderModal = dynamic(() => import('./GenderDataModal'), {
 })
 const ReactGA = ( await import('react-ga4')).default
 
-interface ServerProps {
-  savedForce: string 
-}
-
-const StopSearchDashboardController = ({savedForce}: ServerProps) => { 
-  const [force, setForce] = useState(savedForce);
+const StopSearchDashboardController = () => { 
+  const [force, setForce] = useState<string>('');
   const [month, setMonth] = useState<string>('');
   const [race, setRace] = useState<string>('');
   const [gender, setGender] = useState<string>('');
@@ -31,6 +26,10 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
   const [raceModalOpen, setRaceModalOpen] = useState<boolean>(false)
   const [genderModalOpen, setGenderModalOpen] = useState<boolean>(false)
   const [monthSliderValue, setMonthSliderValue] = useState<string>('12')
+
+  useEffect(() => {
+    setForce(localStorage.getItem('insightStopSearchForce') || 'metropolitan')
+  }, [])
 
   function changeDatePickerDate (e: Dayjs) {
     setDatePickerDate(e)
@@ -49,7 +48,7 @@ const StopSearchDashboardController = ({savedForce}: ServerProps) => {
     if (e!=force) {
       setMonth('');
       setForce(e);
-      setCookie('insightStopSearchForce', e);
+      localStorage.setItem('insightStopSearchForce', e);
       setRace('');
       setGender('');
       setMonthSliderValue('12');
