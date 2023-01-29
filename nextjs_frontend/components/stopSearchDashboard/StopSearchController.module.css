@@ -45,7 +45,7 @@
 }
 
 .forceSelect {
-    width: 28rem;
+    width: 28rem !important;
 }
 
 .selectInputs span {
@@ -59,7 +59,7 @@
 }
 
 .monthPicker {
-    width: 28rem;
+    width: 28rem !important;
 }
 
 .statsGrid {
