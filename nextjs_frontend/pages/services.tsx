@@ -9,7 +9,7 @@ export default function Services() {
         <title>Services</title>
         <meta name='description' content='Services page'/>
       </Head>
-      <Title order={1} align="center" size={32} mt={20}>Nothing to see on the services page</Title>
+      <Title order={1} align="center" size={32} mt={20} ml={20} mr={20}>Nothing to see on the services page</Title>
       <Flex
         mih={200}
         justify="center"
