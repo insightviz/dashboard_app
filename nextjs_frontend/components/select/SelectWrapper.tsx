@@ -38,6 +38,7 @@ function SelectWrapper({
       aria-label={ariaLabel}
       disabled={disabled}
       className={className}
+      zIndex={1500}
     />        
   );
 }
