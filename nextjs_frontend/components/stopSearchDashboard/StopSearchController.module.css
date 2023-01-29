@@ -131,3 +131,10 @@
         align-items: flex-start;
     }
 }
+
+@media(max-width: 450px) {
+    .avatarImages {
+        flex-direction: column;
+        align-items: center;
+    }
+}
