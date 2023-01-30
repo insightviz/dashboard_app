@@ -37,5 +37,5 @@
 }
 
 .firstNameContainer, .emailContainer {
-    min-width: 30rem;
+    width: clamp(22rem, 100%, 28.467rem);
 }

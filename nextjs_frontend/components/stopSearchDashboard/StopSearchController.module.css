@@ -43,6 +43,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: clamp(22rem, 100%, 26.86730rem);
 }
 
 .selectInputs span {
@@ -54,7 +55,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 20.6rem;
+    width: clamp(22rem, 100%, 26.86730rem);
 }
 
 .statsGrid {
@@ -128,5 +129,12 @@
     .contributors {
         justify-content: center;
         align-items: flex-start;
+    }
+}
+
+@media(max-width: 450px) {
+    .avatarImages {
+        flex-direction: column;
+        align-items: center;
     }
 }

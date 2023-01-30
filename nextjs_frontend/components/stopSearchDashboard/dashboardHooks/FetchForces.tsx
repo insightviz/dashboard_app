@@ -1,5 +1,5 @@
 import { forceSelectOption, error } from '../SharedTypes';
-import useSWRImmutable from 'swr'
+import useSWRImmutable from 'swr/immutable'
 
 export default function FetchForces () {
   const { data, isLoading, error } = useSWRImmutable<forceSelectOption[], error>('/stopsearch/forces')

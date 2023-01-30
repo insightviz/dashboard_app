@@ -49,9 +49,9 @@ const StopSearchDashboard = ({
 }: DashboardProps) => { 
   const { width } = useViewportSize();
   const shouldReduceMotion = useReducedMotion()
-  const { data, isDataLoading, dataError } = FetchData(force, month)
-  const { forcesData, isForcesLoading, forceError } = FetchForces()
-  const { monthsData, isMonthsLoading, monthsError } = FetchMonths(force)
+  const { data, dataError } = FetchData(force, month)
+  const { forcesData, forceError } = FetchForces()
+  const { monthsData, monthsError } = FetchMonths(force)
 
   useEffect(() => {
     if (monthsData) {
@@ -65,31 +65,25 @@ const StopSearchDashboard = ({
       <div className={styles.selectContainer}>
         <Title order={2} size={24}>Select options</Title>
         <div className={styles.selectInputs}>
-          <div className={styles.forceDropdown}>
+          <div className={styles.forceDropdown}>            
             <span>Select police force:</span>
-            {
-              forcesData && (
-                <SelectWrapper
-                  selectOptions={forcesData}
-                  value={force}
-                  onChange={handleForceChange}
-                  maxDropdownHeight={300}
-                  ariaLabel='Police Force Select'
-                  />
-              )
-            }
+            <SelectWrapper
+              selectOptions={forcesData?forcesData:['Loading...']}
+              value={forcesData?force:'Loading...'}
+              onChange={handleForceChange}
+              maxDropdownHeight={300}
+              ariaLabel='Police Force Select'
+              disabled={forcesData?false:true}
+              />
           </div>
-          <div className={styles.monthPicker}>
+          <div className={styles.monthPicker}>           
             <span>Select month:</span>
-            {
-              monthsData && (
-                <DatePickerWrapper
-                  monthsData={monthsData}
-                  datePickerDate={datePickerDate}
-                  handleMonthChange={handleMonthChange}
-                  />
-              )
-            }
+            <DatePickerWrapper
+              monthsData={monthsData?monthsData:[dayjs()]}
+              datePickerDate={datePickerDate}
+              handleMonthChange={handleMonthChange}
+              disabled={monthsData?false:true}
+              />
           </div>
         </div>
       </div>
@@ -119,7 +113,7 @@ const StopSearchDashboard = ({
               </m.div>
             </LazyMotion>
             :
-            isForcesLoading || isMonthsLoading || isDataLoading ?
+            !data ?
             <LazyMotion features={domAnimation}>
               <m.div
                 initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
@@ -136,8 +130,8 @@ const StopSearchDashboard = ({
               </m.div>
             </LazyMotion> :
             <StatsGridIcons 
-              data={data!} 
-              startDate={datePickerDate}
+              data={data} 
+              datePickerDate={datePickerDate}
               handleTotalClick={handleTotalClick}
               handleRaceChange={handleRaceChange}
               handleGenderChange={handleGenderChange}

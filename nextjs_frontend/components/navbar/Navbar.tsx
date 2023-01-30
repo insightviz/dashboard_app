@@ -4,17 +4,15 @@ import Moon from '@geist-ui/icons/moon';
 import Sun from '@geist-ui/icons/sun';
 import Display from '@geist-ui/icons/display';
 import { useAppThemeContext } from '../../context/AppTheme';
-import { Burger } from '@mantine/core';
 import { useReducedMotion, m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { useViewportSize } from '@mantine/hooks';
 import dynamic from 'next/dynamic'
-import { Group, Avatar, Text, Select } from '@mantine/core';
+import { Group, Avatar, Text, Burger } from '@mantine/core';
 import { forwardRef } from 'react';
 
 const SelectWrapper = dynamic(() =>
   import('../select/SelectWrapper')
 )
-const ReactGA = ( await import('react-ga4')).default
 
 const themeOptions = [
   {

@@ -13,7 +13,7 @@ const months = getMonthsNames('en', 'MMMM');
 
 interface StatsUIProps {
 data: Data,
-startDate: Dayjs,
+datePickerDate: Dayjs,
 handleTotalClick: () => void,
 handleRaceChange: (race: string ) => void,
 handleGenderChange: (gender: string ) => void,
@@ -22,7 +22,7 @@ force: string
 
 export default function StatsGridIcons({
   data, 
-  startDate,
+  datePickerDate,
   handleTotalClick,
   handleRaceChange,
   handleGenderChange,
@@ -55,7 +55,7 @@ export default function StatsGridIcons({
                   weight={700}
                   size="sm"
                 >
-                  {force.replace(/[-]/g, ' ')} searches in {months[startDate.month()]}, {startDate.year()}
+                  {force.replace(/[-]/g, ' ')} searches in {months[datePickerDate.month()]}, {datePickerDate.year()}
                 </Text>
                 <Text weight={700} size={32}>
                   {monthly_no_stop_search.monthly_no_stop_search}
@@ -212,6 +212,7 @@ export default function StatsGridIcons({
             breakpoints={[
               { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
               { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
+              { maxWidth: 350, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
             ]} spacing="xl">
             {raceBreakdownStats}
           </SimpleGrid>
@@ -220,6 +221,7 @@ export default function StatsGridIcons({
             breakpoints={[
               { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
               { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
+              { maxWidth: 350, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
             ]} spacing="xl">
             {genderBreakdownStats}
           </SimpleGrid>
