@@ -204,7 +204,7 @@ export default function StatsGridIcons({
         ]}>
           <Divider size="lg" labelProps={{'size': '24px', weight: 700}} label="Total stop and searches" labelPosition="center" />
           <SimpleGrid cols={3} breakpoints={[{ maxWidth: 980, cols: 1 }]}>
-            <div></div>
+            {width<979?<></>:<div></div>}
             {totalStats(data)}
           </SimpleGrid>
           <Divider size="lg" labelProps={{'size': '24px', weight: 700}} label="Breakdown by race" labelPosition="center" />

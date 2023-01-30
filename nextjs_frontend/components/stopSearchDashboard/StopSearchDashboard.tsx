@@ -65,7 +65,7 @@ const StopSearchDashboard = ({
       <div className={styles.selectContainer}>
         <Title order={2} size={24}>Select options</Title>
         <div className={styles.selectInputs}>
-          <div className={styles.forceDropdown}>            
+          <div className={styles.forceSelectWrapper}>            
             <span>Select police force:</span>
             <SelectWrapper
               selectOptions={forcesData?forcesData:['Loading...']}
@@ -74,15 +74,18 @@ const StopSearchDashboard = ({
               maxDropdownHeight={300}
               ariaLabel='Police Force Select'
               disabled={forcesData?false:true}
+              className={styles.forceDropdown}
+              icons={forcesData?undefined:<Loader size='sm' />}
               />
           </div>
-          <div className={styles.monthPicker}>           
+          <div className={styles.monthPickerWrapper}>           
             <span>Select month:</span>
             <DatePickerWrapper
               monthsData={monthsData?monthsData:[dayjs()]}
               datePickerDate={datePickerDate}
               handleMonthChange={handleMonthChange}
               disabled={monthsData?false:true}
+              className={styles.monthPicker}
               />
           </div>
         </div>

@@ -29,7 +29,7 @@
 
 .logoContainer {
     display: flex;
-    padding-right: 5.2rem;
+    padding-right: 6rem;
 }
 
 .navbarLogo {
@@ -135,7 +135,7 @@ body[data-theme="dark"] .logoContainer:hover .name {
     
     .themeSelect {
         display: block;
-        max-width: 14rem;
+        width: 15rem;
     }
 
     .navMenu {
