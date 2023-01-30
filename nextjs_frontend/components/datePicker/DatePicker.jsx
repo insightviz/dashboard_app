@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
+import { useReducedMotion } from 'framer-motion';
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -32,6 +33,7 @@ export default function DatePickerWrapper({
   className
 }) {
   const { theme } = useAppThemeContext();
+  const shouldReduceMotion = useReducedMotion()
 
   const getDesignTokens = (theme) => ({
     palette: {
@@ -78,6 +80,7 @@ export default function DatePickerWrapper({
           onChange={handleMonthChange}
           disabled={disabled}
           className={className}
+          reduceAnimations={shouldReduceMotion}
           renderInput={(params) => <CssTextField {...params} helperText={null} size="small" fullWidth/>}
         />
       </LocalizationProvider>
