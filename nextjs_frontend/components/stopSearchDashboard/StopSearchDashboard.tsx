@@ -74,7 +74,7 @@ const StopSearchDashboard = ({
               maxDropdownHeight={300}
               ariaLabel='Police Force Select'
               disabled={forcesData?false:true}
-              className={styles.forceDropdown}
+              className={styles.forceSelect}
               icons={forcesData?undefined:<Loader size='sm' />}
               />
           </div>
@@ -91,57 +91,56 @@ const StopSearchDashboard = ({
         </div>
       </div>
       <div className={styles.statsGrid}>
-        <AnimatePresence initial={false} mode="wait">
-          {
-            dataError || forceError || monthsError || typeof data == 'string' ? 
-            <LazyMotion features={domAnimation}>
-              <m.div
-                initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-                key="error-message">
-                {
-                  typeof data == 'string' ?
-                  <ErrorWrapper message={data}/>
-                  :
-                  dataError ? 
-                  <ErrorWrapper message={dataError!.message} status={dataError!.status} info={dataError!.info} />
-                  :
-                  forceError ?
-                  <ErrorWrapper message={forceError!.message} status={forceError!.status} info={forceError!.info} />
-                  :
-                  <ErrorWrapper message={monthsError!.message} status={monthsError!.status} info={monthsError!.info} />
-                }
-              </m.div>
-            </LazyMotion>
-            :
-            !data ?
-            <LazyMotion features={domAnimation}>
-              <m.div
-                initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-                key="loader">
-                <Flex
-                  mih={width > 500 ? 637.08 : 350}
-                  justify="center"
-                  align="center"
-                  direction="column">
-                  <Loader variant="bars" size='md' />
-                </Flex>
-              </m.div>
-            </LazyMotion> :
-            <StatsGridIcons 
-              data={data} 
-              datePickerDate={datePickerDate}
-              handleTotalClick={handleTotalClick}
-              handleRaceChange={handleRaceChange}
-              handleGenderChange={handleGenderChange}
-              force={force}
-            />
-          }
-        </AnimatePresence>
+        <LazyMotion features={domAnimation}>
+          <AnimatePresence initial={false} mode="wait">
+            {
+              dataError || forceError || monthsError || typeof data == 'string' ? 
+                <m.div
+                  initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                  key="error-message">
+                  {
+                    typeof data == 'string' ?
+                    <ErrorWrapper message={data}/>
+                    :
+                    dataError ? 
+                    <ErrorWrapper message={dataError!.message} status={dataError!.status} info={dataError!.info} />
+                    :
+                    forceError ?
+                    <ErrorWrapper message={forceError!.message} status={forceError!.status} info={forceError!.info} />
+                    :
+                    <ErrorWrapper message={monthsError!.message} status={monthsError!.status} info={monthsError!.info} />
+                  }
+                </m.div>
+              :
+              !data ?
+                <m.div
+                  initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                  key="loader">
+                  <Flex
+                    mih={width > 500 ? 637.08 : 350}
+                    justify="center"
+                    align="center"
+                    direction="column">
+                    <Loader variant="bars" size='md' />
+                  </Flex>
+                </m.div>
+              :
+              <StatsGridIcons 
+                data={data} 
+                datePickerDate={datePickerDate}
+                handleTotalClick={handleTotalClick}
+                handleRaceChange={handleRaceChange}
+                handleGenderChange={handleGenderChange}
+                force={force}
+              />
+            }
+          </AnimatePresence>
+        </LazyMotion>
       </div>
       <div className={styles.contributors}>
         <Title order={2} size={24}>Contributors</Title>

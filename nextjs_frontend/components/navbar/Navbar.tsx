@@ -113,11 +113,11 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handle
           <Link href="/" className={styles.navLinks} onClick={closeMobileMenu}>Home</Link>
           <Link href="/services" className={styles.navLinks} onClick={closeMobileMenu}>Services</Link>
         </div>
-        <AnimatePresence initial={false} mode="wait">
-          {
-            width < 901 ?
-            mode==='system' ? 
-            <LazyMotion features={domAnimation}>
+        <LazyMotion features={domAnimation}>
+          <AnimatePresence initial={false} mode="wait">
+            {
+              width < 901 ?
+              mode==='system' ? 
               <m.div
                 className={styles.themeToggle} onClick={handleThemeToggle}
                 initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
@@ -127,9 +127,8 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handle
                 key="system">
                 <Display size={24}/>
               </m.div>
-            </LazyMotion> :
-            (mode==='light' ? 
-            <LazyMotion features={domAnimation}>
+              :
+              (mode==='light' ?             
               <m.div
                 className={styles.themeToggle} onClick={handleThemeToggle}
                 initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
@@ -139,8 +138,7 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handle
                 key="light">
                 <Sun size={24}/>
               </m.div>
-            </LazyMotion> :
-            <LazyMotion features={domAnimation}>
+              :            
               <m.div
                 className={styles.themeToggle} onClick={handleThemeToggle}
                 initial={{ y: shouldReduceMotion ? 0 : -15, scale: shouldReduceMotion ? 1 : .8 }}
@@ -150,11 +148,12 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handle
                 key="dark">
                 <Moon size={24}/>
               </m.div>
-            </LazyMotion>)
-            :
-            <></>
-          }
-        </AnimatePresence>
+              )
+              :
+              <></>
+            }
+          </AnimatePresence>
+        </LazyMotion>
         {
           width > 900 ?
           <SelectWrapper 
