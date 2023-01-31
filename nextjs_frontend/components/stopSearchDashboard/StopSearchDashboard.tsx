@@ -47,7 +47,7 @@ const StopSearchDashboard = ({
   handleGenderChange,
   changeDatePickerDate
 }: DashboardProps) => { 
-  const { width } = useViewportSize();
+  const { width, height } = useViewportSize();
   const shouldReduceMotion = useReducedMotion()
   const { data, dataError } = FetchData(force, month)
   const { forcesData, forceError } = FetchForces()
@@ -71,7 +71,7 @@ const StopSearchDashboard = ({
               selectOptions={forcesData?forcesData:['Loading...']}
               value={forcesData?force:'Loading...'}
               onChange={handleForceChange}
-              maxDropdownHeight={300}
+              maxDropdownHeight={height/3}
               ariaLabel='Police Force Select'
               disabled={forcesData?false:true}
               className={styles.forceSelect}
