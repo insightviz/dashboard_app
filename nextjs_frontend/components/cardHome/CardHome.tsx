@@ -27,7 +27,7 @@ const CardHome = () => {
         </Link>
       </Card.Section>
       <Text weight={500} mt="md" mb="xs">
-        UK Stop and searches
+        UK Stop and Searches
       </Text>
       <Text size="sm" color="dimmed">
         {`Insights from stop and search data released by 'POLICE.UK'`}
