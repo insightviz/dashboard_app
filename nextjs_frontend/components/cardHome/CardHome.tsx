@@ -13,7 +13,7 @@ const CardHome = () => {
   const { ref, width: elementWidth } = useElementSize();
   
   return (
-    <Card shadow="sm" p="lg" radius={width<641?0:"xl"} withBorder ref={ref} className={styles.text_card}>      
+    <Card shadow={width<801?'none':"sm"} p="lg" radius={width<801?0:"xl"} withBorder ref={ref} className={styles.text_card}>      
       <Card.Section>
         <Link href="/stopsearch">
           {
