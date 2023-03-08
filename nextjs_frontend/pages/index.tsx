@@ -19,7 +19,7 @@ export default function Home() {
           </h1>
         </div>
         <div className={styles.dashboards}>
-          <h2>Lastest Dashboard</h2>
+          <h2>Latest Dashboard</h2>
           <div className={styles.dashboard_content}>
             <CardHome />
           </div>
