@@ -26,7 +26,7 @@ const CardHome = () => {
           }
         </Link>
       </Card.Section>
-      <Text weight={700} size={24} mt="xl" mb={12}>
+      <Text weight={700} size={24} mt="xl" mb={8}>
         UK Stop and Search Dashboard
       </Text>
       <Text size="md" color="dimmed">
