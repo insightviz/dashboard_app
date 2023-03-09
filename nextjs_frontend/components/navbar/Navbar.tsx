@@ -5,94 +5,17 @@ import Sun from '@geist-ui/icons/sun';
 import Display from '@geist-ui/icons/display';
 import { useAppThemeContext } from '../../context/AppTheme';
 import { useReducedMotion, m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
-import { useViewportSize } from '@mantine/hooks';
-import dynamic from 'next/dynamic'
-import { Group, Avatar, Text, Burger } from '@mantine/core';
-import { forwardRef } from 'react';
-
-const SelectWrapper = dynamic(() =>
-  import('../select/SelectWrapper')
-)
-
-const themeOptions = [
-  {
-    image: 
-    <Avatar>
-      <Display size={20}/>
-    </Avatar>,
-    label: 'System',
-    value: 'system',
-  },
-  {
-    image: 
-    <Avatar color="yellow">
-      <Sun size={20}/>
-    </Avatar>,
-    label: 'Light',
-    value: 'light',
-  },
-  {
-    image: 
-    <Avatar color="dark">
-      <Moon size={20}/>
-    </Avatar>,
-    label: 'Dark',
-    value: 'dark',
-  },
-];
-
-interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-  image: string;
-  label: string;
-  description: string;
-}
-
-const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-  ({ image, label, description, ...others }: ItemProps, ref) => (
-    <div ref={ref} {...others}>
-      <Group noWrap>
-        {image}
-        <div>
-          <Text size="sm">{label}</Text>
-          <Text size="xs" opacity={0.65}>
-            {description}
-          </Text>
-        </div>
-      </Group>
-    </div>
-  )
-);
-
-SelectItem.displayName = "SelectItem";
 
 interface NavbarProps {
-  click: boolean,
-  handleClick: () => void,
-  closeMobileMenu: () => void,
   handleThemeToggle: () => void,
-  handleThemeSelectChange: (e:string) => void,
 }
 
-function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handleThemeSelectChange }: NavbarProps) {
-  const { mode, theme } = useAppThemeContext();
+function Navbar({ handleThemeToggle }: NavbarProps) {
+  const { mode } = useAppThemeContext();
   const shouldReduceMotion = useReducedMotion()
-  const { width } = useViewportSize()
   return (
     <header className={styles.navbar}>
       <nav className={styles.navbarContainer}>
-        {
-          width < 901 ?
-          <Burger
-            opened={click}
-            onClick={handleClick}
-            size='md'
-            color={theme == 'dark' ? '#C1C2C5' : '#000'}
-            aria-label='Menu button'
-            className={styles.menuIcon}
-          />
-          :
-          <></>
-        }
         <Link href="/" className={styles.logoContainer} aria-label='Home'>
           <svg className={styles.navbarLogo} width="160" height="71" viewBox="0 0 160 71" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path className={styles.bulb} d="M18.0754 52.72C17.9595 52.7214 17.8445 52.6995 17.7371 52.6558C17.6297 52.612 17.5322 52.5473 17.4502 52.4653C17.3682 52.3833 17.3034 52.2858 17.2597 52.1784C17.2159 52.071 17.1941 51.956 17.1954 51.84V44.57C17.1899 43.5632 16.9673 42.5695 16.5428 41.6566C16.1182 40.7436 15.5018 39.933 14.7354 39.28C12.4892 37.3656 10.7608 34.9167 9.70941 32.159C8.65802 29.4012 8.31743 26.4232 8.71902 23.4993C9.12061 20.5754 10.2515 17.7995 12.0074 15.4273C13.7634 13.0551 16.088 11.1629 18.7672 9.92496C21.4464 8.68699 24.394 8.14305 27.3386 8.34325C30.2832 8.54345 33.1301 9.48135 35.617 11.0706C38.104 12.6598 40.1511 14.8492 41.5698 17.4372C42.9886 20.0253 43.7333 22.9287 43.7354 25.88C43.7354 26.1108 43.6438 26.3321 43.4806 26.4952C43.3174 26.6584 43.0962 26.75 42.8654 26.75C42.6347 26.75 42.4134 26.6584 42.2502 26.4952C42.0871 26.3321 41.9954 26.1108 41.9954 25.88C42.0002 23.7602 41.5797 21.661 40.7588 19.7066C39.9379 17.7522 38.7333 15.9823 37.2163 14.5017C35.6993 13.0211 33.9008 11.8598 31.927 11.0866C29.9533 10.3133 27.8445 9.94387 25.7254 10C22.4943 10.0547 19.3573 11.0964 16.7352 12.9852C14.1131 14.874 12.1315 17.5196 11.0562 20.567C9.98091 23.6144 9.8634 26.9178 10.7195 30.0339C11.5755 33.15 13.3642 35.9297 15.8454 38C16.8099 38.8127 17.5852 39.8261 18.1172 40.9696C18.6492 42.113 18.925 43.3589 18.9254 44.62V51.89C18.9153 52.1104 18.8219 52.3186 18.6641 52.4727C18.5063 52.6268 18.2959 52.7152 18.0754 52.72Z" fill="white"/>
@@ -109,14 +32,9 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handle
           <path className={styles.name} d="M30.1308 59.26V32.4565H38.2055V59.26H30.1308ZM55.1586 59.26V48.8115C55.1586 47.6277 54.978 46.7804 54.6166 46.2695C54.2677 45.7461 53.6945 45.4844 52.897 45.4844C52.2116 45.4844 51.6758 45.7524 51.2895 46.2882C50.9032 46.824 50.7101 47.5093 50.7101 48.3442V59.26H42.7475V40.12H50.7101V43.1106H50.7849C51.4204 42.0141 52.2739 41.1667 53.3456 40.5686C54.4172 39.958 55.5823 39.6527 56.8409 39.6527C61.0277 39.6527 63.1212 42.2944 63.1212 47.5779V59.26H55.1586ZM82.2612 52.9049C82.2612 55.0731 81.4325 56.7554 79.7752 57.9516C78.1304 59.1354 75.8313 59.7273 72.8781 59.7273C72.0183 59.7273 70.9529 59.6401 69.6819 59.4656C68.4233 59.2912 67.3953 59.0793 66.5978 58.8301V53.2414C68.9529 54.2881 70.9217 54.8115 72.5043 54.8115C74.0619 54.8115 74.8407 54.4065 74.8407 53.5965C74.8407 53.2601 74.66 52.9859 74.2986 52.7741C73.9373 52.5498 72.9902 52.1822 71.4575 51.6713C69.7629 51.1355 68.5292 50.4252 67.7566 49.5405C66.9841 48.6558 66.5978 47.5031 66.5978 46.0826C66.5978 44.1013 67.3828 42.5374 68.9529 41.391C70.5354 40.2322 72.7535 39.6527 75.607 39.6527C77.2768 39.6527 79.0463 39.8957 80.9154 40.3817V45.7461C80.1304 45.4097 79.2706 45.1293 78.336 44.905C77.4014 44.6807 76.6164 44.5686 75.9809 44.5686C75.4575 44.5686 75.0401 44.6558 74.7285 44.8302C74.417 45.0047 74.2613 45.2477 74.2613 45.5592C74.2613 45.9206 74.4295 46.2134 74.7659 46.4377C75.1024 46.662 75.7753 46.9299 76.7846 47.2414C78.741 47.8146 80.1428 48.5498 80.9902 49.447C81.8375 50.3442 82.2612 51.4968 82.2612 52.9049ZM93.6442 34.9612C93.6442 36.0827 93.233 36.9923 92.4106 37.6901C91.6007 38.3879 90.529 38.7368 89.1957 38.7368C87.8998 38.7368 86.8343 38.3755 85.9995 37.6527C85.177 36.93 84.7658 36.0328 84.7658 34.9612C84.7658 33.8646 85.1646 32.9799 85.9621 32.307C86.772 31.6217 87.8499 31.279 89.1957 31.279C90.529 31.279 91.6007 31.6217 92.4106 32.307C93.233 32.9799 93.6442 33.8646 93.6442 34.9612ZM85.2144 59.26V40.12H93.177V59.26H85.2144ZM117.775 56.5871C117.775 60.2631 116.616 63.1229 114.298 65.1665C111.993 67.2225 108.622 68.2506 104.186 68.2506C102.99 68.2506 101.831 68.1571 100.71 67.9702C99.5881 67.7833 98.7844 67.5715 98.2984 67.3347V61.0918C99.0959 61.5902 100.03 61.989 101.102 62.288C102.174 62.5871 103.127 62.7366 103.962 62.7366C105.744 62.7366 107.171 62.3067 108.242 61.4469C109.314 60.5871 109.85 59.4469 109.85 58.0264V56.8488H109.775C109.202 57.7211 108.41 58.4189 107.401 58.9423C106.404 59.4656 105.333 59.7273 104.186 59.7273C101.719 59.7273 99.7688 58.8737 98.3358 57.1666C96.9028 55.447 96.1863 53.0794 96.1863 50.0638C96.1863 47.9953 96.5601 46.1698 97.3078 44.5873C98.0554 43.0047 99.0959 41.7898 100.429 40.9424C101.763 40.0826 103.233 39.6527 104.84 39.6527C107.046 39.6527 108.691 40.4689 109.775 42.1013H109.85V40.12H117.775V56.5871ZM109.981 49.148C109.981 48.0265 109.725 47.1355 109.214 46.4751C108.716 45.8147 108.049 45.4844 107.214 45.4844C106.317 45.4844 105.601 45.8832 105.065 46.6807C104.529 47.4782 104.261 48.5436 104.261 49.8769C104.261 51.1106 104.485 52.0887 104.934 52.8115C105.382 53.5342 106.093 53.8956 107.065 53.8956C107.974 53.8956 108.685 53.528 109.195 52.7928C109.719 52.0451 109.981 51.0483 109.981 49.8022V49.148ZM133.962 59.26V48.3442C133.962 46.4377 133.233 45.4844 131.775 45.4844C131.064 45.4844 130.522 45.7586 130.149 46.3069C129.775 46.8427 129.588 47.5343 129.588 48.3816V59.26H121.625V30.9238H129.588V42.7181H129.663C130.348 41.7337 131.177 40.9798 132.149 40.4565C133.133 39.9206 134.186 39.6527 135.307 39.6527C137.376 39.6527 138.952 40.3194 140.036 41.6527C141.12 42.9736 141.662 44.9237 141.662 47.5031V59.26H133.962ZM158.728 58.9983C158.366 59.1728 157.774 59.3348 156.952 59.4843C156.13 59.6463 155.139 59.7273 153.98 59.7273C151.762 59.7273 150.024 59.1167 148.765 57.8955C147.519 56.6744 146.896 54.9361 146.896 52.6806V45.634H143.887V40.12H146.896V36.363L154.746 34.1948V40.12H158.728V45.634H154.746V51.3722C154.746 53.0545 155.413 53.8956 156.746 53.8956C157.369 53.8956 158.03 53.7585 158.728 53.4844V58.9983Z" fill="white"/>
           </svg>
         </Link>
-        <div className={click ? `${styles.navMenu} ${styles.active}` : styles.navMenu}>
-          <Link href="/" className={styles.navLinks} onClick={closeMobileMenu}>Home</Link>
-          <Link href="/services" className={styles.navLinks} onClick={closeMobileMenu}>Services</Link>
-        </div>
         <LazyMotion features={domAnimation}>
           <AnimatePresence initial={false} mode="wait">
             {
-              width < 901 ?
               mode==='system' ? 
               <m.div
                 className={styles.themeToggle} onClick={handleThemeToggle}
@@ -149,25 +67,9 @@ function Navbar({ click, handleClick, closeMobileMenu, handleThemeToggle, handle
                 <Moon size={24}/>
               </m.div>
               )
-              :
-              <></>
             }
           </AnimatePresence>
-        </LazyMotion>
-        {
-          width > 900 ?
-          <SelectWrapper 
-            itemComponent={SelectItem}
-            selectOptions={themeOptions}
-            icons={mode == 'system' ? <Avatar><Display size={20}/></Avatar> : mode == 'light' ? <Avatar color="yellow"><Sun size={20}/> </Avatar>: <Avatar color="dark"><Moon size={20}/></Avatar>}
-            value={mode}
-            onChange={handleThemeSelectChange}
-            ariaLabel='Theme Select'
-            className={styles.themeSelect}
-            /> 
-          :
-          <></>
-        }
+        </LazyMotion>        
       </nav> 
     </header>
   );
