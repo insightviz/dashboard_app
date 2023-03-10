@@ -4,12 +4,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 2.4rem;
+    gap: 2.4rem;
 }
 
 .footerSection section {
-    border-top: 1px solid var(--accent-1);
     width: 100%;
-    padding: 2rem;
 }
 
 .socialMedia {
@@ -27,8 +27,8 @@
 }
 
 .footerLogo {
-    width: 9rem;
-    height: auto;
+    width: auto;
+    height: 3.2rem;
 }
 
 .bulb, .name {
@@ -37,7 +37,7 @@
 
 .socialIcons {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.2rem;
 }
 
 .socialIcons a {
@@ -97,6 +97,6 @@ body[data-theme="dark"] .logoContainer:hover .name {
     }
 
     .socialIcons {
-        gap: 2rem;
+        gap: 1.2rem;
     }
 }
