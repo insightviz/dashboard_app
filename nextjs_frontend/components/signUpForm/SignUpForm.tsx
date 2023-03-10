@@ -1,9 +1,9 @@
 import styles from './SignUpForm.module.css'
-import AtSign from '@geist-ui/icons/atSign'
-import UserCheck from '@geist-ui/icons/userCheck'
-import { TextInput, Button } from '@mantine/core';
+import Mail from '@geist-ui/icons/mail'
+import { TextInput, ActionIcon } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 import { useElementSize } from '@mantine/hooks';
+import ChevronRight from '@geist-ui/icons/chevronRight'
 
 interface FormValues {
   firstName: string;
@@ -25,26 +25,27 @@ export default function SignUpForm({onSubmit, form, isSubmittingFormData}: SignU
       <form onSubmit={form.onSubmit(onSubmit)}>
         <TextInput
           className={styles.emailContainer}
-          icon={<AtSign size={20}/>}
+          icon={<Mail size={20}/>}
           radius="xl"
-          size="lg"
+          size="xl"
           weight={400}
-          label='Dashboard updates'
+          label='Subscribe for dashboard updates'
           rightSection={
-            <Button 
-              ref={ref}
-              rightIcon={<UserCheck size={16} />} 
-              type="submit" 
-              variant="default" 
-              size='md'
-              loading={isSubmittingFormData}>
-                Subscribe
-            </Button>
+            <ActionIcon 
+              size={32} 
+              radius="xl"  
+              variant="filled" 
+              loading={isSubmittingFormData} 
+              ref={ref} 
+              type="submit">
+              <ChevronRight size={20}/>
+            </ActionIcon>
           }
           placeholder="Enter email"
           aria-label='Email input'
           {...form.getInputProps('email')}
-          rightSectionWidth={width+45.2}
+          rightSectionWidth={60}
+          iconWidth={60}
         />
       </form>
     </section>
