@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 2.4rem;
 	position: fixed;
     top: 0;
     width: 100%;
@@ -26,7 +26,7 @@
 
 .navbarLogo {
     width: auto;
-    height: 4rem;
+    height: 3.2rem;
 }
 
 .bulb, .name {
