@@ -13,28 +13,28 @@ const CardHome = () => {
   const { ref, width: elementWidth } = useElementSize();
   
   return (
-    <Card shadow={width<801?'none':"sm"} p="xl" radius={width<801?0:"xl"} withBorder ref={ref} className={styles.text_card}>      
+    <Card p={32} radius={width<801?0:"xl"} ref={ref} className={styles.text_card}>      
       <Card.Section>
         <Link href="/stopsearch">
           {
             theme=='dark' ?
             <Image className={styles.image} src={StopSearchDesktopDark} alt='Stop and search image dark' priority
-            width={elementWidth+48} placeholder='blur'/>
+            width={elementWidth+64} placeholder='blur'/>
             :
             <Image className={styles.image} src={StopSearchDesktopLight} alt='Stop and search image light' priority
-            width={elementWidth+48} placeholder='blur'/>              
+            width={elementWidth+64} placeholder='blur'/>              
           }
         </Link>
       </Card.Section>
-      <Text weight={700} size={24} mt="xl" mb={8}>
+      <Text weight={700} size={24} mt={32} mb={8}>
         UK Stop and Search Dashboard
       </Text>
       <Text size="md" color="dimmed">
         {`Insights from stop and search data released by 'POLICE.UK'`}
       </Text>
       <Link href="/stopsearch">
-        <Button variant="light" color="blue" fullWidth mt="xl">
-          Discover insights here
+        <Button variant="light" color="blue" fullWidth mt={32}>
+          Discover insights
         </Button>
       </Link>
     </Card>
