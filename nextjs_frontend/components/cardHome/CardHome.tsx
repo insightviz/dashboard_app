@@ -13,8 +13,8 @@ const CardHome = () => {
   const { ref, width: elementWidth } = useElementSize();
   
   return (
-    <Card p={32} radius={width<801?0:"xl"} ref={ref} className={styles.text_card}>      
-      <Card.Section>
+    <Card p={32} radius="xl" ref={ref} className={styles.text_card}>      
+      <Card.Section className={styles.cardTopSection}>
         <Link href="/stopsearch">
           {
             theme=='dark' ?
@@ -29,11 +29,11 @@ const CardHome = () => {
       <Text weight={700} size={24} mt={32} mb={8}>
         UK Stop and Search Dashboard
       </Text>
-      <Text size="md" color="dimmed">
+      <Text weight={400} size="md" color="supportGrey.5">
         {`Insights from stop and search data released by 'POLICE.UK'`}
       </Text>
       <Link href="/stopsearch">
-        <Button variant="light" color="blue" fullWidth mt={32}>
+        <Button variant="filled" fullWidth mt={32}>
           Discover insights
         </Button>
       </Link>

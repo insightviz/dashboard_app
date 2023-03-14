@@ -4,8 +4,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2.4rem;
-    gap: 2.4rem;
+    padding: 3.2rem;
+    gap: 3.2rem;
 }
 
 .footerSection section {
@@ -16,14 +16,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.4rem;
 }
 
 .iconsContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.4rem;
+}
+
+.iconsContainer a {
+    display: flex;
 }
 
 .footerLogo {
@@ -31,13 +35,21 @@
     height: 3.2rem;
 }
 
-.bulb, .name {
-    fill: var(--text-colour);
+.bulb {
+    fill: var(--icon-colour);
+}
+
+.name {
+    fill: var(--logo-text-colour);
 }
 
 .socialIcons {
     display: flex;
     gap: 1.2rem;
+}
+
+.socialIcons a:hover svg {
+    fill: var(--icon-focus-fill);
 }
 
 .socialIcons a {
@@ -48,7 +60,12 @@
 }
 
 .socialIcons a:hover {
-    background-color: var(--card-border);
+    background-color: var(--bg-colour);
+    box-shadow: 0 .2rem .3rem var(--button-shadow);
+}
+
+.socialIcons a:active {
+    box-shadow: none;
 }
 
 .websiteRights {
@@ -67,7 +84,7 @@
 
 @keyframes flicker {
     from { 
-        fill: var(--bg-colour);
+        fill: var(--bg-colour-2);
     }
 
     to {
@@ -80,10 +97,6 @@
     transition-duration: .5s;
     fill: var(--brand-blue);
     transition-timing-function: ease-in;
-}
-
-body[data-theme="dark"] .logoContainer:hover .name {
-    fill: var(--blue-200);
 }
 
 @media (min-width: 830px) {

@@ -37,6 +37,7 @@ export default function SignUpForm({onSubmit, form, isSubmittingFormData}: SignU
               variant="filled" 
               loading={isSubmittingFormData} 
               ref={ref} 
+              color='primaryBlue'
               type="submit">
               <ChevronRight size={20}/>
             </ActionIcon>

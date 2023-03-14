@@ -11,7 +11,7 @@ interface NavbarProps {
 }
 
 function Navbar({ handleThemeToggle }: NavbarProps) {
-  const { mode } = useAppThemeContext();
+  const { mode, theme } = useAppThemeContext();
   const shouldReduceMotion = useReducedMotion()
   return (
     <header className={styles.navbar}>
@@ -43,7 +43,7 @@ function Navbar({ handleThemeToggle }: NavbarProps) {
                 exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 key="system">
-                <Display size={24}/>
+                <Display size={24} color={theme==='dark'?'#C1C2C5':'#3E4C59'}/>
               </m.div>
               :
               (mode==='light' ?             
@@ -54,7 +54,7 @@ function Navbar({ handleThemeToggle }: NavbarProps) {
                 exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 key="light">
-                <Sun size={24}/>
+                <Sun size={24} color={theme==='dark'?'#C1C2C5':'#3E4C59'}/>
               </m.div>
               :            
               <m.div
@@ -64,7 +64,7 @@ function Navbar({ handleThemeToggle }: NavbarProps) {
                 exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 key="dark">
-                <Moon size={24}/>
+                <Moon size={24} color={theme==='dark'?'#C1C2C5':'#3E4C59'}/>
               </m.div>
               )
             }
