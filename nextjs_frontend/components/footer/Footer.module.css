@@ -69,8 +69,8 @@
 }
 
 .websiteRights {
-    font-size: 1rem;
-    color: var(--accent-1);
+    font-size: 1.2rem;
+    color: var(--support-text-colour);
 }
 
 .logoContainer:hover .bulb {
@@ -112,4 +112,9 @@
     .socialIcons {
         gap: 1.2rem;
     }
+}
+
+.instagram, .linkedin, .github {
+    height: 2.4rem;
+    color: var(--icon-colour);
 }

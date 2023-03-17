@@ -1,65 +1,110 @@
 .stopSearchDashboard {
     display: grid;
-    grid-template-columns: minmax(28rem, 1fr);
+    grid-template-columns: minmax(23rem, 1fr);
     grid-template-areas: 
     "title"
     "select"
     "statsGrid"
     "contributors";
-    gap: 2rem;
-    padding: 2rem;
 }
 
 .stopSearchDashboard h1 {
     grid-area: title;
     display: flex;
-    justify-self: center;
+    justify-self: start;
 }
 
-.selectContainer {
+.diffGroupUp {
+    display: flex;
+    width: fit-content;
+    background-color: var(--teal-vivid-100);
+    padding: .8rem;
+    gap: .8rem;
+    border-radius: 3rem;
+    border: .2rem solid var(--teal-vivid-200);
+    align-items: flex-end;
+}
+
+.diffGroupDown {
+    display: flex;
+    width: fit-content;
+    background-color: var(--red-100);
+    padding: .8rem;
+    gap: .8rem;
+    border-radius: 3rem;
+    border: .2rem solid var(--red-200);
+    align-items: flex-end;
+}
+
+.diffGroupNoChange {
+    display: flex;
+    width: fit-content;
+    background-color: var(--cool-grey-100);
+    padding: .8rem;
+    border-radius: 3rem;
+    border: .2rem solid var(--cool-grey-200);
+    align-items: flex-end;
+}
+
+.arrowTrendingDown {
+    color: var(--red-700);
+    height: 2rem;
+}
+
+.arrowTrendingUp {
+    color: var(--teal-vivid-700);
+    height: 2rem;
+}
+
+.minus {
+    color: var(--cool-grey-700);
+    height: 2rem;
+}
+
+.statsGridTitle {
+    letter-spacing: .08rem;
+}
+
+.raceStat, .genderStat {
+    height: 100%;
+}
+
+.raceStat, .genderStat, .totalStat {
+    box-shadow: 0 1rem 1.5rem var(--coarse-shadow), 0 .4rem .6rem var(--fine-shadow);
+}
+  
+.raceStat button, .genderStat button, .totalStat button {
+  box-shadow: 0 .2rem .3rem var(--button-shadow), inset 0 .1rem 0 var(--button-inset-colour-2);
+}
+
+.raceStat button:active, .genderStat button:active, .totalStat button:active {
+  box-shadow: none;
+}
+
+.chevronRight {
+    height: 1.6rem;
+}
+
+.selectInputs {
     grid-area: select;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
+    gap: 1.6rem;
+    width: 100%;
+    min-width: 20rem;
+    max-width: 35rem;
 }
 
-
-.selectInputs {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+.forceSelect  *{
+    color: var(--text-colour);
 }
 
-.selectInputs > * {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+.forceSelect input {
+    box-shadow: inset 0 .2rem .2rem var(--coarse-shadow), 0 .2rem 0 var(--input-inset-focus-colour);
+    background-color: var(--bg-colour);
 }
-
-.forceSelectWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.forceSelect {
-    width: 28rem !important;
-}
-
-.selectInputs span {
-    font-weight: 700;
-}
-
-.monthPickerWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.monthPicker {
-    width: 28rem !important;
+.forceSelect input:focus {
+    background-color: #fff;
 }
 
 .statsGrid {
@@ -70,13 +115,13 @@
     grid-area: contributors;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    align-items: center;
+    gap: 1.6rem;
+    align-items: start;
 }
 
 .avatarImages {
     display: flex;
-    gap: 3rem;
+    gap: 3.2rem;
 }
 
 .avatarImages a {
@@ -99,40 +144,29 @@
     border-radius: 50%;
 }
 
-@media (max-width: 1535px) and (min-width: 800px) {
+@media (min-width: 800px) {
     .selectInputs {
         flex-direction: row;
-        gap: 3rem;
+        gap: 1.6rem;
+        width: 100%;
+        min-width: none;
+        max-width: none;
+        align-items: flex-end;
+    }
+
+    .forceSelect, .MuiTextField-root {
+        width: 30rem;
     }
 }
 
 @media(min-width: 1536px) {
     .stopSearchDashboard {
-        grid-template-columns: minmax(max-content, max-content) 1fr;
+        grid-template-columns: minmax(max-content, max-content);
         grid-template-areas:
-        "title title"
-        "select statsGrid"
-        "contributors statsGrid";
-    }
-
-    .statsGrid {
-        grid-area: 2 / 2 / 4 / 3;
-    }
-
-    .avatarImages {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .selectContainer {
-        align-items: flex-start;
-        padding-bottom: 2rem;
-        border-bottom: 4px solid var(--divider-colour);
-    }
-
-    .contributors {
-        justify-content: center;
-        align-items: flex-start;
+        "title"
+        "select"
+        "statsGrid"
+        "contributors";
     }
 }
 
@@ -140,5 +174,6 @@
     .avatarImages {
         flex-direction: column;
         align-items: center;
+        gap: 1.6rem;
     }
 }

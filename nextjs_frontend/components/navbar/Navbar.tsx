@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import styles from "./Navbar.module.css"
-import Moon from '@geist-ui/icons/moon';
-import Sun from '@geist-ui/icons/sun';
-import Display from '@geist-ui/icons/display';
+import Moon from '../../assets/svgs/moon.svg';
+import Sun from '../../assets/svgs/sun.svg';
+import Display from '../../assets/svgs/computer.svg';
 import { useAppThemeContext } from '../../context/AppTheme';
 import { useReducedMotion, m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 
@@ -43,7 +43,7 @@ function Navbar({ handleThemeToggle }: NavbarProps) {
                 exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 key="system">
-                <Display size={24} color={theme==='dark'?'#C1C2C5':'#3E4C59'}/>
+                <Display className={styles.display}/>
               </m.div>
               :
               (mode==='light' ?             
@@ -54,7 +54,7 @@ function Navbar({ handleThemeToggle }: NavbarProps) {
                 exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 key="light">
-                <Sun size={24} color={theme==='dark'?'#C1C2C5':'#3E4C59'}/>
+                <Sun className={styles.sun}/>
               </m.div>
               :            
               <m.div
@@ -64,7 +64,7 @@ function Navbar({ handleThemeToggle }: NavbarProps) {
                 exit={{ y: shouldReduceMotion ? 0 : 15, scale: shouldReduceMotion ? 1 : .8 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 key="dark">
-                <Moon size={24} color={theme==='dark'?'#C1C2C5':'#3E4C59'}/>
+                <Moon className={styles.moon}/>
               </m.div>
               )
             }

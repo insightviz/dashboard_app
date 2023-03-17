@@ -42,3 +42,11 @@
 .emailContainer {
     min-width: 28rem;
 }
+
+.chevronRight, .envelope {
+    height: 2rem;
+}
+
+.envelope {
+    color: var(--support-text-colour)
+}

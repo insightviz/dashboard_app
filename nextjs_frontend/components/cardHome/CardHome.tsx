@@ -2,13 +2,12 @@ import { useAppThemeContext } from '../../context/AppTheme';
 import Image from 'next/image'
 import StopSearchDesktopDark from '../../public/StopSearchDesktopDark.jpg'
 import StopSearchDesktopLight from '../../public/StopSearchDesktopLight.jpg'
-import { useViewportSize, useElementSize } from '@mantine/hooks';
+import { useElementSize } from '@mantine/hooks';
 import styles from '../../styles/home.module.css'
 import Link from 'next/link';
 import { Card, Text, Button } from '@mantine/core';
 
 const CardHome = () => {
-  const { width } = useViewportSize();
   const { theme } = useAppThemeContext();
   const { ref, width: elementWidth } = useElementSize();
   
@@ -26,14 +25,14 @@ const CardHome = () => {
           }
         </Link>
       </Card.Section>
-      <Text weight={700} size={24} mt={32} mb={8}>
+      <Text weight={700} size={24} mt={32} mb={8} lh={1.2} color='supportCoolGrey.9' >
         UK Stop and Search Dashboard
       </Text>
-      <Text weight={400} size="md" color="supportGrey.5">
+      <Text weight={400} size="md" color="supportCoolGrey.4" lh={1.5}>
         {`Insights from stop and search data released by 'POLICE.UK'`}
       </Text>
       <Link href="/stopsearch">
-        <Button variant="filled" fullWidth mt={32}>
+        <Button variant="filled" fullWidth mt={16}>
           Discover insights
         </Button>
       </Link>

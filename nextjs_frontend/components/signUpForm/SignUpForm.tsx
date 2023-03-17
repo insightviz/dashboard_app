@@ -3,7 +3,8 @@ import Mail from '@geist-ui/icons/mail'
 import { TextInput, ActionIcon } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 import { useElementSize } from '@mantine/hooks';
-import ChevronRight from '@geist-ui/icons/chevronRight'
+import ChevronRight from "../../assets/svgs/chevronRight.svg";
+import Envelope from "../../assets/svgs/envelope.svg";
 
 interface FormValues {
   firstName: string;
@@ -25,10 +26,11 @@ export default function SignUpForm({onSubmit, form, isSubmittingFormData}: SignU
       <form onSubmit={form.onSubmit(onSubmit)}>
         <TextInput
           className={styles.emailContainer}
-          icon={<Mail size={20}/>}
+          icon={<Envelope className={styles.envelope}/>}
           radius="xl"
           size="xl"
           weight={400}
+          color='supportCoolGrey.9' 
           label='Subscribe for dashboard updates'
           rightSection={
             <ActionIcon 
@@ -39,7 +41,7 @@ export default function SignUpForm({onSubmit, form, isSubmittingFormData}: SignU
               ref={ref} 
               color='primaryBlue'
               type="submit">
-              <ChevronRight size={20}/>
+              <ChevronRight className={styles.chevronRight}/>
             </ActionIcon>
           }
           placeholder="Enter email"

@@ -48,7 +48,6 @@
     padding-bottom: .5rem;
     border-radius: 1.5rem;
     padding: 1rem;
-    transition: all 0.2s ease-out;
 }
 
 .themeToggle:hover {
@@ -88,4 +87,9 @@
     transition-duration: .5s;
     fill: var(--brand-blue);
     transition-timing-function: ease-in;
+}
+
+.display, .moon, .sun {
+    height: 2.4rem;
+    color: var(--icon-colour);
 }
