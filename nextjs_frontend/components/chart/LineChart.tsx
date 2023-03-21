@@ -13,6 +13,7 @@ import { Line } from 'react-chartjs-2';
 import { Title, Paper } from '@mantine/core';
 import { useElementSize, useViewportSize } from '@mantine/hooks';
 import styles from './ChartStyles.module.css'
+import { useAppThemeContext } from '../../context/AppTheme';
 
 ChartJS.register(
   CategoryScale,
@@ -30,14 +31,17 @@ interface lineChartProps {
   months: number
 }
 
-
-ChartJS.defaults.color = '#616E7C';
+ChartJS.defaults.font.size = 16;
+ChartJS.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
+ChartJS.defaults.font.weight = '400';
 
 function LineChart({ chartData, title, months}: lineChartProps) {
+  const { theme } = useAppThemeContext();
+  ChartJS.defaults.color = theme=='dark' ? "#9AA5B1" : "#7B8794";
   const { ref, width } = useElementSize();
   const { width: viewWidth } = useViewportSize()
   return (
-    <Paper withBorder p={viewWidth<600 ? 16 : 32} radius="xl" className={styles.chart} ref={ref}>
+    <Paper p={viewWidth<600 ? 16 : 32} radius="xl" className={styles.chart} ref={ref}>
       <Title order={3} size={16} weight={700} lh={1} mb={8} align="left" transform="uppercase" color="supportCoolGrey.4">{title}</Title>
       <Line
         data={chartData}

@@ -4,6 +4,7 @@ import { sentenceCase } from "../../assets/UtilFunctions"
 import { getMonthsNames } from '@mantine/dates';
 import { Dayjs } from 'dayjs';
 import { useReducedMotion, useViewportSize } from '@mantine/hooks';
+import { useAppThemeContext } from '../../context/AppTheme';
 
 const FetchEnhancedGenderData = (await import('./dashboardHooks/FetchEnhancedGenderData')).default
 
@@ -28,6 +29,7 @@ const GenderModal = ({
   const shouldReduceMotion = useReducedMotion()
   const { width } = useViewportSize()
   const { enhancedData, enhancedDataError } = FetchEnhancedGenderData(force, gender, month)
+  const { theme } = useAppThemeContext();
   return (
       <Modal
         opened={genderModalOpen}
@@ -43,7 +45,7 @@ const GenderModal = ({
       >
         {          
           <SimpleGrid cols={1} spacing="xl">
-            <Title order={1} size={24} weight={400} align="left" color="supportCoolGrey.9">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[datePickerDate.month()]}, {datePickerDate.year()}</Title>
+            <Title order={1} size={20} weight={700} align="left" color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'}>{sentenceCase(force.replace(/[-]/g, ' '))} police searches in {months[datePickerDate.month()]}, {datePickerDate.year()}</Title>
             {enhancedDataError ? 
             <Paper withBorder p="xl" radius="xl">
               <Text

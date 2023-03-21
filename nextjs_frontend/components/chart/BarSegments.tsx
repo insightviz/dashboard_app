@@ -29,12 +29,12 @@ function BarSegments({ chartData, title }: barSegmentsProps) {
       borderBottom: `3px solid`,
       paddingBottom: 5, 
       borderBottomColor: eval(theme=='dark' ? colourPaleteDark1[index] : colourPaleteLight1[index]) })} >
-      <Text transform="uppercase" size="xs" color="dimmed" weight={700}>
+      <Text transform="uppercase" size="xs" color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} weight={700}>
         {stat.label}
       </Text>
 
       <Group position="apart" align="flex-end" spacing={0}>
-        <Text weight={700}>{stat.count}</Text>
+        <Text weight={700} color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'}>{stat.count}</Text>
         <Text color={theme=='dark' ? colourPaleteDark[index] : colourPaleteLight[index]} weight={700} size="sm" >
           {stat.percentage}%
         </Text>
@@ -42,8 +42,8 @@ function BarSegments({ chartData, title }: barSegmentsProps) {
     </Box>
   ));
   return (
-    <Paper withBorder p={32} radius="xl" className={styles.barSegment} ref={ref}>
-      <Title order={3} size={16} weight={700} lh={1} mb={8} align="left" transform="uppercase" color="supportCoolGrey.4">{title}</Title>
+    <Paper p={32} radius="xl" className={styles.barSegment} ref={ref}>
+      <Title order={3} size={16} weight={700} lh={1} mb={8} align="left" transform="uppercase" color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'}>{title}</Title>
       <Progress
         sections={segments}
         size={34}

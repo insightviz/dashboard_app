@@ -30,7 +30,7 @@ export default function Layout({ children }) {
             supportRed: ["#FFEEEE", "#FACDCD", "#F29B9B", "#E66A6A", "#D64545", "#BA2525", "#A61B1B", "#911111", "#780A0A", "#610404"],
           },
           primaryColor: 'primaryBlue',
-          primaryShade: { light: 9, dark: 7 },
+          primaryShade: { light: 9, dark: 6 },
           colorScheme: theme,
           fontFamily: 'var(--rubik-font)',
           headings: {

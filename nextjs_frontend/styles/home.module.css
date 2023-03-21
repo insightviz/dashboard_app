@@ -119,6 +119,7 @@
   width: 100%;
   min-width: 28rem;
   max-width: 48rem;
+  background-color: var(--card-background-colour);
 }
 
 .cardTopSection {

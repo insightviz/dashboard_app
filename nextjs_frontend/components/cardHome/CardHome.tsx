@@ -25,10 +25,10 @@ const CardHome = () => {
           }
         </Link>
       </Card.Section>
-      <Text weight={700} size={24} mt={32} mb={8} lh={1.2} color='supportCoolGrey.9' >
+      <Text weight={700} size={24} mt={32} mb={8} lh={1.2} color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'} >
         UK Stop and Search Dashboard
       </Text>
-      <Text weight={400} size="md" color="supportCoolGrey.4" lh={1.5}>
+      <Text weight={400} size="md" color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} lh={1.5}>
         {`Insights from stop and search data released by 'POLICE.UK'`}
       </Text>
       <Link href="/stopsearch">

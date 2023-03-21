@@ -17,48 +17,52 @@
 .diffGroupUp {
     display: flex;
     width: fit-content;
-    background-color: var(--teal-vivid-100);
+    background-color: var(--green-icon-background);
     padding: .8rem;
     gap: .8rem;
     border-radius: 3rem;
-    border: .2rem solid var(--teal-vivid-200);
+    border: .2rem solid var(--green-icon-border);
     align-items: flex-end;
 }
 
 .diffGroupDown {
     display: flex;
     width: fit-content;
-    background-color: var(--red-100);
+    background-color: var(--red-icon-background);
     padding: .8rem;
     gap: .8rem;
     border-radius: 3rem;
-    border: .2rem solid var(--red-200);
+    border: .2rem solid var(--red-icon-border);
     align-items: flex-end;
 }
 
 .diffGroupNoChange {
     display: flex;
     width: fit-content;
-    background-color: var(--cool-grey-100);
+    background-color: var(--grey-icon-background);
     padding: .8rem;
     border-radius: 3rem;
-    border: .2rem solid var(--cool-grey-200);
+    border: .2rem solid var(--grey-icon-border);
     align-items: flex-end;
 }
 
 .arrowTrendingDown {
-    color: var(--red-700);
+    color: var(--red-icon-text);
     height: 2rem;
 }
 
 .arrowTrendingUp {
-    color: var(--teal-vivid-700);
+    color: var(--green-icon-text);
     height: 2rem;
 }
 
 .minus {
-    color: var(--cool-grey-700);
+    color: var(--grey-icon-text);
     height: 2rem;
+}
+
+.diffGroupUp svg, .diffGroupDown svg, .diffGroupNoChange svg {
+    stroke-width: 2.4px;
 }
 
 .statsGridTitle {
@@ -71,6 +75,7 @@
 
 .raceStat, .genderStat, .totalStat {
     box-shadow: 0 1rem 1.5rem var(--coarse-shadow), 0 .4rem .6rem var(--fine-shadow);
+    background-color: var(--card-background-colour);
 }
   
 .raceStat button, .genderStat button, .totalStat button {
@@ -104,7 +109,7 @@
     background-color: var(--bg-colour);
 }
 .forceSelect input:focus {
-    background-color: #fff;
+    background-color: var(--input-focus-colour);
 }
 
 .statsGrid {
@@ -119,6 +124,10 @@
     align-items: flex-start;
 }
 
+.contributors span {
+    color: var(--support-text-colour);
+}
+
 .avatarImages {
     display: flex;
     gap: 3.2rem;
@@ -129,14 +138,13 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    color: var(--text-colour);
 }
 
-.avatarImages a:visited {
-    color: var(--text-colour);
+.avatarImages a:visited span {
+    color: var(--support-text-colour);
 }
 
-.avatarImages a:hover {
+.avatarImages a:hover span {
     color: var(--brand-orange);
 }
 

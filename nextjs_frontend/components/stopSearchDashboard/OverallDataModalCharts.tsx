@@ -1,6 +1,7 @@
 import { SimpleGrid } from '@mantine/core';
 import LineChart from "../chart/LineChart"
 import  { enhancedData } from './SharedTypes';
+import { useAppThemeContext } from '../../context/AppTheme';
 
 interface overallDataModalChartsProps {
     enhancedData: enhancedData | undefined,
@@ -13,15 +14,16 @@ const OverallDataModalCharts = ({
   enhancedData,
   monthSliderValue
   }: overallDataModalChartsProps) => {
-      
+
+  const { theme } = useAppThemeContext();
   const overallChartData = {
     datasets: [{
       label: 'Total stop and searches',
       data: enhancedData!.overall_enhanced_data!.past_monthly_stop_search.map(({ x, y}) => ({ x: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short' }).format(new Date(x)), y })),
       borderWidth: 1.5,
       tension: .25,
-      borderColor: colourPalette[1],
-      backgroundColor: colourPalette[0]
+      borderColor: theme=='light' ? colourPalette[1] : undefined,  
+    backgroundColor: theme=='light' ? colourPalette[0] : undefined
     }],
   }
 
@@ -32,8 +34,8 @@ const OverallDataModalCharts = ({
     data: enhancedData!.overall_enhanced_data!.past_monthly_stop_search_breakdown_by_race.filter(item => item.category == race).map(({ x, y }) => ({ x: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short' }).format(new Date(x)), y })),
     borderWidth: 1.5,
     tension: .25,
-    borderColor: colourPalette[index*2 + 1],
-    backgroundColor: colourPalette[index*2]
+    borderColor: theme=='light' ? colourPalette[index*2 + 1] : undefined,  
+    backgroundColor: theme=='light' ? colourPalette[index*2] : undefined
   })    
   )
   
@@ -44,8 +46,8 @@ const OverallDataModalCharts = ({
     data: enhancedData!.overall_enhanced_data!.past_monthly_stop_search_breakdown_by_gender.filter(item => item.category == gender).map(({ x, y }) => ({ x: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short' }).format(new Date(x)), y })),
     borderWidth: 1.5,
     tension: .25,
-    borderColor: colourPalette[index*2 + 1],  
-    backgroundColor: colourPalette[index*2]  
+    borderColor: theme=='light' ? colourPalette[index*2 + 1] : undefined,  
+    backgroundColor: theme=='light' ? colourPalette[index*2] : undefined
   })    
   )
 

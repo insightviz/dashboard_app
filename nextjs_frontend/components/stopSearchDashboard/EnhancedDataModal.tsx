@@ -2,6 +2,7 @@ import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex, Radio } from '@man
 import  OverallDataModalCharts from './OverallDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
 import { useReducedMotion, useViewportSize } from '@mantine/hooks';
+import { useAppThemeContext } from '../../context/AppTheme';
 
 const FetchEnhancedOverallData = (await import('./dashboardHooks/FetchEnhancedOverallData')).default
 
@@ -22,6 +23,7 @@ const StopSearchModal = ({
   const shouldReduceMotion = useReducedMotion()
   const { width } = useViewportSize()
   const { enhancedData, enhancedDataError } = FetchEnhancedOverallData(force, monthSliderValue)
+  const { theme } = useAppThemeContext();
   return (
     <Modal
       opened={totalModalOpened}
@@ -37,7 +39,7 @@ const StopSearchModal = ({
     >
       {
         <SimpleGrid cols={1} spacing="xl">
-          <Title order={1} size={24} weight={400} align="left" color="supportCoolGrey.9">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in last {monthSliderValue} months</Title>
+          <Title order={1} size={20} weight={700} align="left" color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'}>{sentenceCase(force.replace(/[-]/g, ' '))} police searches in last {monthSliderValue} months</Title>
           <Flex
             justify="left"
           >

@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic'
 import dayjs, { Dayjs } from "dayjs";
 import Image from 'next/image'
 import { useEffect } from 'react';
+import { useAppThemeContext } from '../../context/AppTheme';
 
 const FetchForces = (await import('./dashboardHooks/FetchForces')).default
 const FetchData = (await import('./dashboardHooks/FetchData')).default
@@ -52,6 +53,7 @@ const StopSearchDashboard = ({
   const { data, dataError } = FetchData(force, month)
   const { forcesData, forceError } = FetchForces()
   const { monthsData, monthsError } = FetchMonths(force)
+  const { theme } = useAppThemeContext();
 
   useEffect(() => {
     if (monthsData) {
@@ -61,7 +63,7 @@ const StopSearchDashboard = ({
 
   return (
     <div className={styles.stopSearchDashboard}>
-      <Title color='supportCoolGrey.9' order={1} size={20} lh={1} mb={24}>UK Stop and Search Dashboard</Title>
+      <Title color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'} order={1} size={20} lh={1} mb={24}>UK Stop and Search Dashboard</Title>
       <div className={styles.selectInputs}>
         <SelectWrapper
           selectOptions={forcesData?forcesData:['Loading...']}
@@ -134,7 +136,7 @@ const StopSearchDashboard = ({
         </LazyMotion>
       </div>
       <div className={styles.contributors}>
-        <Title color='supportCoolGrey.9' order={2} size={16} lh={1} mt={32}>Contributors</Title>
+        <Title color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'} order={2} size={16} lh={1} mt={32}>Contributors</Title>
         <div className={styles.avatarImages}>
           <a href="https://github.com/ezeahunanya" className="contributor-link" target="_blank" rel="noreferrer">
             <Image className={styles.image} src="https://avatars.githubusercontent.com/u/57296341?v=4" alt='Eze Ahunanya image' width={56} height={56} /> 
