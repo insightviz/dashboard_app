@@ -11,8 +11,8 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Title, Paper } from '@mantine/core';
-import { useElementSize  } from '@mantine/hooks';
-
+import { useElementSize, useViewportSize } from '@mantine/hooks';
+import styles from './ChartStyles.module.css'
 
 ChartJS.register(
   CategoryScale,
@@ -31,11 +31,14 @@ interface lineChartProps {
 }
 
 
+ChartJS.defaults.color = '#616E7C';
+
 function LineChart({ chartData, title, months}: lineChartProps) {
   const { ref, width } = useElementSize();
+  const { width: viewWidth } = useViewportSize()
   return (
-    <Paper withBorder p="md" radius="md" className="chart-container" ref={ref}>
-      <Title order={3} size={20} align="center">{title}</Title>
+    <Paper withBorder p={viewWidth<600 ? 16 : 32} radius="xl" className={styles.chart} ref={ref}>
+      <Title order={3} size={16} weight={700} lh={1} mb={8} align="left" transform="uppercase" color="supportCoolGrey.4">{title}</Title>
       <Line
         data={chartData}
         options={{

@@ -33,11 +33,12 @@ a {
 
 .page-main {
   flex-grow: 1;
-  margin-top: 8rem;
+  margin-top: 10rem;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4.8rem 3.2rem 4.8rem;
+  border-top: .8rem solid var(--primary-accent);
 }
 
 body {
@@ -195,4 +196,9 @@ body[data-theme="light"] {
 
 .MuiInputBase-root.Mui-focused {
   background-color: #fff;
+}
+
+.mantine-Modal-modal {
+  background-color: var(--cool-grey-100);
+  border-top: .8rem solid var(--primary-accent);
 }

@@ -28,6 +28,7 @@
 
 .logoContainer {
     display: flex;
+    padding: 1rem;
 }
 
 .navbarLogo {

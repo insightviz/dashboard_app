@@ -1,7 +1,7 @@
 import { Modal, Loader, Paper, Text, Title, SimpleGrid, Flex, Radio } from '@mantine/core';
 import  OverallDataModalCharts from './OverallDataModalCharts';
 import { sentenceCase } from "../../assets/UtilFunctions"
-import { useReducedMotion } from '@mantine/hooks';
+import { useReducedMotion, useViewportSize } from '@mantine/hooks';
 
 const FetchEnhancedOverallData = (await import('./dashboardHooks/FetchEnhancedOverallData')).default
 
@@ -20,21 +20,26 @@ const StopSearchModal = ({
   monthSliderValue,
   handleMonthSliderChange}: stopSearchModalProps) => {
   const shouldReduceMotion = useReducedMotion()
+  const { width } = useViewportSize()
   const { enhancedData, enhancedDataError } = FetchEnhancedOverallData(force, monthSliderValue)
   return (
     <Modal
       opened={totalModalOpened}
-      onClose={() => openTotalModal(false)}
-      fullScreen
+      onClose={() => openTotalModal(false)}      
       zIndex={999}
       transition={shouldReduceMotion ? undefined : 'fade'}
       transitionDuration={shouldReduceMotion ? 0 : 400}
+      size={1000}
+      padding={width<600 ? 16 : 32}
+      fullScreen={ width<1000 ? width !== 0 ? true : false : false}
+      overlayBlur={3}
+      overlayOpacity={0.7}
     >
       {
         <SimpleGrid cols={1} spacing="xl">
-          <Title order={1} size={32} align="center">{sentenceCase(force.replace(/[-]/g, ' '))} police stop and searches over previous {monthSliderValue} months</Title>
+          <Title order={1} size={24} weight={400} align="left" color="supportCoolGrey.9">{sentenceCase(force.replace(/[-]/g, ' '))} police searches in last {monthSliderValue} months</Title>
           <Flex
-            justify="center"
+            justify="left"
           >
             <Radio.Group
               value={monthSliderValue}

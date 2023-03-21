@@ -32,7 +32,7 @@ const CardHome = () => {
         {`Insights from stop and search data released by 'POLICE.UK'`}
       </Text>
       <Link href="/stopsearch">
-        <Button variant="filled" fullWidth mt={16}>
+        <Button variant="filled" fullWidth mt={16} fw={700} fz={16}>
           Discover insights
         </Button>
       </Link>
