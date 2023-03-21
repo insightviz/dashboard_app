@@ -79,7 +79,7 @@ export default function StatsGridIcons({
           :
           <></>
           }
-          <Button variant={ theme=='dark' ? 'filled' : 'light'} bg={ theme=='dark' ? 'primaryBlue.7' : 'primaryBlue.1'} mt={24}  onClick={() => handleTotalClick()} fw={700} fz={14}
+          <Button variant={ theme=='dark' ? 'filled' : 'light'} bg={ theme=='dark' ? 'primaryBlue.6' : 'primaryBlue.1'} mt={24}  onClick={() => handleTotalClick()} fw={700} fz={14}
           rightIcon={
           <ThemeIcon 
             size={24} 
@@ -126,7 +126,7 @@ export default function StatsGridIcons({
           </Text>
           {
             statItem.ethnicity.toLowerCase() !== 'not defined' ? 
-            <Button variant={ theme=='dark' ? 'filled' : 'light'} bg={ theme=='dark' ? 'primaryBlue.7' : 'primaryBlue.1'} mt={24}
+            <Button variant={ theme=='dark' ? 'filled' : 'light'} bg={ theme=='dark' ? 'primaryBlue.6' : 'primaryBlue.1'} mt={24}
             rightIcon={
               <ThemeIcon 
                 size={24} 
@@ -177,7 +177,7 @@ export default function StatsGridIcons({
           </Text>
           {
             statItem.gender.toLowerCase() !== 'not defined' ? 
-            <Button variant={ theme=='dark' ? 'filled' : 'light'} bg={ theme=='dark' ? 'primaryBlue.7' : 'primaryBlue.1'} mt={24}
+            <Button variant={ theme=='dark' ? 'filled' : 'light'} bg={ theme=='dark' ? 'primaryBlue.6' : 'primaryBlue.1'} mt={24}
             rightIcon={
               <ThemeIcon 
                 size={24} 
