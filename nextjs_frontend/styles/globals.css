@@ -2,7 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: var(--noto-font);
+  font-family: 'var(--rubik-font)';
   box-sizing: border-box;
 }
 
@@ -33,42 +33,194 @@ a {
 
 .page-main {
   flex-grow: 1;
-  margin-top: 8.5rem;
+  margin-top: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.8rem 3.2rem 4.8rem;
+  border-top: .8rem solid var(--primary-accent);
+}
+
+body {
+  /*Primary*/ 
+  --blue-050: #DCEEFB;
+  --blue-100: #b6e0fe;
+  --blue-200: #84C5F4;
+  --blue-300: #62B0E8;
+  --blue-400: #4098D7;
+  --blue-500: #2680C2;
+  --blue-600: #186FAF;
+  --blue-700: #0F609B;
+  --blue-800: #0A558C;
+  --blue-900: #003E6B; 
+  
+  --yellow-vivid-050: #FFFBEA;
+  --yellow-vivid-100: #FFF3C4;
+  --yellow-vivid-200: #FCE588;
+  --yellow-vivid-300: #FADB5F;
+  --yellow-vivid-400: #F7C948;
+  --yellow-vivid-500: #F0B429;
+  --yellow-vivid-600: #DE911D;
+  --yellow-vivid-700: #CB6E17;
+  --yellow-vivid-800: #B44D12;
+  --yellow-vivid-900: #8D2B0B;
+
+  /*Neutrals*/
+  --cool-grey-050: #F5F7FA;
+  --cool-grey-100: #e5e8eb;
+  --cool-grey-200: #CBD2D9;
+  --cool-grey-300: #9AA5B1;
+  --cool-grey-400: #7B8794;
+  --cool-grey-500: #616E7C;
+  --cool-grey-600: #52606D;
+  --cool-grey-700: #3E4C59;
+  --cool-grey-800: #323F4B;
+  --cool-grey-900: #1f2933; 
+
+  --grey-050: #F7F7F7;
+  --grey-100: #E1E1E1;
+  --grey-200: #CFCFCF;
+  --grey-300: #B1B1B1;
+  --grey-400: #9E9E9E;
+  --grey-500: #7E7E7E;
+  --grey-600: #626262;
+  --grey-700: #515151;
+  --grey-800: hsl(0, 0%, 23%);
+  --grey-900: hsl(0, 0%, 13%); 
+
+  
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: hsl(221, 39%, 11%);
+
+  /*Supporting*/ 
+  --teal-vivid-050: #F0FCF9;
+  --teal-vivid-100: #C6F7E9;
+  --teal-vivid-200: #8EEDD1;
+  --teal-vivid-300: #5FE3C0;
+  --teal-vivid-400: #2DCCA7;
+  --teal-vivid-500: #17B897;
+  --teal-vivid-600: #079A82;
+  --teal-vivid-700: #048271;
+  --teal-vivid-800: #016457;
+  --teal-vivid-900: #004440;  
+
+  --red-050: #FFEEEE;
+  --red-100: #FACDCD;
+  --red-200: #F29B9B;
+  --red-300: #E66A6A;
+  --red-400: #D64545;
+  --red-500: #BA2525;
+  --red-600: #A61B1B;
+  --red-700: #911111;
+  --red-800: #780A0A;
+  --red-900: #610404;  
+
+  --yellow-050: #FFFAEB;
+  --yellow-100: #FCEFC7;
+  --yellow-200: #F8E3A3;
+  --yellow-300: #F9DA8B;
+  --yellow-400: #F7D070;
+  --yellow-500: #E9B949;
+  --yellow-600: #C99A2E;
+  --yellow-700: #A27C1A;
+  --yellow-800: #7C5E10;
+  --yellow-900: #513C06;  
 }
 
 body[data-theme="dark"] {
   color-scheme: dark;
-  --bg-colour: #000;
-  --bg-colour-t: rgba(0, 0, 0, .5);
-  --bg-colour-2: #1A1B1E;
-  --text-colour: #C1C2C5;
-  --brand-orange: #f9a31a;
-  --brand-blue: #292974;
-  --blue-200: #A3ABD6;
-  --accent-1: #888;
-  --accent-2: #333;
-  --green: #80cbc3;
-  --red: #ef9a9a;
-  --divider-colour: #373A40;
-  --card-border: #373A40;
+  --bg-colour: var(--gray-900);
+  --bg-colour-t: hsla(221, 39%, 11%, 0.6);
+  --bg-colour-2: var(--gray-800);
+  --text-colour: var(--cool-grey-100);
+  --support-text-colour: var(--cool-grey-300);
+  --icon-colour: var(--cool-grey-300);
+  --logo-text-colour: var(--cool-grey-400);
+  --brand-orange: var(--yellow-vivid-500);
+  --brand-blue: var(--blue-600);
+  --primary-accent: var(--blue-600);
+  --icon-focus-fill: var(--cool-grey-800);
+  --coarse-shadow: hsla(0, 0%, 0%, 0.4); 
+  --fine-shadow: hsla(0, 0%, 0%, 0.2);
+  --button-shadow: hsla(0, 0%, 0%, 0.8);
+  --button-inset-colour: var(--blue-500);
+  --button-inset-colour-2: var(--blue-500);
+  --input-inset-colour: var(--gray-700);
+  --input-inset-focus-colour: var(--gray-700);
+  --input-focus-colour: var(--gray-800);
+  --green-icon-border: var(--teal-vivid-400);
+  --green-icon-background: var(--teal-vivid-600);
+  --green-icon-text: var(--teal-vivid-050);
+  --red-icon-border: var(--red-400);
+  --red-icon-background: var(--red-600);
+  --red-icon-text: var(--red-050);
+  --grey-icon-border: var(--cool-grey-400);
+  --grey-icon-background: var(--cool-grey-600);
+  --grey-icon-text: var(--cool-grey-050);
+  --card-background-colour: var(--gray-800);
   color: var(--text-colour);
   background-color: var(--bg-colour);
 }
 
 body[data-theme="light"] {
   color-scheme: light;
-  --bg-colour: #fff;
-  --bg-colour-t: rgba(255, 255, 255, .5);
-  --bg-colour-2: #f2f2f6;
-  --text-colour: #000;
-  --brand-orange: #f9a31a;
-  --brand-blue: #292974;
-  --accent-1: #888;
-  --accent-2: #eaeaea;
-  --green: #26A69A;
-  --red: #EF5350;
-  --divider-colour: #ced4da;
-  --card-border: #DEE2E6;
+  --bg-colour: var(--cool-grey-100);
+  --bg-colour-t: hsl(214, 15%, 91%, .6);
+  --bg-colour-2: var(--cool-grey-200);
+  --text-colour: var(--cool-grey-900);
+  --support-text-colour: var(--cool-grey-400);
+  --icon-colour: var(--cool-grey-700);
+  --logo-text-colour: var(--cool-grey-800);
+  --brand-orange: var(--yellow-vivid-600);
+  --brand-blue: var(--blue-900);
+  --primary-accent: var(--blue-900);
+  --icon-focus-fill: var(--cool-grey-200);
+  --coarse-shadow: hsla(0, 0%, 0%, 0.1); 
+  --fine-shadow: hsla(0, 0%, 0%, 0.05);
+  --button-shadow: hsla(0, 0%, 0%, 0.2);
+  --button-inset-colour: var(--blue-600);
+  --button-inset-colour-2: var(--blue-050);
+  --input-inset-colour: var(--cool-grey-100);
+  --input-inset-focus-colour: var(--cool-grey-050);
+  --input-focus-colour: #fff;
+  --green-icon-border: var(--teal-vivid-200);
+  --green-icon-background: var(--teal-vivid-100);
+  --green-icon-text: var(--teal-vivid-700);
+  --red-icon-border: var(--red-200);
+  --red-icon-background: var(--red-100);
+  --red-icon-text: var(--red-700);
+  --grey-icon-border: var(--cool-grey-200);
+  --grey-icon-background: var(--cool-grey-100);
+  --grey-icon-text: var(--cool-grey-700);
+  --card-background-colour: #fff;
   color: var(--text-colour);
   background-color: var(--bg-colour);
+}
+
+@media (min-width: 800px) {
+  .MuiTextField-root{
+    width: 30rem;
+  }
+}
+
+.MuiInputBase-root {
+  background-color: var(--bg-colour);
+  box-shadow: inset 0 .2rem .2rem var(--coarse-shadow), 0 .2rem 0 var(--input-inset-focus-colour);
+}
+
+.MuiInputBase-root.Mui-focused {
+  background-color: var(--input-focus-colour);
+}
+
+.mantine-Modal-modal {
+  background-color: var(--bg-colour);
+  border-top: .8rem solid var(--primary-accent);
 }

@@ -6,36 +6,47 @@
     justify-items: center;
 }
 
-.formTitle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;  
+.signupForm label {
+    font-weight: 400;
+    line-height: 150%;
+    margin-bottom: .8rem;
+    font-size: var(--font-size--default);
+    color: var(--support-text-colour);
 }
 
-.formTitle h2 {
-    font-size: var(--font-size--ml);
-    margin-top: 0;
-    margin-bottom: 0;
+.signupForm ::placeholder {
+    color: var(--support-text-colour) 
 }
 
-.inputs {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem; 
+.signupForm input {
+    font-weight: 400;
+    line-height: 150%;
+    font-size: var(--font-size--default);
+    background-color: var(--bg-colour-2);
+    box-shadow: inset 0 .2rem .2rem var(--coarse-shadow), 0 .2rem 0 var(--input-inset-colour);
 }
 
-@media (min-width: 830px) {
-    .inputs {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem; 
-    }
+.signupForm input:focus {
+    background-color: var(--bg-colour);
+    box-shadow: inset 0 .2rem .2rem var(--coarse-shadow), 0 .2rem 0 var(--input-inset-focus-colour);    
 }
 
-.firstNameContainer, .emailContainer {
-    width: 28rem;
+.signupForm button {
+  box-shadow: 0 .2rem .3rem var(--button-shadow), inset 0 .1rem 0 var(--button-inset-colour);
+}
+
+.signupForm button:active {
+  box-shadow: none;
+}
+
+.emailContainer {
+    min-width: 28rem;
+}
+
+.chevronRight, .envelope {
+    height: 2rem;
+}
+
+.envelope {
+    color: var(--support-text-colour)
 }

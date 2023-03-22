@@ -18,11 +18,8 @@ export default function Home() {
             <span className={styles.three}>FILLED WORLD</span>
           </h1>
         </div>
-        <div className={styles.dashboards}>
-          <h2>Latest Dashboard</h2>
-          <div className={styles.dashboard_content}>
-            <CardHome />
-          </div>
+        <div className={styles.dashboard_content}>
+          <CardHome />
         </div>
       </div>
     </>

@@ -3,6 +3,7 @@ import { Title, SimpleGrid, Progress, Paper, Box, Text, Group } from '@mantine/c
 import { segmentsData } from '../stopSearchDashboard/SharedTypes';
 import { useElementSize  } from '@mantine/hooks';
 import { useAppThemeContext } from '../../context/AppTheme';
+import styles from './ChartStyles.module.css'
 
 interface barSegmentsProps {
   chartData: segmentsData[],
@@ -12,8 +13,8 @@ interface barSegmentsProps {
 function BarSegments({ chartData, title }: barSegmentsProps) {
   const { ref, width } = useElementSize();
   const { theme } = useAppThemeContext();
-  const colourPaleteLight = ["blue.4", "green.4", "red.4", "yellow.4", "orange.4", "violet.4", "gray.4", "lime.4", "indigo.4", "grape.4"] 
-  const colourPaleteLight1 = ["Theme.colors.blue[4]", "Theme.colors.green[4]", "Theme.colors.red[4]", "Theme.colors.yellow[4]", "Theme.colors.orange[4]", "Theme.colors.violet[4]", "Theme.colors.gray[4]", "Theme.colors.lime[4]", "Theme.colors.indigo[4]", "Theme.colors.grape[4]"] 
+  const colourPaleteLight = ["primaryBlue.9", "primaryBlue.8", "primaryBlue.7", "primaryBlue.6", "primaryBlue.5", "primaryBlue.4", "primaryBlue.3", "primaryBlue.2", "primaryBlue.1", "primaryBlue.0"] 
+  const colourPaleteLight1 = ["Theme.colors.primaryBlue[9]", "Theme.colors.primaryBlue[8]", "Theme.colors.primaryBlue[7]", "Theme.colors.primaryBlue[6]", "Theme.colors.primaryBlue[5]", "Theme.colors.primaryBlue[4]", "Theme.colors.primaryBlue[3]", "Theme.colors.primaryBlue[2]", "Theme.colors.primaryBlue[1]", "Theme.colors.primaryBlue[0]"] 
   const colourPaleteDark = ["blue.5", "green.5", "red.5", "yellow.5", "orange.5", "violet.5", "gray.5", "lime.5", "indigo.5", "grape.5"] 
   const colourPaleteDark1 = ["Theme.colors.blue[5]", "Theme.colors.green[5]", "Theme.colors.red[5]", "Theme.colors.yellow[5]", "Theme.colors.orange[5]", "Theme.colors.violet[5]", "Theme.colors.gray[5]", "Theme.colors.lime[5]", "Theme.colors.indigo[5]", "Theme.colors.grape[5]"] 
 
@@ -28,12 +29,12 @@ function BarSegments({ chartData, title }: barSegmentsProps) {
       borderBottom: `3px solid`,
       paddingBottom: 5, 
       borderBottomColor: eval(theme=='dark' ? colourPaleteDark1[index] : colourPaleteLight1[index]) })} >
-      <Text transform="uppercase" size="xs" color="dimmed" weight={700}>
+      <Text transform="uppercase" size="xs" color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} weight={700}>
         {stat.label}
       </Text>
 
       <Group position="apart" align="flex-end" spacing={0}>
-        <Text weight={700}>{stat.count}</Text>
+        <Text weight={700} color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'}>{stat.count}</Text>
         <Text color={theme=='dark' ? colourPaleteDark[index] : colourPaleteLight[index]} weight={700} size="sm" >
           {stat.percentage}%
         </Text>
@@ -41,8 +42,8 @@ function BarSegments({ chartData, title }: barSegmentsProps) {
     </Box>
   ));
   return (
-    <Paper withBorder p="md" radius="md" className="chart-container" ref={ref}>
-      <Title order={3} size={20} align="center">{title}</Title>
+    <Paper p={32} radius="xl" className={styles.barSegment} ref={ref}>
+      <Title order={3} size={16} weight={700} lh={1} mb={8} align="left" transform="uppercase" color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'}>{title}</Title>
       <Progress
         sections={segments}
         size={34}

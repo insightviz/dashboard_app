@@ -39,6 +39,8 @@ function SelectWrapper({
       disabled={disabled}
       className={className}
       zIndex={1500}
+      c='blue'
+      
     />        
   );
 }

@@ -1,0 +1,4 @@
+.barSegment, .chart {
+    box-shadow: 0 1rem 1.5rem var(--coarse-shadow), 0 .4rem .6rem var(--fine-shadow);
+    background-color: var(--card-background-colour);
+}

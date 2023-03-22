@@ -1,9 +1,10 @@
 import styles from './SignUpForm.module.css'
-import User from '@geist-ui/icons/user'
-import AtSign from '@geist-ui/icons/atSign'
-import UserCheck from '@geist-ui/icons/userCheck'
-import { TextInput, Button } from '@mantine/core';
+import Mail from '@geist-ui/icons/mail'
+import { TextInput, ActionIcon } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
+import { useElementSize } from '@mantine/hooks';
+import ChevronRight from "../../assets/svgs/chevronRight.svg";
+import Envelope from "../../assets/svgs/envelope.svg";
 
 interface FormValues {
   firstName: string;
@@ -18,39 +19,37 @@ interface SignUpFormProps {
 }
 
 export default function SignUpForm({onSubmit, form, isSubmittingFormData}: SignUpFormProps) {
+  const { ref, width } = useElementSize();
+  console.log(width)
   return (
     <section className={styles.signupForm}>
       <form onSubmit={form.onSubmit(onSubmit)}>
-        <div className={styles.formTitle}>
-          <h2>Subscribe for updates on new dashboards!</h2>
-        </div>
-        <div className={styles.inputs}>
-          <TextInput
-            className={styles.firstNameContainer}
-            icon={<User size={20}/>}
-            aria-label='First name input'
-            label="First Name"
-            placeholder="First Name"
-            {...form.getInputProps('firstName')}
-          />
-          <TextInput
-            className={styles.emailContainer}
-            icon={<AtSign size={20}/>}
-            aria-label='Email input'
-            withAsterisk
-            required
-            label="Email"
-            placeholder="your@email.com"
-            {...form.getInputProps('email')}
-          />
-        </div>
-        <Button 
-          rightIcon={<UserCheck size={20} />} 
-          type="submit" 
-          variant="default" 
-          loading={isSubmittingFormData}>
-            Subscribe
-        </Button>
+        <TextInput
+          className={styles.emailContainer}
+          icon={<Envelope className={styles.envelope}/>}
+          radius="xl"
+          size="xl"
+          weight={400}
+          color='supportCoolGrey.9' 
+          label='Subscribe for dashboard updates'
+          rightSection={
+            <ActionIcon 
+              size={32} 
+              radius="xl"  
+              variant="filled" 
+              loading={isSubmittingFormData} 
+              ref={ref} 
+              color='primaryBlue'
+              type="submit">
+              <ChevronRight className={styles.chevronRight}/>
+            </ActionIcon>
+          }
+          placeholder="Enter email"
+          aria-label='Email input'
+          {...form.getInputProps('email')}
+          rightSectionWidth={60}
+          iconWidth={60}
+        />
       </form>
     </section>
   );

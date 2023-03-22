@@ -1,13 +1,14 @@
-import { Group, Paper, Text, ThemeIcon, SimpleGrid, Divider } from '@mantine/core';
-import { useViewportSize } from '@mantine/hooks';
-import ArrowDownRight from '@geist-ui/icons/arrowDownRight'
-import ArrowUpRight from '@geist-ui/icons/arrowUpRight';
-import Minus from '@geist-ui/icons/minus';
+import { Group, Paper, Text, Button, SimpleGrid, ThemeIcon, Flex} from '@mantine/core';
 import { Data } from './SharedTypes';
 import { getMonthsNames } from '@mantine/dates';
 import { useAppThemeContext } from '../../context/AppTheme';
 import { useReducedMotion, m } from "framer-motion";
 import { Dayjs } from "dayjs";
+import ArrowTrendingUp from "../../assets/svgs/arrowTrendingUp.svg";
+import ArrowTrendingDown from "../../assets/svgs/arrowTrendingDown.svg";
+import Minus from "../../assets/svgs/minus.svg";
+import ChevronRight from "../../assets/svgs/chevronRight.svg";
+import styles from "./StopSearchController.module.css";
 
 const months = getMonthsNames('en', 'MMMM');
 
@@ -29,66 +30,68 @@ export default function StatsGridIcons({
   force
   } : StatsUIProps) {
   const { theme } = useAppThemeContext();
-  const { width } = useViewportSize();
   const shouldReduceMotion = useReducedMotion()
   const totalStats = ({monthly_no_stop_search}: Data) => {
-    const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowUpRight : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowDownRight;
+    const DiffIcon = monthly_no_stop_search.pct_change > 0 ? ArrowTrendingUp : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? Minus : ArrowTrendingDown;
     return (
       <m.div
         initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-        whileHover={{
-          scale: width < 901 ? 1 : 1.04,
-          transition: { duration: width < 901 ? 0 : .2 },
-        }}
-        whileTap={{
-          scale: width < 901 ? 0.98 : 0.95,
-          transition: { duration: .1} }}>
-        <Paper withBorder p="xl" radius="xl" onClick={() => handleTotalClick()} sx={(theme) => ({cursor: 'pointer'})}>
-          <Group position="apart" noWrap>
+        transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}>
+        <Paper p={32} radius="xl" className={styles.totalStat}>
+          <Group position="apart" noWrap align="flex-end">
             <div>
               <Text
-                color="dimmed"
+                color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'}
                 transform="uppercase"
                 weight={700}
-                size="sm"
+                size={14} lh={1}
+                className={styles.statsGridTitle}
               >
-                {force.replace(/[-]/g, ' ')} searches in {months[datePickerDate.month()]}, {datePickerDate.year()}
+                {force.replace(/[-]/g, ' ')} police force
               </Text>
-              <Text weight={700} size={32}>
+              <Text
+                color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'}
+                transform='uppercase'
+                weight={700}
+                size={14} lh={1}
+                mt={8}
+                className={styles.statsGridTitle}
+              >
+                {months[datePickerDate.month()]} {datePickerDate.year()}
+              </Text>
+              <Text weight={400} size={36} mt={24} lh={1} color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'}>
                 {monthly_no_stop_search.monthly_no_stop_search}
               </Text>
+            </div>           
+            <div className={monthly_no_stop_search.pct_change > 0 ? styles.diffGroupUp : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? styles.diffGroupNoChange : styles.diffGroupDown}>
+              <DiffIcon className={monthly_no_stop_search.pct_change > 0 ? styles.arrowTrendingUp : monthly_no_stop_search.pct_change === 0 || monthly_no_stop_search.pct_change === 'N/A' ? styles.minus : styles.arrowTrendingDown} />
+              <Text size="sm" component="span" weight={700} lh={1.3} color={monthly_no_stop_search.pct_change > 0 ? theme=='dark' ? 'supportGreen.0' : 'supportGreen.7' : monthly_no_stop_search.pct_change == 0 ? theme=='dark' ? 'supportCoolGrey.0' : 'supportCoolGrey.7' : theme=='dark' ? 'supportRed.0' : 'supportRed.7'}>
+                {monthly_no_stop_search.pct_change==="N/A" ? undefined : monthly_no_stop_search.pct_change.toString().replace('-', '') + '%'}
+              </Text>
             </div>
-            <ThemeIcon
-              color="gray"
-              variant="light"
-              sx={(theme) => ({ color: monthly_no_stop_search.pct_change > 0 ? theme.colors.teal[6] : monthly_no_stop_search.pct_change == 0 || monthly_no_stop_search.pct_change === 'N/A' ? theme.colors.gray[6] : theme.colors.red[6] })}
-              size={38}
-              radius="md"
-            >
-              <DiffIcon size={28} />
-            </ThemeIcon>
           </Group>
           {
           monthly_no_stop_search.pct_change === 'N/A' ?
-          <Text color="dimmed" size="sm" mt="md">
+          <Text color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} size={14} mt={24} lh={1}>
             No data for previous month
           </Text>
           :
-          <Text color="dimmed" size="sm" mt="md">
-            <Text component="span" color={monthly_no_stop_search.pct_change > 0 ? 'teal' : monthly_no_stop_search.pct_change == 0 ? 'gray' : 'red'} weight={700}>
-              {monthly_no_stop_search.pct_change}%
-            </Text>{' '}
-            {monthly_no_stop_search.pct_change > 0 ? 'increase' : monthly_no_stop_search.pct_change === 0 ? 'no change' : 'decrease'} compared to last month
-          </Text>
+          <></>
           }
-          {
-            width < 901 ?
-            <Text size="sm" mt="md" color="dimmed">Expand +</Text> :
-            <></>
-          }
-        </Paper>
+          <Button variant={ theme=='dark' ? 'filled' : 'light'} bg={ theme=='dark' ? 'primaryBlue.6' : 'primaryBlue.1'} mt={24}  onClick={() => handleTotalClick()} fw={700} fz={14}
+          rightIcon={
+          <ThemeIcon 
+            size={24} 
+            radius="xl"  
+            variant="filled"
+            color={ theme=='dark' ? 'primaryBlue.5' : 'primaryBlue.2'}>
+            <ChevronRight className={styles.chevronRight} />
+          </ThemeIcon>
+          }>
+            More details
+          </Button>
+        </Paper>        
       </m.div>      
     );
   };
@@ -99,40 +102,45 @@ export default function StatsGridIcons({
         initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-        whileHover={{
-          scale: width < 901 ? 1 : statItem.ethnicity.toLowerCase() !== 'not defined' ? data.breakdown_by_race.length > 3 ? 1.04 : 1.02 : 1,
-          transition: { duration: width < 901 ? 0 : .2 },
-        }}
-        whileTap={{
-          scale: width < 901 ? statItem.ethnicity.toLowerCase() !== 'not defined' ? 0.98 : 1 : statItem.ethnicity.toLowerCase() !== 'not defined' ? 0.95 : 1,
-          transition: { duration: .1} }}
         key={statItem.ethnicity}>
-        <Paper withBorder p="xl" radius="xl" key={statItem.ethnicity}
-          onClick={statItem.ethnicity.toLowerCase() !== 'not defined' ? () => handleRaceChange(statItem.ethnicity) : undefined }
-          sx={(theme) => (statItem.ethnicity.toLowerCase() !== 'not defined' ? {cursor: 'pointer'} : {})}>
+        <Paper p={32} radius="xl" key={statItem.ethnicity} className={styles.raceStat}>
           <Group position="apart" noWrap>
             <Text
-              color="dimmed"
+              color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'}
               transform="uppercase"
               weight={700}
-              size="xs"
+              size={14}
+              className={styles.statsGridTitle} lh={1}
             >
               {statItem.ethnicity}
             </Text>
-            <Text weight={700} size="xl">
+            <Text weight={700} size="xl" lh={1} color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'}>
               {statItem.no_of_stop_and_searches}
             </Text>
           </Group>
-          <Text color="dimmed" size="sm" mt="md">
-            <Text component="span" color={ theme == 'light' ? 'black' : '#C1C2C5'} weight={700}>
+          <Text color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} size={14} mt={24} lh={1}>
+            <Text component="span" color={ theme == 'light' ? 'supportCoolGrey.9' : 'supportCoolGrey.1'} weight={700}>
               {statItem.percentage}%
             </Text>{' '}
-            of total stop and searches
+            of total searches
           </Text>
           {
-            (width < 901) && (statItem.ethnicity.toLowerCase() !== 'not defined') ?
-            <Text size="sm" mt="md" color="dimmed">Expand +</Text> :
-            <></>
+            statItem.ethnicity.toLowerCase() !== 'not defined' ? 
+            <Button variant={ theme=='dark' ? 'filled' : 'light'} bg={ theme=='dark' ? 'primaryBlue.6' : 'primaryBlue.1'} mt={24}
+            rightIcon={
+              <ThemeIcon 
+                size={24} 
+                radius="xl"  
+                variant="filled"
+                color={ theme=='dark' ? 'primaryBlue.5' : 'primaryBlue.2'}>
+                <ChevronRight className={styles.chevronRight} />
+              </ThemeIcon>
+              }
+            onClick={statItem.ethnicity.toLowerCase() !== 'not defined' ? () => handleRaceChange(statItem.ethnicity) : undefined } fw={700} fz={14}>
+              More details
+            </Button>
+             : 
+            <></> 
           }
         </Paper>
       </m.div>
@@ -145,40 +153,45 @@ export default function StatsGridIcons({
         initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-        whileHover={{
-          scale: width < 901 ? 1 : statItem.gender.toLowerCase() !== 'not defined' ? data.breakdown_by_gender.length > 3 ? 1.04 : 1.02 : 1,
-          transition: { duration: width < 901 ? 0 : .2 },
-        }}
-        whileTap={{
-          scale: width < 901 ? statItem.gender.toLowerCase() !== 'not defined' ? 0.98 : 1 : statItem.gender.toLowerCase() !== 'not defined' ? 0.95 : 1,
-          transition: { duration: .1} }}
         key={statItem.gender}>
-        <Paper withBorder p="xl" radius="xl" key={statItem.gender}
-          onClick={statItem.gender.toLowerCase() !== 'not defined' ? () => handleGenderChange(statItem.gender) : undefined }
-          sx={(theme) => (statItem.gender.toLowerCase() !== 'not defined' ? {cursor: 'pointer'} : {})}>
+        <Paper p={32} radius="xl" key={statItem.gender} className={styles.genderStat}>
           <Group position="apart" noWrap>
             <Text
-              color="dimmed"
+              color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'}
               transform="uppercase"
               weight={700}
-              size="xs"
+              size={14}
+              className={styles.statsGridTitle} lh={1}
             >
               {statItem.gender}
             </Text>
-            <Text weight={700} size="xl">
+            <Text weight={700} size="xl" lh={1} color={ theme=='dark' ? 'supportCoolGrey.1' : 'supportCoolGrey.9'}>
               {statItem.no_of_stop_and_searches}
             </Text>
           </Group>
-          <Text color="dimmed" size="sm" mt="md">
-            <Text component="span" color={ theme == 'light' ? 'black' : '#C1C2C5'} weight={700}>
+          <Text color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} size={14} mt={24} lh={1}>
+            <Text component="span" color={ theme == 'light' ? 'supportCoolGrey.9' : 'supportCoolGrey.1'} weight={700}>
               {statItem.percentage}%
             </Text>{' '}
-            of total stop and searches
+            of total searches
           </Text>
           {
-            (width < 901) && (statItem.gender.toLowerCase() !== 'not defined') ?
-            <Text size="sm" mt="md" color="dimmed">Expand +</Text> :
-            <></>
+            statItem.gender.toLowerCase() !== 'not defined' ? 
+            <Button variant={ theme=='dark' ? 'filled' : 'light'} bg={ theme=='dark' ? 'primaryBlue.6' : 'primaryBlue.1'} mt={24}
+            rightIcon={
+              <ThemeIcon 
+                size={24} 
+                radius="xl"  
+                variant="filled"
+                color={ theme=='dark' ? 'primaryBlue.5' : 'primaryBlue.2'}>
+                <ChevronRight className={styles.chevronRight} />
+              </ThemeIcon>
+              }
+            onClick={statItem.gender.toLowerCase() !== 'not defined' ? () => handleGenderChange(statItem.gender) : undefined } fw={700} fz={14}>
+              More details
+            </Button>
+             : 
+            <></> 
           }
         </Paper>
       </m.div>
@@ -191,33 +204,31 @@ export default function StatsGridIcons({
       exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .95 }}
       transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
       key="stats-grid">
-      <SimpleGrid cols={1} spacing='xl' breakpoints={[
-        { maxWidth: 980, cols: 1, verticalSpacing: 'md' },
-        { maxWidth: 755, cols: 1, verticalSpacing: 'sm' },
-      ]}>
-        <Divider size="lg" labelProps={{'size': '24px', weight: 700}} label="Total stop and searches" labelPosition="center" />
-        <SimpleGrid cols={3} breakpoints={[{ maxWidth: 980, cols: 1 }]}>
-          {width<979?<></>:<div></div>}
-          {totalStats(data)}
-        </SimpleGrid>
-        <Divider size="lg" labelProps={{'size': '24px', weight: 700}} label="Breakdown by race" labelPosition="center" />
-        <SimpleGrid cols={Object.keys(data.breakdown_by_race).length}
-          breakpoints={[
-            { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
-            { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
-            { maxWidth: 350, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
-          ]} spacing="xl">
-          {raceBreakdownStats}
-        </SimpleGrid>
-        <Divider size="lg" labelProps={{'size': '24px', weight: 700}} label="Breakdown by gender" labelPosition="center" />
-        <SimpleGrid cols={Object.keys(data.breakdown_by_gender).length}
-          breakpoints={[
-            { maxWidth: 980, cols: 3, spacing: 'md', verticalSpacing: 'md' },
-            { maxWidth: 755, cols: 2, spacing: 'sm', verticalSpacing: 'sm' },
-            { maxWidth: 350, cols: 1, spacing: 'sm', verticalSpacing: 'sm' },
-          ]} spacing="xl">
-          {genderBreakdownStats}
-        </SimpleGrid>
+      <Text color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} size={14} weight={400} lh={1} mb={8} mt={24}>Total searches</Text>
+      <Flex >
+        {totalStats(data)}
+      </Flex>
+      <Text color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} size={14} weight={400} lh={1} mt={32} mb={8}>Searches by race</Text>
+      <SimpleGrid cols={Object.keys(data.breakdown_by_race).length}
+        breakpoints={[
+          { maxWidth: 1600, cols: 5, spacing: 'xl', verticalSpacing: 'xl' },
+          { maxWidth: 1400, cols: 4, spacing: 'xl', verticalSpacing: 'xl' },
+          { maxWidth: 1100, cols: 3, spacing: 'xl', verticalSpacing: 'xl' },
+          { maxWidth: 800, cols: 2, spacing: 'xl', verticalSpacing: 'xl' },
+          { maxWidth: 550, cols: 1, spacing: 'xl', verticalSpacing: 'xl' },
+        ]} spacing="xl">
+        {raceBreakdownStats}
+      </SimpleGrid>  
+      <Text color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} size={14} weight={400} lh={1} mt={32} mb={8}>Searches by gender</Text>
+      <SimpleGrid cols={Object.keys(data.breakdown_by_race).length}
+        breakpoints={[
+          { maxWidth: 1600, cols: 5, spacing: 'xl', verticalSpacing: 'xl' },
+          { maxWidth: 1400, cols: 4, spacing: 'xl', verticalSpacing: 'xl' },
+          { maxWidth: 1100, cols: 3, spacing: 'xl', verticalSpacing: 'xl' },
+          { maxWidth: 800, cols: 2, spacing: 'xl', verticalSpacing: 'xl' },
+          { maxWidth: 550, cols: 1, spacing: 'xl', verticalSpacing: 'xl' },
+        ]} spacing="xl">
+        {genderBreakdownStats}
       </SimpleGrid>
     </m.div>
   );

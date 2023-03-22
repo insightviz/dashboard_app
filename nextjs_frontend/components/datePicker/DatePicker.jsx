@@ -8,18 +8,17 @@ import TextField from '@mui/material/TextField';
 import { useReducedMotion } from 'framer-motion';
 
 const CssTextField = styled(TextField)({
-  '& label.Mui-focused': {
-    color: '#22b8e6',
-  },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
-      borderColor: '#ced4da',
+      borderWidth: '0px'
     },
     '&:hover fieldset': {
-      borderColor: '#ced4da',
+      borderColor: '#003E6B',
+      borderWidth: '0px'
     },
     '&.Mui-focused fieldset': {
-      borderColor: '#22b8e6',
+      borderColor: '#003E6B',
+      borderWidth: '0.7px'
     },
   },
 });
@@ -81,7 +80,7 @@ export default function DatePickerWrapper({
           disabled={disabled}
           className={className}
           reduceAnimations={shouldReduceMotion}
-          renderInput={(params) => <CssTextField {...params} helperText={null} size="small" fullWidth/>}
+          renderInput={(params) => <CssTextField {...params} helperText={null} size="small" />}
         />
       </LocalizationProvider>
     </ThemeProvider>

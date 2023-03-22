@@ -1,24 +1,11 @@
 import Navbar from "./Navbar";
-import { useState } from 'react';
 import { useAppThemeContext } from '../../context/AppTheme';
 
 const ReactGA = ( await import('react-ga4')).default
 
 const NavbarController = ()  => {
-  const { mode, changeMode } = useAppThemeContext();
-  // model
-  const [click, setClick] = useState(false);
+  const { mode, changeMode } = useAppThemeContext();  
   
-  //controller
-  const handleClick = () => {
-      setClick(!click);
-      ReactGA.event({
-          category: "menu_open",
-          action: "menu_open",
-          label: String(!click),
-        });
-  }
-  const closeMobileMenu = () => setClick(false);
   const handleThemeToggle = () => {
     switch (mode) {
       case 'system': 
@@ -54,22 +41,11 @@ const NavbarController = ()  => {
           });
       break;
     }
-  }
-  const handleThemeSelectChange = (e:string) => {    
-    changeMode(String(e))
-    ReactGA.event({
-      category: "theme_select",
-      action: "theme_select",
-      label: String(e),
-    });    
-  }
+  }  
 
   return (
-      <Navbar click={click} 
-        handleClick={handleClick} 
-        closeMobileMenu={closeMobileMenu}
+      <Navbar 
         handleThemeToggle={handleThemeToggle}
-        handleThemeSelectChange={handleThemeSelectChange}
       />
   )
 }

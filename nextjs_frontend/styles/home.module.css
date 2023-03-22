@@ -1,16 +1,8 @@
 .home {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3.2rem;
   flex-grow: 1;
-  justify-content: space-around;
-  padding-top: 2rem;
-}
-
-@media (min-width: 801px) {
-  .home {
-    padding-bottom: 2rem;
-  }
 }
 
 .title, .dashboards h2 {
@@ -28,22 +20,16 @@
 
 .h1 span {
   display: block;
-  font-family: var(--noto-font);
   font-weight: 900;
-  font-size: 3.8rem;
+  font-size: 3.6rem;
   text-align: center;
+  line-height: 120%;
+  letter-spacing: .05rem;
 }
 
-
-@media (min-width: 470px) and (max-width: 590px) {
+@media (max-width: 382px) {
   .h1 span {
-    font-size: 5.6rem;
-  }
-}
-
-@media(min-width: 590px) {
-  .h1 span {
-      font-size: 7.2rem;
+    font-size: 3rem;
   }
 }
 
@@ -108,22 +94,6 @@
   animation-delay: 4s;
 }
 
-.dashboards {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
-
-.dashboards h2 {
-  font-size: var(--font-size--large);
-  color: var(--text-colour);
-  font-family: var(--noto-font);
-  margin-top: 0;
-  margin-bottom: 0;
-  font-weight: 700;
-}
-
 .dashboard_content {
   display: flex;
   flex-direction: column;
@@ -133,8 +103,25 @@
   min-width: 100%;
 }
 
+.dashboard_content > div {
+  box-shadow: 0 1rem 1.5rem var(--coarse-shadow), 0 .4rem .6rem var(--fine-shadow);
+}
+
+.dashboard_content button {
+  box-shadow: 0 .2rem .3rem var(--button-shadow), inset 0 .1rem 0 var(--button-inset-colour);
+}
+
+.dashboard_content button:active {
+  box-shadow: none;
+}
+
 .text_card {
-  width: 100vw;
+  width: 100%;
   min-width: 28rem;
-  max-width: 80rem;
+  max-width: 48rem;
+  background-color: var(--card-background-colour);
+}
+
+.cardTopSection {
+  border-bottom: .8rem solid var(--primary-accent);
 }

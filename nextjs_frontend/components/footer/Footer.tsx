@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Linkedin from '@geist-ui/icons/linkedin'
-import Github from '@geist-ui/icons/github'
-import Instagram from '@geist-ui/icons/instagram'
+import Linkedin from '../../assets/svgs/linkedin.svg'
+import Github from '../../assets/svgs/github.svg'
+import Instagram from '../../assets/svgs/instagram.svg'
 import { useAppThemeContext } from '../../context/AppTheme';
 import styles from './Footer.module.css'
 import dynamic from 'next/dynamic'
@@ -35,13 +35,13 @@ const Footer = () => {
           </Link>
           <div className={styles.socialIcons}>
             <a href="https://www.instagram.com/insight.viz" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon-instagram">
-              <Instagram size="2.5rem" color={theme==='dark'?'#C1C2C5':'black'}/>
+              <Instagram className={styles.instagram}/>
             </a>
             <a href="https://github.com/insightviz" target="_blank" rel="noreferrer" aria-label="Github" className="social-icon-github">
-              <Github size="2.5rem" color={theme==='dark'?'#C1C2C5':'black'}/>
+              <Github className={styles.github}/>
             </a>
             <a href="https://www.linkedin.com/company/insight-viz/" target="_blank"  rel="noreferrer" aria-label="linkedin" className="social-icon-linkedin">
-              <Linkedin size="2.5rem" color={theme==='dark'?'#C1C2C5':'black'}/>
+              <Linkedin className={styles.linkedin}/>
             </a>
           </div>
         </div>
