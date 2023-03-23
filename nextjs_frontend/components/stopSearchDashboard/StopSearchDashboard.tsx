@@ -93,7 +93,8 @@ const StopSearchDashboard = ({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : .7 }}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-                  key="error-message">
+                  key="error-message"
+                  className={styles.error}>
                   {
                     typeof data == 'string' ?
                     <ErrorWrapper message={data}/>
