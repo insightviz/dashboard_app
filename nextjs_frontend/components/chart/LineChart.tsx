@@ -31,15 +31,15 @@ interface lineChartProps {
   months: number
 }
 
-ChartJS.defaults.font.size = 16;
 ChartJS.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
 ChartJS.defaults.font.weight = '400';
 
 function LineChart({ chartData, title, months}: lineChartProps) {
   const { theme } = useAppThemeContext();
-  ChartJS.defaults.color = theme=='dark' ? "#9AA5B1" : "#7B8794";
   const { ref, width } = useElementSize();
   const { width: viewWidth } = useViewportSize()
+  ChartJS.defaults.font.size = viewWidth<600 ? 12 : 16;
+  ChartJS.defaults.color = theme=='dark' ? "#9AA5B1" : "#7B8794";
   return (
     <Paper p={viewWidth<600 ? 16 : 32} radius="xl" className={styles.chart} ref={ref}>
       <Title order={3} size={16} weight={700} lh={1} mb={8} align="left" transform="uppercase" color="supportCoolGrey.4">{title}</Title>
@@ -59,8 +59,7 @@ function LineChart({ chartData, title, months}: lineChartProps) {
             }
           },
           scales: {
-            y: {
-              beginAtZero: true,
+            y: {              
               grid: {
                 display: false,
               }
