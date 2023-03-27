@@ -116,7 +116,7 @@ const StopSearchDashboard = ({
                   transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                   key="loader">
                   <Flex
-                    mih={width > 500 ? 637.08 : 350}
+                    mih={width > 500 ? 771.4 : 350}
                     justify="center"
                     align="center"
                     direction="column">

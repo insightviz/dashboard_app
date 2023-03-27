@@ -205,9 +205,7 @@ export default function StatsGridIcons({
       transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
       key="stats-grid">
       <Text color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} size={14} weight={400} lh={1} mb={8} mt={24}>Total searches</Text>
-      <Flex >
-        {totalStats(data)}
-      </Flex>
+      {totalStats(data)}
       <Text color={ theme=='dark' ? 'supportCoolGrey.3' : 'supportCoolGrey.4'} size={14} weight={400} lh={1} mt={32} mb={8}>Searches by race</Text>
       <SimpleGrid cols={Object.keys(data.breakdown_by_race).length}
         breakpoints={[

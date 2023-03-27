@@ -1,4 +1,5 @@
 .stopSearchDashboard {
+    width: 100%;
     display: grid;
     grid-template-columns: minmax(23rem, 1fr);
     grid-template-areas: 
@@ -76,6 +77,10 @@
 .raceStat, .genderStat, .totalStat {
     box-shadow: 0 1rem 1.5rem var(--coarse-shadow), 0 .4rem .6rem var(--fine-shadow);
     background-color: var(--card-background-colour);
+}
+
+.totalStat {
+    max-width: 486px;
 }
   
 .raceStat button, .genderStat button, .totalStat button {
@@ -164,17 +169,6 @@
 
     .forceSelect, .MuiTextField-root {
         width: 30rem;
-    }
-}
-
-@media(min-width: 1536px) {
-    .stopSearchDashboard {
-        grid-template-columns: minmax(max-content, max-content);
-        grid-template-areas:
-        "title"
-        "select"
-        "statsGrid"
-        "contributors";
     }
 }
 
