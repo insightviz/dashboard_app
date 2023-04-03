@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2.4rem;
 	position: fixed;
     top: 0;
     width: 100%;
@@ -10,14 +9,41 @@
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
     background-color: var(--bg-colour-t);
+    border-bottom: .8rem solid var(--primary-accent);
 }
 
 .navbarContainer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    max-width: 100rem;
-    width: 80%;
+    width: 100%;
+    padding: 2.4rem;
+}
+
+@media (min-width: 550px) {
+  .navbarContainer {
+    max-width: 550px;
+  }
+}
+@media (min-width: 800px) {
+  .navbarContainer {
+    max-width: 800px;
+  }
+}
+@media (min-width: 1100px) {
+  .navbarContainer {
+    max-width: 1100px;
+  }
+}
+@media (min-width: 1400px) {
+  .navbarContainer {
+    max-width: 1400px;
+  }
+}
+@media (min-width: 1600px) {
+  .navbarContainer {
+    max-width: 1600px;
+  }
 }
 
 @media (max-width: 600px) {
