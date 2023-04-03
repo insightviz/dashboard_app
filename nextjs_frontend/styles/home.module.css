@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 3.2rem;
   flex-grow: 1;
+  width: 100%;
 }
 
 .title, .dashboards h2 {
@@ -117,7 +118,7 @@
 
 .text_card {
   width: 100%;
-  min-width: 28rem;
+  min-width: 25rem;
   max-width: 48rem;
   background-color: var(--card-background-colour);
 }
